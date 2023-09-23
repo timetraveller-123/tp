@@ -7,15 +7,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+
 
 /**
  * Controller for a help page
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
+    //public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
+    public static final String USERGUIDE_URL = "https://github.com/AY2324S1-CS2103T-W08-4/tp";
     public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
@@ -27,6 +30,21 @@ public class HelpWindow extends UiPart<Stage> {
     @FXML
     private Label helpMessage;
 
+    /*
+    @FXML
+    private Label addMessage;
+
+    @FXML
+    private Label quickHelp;
+
+    @FXML
+    private Label deleteMessage;
+
+    @FXML
+    private Label listMessage;
+    */
+
+
     /**
      * Creates a new HelpWindow.
      *
@@ -34,7 +52,20 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
+
         helpMessage.setText(HELP_MESSAGE);
+        /*
+        quickHelp.setText("Quick Help");
+
+        String listUsage = "list: Lists all the meals currently in the address book. \n Example: list";
+        String addUsage = "add: Adds a meal to the application. Parameters: n\\NAME c\\CALORIES [t\\TAG] \n"
+                + "Example: add n\\Cereal c\\250 t\\Breakfast.";
+        String deleteUsage = "delete: Deletes a meal from the application. Parameters: INDEX (position of meal as shown by list) \n"
+                + "Example: delete 1.";
+        addMessage.setText(addUsage);
+        listMessage.setText(listUsage);
+        deleteMessage.setText(deleteUsage);
+        */
     }
 
     /**
