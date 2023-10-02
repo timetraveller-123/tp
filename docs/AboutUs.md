@@ -13,11 +13,11 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/ImmanuelChia.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
 [[github](https://github.com/HEEaZ)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/immanuelchia.md)]
 
 * Role: Developer
+* Responsibilities: Integration, Scheduling and Tracking
 
 ### Vijayaraghavan Vishnuprasath
 
