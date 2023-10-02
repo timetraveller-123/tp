@@ -165,6 +165,104 @@ AddressBook data are saved automatically as a JSON file `[JAR file location]/dat
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
 </div>
 
+### Add allergies to a patient
+What it does: add/edit medication allergies of a patient. When editing allergies, the existing allergies of the person will be removed i.e adding of allergies is not cumulative.You can remove all the person’s tags by typing no/ without specifying any tags after it.
+
+Command format: add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [no/ALLERGY]…​
+
+
+OR
+
+
+edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [no/ALLERGY]…​
+
+
+*When editing allergies, the existing allergies of the person will be removed i.e adding of allergies is not cumulative. You can remove all the person’s allergies by typing no/ without specifying any allergies after it.
+
+
+Example commands: add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 no/paracetamol no/penicillin
+
+
+edit 1 n/Jane Doe no/aspirin
+
+
+Parameters: ALLERGY - A valid medication name
+
+
+Precise expected outputs when the command succeeds: Right screen shows the details of the updated patient with all the allergies added/edited
+Result display will show “[ALLERGY]... successfully added to patient”
+
+Precise expected output when the command fails:
+Result display will show “[ALLERGY]... is not a valid medication name”
+
+### Allows user to view all orders
+What it does: Displays a list of all the orders that have been created
+
+Command format: vieworder
+
+Parameters: No parameters
+
+Precise expected output on success:
+Patient list will now display the list of orders
+Order info per row:
+Order Number
+Patient name
+Result display will show “Listed all orders”
+
+
+Precise expected output when command fails: Default unknown command output
+Result display will show “Unknown command”
+
+
+### Allow user to view specific details of an order
+What it does: Displays a detailed version of an order to the right side of the screen when called for by command
+
+Command format: vieworder ORDER_NUMBER
+
+Parameters: ORDER_NUMBER - Numeric Characters only
+
+Example command: vieworder 505011
+
+Precise expected outputs when the command succeeds: Right screen shows the details of the order specified
+Result display will show “Order ORDER_NUMBER displayed”
+
+Precise expected output when the command fails:
+If order number does not exist, result display will show “No such order with order number ORDER_NUMBER”
+If order number is of invalid format, eg. contains non-numeric characters, result display will show “Invalid format”
+
+### Add a new order.
+
+What it does: Adds a new order corresponding to a patient into the system.
+
+Command format: addorder  INDEX  o/ ORDER_NUMBER m/ MEDICINE_NAME
+
+Parameters:   
+INDEX - index of patient who is ordering the medicine as shown in the patient list.
+ORDER_NUMBER - the order number of this order specified by the invoice.
+MEDICINE_NAME - the name of medicine being ordered.
+
+
+Precise expected outputs when the command succeeds:
+The result display box shows “Order assigned to patient successfully.”
+The info box will show the newly added order.
+
+
+Acceptable values for each parameter
+INDEX - a positive integer that is lesser than or equal to the size of the current                  patient list.
+ORDER_NUMBER - Numeric characters only.
+MEDICINE_NAME -  A non-empty string.
+
+
+Example commands:
+add_order 1 o/618457 m/ panadol
+
+
+
+Precise expected output when the command fails:
+If invalid INDEX, result display will show “Invalid patient INDEX”
+If invalid ORDER_NUMBER, result display will show “Invalid                      ORDER_NUMBER”
+If empty MEDICINE_NAME, result display will show “MEDICINE_NAME cannot be empty”
+
 ### Archiving data files `[coming in v2.0]`
 
 _Details coming soon ..._
