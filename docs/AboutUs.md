@@ -45,8 +45,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](http://github.com/linwanleii)]
 [[portfolio](team/linwanleii.md)]
 
-* Role: Team Lead, Deliverables and deadlines
-* Responsibilities: Dev Ops + Threading
+* Role: Team Lead, Developer
+* Responsibilities: Deliverables and deadlines
 
 ### James Doe
 
