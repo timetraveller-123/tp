@@ -36,7 +36,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](http://github.com/joeng03)] [[portfolio](team/joeng03.md)]
 
 * Role: Developer
-* Responsibilities: Data
+* Responsibilities: Integration, Scheduling and Tracking
 
 ### Lin Wan Lei
 
