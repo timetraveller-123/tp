@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Joe Ng's Project Portfolio Page
+title: Joe Ngg's Project Portfolio Page
 ---
 
 ### Project: Pharmhub
