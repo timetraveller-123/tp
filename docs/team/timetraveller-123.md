@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Immanuel Chia's Project Portfolio Page
+title: Vijayaraghavan Vishnuprasath's Project Portfolio Page
 ---
 
 ### Project: Pharmhub
