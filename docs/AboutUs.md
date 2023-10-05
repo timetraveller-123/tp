@@ -26,7 +26,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](http://github.com/timetraveller-123)]
 [[portfolio](team/timetraveller-123.md)]
 
-* Role: Team Lead
+* Role: Developer
 * Responsibilities: Code Quality and Documentation.
 
 ### Yin Joe Ng
