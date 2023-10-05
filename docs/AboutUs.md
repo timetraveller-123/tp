@@ -14,7 +14,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/ImmanuelChia.png" width="200px">
 
 [[github](https://github.com/HEEaZ)]
-[[portfolio](team/immanuelchia.md)]
+[[portfolio](team/heeaz.md)]
 
 * Role: Developer
 * Responsibilities: Integration, Scheduling and Tracking
