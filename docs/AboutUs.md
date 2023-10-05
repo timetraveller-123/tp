@@ -29,14 +29,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Team Lead
 * Responsibilities: UI
 
-### Yin Joe Ng
+### Ng Yin Joe
 
 <img src="images/joeng03.png" width="200px">
 
 [[github](http://github.com/joeng03)] [[portfolio](team/joeng03.md)]
 
 * Role: Developer
-* Responsibilities: Integration, Scheduling and Tracking
+* Responsibilities: Designing, Data Storage, User Interface
 
 ### Lin Wan Lei
 
