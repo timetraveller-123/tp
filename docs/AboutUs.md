@@ -40,13 +40,13 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Lin Wan Lei
 
-<img src="images/WanLei.png" width="200px">
+<img src="images/linwanlei.png" width="200px">
 
 [[github](http://github.com/linwanleii)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/linwanleii.md)]
 
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Role: Team Lead, Developer
+* Responsibilities: Deliverables and deadlines
 
 ### James Doe
 
