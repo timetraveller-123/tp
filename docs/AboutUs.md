@@ -29,14 +29,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Code Quality and Documentation.
 
-### Yin Joe Ng
+### Ng Yin Joe
 
 <img src="images/joeng03.png" width="200px">
 
 [[github](http://github.com/joeng03)] [[portfolio](team/joeng03.md)]
 
 * Role: Developer
-* Responsibilities: Data
+* Responsibilities: Designing, Data Storage, User Interface
 
 ### Lin Wan Lei
 
