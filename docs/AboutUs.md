@@ -40,7 +40,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Lin Wan Lei
 
-<img src="images/linwanlei.png" width="200px">
+<img src="images/linwanleii.png" width="200px">
 
 [[github](http://github.com/linwanleii)]
 [[portfolio](team/linwanleii.md)]
