@@ -257,28 +257,41 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* Pharmacists
+* Working remotely
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: Provide easy access to patient details and allows pharmacists to quickly and accurately process
+medication orders for the patients, optimised for CLI use.
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
-
+| Priority | As a …​                                    | I want to …​                                                         | So that I can…​                                                             |
+|-------|--------------------------------------------|----------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| `* * *` | Pharmacist                                 | Add a new patient into the addressbook                               | Keep track of all information of my patients                                |
+| `* * *` | Pharmacist                                 | Add a medication order for a patient                                 | keep track medications orders of patients                                   |
+| `* * *` | Pharmacist                                 | Add allergies of a patient towards certain medications               | keep track of patient allergies                                             |
+| `* * *` | Pharmacist                                 | View details of a medication order                                   |                                                                             |
+| `* * *` | Pharmacist                                 | View the status of an order                                          | I can track the state of an order                                           |
+| `* * *` | Pharmacist                                 | Edit status of an order                                              | Update the order records with the most current information                  |
+| `* * *` | Pharmacist                                 | Edit the details of a patient                                        | Update records with the most current information                            |
+| `* * *` | Pharmacist                                 | View all medication orders                                           | get a quick overview of all medication orders from all patients             |
+| `* * *` | Pharmacist                                 | Delete a patient from my addressbook                                 | remove a patient that is no longer under my care                            |
+| `* * *` | New user                                   | View a summary of all the commands                                   | recall how to use the application                                           |
+| `* * *` | Pharmacist                                 | Delete an order from the system                                      | Remove erroneous orders                                                     |
+| `* * *` | Detail-oriented Pharmacist                 | Be alerted if a patient is given a medication that he is allergic to | Detect and prevent erroneous orders from going through                      |
+| `* *` | Busy Pharmacist                            | Abbreviate medication names                                          | Maximise my efficiency                                                      |
+| `* *` | Pharmacist                                 | View all details of a patient                                        | get the full patient profile, if required                                   |
+| `* *` | Pharmacist                                 | Search orders by various attributes                                  | manage and convey information about orders to stakeholders efficiently      |
+| `* *` | Pharmacist                                 | See the number of unfulfilled orders                                 | keep track of my progress in dispensing orders                              |
+| `* *` | Pharmacist                                 | Add priorities to orders                                             | keep track of which orders I should prioritise                              |
+| `* *` | Pharmacist                                 | Filter orders by their statuses                                      | manage my orders efficiently                                                |
+| `* *` | Pharmacist                                 | Sort orders on various categories                                    | maximise my efficiency                                                      |
+| `*`   | Pharmacist                                 | Edit an order                                                        | correct or update an added order                                            |
+| `*`   | Pharmacist                                 | Track my medication inventory                                        | I have easy access to the amount of medication I have                       |
+| `*`   | Pharmacist                                 | Calculate estimated time an order will take to ship                  | Notify patients of an estimated wait time before receiving their medication |
 *{More to be added}*
 
 ### Use cases
