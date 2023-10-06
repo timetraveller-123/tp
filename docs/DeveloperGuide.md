@@ -296,16 +296,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `PharmHub` and the **Actor** is the `user`, unless specified otherwise)
 
 **Use case: Delete a person**
 
 **MSS**
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  PharmHub shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  PharmHub deletes the person
 
     Use case ends.
 
@@ -317,7 +317,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. PharmHub shows an error message.
 
       Use case resumes at step 2.    
 
@@ -326,9 +326,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  PharmHub shows a list of persons
 3.  User requests to add a medication order for a patient in the list
-4.  AddressBook adds a medication order for the corresponding patient
+4.  PharmHub adds a medication order for the corresponding patient
 
     Use case ends.
 
@@ -340,13 +340,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. PharmHub shows an error message.
 
       Use case resumes at step 2.
 
 * 3b. The given medication name is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. PharmHub shows an error message.
 
       Use case resumes at step 2.
 *{More to be added}*
