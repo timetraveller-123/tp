@@ -1,5 +1,10 @@
+## Pharmhub
+
 [![CI Status](https://github.com/ay2324s1-cs2103t-w08-4/tp/workflows/Java%20CI/badge.svg)](https://github.com/ay2324s1-cs2103t-w08-4/tp/actions)
 
+Welcome to our CS2103T project by [**AY2324S1-CS2103T-W08-4**](https://github.com/orgs/AY2324S1-CS2103T-W08-4/people).
+
+Our project is an evolved version of the AddressBook-Level3 project by the [SE-EDU initiative](https://se-education.org).
 ![Ui](docs/images/Ui.png)
 
 Team Members: Wan Lei, Vishnu, Joe, Immanuel
