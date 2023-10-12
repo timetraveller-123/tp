@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+Pharmhub is a **desktop app for managing patients and their medication orders, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, PharmHub can get your patient/ order management tasks done faster than traditional GUI apps.
 
 * Table of Contents
 {:toc}
@@ -14,24 +14,24 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `addressbook.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `pharmhub.jar` from [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for your PharmHub.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar pharmhub.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+   * `list` : Lists all people.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a person named `John Doe` to PharmHub.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+   * `delete 3` : Deletes the 3rd patient shown in the current list.
 
-   * `clear` : Deletes all contacts.
+   * `clear` : Deletes all people.
 
    * `exit` : Exits the app.
 
@@ -65,7 +65,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
+Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
@@ -74,7 +74,7 @@ Format: `help`
 
 ### Adding a person: `add`
 
-Adds a person to the address book.
+Adds a person to PharmHub.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
@@ -88,13 +88,13 @@ Examples:
 
 ### Listing all persons : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all persons in PharmHub.
 
 Format: `list`
 
 ### Editing a person : `edit`
 
-Edits an existing person in the address book.
+Edits an existing person in the PharmHub.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
@@ -129,7 +129,7 @@ Examples:
 
 ### Deleting a person : `delete`
 
-Deletes the specified person from the address book.
+Deletes the specified person from PharmHub.
 
 Format: `delete INDEX`
 
@@ -143,7 +143,7 @@ Examples:
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from PharmHub.
 
 Format: `clear`
 
@@ -155,17 +155,17 @@ Format: `exit`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+PharmHub data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+PharmHub data are saved automatically as a JSON file `[JAR file location]/data/pharmhub.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
+If your changes to the data file makes its format invalid, PharmHub will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
 </div>
 
-### Add allergies to a patient
+### Adding allergies to a patient `[coming in v1.2]`
 What it does: add/edit medication allergies of a patient. When editing allergies, the existing allergies of the person will be removed i.e adding of allergies is not cumulative.You can remove all the person’s tags by typing no/ without specifying any tags after it.
 
 Command format: add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [no/ALLERGY]…​
@@ -195,7 +195,7 @@ Result display will show “[ALLERGY]... successfully added to patient”
 Precise expected output when the command fails:
 Result display will show “[ALLERGY]... is not a valid medication name”
 
-### Allows user to view all orders
+### Viewing all orders `[coming in v1.2]`
 What it does: Displays a list of all the orders that have been created
 
 Command format: vieworder
@@ -214,7 +214,7 @@ Precise expected output when command fails: Default unknown command output
 Result display will show “Unknown command”
 
 
-### Allow user to view specific details of an order
+### Viewing specific details of an order `[coming in v1.2]`
 What it does: Displays a detailed version of an order to the right side of the screen when called for by command
 
 Command format: vieworder ORDER_NUMBER
@@ -230,7 +230,8 @@ Precise expected output when the command fails:
 If order number does not exist, result display will show “No such order with order number ORDER_NUMBER”
 If order number is of invalid format, eg. contains non-numeric characters, result display will show “Invalid format”
 
-### Adding a new order : `addorder`  
+
+### Adding a new order : `addorder`
 
 Adds a new order of medication corresponding to a patient into the system.
 
@@ -271,7 +272,7 @@ _Details coming soon ..._
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous PharmHub home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
