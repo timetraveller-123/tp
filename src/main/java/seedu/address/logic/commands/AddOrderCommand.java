@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINENAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERNUMBER;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
@@ -30,8 +31,10 @@ public class AddOrderCommand extends Command {
             + PREFIX_ORDERNUMBER + "91234567 "
             + PREFIX_MEDICINENAME + "panadol";
 
+    public static final String MESSAGE_ADD_ORDER_SUCCESS = "Order added successfully.";
+
     private final Index index;
-    private final String orderNumber;
+    private final int orderNumber;
     private final String medicineName;
 
 
@@ -40,7 +43,7 @@ public class AddOrderCommand extends Command {
      * @param orderNumber of the order.
      * @param medicineName represents the name of medicine.
      */
-    public AddOrderCommand(Index index, String orderNumber, String medicineName) {
+    public AddOrderCommand(Index index, int orderNumber, String medicineName) {
         requireAllNonNull(index, orderNumber, medicineName);
         this.index = index;
         this.orderNumber = orderNumber;
@@ -55,16 +58,26 @@ public class AddOrderCommand extends Command {
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        Integer i;
-        try {
-            i = Integer.parseInt(orderNumber);
-        } catch (NumberFormatException e) {
-            throw new CommandException("Invalid ordernumber");
-        }
 
         Person person = lastShownList.get(index.getZeroBased());
-        model.addOrder(new Order(i, person, medicineName));
+        model.addOrder(new Order(orderNumber, person, medicineName));
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(MESSAGE_ADD_ORDER_SUCCESS);
+    }
 
-        return new CommandResult("Order added");
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof AddOrderCommand)) {
+            return false;
+        }
+
+        AddOrderCommand otherAddCommand = (AddOrderCommand) other;
+        return index.equals(otherAddCommand.index) && orderNumber == otherAddCommand.orderNumber
+                && medicineName.equals(otherAddCommand.medicineName);
     }
 }
