@@ -61,8 +61,9 @@ public class OrderList implements Iterable<Order> {
             return true;
         }
 
+
         // instanceof handles nulls
-        if (!(other instanceof Order)) {
+        if (!(other instanceof OrderList)) {
             return false;
         }
 
