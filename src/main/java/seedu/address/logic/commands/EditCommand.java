@@ -140,7 +140,6 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
-
         private Set<Allergy> allergies;
 
         public EditPersonDescriptor() {}
@@ -155,6 +154,8 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
+            setAllergies(toCopy.allergies);
+
         }
 
         /**
@@ -205,6 +206,15 @@ public class EditCommand extends Command {
         }
 
         /**
+         * Sets {@code allergies} to this object's {@code allergies}.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public void setAllergies(Set<Allergy> allergies) {
+            this.allergies = (allergies != null) ? new HashSet<>(allergies) : null;
+        }
+
+
+        /**
          * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
@@ -249,6 +259,7 @@ public class EditCommand extends Command {
                     .add("email", email)
                     .add("address", address)
                     .add("tags", tags)
+                    .add("allergies", allergies)
                     .toString();
         }
     }
