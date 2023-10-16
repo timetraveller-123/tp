@@ -55,8 +55,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the order list with {@code orders}.
      */
     public void setOrders(List<Order> orders) {
         this.orders.setOrders(orders);
@@ -114,8 +113,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// order-level operations
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds an order to the address book.
      */
     public void addOrder(Order o) {
         orders.add(o);
@@ -127,7 +125,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("persons", persons)
-                //.add("orders", orders) Removed temporaritly to pass testcase.
+                .add("orders", orders)
                 .toString();
     }
 

@@ -75,4 +75,9 @@ public class OrderList implements Iterable<Order> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return internalList.toString();
+    }
 }
