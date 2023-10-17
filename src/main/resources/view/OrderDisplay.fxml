@@ -11,6 +11,7 @@
            xmlns:fx="http://javafx.com/fxml/1">
   <VBox>
     <Label text="Order Number: " styleClass="cell_order_label" />
+    <Label fx:id="orderNumber" text="Label" styleClass="cell_order_label"/>
   </VBox>
 
 
