@@ -28,12 +28,16 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListPeopleCommand(), model, ListPeopleCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(
+                ListPeopleCommand.MESSAGE_SUCCESS, CommandResult.ListPanelEffects.PERSON);
+        assertCommandSuccess(new ListPeopleCommand(), model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        assertCommandSuccess(new ListPeopleCommand(), model, ListPeopleCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(
+                ListPeopleCommand.MESSAGE_SUCCESS, CommandResult.ListPanelEffects.PERSON);
+        assertCommandSuccess(new ListPeopleCommand(), model, expectedCommandResult, expectedModel);
     }
 }

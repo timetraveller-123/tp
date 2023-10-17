@@ -14,7 +14,11 @@ public class ExitCommandTest {
 
     @Test
     public void execute_exit_success() {
-        CommandResult expectedCommandResult = new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
+        CommandResult expectedCommandResult = new CommandResult(
+                MESSAGE_EXIT_ACKNOWLEDGEMENT,
+                false,
+                true,
+                CommandResult.ListPanelEffects.NO_EFFECT);
         assertCommandSuccess(new ExitCommand(), model, expectedCommandResult, expectedModel);
     }
 }
