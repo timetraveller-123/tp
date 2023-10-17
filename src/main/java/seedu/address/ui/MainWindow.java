@@ -15,6 +15,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -31,10 +32,10 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private OrderListPanel orderListPanel;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -42,7 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane listPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -111,7 +112,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        // OrderList may substitute personList after certain commands, so we initialise it here first
+        orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
+        listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -163,6 +166,21 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    @FXML
+    private void handleListPanelDisplay(CommandResult.ListPanelEffects panelToShow) {
+        assert (panelToShow != CommandResult.ListPanelEffects.NO_EFFECT);
+
+        if (panelToShow == CommandResult.ListPanelEffects.PERSON
+                && listPanelPlaceholder.getChildren().contains(orderListPanel.getRoot())) {
+            listPanelPlaceholder.getChildren().remove(orderListPanel.getRoot());
+            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        } else if (panelToShow == CommandResult.ListPanelEffects.ORDER
+                && listPanelPlaceholder.getChildren().contains(personListPanel.getRoot())) {
+            listPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
+            listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
+        }
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -177,6 +195,10 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.getListPanelEffects() != CommandResult.ListPanelEffects.NO_EFFECT) {
+                handleListPanelDisplay(commandResult.getListPanelEffects());
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
