@@ -59,7 +59,7 @@ public class EditPersonDescriptorTest {
 
         // different allergies -> returns false
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withAllergies(VALID_ALLERGY_PENICILLIN).build();
-        assertTrue(DESC_AMY.equals(editedAmy));
+        assertFalse(DESC_AMY.equals(editedAmy));
     }
 
     @Test
