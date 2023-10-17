@@ -7,11 +7,15 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 <StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/17"
            xmlns:fx="http://javafx.com/fxml/1">
   <VBox>
-    <Label text="Order Number: " styleClass="cell_order_label" />
-    <Label fx:id="orderNumber" text="Label" styleClass="cell_order_label"/>
+    <HBox>
+      <Label text="Order Number: " styleClass="cell_order_label" />
+      <Label fx:id="orderNumber" text="Label" styleClass="cell_order_label" />
+    </HBox>
+
   </VBox>
 
 
