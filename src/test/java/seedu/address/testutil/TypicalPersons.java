@@ -73,6 +73,7 @@ public class TypicalPersons {
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }
+        ab.setOrders(TypicalOrders.getTypicalOrders());
         return ab;
     }
 

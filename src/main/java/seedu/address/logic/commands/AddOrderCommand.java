@@ -25,8 +25,8 @@ public class AddOrderCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an order to the person identified "
             + "by the index number used in the displayed person list. \n "
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_ORDERNUMBER + "ORDERNUMBER] "
-            + "[" + PREFIX_MEDICINENAME + "MEDICINENAME] \n"
+            + PREFIX_ORDERNUMBER + "ORDERNUMBER"
+            + PREFIX_MEDICINENAME + "MEDICINENAME \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_ORDERNUMBER + "91234567 "
             + PREFIX_MEDICINENAME + "panadol";
