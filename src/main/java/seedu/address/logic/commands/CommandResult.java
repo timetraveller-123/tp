@@ -11,6 +11,9 @@ import seedu.address.commons.util.ToStringBuilder;
  */
 public class CommandResult {
 
+    /**
+     * Specifies the effects that commands will have on the list panel.
+     */
     public enum ListPanelEffects {
         NO_EFFECT,
         PERSON,

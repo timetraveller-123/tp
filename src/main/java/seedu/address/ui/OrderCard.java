@@ -6,6 +6,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.order.Order;
 
+/**
+ * A UI component that displays information of a {@code Person}.
+ */
 public class OrderCard extends UiPart<Region> {
     private static final String FXML = "OrderListCard.fxml";
 
@@ -26,6 +29,9 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private Label id;
 
+    /**
+     * Creates a {@code OrderCode} with the given {@code Order} and index to display.
+     */
     public OrderCard(Order order, int displayedIndex) {
         super(FXML);
         this.order = order;
