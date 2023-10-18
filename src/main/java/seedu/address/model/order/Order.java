@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.InfoObject;
 import seedu.address.model.person.Person;
 
 
@@ -12,7 +13,7 @@ import seedu.address.model.person.Person;
  * Represents an Order in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Order {
+public class Order implements InfoObject {
     private final int orderNumber;
     private final Person person;
     private final String medicineName;
@@ -73,7 +74,4 @@ public class Order {
                 .add("medicineName", medicineName)
                 .toString();
     }
-
-
-
 }
