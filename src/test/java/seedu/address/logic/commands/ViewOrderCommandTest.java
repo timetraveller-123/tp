@@ -2,14 +2,19 @@ package seedu.address.logic.commands;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.order.Order;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalOrders.ORDER_NUMBER_FIRST_ORDER;
+import static seedu.address.testutil.TypicalOrders.ORDER_NUMBER_SECOND_ORDER;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 class ViewOrderCommandTest {
@@ -38,5 +43,35 @@ class ViewOrderCommandTest {
         int orderNumber = 51920341;
         ViewOrderCommand command = new ViewOrderCommand(orderNumber);
         assertCommandFailure(command, model, String.format(ViewOrderCommand.MESSAGE_ORDER_NOT_FOUND, orderNumber));
+    }
+
+    @Test
+    public void equals() {
+        ViewOrderCommand viewFirstOrderCommand = new ViewOrderCommand(ORDER_NUMBER_FIRST_ORDER);
+        ViewOrderCommand viewSecondOrderCommand = new ViewOrderCommand(ORDER_NUMBER_SECOND_ORDER);
+
+        // same object -> returns true
+        assertTrue(viewFirstOrderCommand.equals(viewFirstOrderCommand));
+
+        // same values -> returns true
+        ViewOrderCommand viewFirstOrderCommandCopy = new ViewOrderCommand(ORDER_NUMBER_FIRST_ORDER);
+        assertTrue(viewFirstOrderCommand.equals(viewFirstOrderCommandCopy));
+
+        // different types -> returns false
+        assertFalse(viewFirstOrderCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(viewFirstOrderCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(viewFirstOrderCommand.equals(viewSecondOrderCommand));
+    }
+
+    @Test
+    public void toStringMethod() {
+        int orderNumber = 54321;
+        ViewOrderCommand viewOrderCommand = new ViewOrderCommand(orderNumber);
+        String expected = ViewOrderCommand.class.getCanonicalName() + "{orderNumber=" + orderNumber + "}";
+        assertEquals(expected, viewOrderCommand.toString());
     }
 }
