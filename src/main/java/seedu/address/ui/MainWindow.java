@@ -16,6 +16,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.InfoObject;
+import seedu.address.model.order.Order;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -46,7 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane listPanelPlaceholder;
 
     @FXML
-    private StackPane orderDisplayPlaceholder;
+    private StackPane infoDisplayPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -127,8 +129,6 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-        orderDisplay = new OrderDisplay();
-        orderDisplayPlaceholder.getChildren().add(orderDisplay.getRoot());
     }
 
     /**
@@ -190,6 +190,18 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
+    @FXML
+    private void handleDisplayInfo(InfoObject objectToDisplay) {
+        if (objectToDisplay instanceof Order) {
+            Order order = (Order) objectToDisplay;
+            OrderDisplay orderDisplay = new OrderDisplay(order);
+            infoDisplayPlaceholder.getChildren().clear();
+            infoDisplayPlaceholder.getChildren().add(orderDisplay.getRoot());
+        } else {
+            throw new RuntimeException("Unknown object to display");
+        }
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -203,6 +215,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.getListPanelEffects() != CommandResult.ListPanelEffects.NO_EFFECT) {
                 handleListPanelDisplay(commandResult.getListPanelEffects());
+            }
+
+            if (commandResult.hasInfoObject()) {
+                handleDisplayInfo(commandResult.getInfoObject());
             }
 
             if (commandResult.isShowHelp()) {

@@ -53,7 +53,7 @@
           </padding>
           <HBox VBox.vgrow="ALWAYS" spacing="10">
             <StackPane fx:id="listPanelPlaceholder" minWidth="325" VBox.vgrow="ALWAYS"/>
-            <StackPane fx:id="orderDisplayPlaceholder" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="infoDisplayPlaceholder" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS"/>
           </HBox>
         </VBox>
 

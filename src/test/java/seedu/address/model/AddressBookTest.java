@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -116,7 +117,10 @@ public class AddressBookTest {
             return orders;
         }
 
-
+        @Override
+        public Optional<Order> getOrder(int orderNumber) {
+            return orders.stream().filter(order -> order.getOrderNumber() == orderNumber).findFirst();
+        }
     }
 
 }
