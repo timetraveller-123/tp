@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -81,6 +82,13 @@ public interface Model {
      * Adds the given order.
      */
     void addOrder(Order order);
+
+    /**
+     * Gets the order with the specified orderNumber.
+     * @param orderNumber
+     * @return Order with the specified orderNumber.
+     */
+    Optional<Order> getOrder(int orderNumber);
 
 
     /** Returns an unmodifiable view of the filtered person list */

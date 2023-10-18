@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
@@ -117,6 +118,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addOrder(Order o) {
         orders.add(o);
+    }
+
+
+    /**
+     * Retrieves the order with the specified order number
+     * @return Order with specified orderNumer
+     */
+    public Optional<Order> getOrder(int orderNumber) {
+        return orders.getOrder(orderNumber);
     }
 
     //// util methods
