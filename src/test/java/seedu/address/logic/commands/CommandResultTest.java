@@ -16,6 +16,7 @@ public class CommandResultTest {
         assertTrue(commandResult.equals(new CommandResult("feedback")));
         assertTrue(commandResult.equals(new CommandResult(
                 "feedback", false, false, CommandResult.ListPanelEffects.NO_EFFECT)));
+        assertTrue(commandResult.equals(new CommandResult("feedback", CommandResult.ListPanelEffects.NO_EFFECT)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -36,6 +37,12 @@ public class CommandResultTest {
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult(
                 "feedback", false, true, CommandResult.ListPanelEffects.NO_EFFECT)));
+
+        // different listPanelEffects value -> returns false
+        assertFalse(commandResult.equals(new CommandResult(
+                "feedback", false, false, CommandResult.ListPanelEffects.PERSON)));
+        assertFalse(commandResult.equals(new CommandResult(
+                "feedback", false, false, CommandResult.ListPanelEffects.ORDER)));
     }
 
     @Test
