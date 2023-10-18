@@ -1,13 +1,13 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.Messages;
+import static java.util.Objects.requireNonNull;
+
+import java.util.Optional;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
 
-import java.util.Optional;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Finds and displays the order with the specified order number.
@@ -37,7 +37,7 @@ public class ViewOrderCommand extends Command {
 
         Optional<Order> orderOptional = model.getOrder(orderNumber);
         if (orderOptional.isEmpty()) {
-                throw new CommandException(String.format(MESSAGE_ORDER_NOT_FOUND, orderNumber));
+            throw new CommandException(String.format(MESSAGE_ORDER_NOT_FOUND, orderNumber));
         } else {
             return new CommandResult(
                     String.format(MESSAGE_VIEW_ORDER_SUCCESS, orderNumber),

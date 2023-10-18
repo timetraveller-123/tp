@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import static java.util.Objects.requireNonNull;
-
 import java.io.IOException;
 
 import javafx.fxml.FXML;
