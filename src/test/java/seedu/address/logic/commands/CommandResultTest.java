@@ -36,8 +36,11 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
 
         // different InfoObjectValue -> returns false
-        assertFalse(commandResult.equals(new CommandResult(
-                "feedback", false, false, getTypicalOrders().get(0))));
+        CommandResult withDifferentInfoObjectValue = new CommandResult(
+                "feedback", false, false, getTypicalOrders().get(0));
+        assertFalse(commandResult.equals(withDifferentInfoObjectValue));
+        assertFalse(withDifferentInfoObjectValue.equals(commandResult));
+
     }
 
     @Test
