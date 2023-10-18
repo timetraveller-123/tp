@@ -31,7 +31,7 @@ public class OrderDisplay extends UiPart<Region> {
     /**
      * Creates the order display.
      */
-    public OrderDisplay() {
+    public OrderDisplay(Order order) {
         super(FXML);
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/OrderDisplay.fxml"));
@@ -41,19 +41,9 @@ public class OrderDisplay extends UiPart<Region> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String test = " Enter An order to view the details";
-        orderNumber.setText(test);
-    }
 
-    /**
-     * Shows the order on the UI.
-     *
-     * @param order The order that will be displayed
-     */
-    public void showOrder(Order order) {
-        requireNonNull(order);
         String display = order.toString();
         orderNumber.setText(display);
-    }
 
+    }
 }

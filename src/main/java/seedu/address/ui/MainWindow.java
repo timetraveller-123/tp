@@ -16,6 +16,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.InfoObject;
+import seedu.address.model.order.Order;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -45,7 +47,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane personListPanelPlaceholder;
     @FXML
-    private StackPane orderDisplayPlaceholder;
+    private StackPane infoDisplayPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -124,8 +126,6 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-        orderDisplay = new OrderDisplay();
-        orderDisplayPlaceholder.getChildren().add(orderDisplay.getRoot());
     }
 
     /**
@@ -172,6 +172,18 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
+    @FXML
+    private void handleDisplayInfo(InfoObject objectToDisplay) throws CommandException {
+        if (objectToDisplay instanceof Order) {
+            Order order = (Order) objectToDisplay;
+            OrderDisplay orderDisplay = new OrderDisplay(order);
+            infoDisplayPlaceholder.getChildren().clear();
+            infoDisplayPlaceholder.getChildren().add(orderDisplay.getRoot());
+        } else {
+            throw new CommandException("Invalid display object");
+        }
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -182,6 +194,10 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.hasInfoObject()) {
+                handleDisplayInfo(commandResult.getInfoObject());
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
