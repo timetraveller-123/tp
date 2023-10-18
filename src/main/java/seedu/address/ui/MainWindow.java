@@ -173,14 +173,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @FXML
-    private void handleDisplayInfo(InfoObject objectToDisplay) throws CommandException {
+    private void handleDisplayInfo(InfoObject objectToDisplay) {
         if (objectToDisplay instanceof Order) {
             Order order = (Order) objectToDisplay;
             OrderDisplay orderDisplay = new OrderDisplay(order);
             infoDisplayPlaceholder.getChildren().clear();
             infoDisplayPlaceholder.getChildren().add(orderDisplay.getRoot());
         } else {
-            throw new CommandException("Invalid display object");
+            throw new RuntimeException("Unknown object to display");
         }
     }
 
