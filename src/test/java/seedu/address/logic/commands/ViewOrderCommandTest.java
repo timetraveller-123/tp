@@ -9,6 +9,7 @@ import seedu.address.model.order.Order;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalOrders.ORDER_NUMBER_FIRST_ORDER;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 class ViewOrderCommandTest {
@@ -21,11 +22,10 @@ class ViewOrderCommandTest {
 
     @Test
     public void execute_validOrderNumber_orderIsFound() {
-        int orderNumber = 1234;
-        ViewOrderCommand command = new ViewOrderCommand(orderNumber);
-        Order expectedOrder = model.getAddressBook().getOrder(orderNumber).get();
+        ViewOrderCommand command = new ViewOrderCommand(ORDER_NUMBER_FIRST_ORDER);
+        Order expectedOrder = model.getAddressBook().getOrder(ORDER_NUMBER_FIRST_ORDER).get();
         CommandResult expectedCommandResult = new CommandResult(
-                String.format(ViewOrderCommand.MESSAGE_VIEW_ORDER_SUCCESS, orderNumber),
+                String.format(ViewOrderCommand.MESSAGE_VIEW_ORDER_SUCCESS, ORDER_NUMBER_FIRST_ORDER),
                 false,
                 false,
                 expectedOrder
