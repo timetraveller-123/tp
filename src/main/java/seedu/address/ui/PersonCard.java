@@ -41,6 +41,9 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
+    @FXML
+    private FlowPane allergies;
+
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
@@ -57,6 +60,6 @@ public class PersonCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         person.getAllergies().stream()
                 .sorted(Comparator.comparing(allergy -> allergy.allergyName))
-                .forEach(allergy -> tags.getChildren().add(new Label(allergy.allergyName)));
+                .forEach(allergy -> allergies.getChildren().add(new Label(allergy.allergyName)));
     }
 }

@@ -23,4 +23,11 @@ public class AllergyTest {
         assertThrows(NullPointerException.class, () -> Allergy.isValidAllergyName(null));
     }
 
+    @Test
+    public void equals_sameAllergyName_returnsTrue() {
+        Allergy allergy = new Allergy("Aspirin");
+        Allergy allergyCopy = new Allergy("Aspirin");
+        assert(allergy.equals(allergyCopy));
+    }
+
 }
