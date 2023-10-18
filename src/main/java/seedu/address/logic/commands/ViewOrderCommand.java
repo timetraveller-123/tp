@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
@@ -48,7 +49,25 @@ public class ViewOrderCommand extends Command {
         }
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
 
+        // instanceof handles nulls
+        if (!(other instanceof ViewOrderCommand)) {
+            return false;
+        }
 
+        ViewOrderCommand otherViewOrderCommand = (ViewOrderCommand) other;
+        return orderNumber == otherViewOrderCommand.orderNumber;
+    }
 
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("orderNumber", orderNumber)
+                .toString();
+    }
 }
