@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -23,7 +24,6 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-
     private final FilteredList<Order> filteredOrders;
 
     /**
@@ -119,6 +119,11 @@ public class ModelManager implements Model {
     public void addOrder(Order order) {
         requireNonNull(order);
         addressBook.addOrder(order);
+    }
+
+    @Override
+    public Optional<Order> getOrder(int orderNumber) {
+        return addressBook.getOrder(orderNumber);
     }
 
     //=========== Filtered Person List Accessors =============================================================

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.TypicalOrders.getTypicalOrders;
 
 import org.junit.jupiter.api.Test;
 
@@ -33,6 +34,13 @@ public class CommandResultTest {
 
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
+
+        // different InfoObjectValue -> returns false
+        CommandResult withDifferentInfoObjectValue = new CommandResult(
+                "feedback", false, false, getTypicalOrders().get(0));
+        assertFalse(commandResult.equals(withDifferentInfoObjectValue));
+        assertFalse(withDifferentInfoObjectValue.equals(commandResult));
+
     }
 
     @Test
@@ -50,6 +58,10 @@ public class CommandResultTest {
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true).hashCode());
+
+        // different InfoObject -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new CommandResult(
+                "feedback", false, false, getTypicalOrders().get(0)).hashCode());
     }
 
     @Test
@@ -57,7 +69,17 @@ public class CommandResultTest {
         CommandResult commandResult = new CommandResult("feedback");
         String expected = CommandResult.class.getCanonicalName() + "{feedbackToUser="
                 + commandResult.getFeedbackToUser() + ", showHelp=" + commandResult.isShowHelp()
-                + ", exit=" + commandResult.isExit() + "}";
+                + ", exit=" + commandResult.isExit() + ", infoObject=" + commandResult.getInfoObject() + "}";
         assertEquals(expected, commandResult.toString());
+    }
+
+    @Test
+    public void hasInfoObjectMethod() {
+        CommandResult commandResultWithoutInfoObject = new CommandResult("feedback");
+        assertFalse(commandResultWithoutInfoObject.hasInfoObject());
+
+        CommandResult commandWithInfoObject = new CommandResult(
+                "feedback", false, false, getTypicalOrders().get(0));
+        assertTrue(commandWithInfoObject.hasInfoObject());
     }
 }

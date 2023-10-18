@@ -10,10 +10,14 @@ import seedu.address.model.order.Order;
  * A utility class containing a list of {@code Order} objects to be used in tests.
  */
 public class TypicalOrders {
-    public static final Order ALICE_PANADOL_ORDER = new Order(1,
+    public static final int ORDER_NUMBER_FIRST_ORDER = 1;
+
+    public static final int ORDER_NUMBER_SECOND_ORDER = 1234;
+
+    public static final Order ALICE_PANADOL_ORDER = new Order(ORDER_NUMBER_FIRST_ORDER,
             TypicalPersons.ALICE, "Panadol");
 
-    public static final Order BENSON_PANADOL_ORDER = new Order(1234,
+    public static final Order BENSON_PANADOL_ORDER = new Order(ORDER_NUMBER_SECOND_ORDER,
             TypicalPersons.BENSON, "Panadol");
 
     public static List<Order> getTypicalOrders() {

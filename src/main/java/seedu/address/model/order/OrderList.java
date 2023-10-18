@@ -5,6 +5,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,6 +30,16 @@ public class OrderList implements Iterable<Order> {
     public void add(Order order) {
         requireNonNull(order);
         internalList.add(order);
+    }
+
+    /**
+     * Gets an order from the orderList based on its orderNumber.
+     * @param orderNumber
+     * @return Order with specified orderNumber, if any.
+     */
+    public Optional<Order> getOrder(int orderNumber) {
+        Stream<Order> filtered = internalList.stream().filter(order -> order.getOrderNumber() == orderNumber);
+        return filtered.findFirst();
     }
 
     public void setOrders(OrderList replacement) {
