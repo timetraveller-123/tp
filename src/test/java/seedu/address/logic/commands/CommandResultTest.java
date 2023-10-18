@@ -7,8 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrders;
 
 import org.junit.jupiter.api.Test;
-import seedu.address.model.InfoObject;
-import seedu.address.model.order.Order;
 
 public class CommandResultTest {
     @Test

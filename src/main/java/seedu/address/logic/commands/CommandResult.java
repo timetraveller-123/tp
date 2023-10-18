@@ -77,6 +77,17 @@ public class CommandResult {
         }
 
         CommandResult otherCommandResult = (CommandResult) other;
+
+        if (infoObject == null) {
+            if (otherCommandResult.infoObject != null) {
+                return false;
+            }
+        } else {
+            if (!infoObject.equals(otherCommandResult.infoObject)) {
+                return false;
+            }
+        }
+
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit;
