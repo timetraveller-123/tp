@@ -86,11 +86,17 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-### Listing all persons : `list`
+### Listing all persons : `listp`
 
 Shows a list of all persons in PharmHub.
 
-Format: `list`
+Format: `listp`
+
+### Viewing all orders : `listo`
+
+Shows a list of all orders in PharmHub.
+
+Format: `listo`
 
 ### Editing a person : `edit`
 
@@ -194,24 +200,6 @@ Result display will show “[ALLERGY]... successfully added to patient”
 
 Precise expected output when the command fails:
 Result display will show “[ALLERGY]... is not a valid medication name”
-
-### Viewing all orders `[coming in v1.2]`
-What it does: Displays a list of all the orders that have been created
-
-Command format: vieworder
-
-Parameters: No parameters
-
-Precise expected output on success:
-Patient list will now display the list of orders
-Order info per row:
-Order Number
-Patient name
-Result display will show “Listed all orders”
-
-
-Precise expected output when command fails: Default unknown command output
-Result display will show “Unknown command”
 
 
 ### Viewing specific details of an order `[coming in v1.2]`
