@@ -42,10 +42,7 @@ public class ViewOrderCommand extends Command {
         } else {
             return new CommandResult(
                     String.format(MESSAGE_VIEW_ORDER_SUCCESS, orderNumber),
-                    false,
-                    false,
-                    orderOptional.get()
-            );
+                    orderOptional.get());
         }
     }
 

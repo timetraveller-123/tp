@@ -12,6 +12,15 @@ import seedu.address.model.InfoObject;
  */
 public class CommandResult {
 
+    /**
+     * Specifies the effects that commands will have on the list panel.
+     */
+    public enum ListPanelEffects {
+        NO_EFFECT,
+        PERSON,
+        ORDER
+    }
+
     private final String feedbackToUser;
 
     /** Help information should be shown to the user. */
@@ -20,16 +29,21 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** Effects on listPanelView */
+    private final ListPanelEffects listPanelEffects;
+
     /** Info object to be displayed */
     private final InfoObject infoObject;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, InfoObject infoObject) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                         ListPanelEffects listPanelEffects, InfoObject infoObject) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.listPanelEffects = listPanelEffects;
         this.infoObject = infoObject;
     }
 
@@ -38,11 +52,23 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, null);
+        this(feedbackToUser, false, false, ListPanelEffects.NO_EFFECT, null);
+    }
+
+    public CommandResult(String feedbackToUser, ListPanelEffects listPanelEffects) {
+        this(feedbackToUser, false, false, listPanelEffects, null);
     }
 
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this(feedbackToUser, showHelp, exit, null);
+        this(feedbackToUser, showHelp, exit, ListPanelEffects.NO_EFFECT, null);
+    }
+
+    public CommandResult(String feedbackToUser, InfoObject infoObject) {
+        this(feedbackToUser, false, false, ListPanelEffects.NO_EFFECT, infoObject);
+    }
+
+    public ListPanelEffects getListPanelEffects() {
+        return listPanelEffects;
     }
 
     public String getFeedbackToUser() {
@@ -90,12 +116,13 @@ public class CommandResult {
 
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && listPanelEffects == otherCommandResult.listPanelEffects;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, infoObject);
+        return Objects.hash(feedbackToUser, showHelp, exit, listPanelEffects, infoObject);
     }
 
     @Override
@@ -104,6 +131,7 @@ public class CommandResult {
                 .add("feedbackToUser", feedbackToUser)
                 .add("showHelp", showHelp)
                 .add("exit", exit)
+                .add("listPanelEffects", listPanelEffects)
                 .add("infoObject", infoObject)
                 .toString();
     }

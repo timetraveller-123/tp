@@ -31,10 +31,7 @@ class ViewOrderCommandTest {
         Order expectedOrder = model.getAddressBook().getOrder(ORDER_NUMBER_FIRST_ORDER).get();
         CommandResult expectedCommandResult = new CommandResult(
                 String.format(ViewOrderCommand.MESSAGE_VIEW_ORDER_SUCCESS, ORDER_NUMBER_FIRST_ORDER),
-                false,
-                false,
-                expectedOrder
-        );
+                expectedOrder);
         assertCommandSuccess(command, model, expectedCommandResult, model);
     }
 

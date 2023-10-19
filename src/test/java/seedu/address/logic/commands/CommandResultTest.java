@@ -8,6 +8,8 @@ import static seedu.address.testutil.TypicalOrders.getTypicalOrders;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.InfoObject;
+
 public class CommandResultTest {
     @Test
     public void equals() {
@@ -16,6 +18,11 @@ public class CommandResultTest {
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
         assertTrue(commandResult.equals(new CommandResult("feedback", false, false)));
+        assertTrue(commandResult.equals(new CommandResult("feedback",
+                CommandResult.ListPanelEffects.NO_EFFECT)));
+        assertTrue(commandResult.equals(new CommandResult("feedback", (InfoObject) null)));
+        assertTrue(commandResult.equals(new CommandResult("feedback", false, false,
+                CommandResult.ListPanelEffects.NO_EFFECT, null)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -35,9 +42,15 @@ public class CommandResultTest {
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
 
+        // different listPanelEffects value -> returns false
+        assertFalse(commandResult.equals(new CommandResult("feedback",
+                CommandResult.ListPanelEffects.PERSON)));
+        assertFalse(commandResult.equals(new CommandResult("feedback",
+                CommandResult.ListPanelEffects.ORDER)));
+
         // different InfoObjectValue -> returns false
         CommandResult withDifferentInfoObjectValue = new CommandResult(
-                "feedback", false, false, getTypicalOrders().get(0));
+                "feedback", getTypicalOrders().get(0));
         assertFalse(commandResult.equals(withDifferentInfoObjectValue));
         assertFalse(withDifferentInfoObjectValue.equals(commandResult));
 
@@ -54,14 +67,16 @@ public class CommandResultTest {
         assertNotEquals(commandResult.hashCode(), new CommandResult("different").hashCode());
 
         // different showHelp value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true, false).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true,
+                false, CommandResult.ListPanelEffects.NO_EFFECT, null).hashCode());
 
         // different exit value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false,
+                true, CommandResult.ListPanelEffects.NO_EFFECT, null).hashCode());
 
         // different InfoObject -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult(
-                "feedback", false, false, getTypicalOrders().get(0)).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false,
+                false, CommandResult.ListPanelEffects.NO_EFFECT, getTypicalOrders().get(0)).hashCode());
     }
 
     @Test
@@ -69,7 +84,8 @@ public class CommandResultTest {
         CommandResult commandResult = new CommandResult("feedback");
         String expected = CommandResult.class.getCanonicalName() + "{feedbackToUser="
                 + commandResult.getFeedbackToUser() + ", showHelp=" + commandResult.isShowHelp()
-                + ", exit=" + commandResult.isExit() + ", infoObject=" + commandResult.getInfoObject() + "}";
+                + ", exit=" + commandResult.isExit() + ", listPanelEffects=" + commandResult.getListPanelEffects()
+                + ", infoObject=" + commandResult.getInfoObject() + "}";
         assertEquals(expected, commandResult.toString());
     }
 
@@ -78,8 +94,8 @@ public class CommandResultTest {
         CommandResult commandResultWithoutInfoObject = new CommandResult("feedback");
         assertFalse(commandResultWithoutInfoObject.hasInfoObject());
 
-        CommandResult commandWithInfoObject = new CommandResult(
-                "feedback", false, false, getTypicalOrders().get(0));
+        CommandResult commandWithInfoObject = new CommandResult("feedback", false, false,
+                CommandResult.ListPanelEffects.NO_EFFECT, getTypicalOrders().get(0));
         assertTrue(commandWithInfoObject.hasInfoObject());
     }
 }
