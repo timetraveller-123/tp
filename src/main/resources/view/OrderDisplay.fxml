@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/17"
-           xmlns:fx="http://javafx.com/fxml/1">
-  <VBox>
-    <HBox>
-      <Label text="Order Number: " styleClass="cell_order_label" />
-      <Label fx:id="orderNumber" text="Label" styleClass="cell_order_label" />
+<StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+  <VBox spacing="20">
+    <HBox spacing="10">
+      <Label styleClass="cell_order_label" text="Order Number: " underline="true" />
+      <Label fx:id="orderNumber" styleClass="cell_order_label" text="Label" />
     </HBox>
 
+    <HBox spacing="10">
+      <Label styleClass="cell_order_label" text="Name: " underline="true" />
+      <Label fx:id="orderPerson" styleClass="cell_order_label" text="Label" />
+    </HBox>
+
+    <HBox spacing="10">
+      <Label styleClass="cell_order_label" text="Medication: " underline="true" />
+      <Label fx:id="orderDetails" styleClass="cell_order_label" text="Label" />
+    </HBox>
   </VBox>
 
 

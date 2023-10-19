@@ -41,7 +41,8 @@ public class OrderDisplay extends UiPart<Region> {
         }
 
         String display = order.toString();
-        orderNumber.setText(display);
-
+        orderNumber.setText(Integer.toString(order.getOrderNumber()));
+        orderPerson.setText(order.getPerson().getName().fullName);
+        orderDetails.setText(order.getMedicineName());
     }
 }
