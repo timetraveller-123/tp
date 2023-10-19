@@ -48,8 +48,6 @@ public class SampleDataUtil {
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        System.out.println("SampleDataUtil.java: getSampleAddressBook() called");
-        System.out.println(getSamplePersons());
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
