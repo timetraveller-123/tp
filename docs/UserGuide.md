@@ -218,38 +218,37 @@ Precise expected output when the command fails:
 If order number does not exist, result display will show “No such order with order number ORDER_NUMBER”
 If order number is of invalid format, eg. contains non-numeric characters, result display will show “Invalid format”
 
-### Adding a new order `[v1.2]`
+### Adding a new order : `addorder` `[v1.2]`
 
-What it does: Adds a new order corresponding to a patient into the system.
+Adds a new order of medication corresponding to a patient into the system.
 
-Command format: addorder  INDEX  o/ ORDER_NUMBER m/ MEDICINE_NAME
+Format: `addorder INDEX o/ORDER_NUMBER m/MEDICINE_NAME`
 
 Parameters:   
-INDEX - index of patient who is ordering the medicine as shown in the patient list.
-ORDER_NUMBER - the order number of this order specified by the invoice.
-MEDICINE_NAME - the name of medicine being ordered.
+* `INDEX` - index of patient who is ordering the medicine as shown in the patient list.  
+* `ORDER_NUMBER` - the order number of this order specified by the invoice.  
+* `MEDICINE_NAME` - the name of medicine being ordered.  
 
 
-Precise expected outputs when the command succeeds:
-The result display box shows “Order assigned to patient successfully.”
-The info box will show the newly added order.
+Precise expected outputs when the command succeeds:  
+* The result display box shows “Order assigned to patient successfully.”    
+* The info box will show the newly added order.    
 
-
-Acceptable values for each parameter
-INDEX - a positive integer that is lesser than or equal to the size of the current                  patient list.
-ORDER_NUMBER - Numeric characters only.
-MEDICINE_NAME -  A non-empty string.
-
-
-Example commands:
-add_order 1 o/618457 m/ panadol
+Precise expected output when the command fails:  
+* If invalid `INDEX`, result display will show “Invalid patient INDEX”  
+* If invalid `ORDER_NUMBER`, result display will show “Invalid ORDER_NUMBER”  
+* If empty `MEDICINE_NAME`, result display will show “MEDICINE_NAME cannot be empty”  
 
 
 
-Precise expected output when the command fails:
-If invalid INDEX, result display will show “Invalid patient INDEX”
-If invalid ORDER_NUMBER, result display will show “Invalid                      ORDER_NUMBER”
-If empty MEDICINE_NAME, result display will show “MEDICINE_NAME cannot be empty”
+Examples: 
+
+* `addorder 1 o/618457 m/panadol`  
+* `addorder 3 o/438756 m/claritin`
+
+
+
+
 
 ### Archiving data files `[coming in v2.0]`
 
@@ -272,12 +271,13 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action     | Format, Examples                                                                                                                                                      |
-|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
-| **Clear**  | `clear`                                                                                                                                                               |
-| **Delete** | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                   |
-| **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                           |
-| **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                            |
-| **List**   | `list`                                                                                                                                                                |
-| **Help**   | `help`                                                                                                                                                                |
+Action | Format, Examples
+--------|------------------
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Clear** | `clear`
+**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**List** | `list`
+**Help** | `help`
+**Add Order** | `addorder INDEX o/ORDER_NUMBER m/MEDICINE_NAME` <br> e.g., `addorder 3 o/438756 m/claritin`
