@@ -76,14 +76,14 @@ Format: `help`
 
 Adds a person to PharmHub.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [no/ALLERGY]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
+A person can have any number of tags or allergies (including 0)
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 no/paracetamol no/aspirin`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 ### Listing all persons : `listp`
@@ -102,18 +102,21 @@ Format: `listo`
 
 Edits an existing person in the PharmHub.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/ALLERGY]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* When editing tags or allergies, the existing tags or allergies of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
+* You can remove all the person’s allergies by typing `no/` without
+    specifying any allergies after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 3 no/` Edits the allergies of the 3rd person to be empty.
 
 ### Locating persons by name: `find`
 
@@ -170,37 +173,6 @@ PharmHub data are saved automatically as a JSON file `[JAR file location]/data/p
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, PharmHub will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
 </div>
-
-### Adding allergies to a patient `[v1.2]`
-What it does: add/edit medication allergies of a patient. When editing allergies, the existing allergies of the person will be removed i.e adding of allergies is not cumulative.You can remove all the person’s tags by typing no/ without specifying any tags after it.
-
-Command format: add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [no/ALLERGY]…​
-
-
-OR
-
-
-edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [no/ALLERGY]…​
-
-
-*When editing allergies, the existing allergies of the person will be removed i.e adding of allergies is not cumulative. You can remove all the person’s allergies by typing no/ without specifying any allergies after it.
-
-
-Example commands: add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 no/paracetamol no/penicillin
-
-
-edit 1 n/Jane Doe no/aspirin
-
-
-Parameters: ALLERGY - A valid medication name
-
-
-Precise expected outputs when the command succeeds: Right screen shows the details of the updated patient with all the allergies added/edited
-Result display will show “[ALLERGY]... successfully added to patient”
-
-Precise expected output when the command fails:
-Result display will show “[ALLERGY]... is not a valid medication name”
-
 
 ### Viewing specific details of an order `[v1.2]`
 What it does: Displays a detailed version of an order to the right side of the screen when called for by command
@@ -273,10 +245,10 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [no/ALLERGY]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague no/aspirin`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/allergy]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
 **Help** | `help`
