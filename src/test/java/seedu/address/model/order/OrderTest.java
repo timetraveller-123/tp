@@ -8,7 +8,7 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import org.junit.jupiter.api.Test;
 
 class OrderTest {
-    private final Order order = new Order(1, ALICE, "panadol");
+    private final Order order = new Order(new OrderNumber("1"), ALICE, "panadol");
     @Test
     public void toStringMethod() {
         String expected = Order.class.getCanonicalName() + "{orderNumber=" + order.getOrderNumber()
@@ -26,7 +26,7 @@ class OrderTest {
         //null -> returns false
         assertFalse(order.equals(null));
 
-        Order newOrder = new Order(1, ALICE, "panadol");
+        Order newOrder = new Order(new OrderNumber("1"), ALICE, "panadol");
 
         //all attributes same -> return true
         assertTrue(order.equals(newOrder));

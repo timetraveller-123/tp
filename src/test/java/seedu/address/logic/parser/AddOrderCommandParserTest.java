@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddOrderCommand;
+import seedu.address.model.order.OrderNumber;
 
 
 class AddOrderCommandParserTest {
@@ -62,16 +63,16 @@ class AddOrderCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1 " + INVALID_ORDERNUMBER_NEGATIVE + VALID_MEDICINE_NAME,
-                            AddOrderCommandParser.MESSAGE_INVALID_ORDERNUMBER); // invalid orderNumber
+                OrderNumber.MESSAGE_CONSTRAINTS); // invalid orderNumber
 
         assertParseFailure(parser, "1 " + VALID_ORDERNUMBER + INVALID_MEDICINE_NAME,
                             MESSAGE_INVALID_FORMAT); // invalid medicineName
 
         assertParseFailure(parser, "1 " + INVALID_ORDERNUMBER + VALID_MEDICINE_NAME,
-                AddOrderCommandParser.MESSAGE_INVALID_ORDERNUMBER); // invalid orderNumber
+                OrderNumber.MESSAGE_CONSTRAINTS); // invalid orderNumber
 
         AddOrderCommand expectedCommand = new AddOrderCommand(Index.fromOneBased(1),
-                                                              1, "panadol");
+                                                              new OrderNumber("1"), "panadol");
 
 
         assertParseSuccess(parser, "1 " + VALID_ORDERNUMBER + VALID_MEDICINE_NAME, expectedCommand);

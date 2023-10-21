@@ -18,8 +18,7 @@ class OrderListTest {
     private Order order;
     @BeforeEach
     public void init() {
-        System.out.println("happ");
-        order = new Order(1, ALICE, "panadol");
+        order = new Order(new OrderNumber("1"), ALICE, "panadol");
         list = new ArrayList<>();
         list.add(order);
         orderList = new OrderList();

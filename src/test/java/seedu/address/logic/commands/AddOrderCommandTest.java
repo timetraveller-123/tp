@@ -18,6 +18,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.OrderNumber;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -25,7 +26,7 @@ import seedu.address.testutil.PersonBuilder;
 class AddOrderCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final int orderNumber = 1;
+    private final OrderNumber orderNumber = new OrderNumber("1");
 
     private final String medicineName = "panadol";
 
@@ -38,7 +39,7 @@ class AddOrderCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.addOrder(order);
 
-        String expectedMessage = AddOrderCommand.MESSAGE_ADD_ORDER_SUCCESS;
+        String expectedMessage = AddOrderCommand.MESSAGE_SUCCESS;
 
         assertCommandSuccess(addOrderCommand, model, expectedMessage, expectedModel);
     }
@@ -51,7 +52,7 @@ class AddOrderCommandTest {
 
         AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST_PERSON, orderNumber, medicineName);
 
-        String expectedMessage = AddOrderCommand.MESSAGE_ADD_ORDER_SUCCESS;
+        String expectedMessage = AddOrderCommand.MESSAGE_SUCCESS;
 
         Order order = new Order(orderNumber, personInFilteredList, medicineName);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
