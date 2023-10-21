@@ -14,21 +14,21 @@ import seedu.address.model.person.Person;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Order implements InfoObject {
-    private final int orderNumber;
+    private final OrderNumber orderNumber;
     private final Person person;
     private final String medicineName;
 
     /**
      * Every field must be present and not null.
      */
-    public Order(int orderNumber, Person person, String medicineName) {
+    public Order(OrderNumber orderNumber, Person person, String medicineName) {
         requireAllNonNull(orderNumber, person, medicineName);
         this.orderNumber = orderNumber;
         this.person = person;
         this.medicineName = medicineName;
     }
 
-    public int getOrderNumber() {
+    public OrderNumber getOrderNumber() {
         return orderNumber;
     }
 
@@ -55,7 +55,7 @@ public class Order implements InfoObject {
         }
 
         Order otherOrder = (Order) other;
-        return orderNumber == otherOrder.orderNumber
+        return orderNumber.equals(otherOrder.orderNumber)
                 && medicineName.equals(otherOrder.medicineName)
                 && person.equals(otherOrder.person);
     }

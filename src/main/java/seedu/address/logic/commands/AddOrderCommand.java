@@ -13,6 +13,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.OrderNumber;
 import seedu.address.model.person.Person;
 
 /**
@@ -31,10 +32,10 @@ public class AddOrderCommand extends Command {
             + PREFIX_ORDERNUMBER + "91234567 "
             + PREFIX_MEDICINENAME + "panadol";
 
-    public static final String MESSAGE_ADD_ORDER_SUCCESS = "Order added successfully.";
+    public static final String MESSAGE_SUCCESS = "Order added successfully.";
 
     private final Index index;
-    private final int orderNumber;
+    private final OrderNumber orderNumber;
     private final String medicineName;
 
 
@@ -43,7 +44,7 @@ public class AddOrderCommand extends Command {
      * @param orderNumber of the order.
      * @param medicineName represents the name of medicine.
      */
-    public AddOrderCommand(Index index, int orderNumber, String medicineName) {
+    public AddOrderCommand(Index index, OrderNumber orderNumber, String medicineName) {
         requireAllNonNull(index, orderNumber, medicineName);
         this.index = index;
         this.orderNumber = orderNumber;
@@ -62,7 +63,7 @@ public class AddOrderCommand extends Command {
         Person person = lastShownList.get(index.getZeroBased());
         model.addOrder(new Order(orderNumber, person, medicineName));
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(MESSAGE_ADD_ORDER_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override
@@ -77,7 +78,7 @@ public class AddOrderCommand extends Command {
         }
 
         AddOrderCommand otherAddCommand = (AddOrderCommand) other;
-        return index.equals(otherAddCommand.index) && orderNumber == otherAddCommand.orderNumber
+        return index.equals(otherAddCommand.index) && orderNumber.equals(otherAddCommand.orderNumber)
                 && medicineName.equals(otherAddCommand.medicineName);
     }
 }

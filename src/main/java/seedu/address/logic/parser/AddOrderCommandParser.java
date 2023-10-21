@@ -7,16 +7,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERNUMBER;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddOrderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.order.OrderNumber;
 
 
 /**
  * Parses input arguments and creates a new AddOrderCommand object.
  */
 public class AddOrderCommandParser implements Parser<AddOrderCommand> {
-
-    public static final String COMMAND_WORD = "addorder";
-
-    public static final String MESSAGE_INVALID_ORDERNUMBER = "Order number is not a positive integer.";
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddOrderCommand
@@ -39,15 +36,7 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
 
         Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
-        int orderNumber;
-        try {
-            orderNumber = Integer.parseInt(argMultimap.getValue(PREFIX_ORDERNUMBER).get());
-            if (orderNumber <= 0) {
-                throw new ParseException(MESSAGE_INVALID_ORDERNUMBER);
-            }
-        } catch (NumberFormatException e) {
-            throw new ParseException(MESSAGE_INVALID_ORDERNUMBER);
-        }
+        OrderNumber orderNumber = ParserUtil.parseOrderNumber(argMultimap.getValue(PREFIX_ORDERNUMBER).get());
 
         return new AddOrderCommand(index, orderNumber, argMultimap.getValue(PREFIX_MEDICINENAME).get());
 
