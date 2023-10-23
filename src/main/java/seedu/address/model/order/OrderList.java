@@ -10,26 +10,41 @@ import java.util.stream.Stream;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 
 /**
- * A list of orders that does not allow nulls.
+ * A list of orders that enforces uniqueness between its elements and does not allow nulls.
+ * An order is considered unique by comparing using {@code Order#isSameOrder(Order)}. As such, adding of
+ * orders uses Order#isSameOrder(Order) for equality so as to ensure that the person being added or updated is
+ * unique in terms of identity in the OrderList.
  *
  * Supports a minimal set of list operations.
  *
+ * @see Person#isSamePerson(Person)
  */
 public class OrderList implements Iterable<Order> {
     private final ObservableList<Order> internalList = FXCollections.observableArrayList();
     private final ObservableList<Order> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
-
+    /**
+     * Returns true if the list contains an equivalent order as the given argument.
+     */
+    public boolean contains(Order toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isSameOrder);
+    }
     /**
      * Adds an order to the list.
      */
-    public void add(Order order) {
-        requireNonNull(order);
-        internalList.add(order);
+    public void add(Order toAdd) {
+        requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicatePersonException();
+        }
+        internalList.add(toAdd);
     }
 
     /**

@@ -40,6 +40,20 @@ public class Order implements InfoObject {
         return medicineName;
     }
 
+
+    /**
+     * Returns true if both orders have the same order number.
+     * This defines a weaker notion of equality between two orders.
+     */
+    public boolean isSameOrder(Order otherOrder) {
+        if (otherOrder == this) {
+            return true;
+        }
+
+        return otherOrder != null
+                && otherOrder.getOrderNumber().equals(getOrderNumber());
+    }
+
     /**
      * Returns true if both orders have the same identity and data fields.
      */

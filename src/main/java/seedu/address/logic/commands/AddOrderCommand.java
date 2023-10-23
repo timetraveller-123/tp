@@ -34,6 +34,8 @@ public class AddOrderCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Order added successfully.";
 
+    public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists in the address book";
+
     private final Index index;
     private final OrderNumber orderNumber;
     private final String medicineName;
@@ -60,8 +62,15 @@ public class AddOrderCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+
+
         Person person = lastShownList.get(index.getZeroBased());
-        model.addOrder(new Order(orderNumber, person, medicineName));
+        Order toAdd = new Order(orderNumber, person, medicineName);
+        if (model.hasOrder(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ORDER);
+        }
+
+        model.addOrder(toAdd);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
