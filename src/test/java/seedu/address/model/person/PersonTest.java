@@ -51,6 +51,21 @@ public class PersonTest {
         assertFalse(BOB.isSamePerson(editedBob));
     }
 
+    @Test void isAllergicTo() {
+        // medicineName exists in allergies of patient -> returns true
+        assertTrue(ALICE.isAllergicTo("Aspirin"));
+
+        // medicineName does not exist in allergies of patient -> returns false
+        assertFalse(ALICE.isAllergicTo("Paracetamol"));
+
+        // null -> returns false
+        assertFalse(ALICE.isAllergicTo(null));
+
+        // same name, medicineName exists in allergies of patient -> returns true
+        Person editedAlice = new PersonBuilder(ALICE).withAllergies("paracetamol").build();
+        assertTrue(editedAlice.isAllergicTo("paracetamol"));
+    }
+
     @Test
     public void equals() {
         // same values -> returns true
