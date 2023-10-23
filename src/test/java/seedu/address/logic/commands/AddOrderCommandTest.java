@@ -60,6 +60,20 @@ class AddOrderCommandTest {
         assertCommandSuccess(addOrderCommand, model, expectedMessage, expectedModel);
     }
 
+    @Test void execute_allergicToMedicineAndIgnoreAllergy_success() {
+        Person person = new PersonBuilder().withAllergies(medicineName).build();
+        model.addPerson(person);
+        AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST_PERSON, orderNumber, medicineName, true);
+
+        Order order = new Order(orderNumber, model.getFilteredPersonList().get(0), medicineName);
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.addOrder(order);
+
+        String expectedMessage = AddOrderCommand.MESSAGE_ADD_ORDER_SUCCESS;
+
+        assertCommandSuccess(addOrderCommand, model, expectedMessage, expectedModel);
+    }
+
     @Test
     public void execute_filteredList_failure() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
@@ -76,20 +90,6 @@ class AddOrderCommandTest {
         expectedModel.addOrder(order);
 
         assertCommandFailure(addOrderCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    @Test void execute_allergicToMedicineAndIgnoreAllergy_success() {
-        Person person = new PersonBuilder().withAllergies(medicineName).build();
-        model.addPerson(person);
-        AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST_PERSON, orderNumber, medicineName, true);
-
-        Order order = new Order(orderNumber, model.getFilteredPersonList().get(0), medicineName);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.addOrder(order);
-
-        String expectedMessage = AddOrderCommand.MESSAGE_ADD_ORDER_SUCCESS;
-
-        assertCommandSuccess(addOrderCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
