@@ -78,4 +78,10 @@ class AddOrderCommandParserTest {
 
     }
 
+    public void parse_containsIgnoreAllergy_success() {
+        AddOrderCommand expectedCommand = new AddOrderCommand(Index.fromOneBased(1),
+                                                              1, "panadol", true);
+        assertParseSuccess(parser, "1 " + VALID_ORDERNUMBER + VALID_MEDICINE_NAME + " -i", expectedCommand);
+    }
+
 }
