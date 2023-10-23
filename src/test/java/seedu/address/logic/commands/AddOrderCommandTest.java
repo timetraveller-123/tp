@@ -25,14 +25,15 @@ import seedu.address.testutil.PersonBuilder;
 
 class AddOrderCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final OrderNumber orderNumber = new OrderNumber("1");
+    private final OrderNumber orderNumber = new OrderNumber("2");
 
     private final String medicineName = "panadol";
 
 
     @Test
     public void execute_unfilteredList_success() {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
         AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST_PERSON, orderNumber, medicineName);
         Order order = new Order(orderNumber, model.getFilteredPersonList().get(0), medicineName);
 
@@ -46,6 +47,8 @@ class AddOrderCommandTest {
 
     @Test
     public void execute_filteredList_success() {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -63,6 +66,8 @@ class AddOrderCommandTest {
 
     @Test
     public void execute_filteredList_failure() {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
