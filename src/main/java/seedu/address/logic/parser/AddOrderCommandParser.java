@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IGNORE_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINENAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERNUMBER;
 
@@ -25,9 +26,7 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
      */
     public AddOrderCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_ORDERNUMBER, PREFIX_MEDICINENAME);
-
-
+                ArgumentTokenizer.tokenize(args, PREFIX_ORDERNUMBER, PREFIX_MEDICINENAME, PREFIX_IGNORE_ALLERGY);
 
         if (argMultimap.getPreamble().isEmpty()
             || argMultimap.getValue(PREFIX_MEDICINENAME).orElse("").isEmpty()
@@ -49,7 +48,12 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
             throw new ParseException(MESSAGE_INVALID_ORDERNUMBER);
         }
 
-        return new AddOrderCommand(index, orderNumber, argMultimap.getValue(PREFIX_MEDICINENAME).get());
+        Boolean ignoreAllergy = false;
+        if (argMultimap.getValue(PREFIX_IGNORE_ALLERGY).isPresent()) {
+            ignoreAllergy = true;
+        }
+
+        return new AddOrderCommand(index, orderNumber, argMultimap.getValue(PREFIX_MEDICINENAME).get(), ignoreAllergy);
 
     }
 

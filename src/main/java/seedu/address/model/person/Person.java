@@ -86,6 +86,13 @@ public class Person {
     }
 
     /**
+     * Returns true if the person is allergic to the medicine.
+     */
+    public boolean isAllergicTo(String medicineName) {
+        return allergies.stream().anyMatch(allergy ->allergy.allergyName.equals(medicineName));
+    }
+
+    /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */
