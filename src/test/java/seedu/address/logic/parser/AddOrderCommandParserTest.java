@@ -71,7 +71,7 @@ class AddOrderCommandParserTest {
                 AddOrderCommandParser.MESSAGE_INVALID_ORDERNUMBER); // invalid orderNumber
 
         AddOrderCommand expectedCommand = new AddOrderCommand(Index.fromOneBased(1),
-                                                              1, "panadol");
+                                                              1, "panadol", false);
 
 
         assertParseSuccess(parser, "1 " + VALID_ORDERNUMBER + VALID_MEDICINE_NAME, expectedCommand);

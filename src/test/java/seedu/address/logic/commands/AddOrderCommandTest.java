@@ -32,7 +32,7 @@ class AddOrderCommandTest {
 
     @Test
     public void execute_unfilteredList_success() {
-        AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST_PERSON, orderNumber, medicineName);
+        AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST_PERSON, orderNumber, medicineName, false);
         Order order = new Order(orderNumber, model.getFilteredPersonList().get(0), medicineName);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
@@ -49,7 +49,7 @@ class AddOrderCommandTest {
 
         Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST_PERSON, orderNumber, medicineName);
+        AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST_PERSON, orderNumber, medicineName, false);
 
         String expectedMessage = AddOrderCommand.MESSAGE_ADD_ORDER_SUCCESS;
 
@@ -69,7 +69,7 @@ class AddOrderCommandTest {
 
         Person person = new PersonBuilder().build();
 
-        AddOrderCommand addOrderCommand = new AddOrderCommand(outOfBoundIndex, orderNumber, medicineName);
+        AddOrderCommand addOrderCommand = new AddOrderCommand(outOfBoundIndex, orderNumber, medicineName, false);
 
         Order order = new Order(orderNumber, person, medicineName);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
@@ -80,7 +80,7 @@ class AddOrderCommandTest {
 
     @Test
     public void equals() {
-        AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST_PERSON, orderNumber, medicineName);
+        AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST_PERSON, orderNumber, medicineName, false);
         assertTrue(addOrderCommand.equals(addOrderCommand));
         assertFalse(addOrderCommand.equals(null));
     }
