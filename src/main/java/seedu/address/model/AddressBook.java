@@ -133,7 +133,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Retrieves the order with the specified order number
      * @return Order with specified orderNumer
      */
-    public Optional<Order> getOrder(int orderNumber) {
+    public Optional<Order> getOrder(String orderNumber) {
         return orders.getOrder(orderNumber);
     }
 

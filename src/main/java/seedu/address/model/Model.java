@@ -97,7 +97,7 @@ public interface Model {
      * @param orderNumber
      * @return Order with the specified orderNumber.
      */
-    Optional<Order> getOrder(int orderNumber);
+    Optional<Order> getOrder(String orderNumber);
 
 
     /** Returns an unmodifiable view of the filtered person list */
