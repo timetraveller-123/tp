@@ -161,7 +161,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public Optional<Order> getOrder(int orderNumber) {
+        public Optional<Order> getOrder(String orderNumber) {
             throw new AssertionError("This method should not be called.");
         }
         @Override

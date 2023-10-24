@@ -11,9 +11,9 @@ import seedu.address.model.order.OrderNumber;
  * A utility class containing a list of {@code Order} objects to be used in tests.
  */
 public class TypicalOrders {
-    public static final int ORDER_NUMBER_FIRST_ORDER = 1;
+    public static final String ORDER_NUMBER_FIRST_ORDER = "1";
 
-    public static final int ORDER_NUMBER_SECOND_ORDER = 1234;
+    public static final String ORDER_NUMBER_SECOND_ORDER = "1234";
 
     public static final Order CARL_PANADOL_ORDER = new Order(new OrderNumber("1"),
             TypicalPersons.CARL, "Panadol");
