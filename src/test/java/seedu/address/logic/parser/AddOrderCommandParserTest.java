@@ -71,11 +71,18 @@ class AddOrderCommandParserTest {
                 AddOrderCommandParser.MESSAGE_INVALID_ORDERNUMBER); // invalid orderNumber
 
         AddOrderCommand expectedCommand = new AddOrderCommand(Index.fromOneBased(1),
-                                                              1, "panadol");
+                                                              1, "panadol", false);
 
 
         assertParseSuccess(parser, "1 " + VALID_ORDERNUMBER + VALID_MEDICINE_NAME, expectedCommand);
 
+    }
+
+    @Test
+    public void parse_containsIgnoreAllergy_success() {
+        AddOrderCommand expectedCommand = new AddOrderCommand(Index.fromOneBased(1),
+                                                              1, "panadol", true);
+        assertParseSuccess(parser, "1 " + VALID_ORDERNUMBER + VALID_MEDICINE_NAME + " ia/", expectedCommand);
     }
 
 }
