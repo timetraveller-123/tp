@@ -40,17 +40,20 @@ public class AddOrderCommand extends Command {
     private final OrderNumber orderNumber;
     private final String medicineName;
 
+    private final Boolean ignoreAllergy;
+
 
     /**
-     * @param index of the person in the filtered person to edit.
-     * @param orderNumber of the order.
+     * @param index        of the person in the filtered person to edit.
+     * @param orderNumber  of the order.
      * @param medicineName represents the name of medicine.
      */
-    public AddOrderCommand(Index index, OrderNumber orderNumber, String medicineName) {
+    public AddOrderCommand(Index index, OrderNumber orderNumber, String medicineName, Boolean ignoreAllergy) {
         requireAllNonNull(index, orderNumber, medicineName);
         this.index = index;
         this.orderNumber = orderNumber;
         this.medicineName = medicineName;
+        this.ignoreAllergy = ignoreAllergy;
     }
 
     @Override
@@ -62,9 +65,13 @@ public class AddOrderCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-
-
         Person person = lastShownList.get(index.getZeroBased());
+
+        // If person is allergic to medicine and ignoreAllergy is false, throw exception
+        if (person.isAllergicTo(medicineName) && !ignoreAllergy) {
+            throw new CommandException(Messages.MESSAGE_ALLERGIC_TO_MEDICINE);
+        }
+
         Order toAdd = new Order(orderNumber, person, medicineName);
         if (model.hasOrder(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ORDER);
