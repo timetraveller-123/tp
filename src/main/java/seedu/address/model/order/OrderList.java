@@ -11,7 +11,6 @@ import java.util.stream.Stream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.order.exceptions.OrderNotFoundException;
-import seedu.address.model.person.Person;
 
 
 /**
