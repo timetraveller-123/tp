@@ -154,6 +154,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
@@ -237,6 +238,37 @@ _{more aspects and alternatives to be added}_
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
+
+### Listing all orders
+
+The listing all orders functionality is supported by the listPanelPlaceholder in the Ui.
+
+On start of application, two listPanels (PersonListPanel, OrderListPanel) is created, and person list panel is attached 
+to the ListPanel Placeholder as default.
+
+On execution of the any listing commands (`listo` or `listp`), the resultant CommandResult contains details on which
+panel to choose to display.
+
+These are 3 different options for these details:
+* Person - Panel will display list of people
+* Order - Panel will display list of orders
+* NoChange - Panel will keep whatever was there previously
+
+Using these specifications, the CommandResult from executing `listo` and `listp` will inform the Ui of which
+panel to attach to the listPanelPlaceHolder
+
+### Order feature
+
+#### Implementation
+
+`Order` is implemented as a class in `Model`.
+
+An order can be added to Model using the `addorder` command.  
+Adding of an order with order number that already exits is  not allowed.
+
+The following sequence diagram shows how `addorder` works on an example input.
+
+![AddOrderSequenceDiagram](images/AddOrderSequenceDiagram.png)
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -363,6 +395,39 @@ In this combined use case, a pharmacist adds a medication order for a patient us
 
 
 
+
+=======
+      Use case resumes at step 2.
+
+<br><br>**Use case: Update patient Order Status**
+
+**MSS**
+
+1.  User requests to list Order
+2.  PharmHub shows a list of Order
+3.  User requests to update order status for a order in the list
+4.  PharmHub updates order status for the corresponding order
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. PharmHub shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The given status is invalid.
+
+    * 3a1. PharmHub shows an error message.
+
+      Use case resumes at step 2.
+      
 *{More to be added}*
 
 ### Non-Functional Requirements
