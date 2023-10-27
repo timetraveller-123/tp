@@ -349,6 +349,36 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. PharmHub shows an error message.
 
       Use case resumes at step 2.
+
+<br><br>**Use case: Update patient Order Status**
+
+**MSS**
+
+1.  User requests to list Order
+2.  PharmHub shows a list of Order
+3.  User requests to update order status for a order in the list
+4.  PharmHub updates order status for the corresponding order
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. PharmHub shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The given status is invalid.
+
+    * 3a1. PharmHub shows an error message.
+
+      Use case resumes at step 2.
+      
 *{More to be added}*
 
 ### Non-Functional Requirements
