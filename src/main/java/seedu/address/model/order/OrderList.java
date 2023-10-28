@@ -6,30 +6,69 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.order.exceptions.DuplicateOrderException;
+import seedu.address.model.person.Person;
 
 
 /**
- * A list of orders that does not allow nulls.
+ * A list of orders that enforces uniqueness between its elements and does not allow nulls.
+ * An order is considered unique by comparing using {@code Order#isSameOrder(Order)}. As such, adding of
+ * orders uses Order#isSameOrder(Order) for equality so as to ensure that the person being added or updated is
+ * unique in terms of identity in the OrderList.
  *
  * Supports a minimal set of list operations.
  *
+ * @see Order#isSameOrder(Order)
  */
 public class OrderList implements Iterable<Order> {
     private final ObservableList<Order> internalList = FXCollections.observableArrayList();
     private final ObservableList<Order> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
-
+    /**
+     * Returns true if the list contains an equivalent order as the given argument.
+     */
+    public boolean contains(Order toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isSameOrder);
+    }
     /**
      * Adds an order to the list.
      */
-    public void add(Order order) {
-        requireNonNull(order);
-        internalList.add(order);
+    public void add(Order toAdd) {
+        requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateOrderException();
+        }
+        internalList.add(toAdd);
+    }
+
+
+    /**
+     * Deletes orders in this list which belong to given person.
+     * @param person
+     */
+    public void removeOrdersWithPerson(Person person) {
+        requireNonNull(person);
+        List<Order> temp = internalList.stream().filter(x -> !x.getPerson().equals(person))
+                .collect(Collectors.toList());
+        this.setOrders(temp);
+    }
+
+    /**
+     * Edits orders in this list which belong to given person.
+     * @param person
+     */
+    public void editOrdersWithPerson(Person person, Person newPerson) {
+        requireNonNull(person);
+        List<Order> temp = internalList.stream().map(x -> x.getPerson().equals(person)
+                ? new Order(x.getOrderNumber(), newPerson, x.getMedicineName()) : x).collect(Collectors.toList());
+        this.setOrders(temp);
     }
 
     /**
@@ -37,8 +76,9 @@ public class OrderList implements Iterable<Order> {
      * @param orderNumber
      * @return Order with specified orderNumber, if any.
      */
-    public Optional<Order> getOrder(int orderNumber) {
-        Stream<Order> filtered = internalList.stream().filter(order -> order.getOrderNumber() == orderNumber);
+    public Optional<Order> getOrder(String orderNumber) {
+        Stream<Order> filtered = internalList.stream().filter(order ->
+                order.getOrderNumber().toString().equals(orderNumber));
         return filtered.findFirst();
     }
 

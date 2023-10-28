@@ -98,20 +98,29 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-
+        orders.editOrdersWithPerson(target, editedPerson);
         persons.setPerson(target, editedPerson);
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} and the corresponding orders from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {
+        orders.removeOrdersWithPerson(key);
         persons.remove(key);
     }
 
 
     //// order-level operations
+
+    /**
+     * Returns true if an order with the same identity as {@code order} exists in the address book.
+     */
+    public boolean hasOrder(Order order) {
+        requireNonNull(order);
+        return orders.contains(order);
+    }
 
     /**
      * Adds an order to the address book.
@@ -125,9 +134,10 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Retrieves the order with the specified order number
      * @return Order with specified orderNumer
      */
-    public Optional<Order> getOrder(int orderNumber) {
+    public Optional<Order> getOrder(String orderNumber) {
         return orders.getOrder(orderNumber);
     }
+
 
     //// util methods
 

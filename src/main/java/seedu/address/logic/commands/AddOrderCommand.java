@@ -13,6 +13,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.OrderNumber;
 import seedu.address.model.person.Person;
 
 /**
@@ -31,10 +32,12 @@ public class AddOrderCommand extends Command {
             + PREFIX_ORDERNUMBER + "91234567 "
             + PREFIX_MEDICINENAME + "panadol";
 
-    public static final String MESSAGE_ADD_ORDER_SUCCESS = "Order added successfully.";
+    public static final String MESSAGE_SUCCESS = "Order added successfully.";
+
+    public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists in the address book";
 
     private final Index index;
-    private final int orderNumber;
+    private final OrderNumber orderNumber;
     private final String medicineName;
 
     private final Boolean ignoreAllergy;
@@ -45,7 +48,7 @@ public class AddOrderCommand extends Command {
      * @param orderNumber  of the order.
      * @param medicineName represents the name of medicine.
      */
-    public AddOrderCommand(Index index, int orderNumber, String medicineName, Boolean ignoreAllergy) {
+    public AddOrderCommand(Index index, OrderNumber orderNumber, String medicineName, Boolean ignoreAllergy) {
         requireAllNonNull(index, orderNumber, medicineName);
         this.index = index;
         this.orderNumber = orderNumber;
@@ -61,6 +64,7 @@ public class AddOrderCommand extends Command {
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+
         Person person = lastShownList.get(index.getZeroBased());
 
         // If person is allergic to medicine and ignoreAllergy is false, throw exception
@@ -68,9 +72,14 @@ public class AddOrderCommand extends Command {
             throw new CommandException(Messages.MESSAGE_ALLERGIC_TO_MEDICINE);
         }
 
-        model.addOrder(new Order(orderNumber, person, medicineName));
+        Order toAdd = new Order(orderNumber, person, medicineName);
+        if (model.hasOrder(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ORDER);
+        }
+
+        model.addOrder(toAdd);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(MESSAGE_ADD_ORDER_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override
@@ -85,7 +94,7 @@ public class AddOrderCommand extends Command {
         }
 
         AddOrderCommand otherAddCommand = (AddOrderCommand) other;
-        return index.equals(otherAddCommand.index) && orderNumber == otherAddCommand.orderNumber
+        return index.equals(otherAddCommand.index) && orderNumber.equals(otherAddCommand.orderNumber)
                 && medicineName.equals(otherAddCommand.medicineName);
     }
 }
