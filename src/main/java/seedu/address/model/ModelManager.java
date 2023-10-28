@@ -116,6 +116,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasOrder(Order order) {
+        requireNonNull(order);
+        return addressBook.hasOrder(order);
+    }
+    @Override
     public void addOrder(Order order) {
         requireNonNull(order);
         addressBook.addOrder(order);
@@ -127,7 +132,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Optional<Order> getOrder(int orderNumber) {
+    public Optional<Order> getOrder(String orderNumber) {
         return addressBook.getOrder(orderNumber);
     }
 

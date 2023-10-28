@@ -62,8 +62,14 @@ public interface Model {
      */
     boolean hasPerson(Person person);
 
+
     /**
-     * Deletes the given person.
+     * Returns true if an order with the same identity as {@code order} exists in the address book.
+     */
+    boolean hasOrder(Order order);
+
+    /**
+     * Deletes the given person and the person's orders.
      * The person must exist in the address book.
      */
     void deletePerson(Person target);
@@ -97,7 +103,7 @@ public interface Model {
      * @param orderNumber
      * @return Order with the specified orderNumber.
      */
-    Optional<Order> getOrder(int orderNumber);
+    Optional<Order> getOrder(String orderNumber);
 
 
     /** Returns an unmodifiable view of the filtered person list */

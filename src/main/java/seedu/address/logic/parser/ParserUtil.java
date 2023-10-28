@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.allergy.Allergy;
+import seedu.address.model.order.OrderNumber;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -148,6 +149,18 @@ public class ParserUtil {
             allergySet.add(parseAllergy(allergyName));
         }
         return allergySet;
+    }
+
+    /**
+     * Parses {@code String orderNumber} into a {@code OrderNumber}.
+     */
+    public static OrderNumber parseOrderNumber(String orderNumber) throws ParseException {
+        requireNonNull(orderNumber);
+        String trimmedOrderNumber = orderNumber.trim();
+        if (!OrderNumber.isValidOrderNumber(trimmedOrderNumber)) {
+            throw new ParseException(OrderNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new OrderNumber(trimmedOrderNumber);
     }
 
 
