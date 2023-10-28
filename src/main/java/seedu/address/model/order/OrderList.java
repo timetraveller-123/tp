@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.order.exceptions.DuplicateOrderException;
+import seedu.address.model.order.exceptions.OrderNotFoundException;
 import seedu.address.model.person.Person;
 
 
@@ -46,6 +47,16 @@ public class OrderList implements Iterable<Order> {
             throw new DuplicateOrderException();
         }
         internalList.add(toAdd);
+    }
+    /**
+     * Removes the equivalent order from the list.
+     * The order must exist in the list.
+     */
+    public void remove(Order toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new OrderNotFoundException();
+        }
     }
 
 

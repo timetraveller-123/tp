@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -30,8 +30,8 @@ class ViewPersonCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        ViewPersonCommand command = new ViewPersonCommand(INDEX_FIRST_PERSON);
-        Person expectedPerson = model.getAddressBook().getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        ViewPersonCommand command = new ViewPersonCommand(INDEX_FIRST);
+        Person expectedPerson = model.getAddressBook().getPersonList().get(INDEX_FIRST.getZeroBased());
         String expectedMessage = String.format(
                 ViewPersonCommand.MESSAGE_VIEW_ORDER_SUCCESS,
                 expectedPerson.getName().fullName);
@@ -51,13 +51,13 @@ class ViewPersonCommandTest {
 
     @Test
     public void equals() {
-        ViewPersonCommand viewFirstPersonCommand = new ViewPersonCommand(INDEX_FIRST_PERSON);
+        ViewPersonCommand viewFirstPersonCommand = new ViewPersonCommand(INDEX_FIRST);
 
         // same object -> returns true
         assertTrue(viewFirstPersonCommand.equals(viewFirstPersonCommand));
 
         // same values -> returns true
-        ViewPersonCommand viewFirstPersonCommandCopy = new ViewPersonCommand(INDEX_FIRST_PERSON);
+        ViewPersonCommand viewFirstPersonCommandCopy = new ViewPersonCommand(INDEX_FIRST);
         assertTrue(viewFirstPersonCommand.equals(viewFirstPersonCommandCopy));
 
         // different types -> returns false
@@ -67,13 +67,13 @@ class ViewPersonCommandTest {
         assertFalse(viewFirstPersonCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(viewFirstPersonCommand.equals(new ViewPersonCommand(INDEX_SECOND_PERSON)));
+        assertFalse(viewFirstPersonCommand.equals(new ViewPersonCommand(INDEX_SECOND)));
     }
 
     @Test
     public void toStringMethod() {
-        ViewPersonCommand viewPersonCommand = new ViewPersonCommand(INDEX_FIRST_PERSON);
-        String expected = ViewPersonCommand.class.getCanonicalName() + "{targetIndex=" + INDEX_FIRST_PERSON + "}";
+        ViewPersonCommand viewPersonCommand = new ViewPersonCommand(INDEX_FIRST);
+        String expected = ViewPersonCommand.class.getCanonicalName() + "{targetIndex=" + INDEX_FIRST + "}";
         assertEquals(expected, viewPersonCommand.toString());
     }
 

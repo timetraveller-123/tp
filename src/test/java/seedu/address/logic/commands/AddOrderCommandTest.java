@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -32,8 +32,9 @@ class AddOrderCommandTest {
 
     @Test
     public void execute_unfilteredList_success() {
+
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST_PERSON, orderNumber, medicineName, false);
+        AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST, orderNumber, medicineName, false);
         Order order = new Order(orderNumber, model.getFilteredPersonList().get(0), medicineName);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
@@ -48,11 +49,11 @@ class AddOrderCommandTest {
     public void execute_filteredList_success() {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showPersonAtIndex(model, INDEX_FIRST);
 
-        Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
 
-        AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST_PERSON, orderNumber, medicineName, false);
+        AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST, orderNumber, medicineName, false);
 
         String expectedMessage = AddOrderCommand.MESSAGE_SUCCESS;
 
@@ -68,7 +69,7 @@ class AddOrderCommandTest {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         Person person = new PersonBuilder().withAllergies(medicineName).build();
         model.addPerson(person);
-        AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST_PERSON, orderNumber, medicineName, true);
+        AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST, orderNumber, medicineName, true);
 
         Order order = new Order(orderNumber, model.getFilteredPersonList().get(0), medicineName);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
@@ -83,8 +84,9 @@ class AddOrderCommandTest {
     public void execute_filteredList_failure() {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        showPersonAtIndex(model, INDEX_FIRST);
+        Index outOfBoundIndex = INDEX_SECOND;
+
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
@@ -117,7 +119,7 @@ class AddOrderCommandTest {
 
     @Test
     public void equals() {
-        AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST_PERSON, orderNumber, medicineName, false);
+        AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST, orderNumber, medicineName, false);
         assertTrue(addOrderCommand.equals(addOrderCommand));
         assertFalse(addOrderCommand.equals(null));
     }
@@ -126,7 +128,7 @@ class AddOrderCommandTest {
     public void execute_duplicateOrder_throwsCommandException() {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         Order orderInList = model.getFilteredOrderList().get(0);
-        assertCommandFailure(new AddOrderCommand(INDEX_FIRST_PERSON, orderInList.getOrderNumber() , medicineName, true),
+        assertCommandFailure(new AddOrderCommand(INDEX_FIRST, orderInList.getOrderNumber() , medicineName, true),
                 model, AddOrderCommand.MESSAGE_DUPLICATE_ORDER);
     }
 

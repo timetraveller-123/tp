@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
+import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
 
 /**
@@ -16,12 +17,17 @@ public class Messages {
 
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
+
+    public static final String MESSAGE_INVALID_ORDER_DISPLAYED_INDEX = "The order index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
 
     public static final String MESSAGE_ALLERGIC_TO_MEDICINE = "Warning: This patient is allergic to this medicine! add"
             + " ia/ (ignore allergy) to the end of the command to add this medicine to the order anyway.";
+
+    public static final String MESSAGE_NO_ORDER_WITH_GIVEN_ORDER_NUMBER =
+            "There is no order with %1$s as order number.";
 
 
     /**
@@ -52,6 +58,19 @@ public class Messages {
         person.getTags().forEach(builder::append);
         builder.append("; Allergies: ");
         person.getAllergies().forEach(builder::append);
+        return builder.toString();
+    }
+
+    /**
+     * Formats the {@code person} for display to the user.
+     */
+    public static String formatOrder(Order order) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(order.getOrderNumber())
+                .append("; Person Name: ")
+                .append(order.getPerson().getName())
+                .append("; Medicine Name: ")
+                .append(order.getMedicineName());
         return builder.toString();
     }
 

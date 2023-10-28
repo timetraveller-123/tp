@@ -127,6 +127,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteOrder(Order target) {
+        addressBook.removeOrder(target);
+    }
+
+    @Override
     public Optional<Order> getOrder(String orderNumber) {
         return addressBook.getOrder(orderNumber);
     }
