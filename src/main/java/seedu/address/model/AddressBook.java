@@ -146,7 +146,16 @@ public class AddressBook implements ReadOnlyAddressBook {
         return orders.getOrder(orderNumber);
     }
 
+    /**
+     * Replaces the given order {@code target} in the list with {@code editedOrder}.
+     * {@code target} must exist in the address book.
+     * The order identity of {@code editedOrder} must not be the same as another existing order in the address book.
+     */
+    public void setOrder(Order target, Order editedOrder) {
+        requireNonNull(editedOrder);
 
+        orders.setOrder(target, editedOrder);
+    }
     //// util methods
 
     @Override

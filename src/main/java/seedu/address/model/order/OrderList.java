@@ -106,6 +106,26 @@ public class OrderList implements Iterable<Order> {
         requireAllNonNull(orders);
         internalList.setAll(orders);
     }
+    /**
+     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the list.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     */
+
+    public void setOrder(Order target, Order editedOrder) {
+        requireAllNonNull(target, editedOrder);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new OrderNotFoundException();
+        }
+
+        if (!target.isSameOrder(editedOrder) && contains(editedOrder)) {
+            throw new DuplicateOrderException();
+        }
+
+        internalList.set(index, editedOrder);
+    }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.

@@ -11,6 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.allergy.Allergy;
 import seedu.address.model.order.OrderNumber;
+import seedu.address.model.order.Status;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -162,6 +163,18 @@ public class ParserUtil {
         }
         return new OrderNumber(trimmedOrderNumber);
     }
-
-
+    /**
+     * Parses a {@code Status status} into a {@code Status}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code status} is invalid.
+     */
+    public static Status parseStatus(String status) throws ParseException {
+        requireNonNull(status);
+        String orderStatus = status.trim();
+        if (!Status.isValidOrderStatus(orderStatus)) {
+            throw new ParseException(Status.MESSAGE_CONSTRAINTS);
+        }
+        return new Status(Status.toOrderStatus(orderStatus));
+    }
 }

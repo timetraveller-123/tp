@@ -32,6 +32,8 @@ public class Status {
      */
     public Status(OrderStatus orderStatus) {
         requireNonNull(orderStatus);
+        assert isValidOrderStatus(orderStatus)
+                : "OrderStatus can only be PENDING/PREPARING/COMPLETED/OTHERS";
         checkArgument(isValidOrderStatus(orderStatus), MESSAGE_CONSTRAINTS);
         this.orderStatus = orderStatus;
     }
@@ -43,6 +45,22 @@ public class Status {
      */
     public OrderStatus getStatus() {
         return orderStatus;
+    }
+    /**
+     * Converts String to order Status.
+     *
+     * @param status The status of the order.
+     */
+    public static OrderStatus toOrderStatus(String status) {
+        assert isValidOrderStatus(status)
+                : "OrderStatus can only be PENDING/PREPARING/COMPLETED/OTHERS";
+        checkArgument(isValidOrderStatus(status), MESSAGE_CONSTRAINTS);
+        for (OrderStatus validStatus : OrderStatus.values()) {
+            if (validStatus.toString().equals(status.toUpperCase())) {
+                return validStatus;
+            }
+        }
+        return null;
     }
     /**
      * Returns true if a given orderStatus is a valid status.

@@ -70,7 +70,9 @@ public class Messages {
                 .append("; Person Name: ")
                 .append(order.getPerson().getName())
                 .append("; Medicine Name: ")
-                .append(order.getMedicineName());
+                .append(order.getMedicineName())
+                .append("; Status: ")
+                .append(order.getStatus());
         return builder.toString();
     }
 
