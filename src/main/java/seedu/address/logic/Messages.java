@@ -75,5 +75,15 @@ public class Messages {
                 .append(order.getStatus());
         return builder.toString();
     }
+    /**
+     * Formats the {@code person} for display to the user.
+     */
+    public static String formatStatus(Order order) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(" Order Number: " + order.getOrderNumber())
+                .append("; Updated to Status: ")
+                .append(order.getStatus());
+        return builder.toString();
+    }
 
 }

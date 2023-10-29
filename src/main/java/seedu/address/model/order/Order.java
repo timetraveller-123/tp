@@ -55,7 +55,8 @@ public class Order implements InfoObject {
         }
 
         return otherOrder != null
-                && otherOrder.getOrderNumber().equals(getOrderNumber());
+                && otherOrder.getOrderNumber().equals(getOrderNumber())
+                && otherOrder.getStatus().equals(getStatus());
     }
 
     /**
