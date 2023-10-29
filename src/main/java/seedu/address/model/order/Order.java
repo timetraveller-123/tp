@@ -18,14 +18,16 @@ public class Order implements InfoObject {
     private final Person person;
     private final String medicineName;
 
+    private final Status orderStatus;
     /**
      * Every field must be present and not null.
      */
-    public Order(OrderNumber orderNumber, Person person, String medicineName) {
+    public Order(OrderNumber orderNumber, Person person, String medicineName, Status orderStatus) {
         requireAllNonNull(orderNumber, person, medicineName);
         this.orderNumber = orderNumber;
         this.person = person;
         this.medicineName = medicineName;
+        this.orderStatus = orderStatus;
     }
 
     public OrderNumber getOrderNumber() {
@@ -40,7 +42,9 @@ public class Order implements InfoObject {
         return medicineName;
     }
 
-
+    public Status getStatus() {
+        return orderStatus;
+    }
     /**
      * Returns true if both orders have the same order number.
      * This defines a weaker notion of equality between two orders.
@@ -71,13 +75,14 @@ public class Order implements InfoObject {
         Order otherOrder = (Order) other;
         return orderNumber.equals(otherOrder.orderNumber)
                 && medicineName.equals(otherOrder.medicineName)
-                && person.equals(otherOrder.person);
+                && person.equals(otherOrder.person)
+                && orderStatus.equals(otherOrder.orderStatus);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(orderNumber, person, medicineName);
+        return Objects.hash(orderNumber, person, medicineName, orderStatus);
     }
 
     @Override
@@ -86,6 +91,7 @@ public class Order implements InfoObject {
                 .add("orderNumber", orderNumber)
                 .add("person", person)
                 .add("medicineName", medicineName)
+                .add("status", orderStatus)
                 .toString();
     }
 }

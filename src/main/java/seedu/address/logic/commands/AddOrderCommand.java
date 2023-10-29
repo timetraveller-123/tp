@@ -14,6 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderNumber;
+import seedu.address.model.order.Status;
 import seedu.address.model.person.Person;
 
 /**
@@ -41,6 +42,7 @@ public class AddOrderCommand extends Command {
     private final String medicineName;
 
     private final Boolean ignoreAllergy;
+    private final Status orderStatus;
 
 
     /**
@@ -54,6 +56,7 @@ public class AddOrderCommand extends Command {
         this.orderNumber = orderNumber;
         this.medicineName = medicineName;
         this.ignoreAllergy = ignoreAllergy;
+        this.orderStatus = new Status(Status.OrderStatus.PENDING);
     }
 
     @Override
@@ -72,7 +75,7 @@ public class AddOrderCommand extends Command {
             throw new CommandException(Messages.MESSAGE_ALLERGIC_TO_MEDICINE);
         }
 
-        Order toAdd = new Order(orderNumber, person, medicineName);
+        Order toAdd = new Order(orderNumber, person, medicineName, orderStatus);
         if (model.hasOrder(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ORDER);
         }
@@ -94,7 +97,9 @@ public class AddOrderCommand extends Command {
         }
 
         AddOrderCommand otherAddCommand = (AddOrderCommand) other;
-        return index.equals(otherAddCommand.index) && orderNumber.equals(otherAddCommand.orderNumber)
-                && medicineName.equals(otherAddCommand.medicineName);
+        return index.equals(otherAddCommand.index)
+                && orderNumber.equals(otherAddCommand.orderNumber)
+                && medicineName.equals(otherAddCommand.medicineName)
+                && orderStatus.equals(otherAddCommand.orderStatus);
     }
 }
