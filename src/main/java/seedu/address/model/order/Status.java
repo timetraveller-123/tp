@@ -16,15 +16,14 @@ public class Status {
      */
     public enum OrderStatus {
         PENDING,
-        NOT_PREPARED,
         PREPARING,
         COMPLETED,
         OTHERS
     }
 
     public static final String MESSAGE_CONSTRAINTS = "Order Status can only be"
-            + OrderStatus.NOT_PREPARED + OrderStatus.PREPARING + OrderStatus.COMPLETED + OrderStatus.OTHERS;
-    private OrderStatus orderStatus;
+            + OrderStatus.PENDING + OrderStatus.PREPARING + OrderStatus.COMPLETED + OrderStatus.OTHERS;
+    private final OrderStatus orderStatus;
 
     /**
      * Constructs a {@code Status}.

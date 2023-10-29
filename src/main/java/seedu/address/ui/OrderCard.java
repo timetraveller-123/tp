@@ -43,5 +43,10 @@ public class OrderCard extends UiPart<Region> {
         address.setText(order.getPerson().getAddress().value);
         medicineName.setText(order.getMedicineName());
         status.setText(order.getStatus().toString());
+        status.setWrapText(true);
+
+        // Set the appropriate CSS style class based on the status
+        String statusStyleClass = "status-" + order.getStatus().toString();
+        status.getStyleClass().add(statusStyleClass);
     }
 }
