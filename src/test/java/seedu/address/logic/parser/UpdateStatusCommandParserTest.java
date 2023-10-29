@@ -5,11 +5,13 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.UpdateStatusCommand;
-
+import seedu.address.model.order.Status;
 
 public class UpdateStatusCommandParserTest {
 
@@ -29,6 +31,13 @@ public class UpdateStatusCommandParserTest {
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
     }
 
+    @Test
+    public void parse_validInputWithStatus_returnsUpdateStatusCommand() {
+        UpdateStatusCommand.EditOrderDescriptor descriptor = new UpdateStatusCommand.EditOrderDescriptor();
+        descriptor.setStatus(new Status(Status.OrderStatus.PENDING));
+        UpdateStatusCommand expectedCommand = new UpdateStatusCommand(INDEX_FIRST, descriptor);
+        assertParseSuccess(parser, "1 " + PREFIX_STATUS + "PENDING", expectedCommand);
+    }
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index

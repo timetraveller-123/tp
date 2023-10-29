@@ -1,12 +1,11 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.address.testutil.TypicalOrders.STATUS_COMPLETED;
 import static seedu.address.testutil.TypicalOrders.STATUS_PENDING;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -94,5 +93,31 @@ public class UpdateStatusCommandTest {
 
         // The descriptors have different field values, so they are not considered equal
         assertNotEquals(descriptor, differentDescriptor);
+    }
+    @Test
+    public void equals() {
+        EditOrderDescriptor descriptor = new EditOrderDescriptor();
+        EditOrderDescriptor otherDescriptor = new EditOrderDescriptor();
+        otherDescriptor.setStatus(STATUS_COMPLETED);
+        final UpdateStatusCommand standardCommand = new UpdateStatusCommand(INDEX_FIRST, descriptor);
+
+        // same values -> returns true
+        UpdateStatusCommand commandWithSameValues = new UpdateStatusCommand(INDEX_FIRST, descriptor);
+        assertEquals(standardCommand, commandWithSameValues);
+
+        // same object -> returns true
+        assertEquals(standardCommand, standardCommand);
+
+        // null -> returns false
+        assertNotEquals(null, standardCommand);
+
+        // different types -> returns false
+        assertNotEquals(standardCommand, new EditCommand(INDEX_FIRST, new EditCommand.EditPersonDescriptor()));
+
+        // different index -> returns false
+        assertNotEquals(standardCommand, new UpdateStatusCommand(INDEX_SECOND, descriptor));
+
+        // different descriptor -> returns false
+        assertNotEquals(standardCommand, new UpdateStatusCommand(INDEX_FIRST, otherDescriptor));
     }
 }
