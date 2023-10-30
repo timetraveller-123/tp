@@ -117,9 +117,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        // OrderList may substitute personList after certain commands, so we initialise it here first
-        orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
+        personListPanel = new PersonListPanel(this, logic.getFilteredPersonList());
+        orderListPanel = new OrderListPanel(this, logic.getFilteredOrderList());
         listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -192,7 +191,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @FXML
-    private void handleDisplayInfo(InfoObject objectToDisplay) {
+    public void handleDisplayInfo(InfoObject objectToDisplay) {
         assert(objectToDisplay instanceof Order || objectToDisplay instanceof Person);
         if (objectToDisplay instanceof Order) {
             Order order = (Order) objectToDisplay;

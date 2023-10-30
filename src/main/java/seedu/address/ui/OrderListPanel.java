@@ -9,6 +9,8 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.order.Order;
 
+import seedu.address.ui.MainWindow;
+
 /**
  * Panel containing the list of orders.
  */
@@ -16,14 +18,17 @@ public class OrderListPanel extends UiPart<Region> {
     private static final String FXML = "OrderListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(OrderListPanel.class);
 
+    private final MainWindow mw;
+
     @javafx.fxml.FXML
     private ListView<Order> orderListView;
 
     /**
      * Creates a {@code OrderListPanel} with the given {@code ObservableList}.
      */
-    public OrderListPanel(ObservableList<Order> orderList) {
+    public OrderListPanel(MainWindow mw, ObservableList<Order> orderList) {
         super(FXML);
+        this.mw = mw;
         orderListView.setItems(orderList);
         orderListView.setCellFactory(listView -> new OrderListPanel.OrderListViewCell());
     }
@@ -35,6 +40,10 @@ public class OrderListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Order order, boolean empty) {
             super.updateItem(order, empty);
+            super.setOnMouseClicked(event -> {
+                logger.info(String.format("Order #%s clicked", order.getOrderNumber()));
+                mw.handleDisplayInfo(order);
+            });
 
             if (empty || order == null) {
                 setGraphic(null);
