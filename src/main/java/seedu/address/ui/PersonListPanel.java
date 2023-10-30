@@ -16,6 +16,7 @@ import seedu.address.model.person.Person;
 public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final MainWindow mw;
 
     @FXML
     private ListView<Person> personListView;
@@ -23,8 +24,9 @@ public class PersonListPanel extends UiPart<Region> {
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
      */
-    public PersonListPanel(ObservableList<Person> personList) {
+    public PersonListPanel(MainWindow mw, ObservableList<Person> personList) {
         super(FXML);
+        this.mw = mw;
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
     }
@@ -36,6 +38,10 @@ public class PersonListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Person person, boolean empty) {
             super.updateItem(person, empty);
+            super.setOnMouseClicked(event -> {
+                logger.info(String.format("Person '%s' clicked", person.getName().fullName));
+                mw.handleDisplayInfo(person);
+            });
 
             if (empty || person == null) {
                 setGraphic(null);
