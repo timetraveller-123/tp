@@ -15,7 +15,9 @@
       "address" : "123, Jurong West Ave 6, #08-111",
       "tags" : [ "friends" ]
     },
-    "medicineName" : "Panadol"
+    "medicineName" : "Panadol",
+    "status" : "PENDING"
+
   }, {
     "orderNumber" : 1,
     "person" : {
@@ -25,6 +27,8 @@
       "address" : "123, Jurong West Ave 6, #08-111",
       "tags" : [ "friends" ]
     },
-    "medicineName" : "Panadol"
+    "medicineName" : "Panadol",
+    "status" : "PENDING"
+
   }]
 }

@@ -25,6 +25,7 @@
           </minWidth>
         </Label>
         <Label fx:id="orderNumber" text="\$first" styleClass="cell_big_label" />
+        <Label fx:id="status" text="\$status" />
       </HBox>
       <Label fx:id="personName" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="address" styleClass="cell_small_label" text="\$address" />

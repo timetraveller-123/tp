@@ -28,6 +28,8 @@ public class OrderCard extends UiPart<Region> {
     private Label medicineName;
     @FXML
     private Label id;
+    @FXML
+    private Label status;
 
     /**
      * Creates a {@code OrderCode} with the given {@code Order} and index to display.
@@ -40,5 +42,11 @@ public class OrderCard extends UiPart<Region> {
         personName.setText(order.getPerson().getName().fullName);
         address.setText(order.getPerson().getAddress().value);
         medicineName.setText(order.getMedicineName());
+        status.setText(order.getStatus().toString());
+        status.setWrapText(true);
+
+        // Set the appropriate CSS style class based on the status
+        String statusStyleClass = "status-" + order.getStatus().toString();
+        status.getStyleClass().add(statusStyleClass);
     }
 }

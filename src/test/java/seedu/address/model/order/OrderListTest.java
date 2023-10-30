@@ -23,7 +23,7 @@ class OrderListTest {
     private Order order;
     @BeforeEach
     public void init() {
-        order = new Order(new OrderNumber("1"), CARL, "panadol");
+        order = new Order(new OrderNumber("1"), CARL, "panadol", new Status(Status.OrderStatus.PENDING));
         list = new ArrayList<>();
         list.add(order);
         orderList = new OrderList();
