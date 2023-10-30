@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERNUMBER;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
@@ -38,7 +39,7 @@ public class AddOrderCommand extends Command {
 
     private final Index index;
     private final OrderNumber orderNumber;
-    private final String medicineName;
+    private final Set<String> medicines;
 
     private final Boolean ignoreAllergy;
 
@@ -46,13 +47,13 @@ public class AddOrderCommand extends Command {
     /**
      * @param index        of the person in the filtered person to edit.
      * @param orderNumber  of the order.
-     * @param medicineName represents the name of medicine.
+     * @param medicines    the set of medicines for this order
      */
-    public AddOrderCommand(Index index, OrderNumber orderNumber, String medicineName, Boolean ignoreAllergy) {
-        requireAllNonNull(index, orderNumber, medicineName);
+    public AddOrderCommand(Index index, OrderNumber orderNumber, Set<String> medicines, Boolean ignoreAllergy) {
+        requireAllNonNull(index, orderNumber, medicines);
         this.index = index;
         this.orderNumber = orderNumber;
-        this.medicineName = medicineName;
+        this.medicines = medicines;
         this.ignoreAllergy = ignoreAllergy;
     }
 
@@ -68,11 +69,11 @@ public class AddOrderCommand extends Command {
         Person person = lastShownList.get(index.getZeroBased());
 
         // If person is allergic to medicine and ignoreAllergy is false, throw exception
-        if (person.isAllergicTo(medicineName) && !ignoreAllergy) {
+        if (person.isAllergicToAny(medicines) && !ignoreAllergy) {
             throw new CommandException(Messages.MESSAGE_ALLERGIC_TO_MEDICINE);
         }
 
-        Order toAdd = new Order(orderNumber, person, medicineName);
+        Order toAdd = new Order(orderNumber, person, medicines);
         if (model.hasOrder(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ORDER);
         }
@@ -95,6 +96,6 @@ public class AddOrderCommand extends Command {
 
         AddOrderCommand otherAddCommand = (AddOrderCommand) other;
         return index.equals(otherAddCommand.index) && orderNumber.equals(otherAddCommand.orderNumber)
-                && medicineName.equals(otherAddCommand.medicineName);
+                && medicines.equals(otherAddCommand.medicines);
     }
 }

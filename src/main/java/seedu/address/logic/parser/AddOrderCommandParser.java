@@ -5,6 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_IGNORE_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINENAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERNUMBER;
 
+import java.util.Set;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddOrderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -31,19 +33,17 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddOrderCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ORDERNUMBER, PREFIX_MEDICINENAME);
-
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ORDERNUMBER);
         Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
-
         OrderNumber orderNumber = ParserUtil.parseOrderNumber(argMultimap.getValue(PREFIX_ORDERNUMBER).get());
+        Set<String> medicines = ParserUtil.parseMedicines(argMultimap.getAllValues(PREFIX_MEDICINENAME));
 
         Boolean ignoreAllergy = false;
         if (argMultimap.getValue(PREFIX_IGNORE_ALLERGY).isPresent()) {
             ignoreAllergy = true;
         }
 
-        return new AddOrderCommand(index, orderNumber, argMultimap.getValue(PREFIX_MEDICINENAME).get(), ignoreAllergy);
-
+        return new AddOrderCommand(index, orderNumber, medicines, ignoreAllergy);
     }
 
 }
