@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
@@ -69,8 +70,8 @@ public class Messages {
         builder.append(order.getOrderNumber())
                 .append("; Person Name: ")
                 .append(order.getPerson().getName())
-                .append("; Medicine Name: ")
-                .append(order.getMedicineName());
+                .append("; Medicines: ")
+                .append(StringUtil.unmodifiableSetToCommaSeparatedStr(order.getMedicines()));
         return builder.toString();
     }
 

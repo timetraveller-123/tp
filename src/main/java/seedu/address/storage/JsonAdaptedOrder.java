@@ -1,5 +1,10 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -20,18 +25,20 @@ public class JsonAdaptedOrder {
 
     private final JsonAdaptedPerson person;
 
-    private final String medicineName;
+    private final List<String> medicines = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedOrder} with the given person details.
+     * Constructs a {@code JsonAdaptedOrder} with the given order details.
      */
     @JsonCreator
     public JsonAdaptedOrder(@JsonProperty("orderNumber") String orderNumber,
                             @JsonProperty("person") JsonAdaptedPerson person,
-                            @JsonProperty("medicineName") String medicineName) {
+                            @JsonProperty("medicines") List<String> medicines) {
         this.orderNumber = orderNumber;
         this.person = person;
-        this.medicineName = medicineName;
+        if (medicines != null) {
+            this.medicines.addAll(medicines);
+        }
     }
 
     /**
@@ -40,7 +47,7 @@ public class JsonAdaptedOrder {
     public JsonAdaptedOrder(Order order) {
         this.orderNumber = order.getOrderNumber().value;
         this.person = new JsonAdaptedPerson(order.getPerson());
-        this.medicineName = order.getMedicineName();
+        medicines.addAll(new ArrayList<>(order.getMedicines()));
     }
 
 
@@ -50,6 +57,8 @@ public class JsonAdaptedOrder {
      * @throws IllegalValueException if there were any data constraints violated in the adapted order.
      */
     public Order toModelType() throws IllegalValueException {
+
+        final List<String> orderMedicines = new ArrayList<>(medicines);
 
         if (person == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Person.class.getSimpleName()));
@@ -66,11 +75,13 @@ public class JsonAdaptedOrder {
             throw new IllegalValueException(OrderNumber.MESSAGE_CONSTRAINTS);
         }
 
-        if (medicineName == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "medicineName"));
+        if (orderMedicines.size() < 1) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "medicines"));
         }
 
-        return new Order(new OrderNumber(orderNumber), p, medicineName);
+        final Set<String> modelMedicines = new HashSet<>(orderMedicines);
+
+        return new Order(new OrderNumber(orderNumber), p, modelMedicines);
     }
 
 

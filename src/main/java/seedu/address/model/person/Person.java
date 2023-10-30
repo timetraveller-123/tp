@@ -94,6 +94,14 @@ public class Person implements InfoObject {
     }
 
     /**
+     * Returns true if the person is allergic to any of the given medicines.
+     */
+    public boolean isAllergicToAny(Set<String> medicines) {
+        return medicines.stream().anyMatch(medicine -> allergies.stream().anyMatch(
+                allergy -> allergy.allergyName.equalsIgnoreCase(medicine)));
+    }
+
+    /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */
