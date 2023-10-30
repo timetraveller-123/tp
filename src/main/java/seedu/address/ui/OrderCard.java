@@ -29,6 +29,8 @@ public class OrderCard extends UiPart<Region> {
     private FlowPane medicines;
     @FXML
     private Label id;
+    @FXML
+    private Label status;
 
     /**
      * Creates a {@code OrderCode} with the given {@code Order} and index to display.
@@ -43,5 +45,11 @@ public class OrderCard extends UiPart<Region> {
         order.getMedicines().stream()
                 .sorted()
                 .forEach(medicine -> medicines.getChildren().add(new Label(medicine)));
+        status.setText(order.getStatus().toString());
+        status.setWrapText(true);
+
+        // Set the appropriate CSS style class based on the status
+        String statusStyleClass = "status-" + order.getStatus().toString();
+        status.getStyleClass().add(statusStyleClass);
     }
 }

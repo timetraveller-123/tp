@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderNumber;
+import seedu.address.model.order.Status;
 import seedu.address.model.person.Person;
 
 
@@ -27,18 +28,21 @@ public class JsonAdaptedOrder {
 
     private final List<String> medicines = new ArrayList<>();
 
+    private final JsonAdaptedStatus orderStatus;
     /**
      * Constructs a {@code JsonAdaptedOrder} with the given order details.
      */
     @JsonCreator
     public JsonAdaptedOrder(@JsonProperty("orderNumber") String orderNumber,
                             @JsonProperty("person") JsonAdaptedPerson person,
-                            @JsonProperty("medicines") List<String> medicines) {
+                            @JsonProperty("medicines") List<String> medicines,
+                            @JsonProperty("status") JsonAdaptedStatus orderStatus) {
         this.orderNumber = orderNumber;
         this.person = person;
         if (medicines != null) {
             this.medicines.addAll(medicines);
         }
+        this.orderStatus = orderStatus;
     }
 
     /**
@@ -48,6 +52,7 @@ public class JsonAdaptedOrder {
         this.orderNumber = order.getOrderNumber().value;
         this.person = new JsonAdaptedPerson(order.getPerson());
         medicines.addAll(new ArrayList<>(order.getMedicines()));
+        this.orderStatus = new JsonAdaptedStatus(order.getStatus());
     }
 
 
@@ -63,7 +68,11 @@ public class JsonAdaptedOrder {
         if (person == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Person.class.getSimpleName()));
         }
+        if (orderStatus == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));
+        }
         final Person p = person.toModelType();
+        final Status s = orderStatus.toModelType();
 
 
         if (orderNumber == null) {
@@ -81,8 +90,7 @@ public class JsonAdaptedOrder {
 
         final Set<String> modelMedicines = new HashSet<>(orderMedicines);
 
-        return new Order(new OrderNumber(orderNumber), p, modelMedicines);
+        return new Order(new OrderNumber(orderNumber), p, modelMedicines, s);
     }
-
 
 }

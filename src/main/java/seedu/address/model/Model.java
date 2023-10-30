@@ -104,6 +104,12 @@ public interface Model {
      * @return Order with the specified orderNumber.
      */
     Optional<Order> getOrder(String orderNumber);
+    /**
+     * Replaces the given order {@code target} with {@code editedOrder}.
+     * {@code target} must exist in the address book.
+     * The Order identity of {@code editedOrder} must not be the same as another existing Order in the address book.
+     */
+    void setOrder(Order target, Order editedOrder);
 
 
     /** Returns an unmodifiable view of the filtered person list */

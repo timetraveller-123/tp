@@ -23,6 +23,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderNumber;
+import seedu.address.model.order.Status;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -32,7 +33,7 @@ class AddOrderCommandTest {
     private final OrderNumber orderNumber = new OrderNumber("2");
     private final String medicineName = "panadol";
     private final Set<String> medicines = new HashSet<>(List.of(medicineName));
-
+    private final Status orderStatus = new Status(Status.OrderStatus.PENDING);
 
 
     @Test
@@ -40,7 +41,7 @@ class AddOrderCommandTest {
 
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST, orderNumber, medicines, false);
-        Order order = new Order(orderNumber, model.getFilteredPersonList().get(0), medicines);
+        Order order = new Order(orderNumber, model.getFilteredPersonList().get(0), medicines, orderStatus);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.addOrder(order);
@@ -62,7 +63,7 @@ class AddOrderCommandTest {
 
         String expectedMessage = AddOrderCommand.MESSAGE_SUCCESS;
 
-        Order order = new Order(orderNumber, personInFilteredList, medicines);
+        Order order = new Order(orderNumber, personInFilteredList, medicines, orderStatus);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.addOrder(order);
 
@@ -76,7 +77,7 @@ class AddOrderCommandTest {
         model.addPerson(person);
         AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST, orderNumber, medicines, true);
 
-        Order order = new Order(orderNumber, model.getFilteredPersonList().get(0), medicines);
+        Order order = new Order(orderNumber, model.getFilteredPersonList().get(0), medicines, orderStatus);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.addOrder(order);
 
@@ -99,7 +100,7 @@ class AddOrderCommandTest {
 
         AddOrderCommand addOrderCommand = new AddOrderCommand(outOfBoundIndex, orderNumber, medicines, false);
 
-        Order order = new Order(orderNumber, person, medicines);
+        Order order = new Order(orderNumber, person, medicines, orderStatus);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.addOrder(order);
 
@@ -115,7 +116,7 @@ class AddOrderCommandTest {
                 orderNumber, medicines,
                 false);
 
-        Order order = new Order(orderNumber, model.getFilteredPersonList().get(0), medicines);
+        Order order = new Order(orderNumber, model.getFilteredPersonList().get(0), medicines, orderStatus);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.addOrder(order);
 

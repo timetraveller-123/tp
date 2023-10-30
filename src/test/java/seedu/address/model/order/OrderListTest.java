@@ -24,7 +24,8 @@ class OrderListTest {
     private Order order;
     @BeforeEach
     public void init() {
-        order = new Order(new OrderNumber("1"), CARL, new HashSet<>(List.of("panadol")));
+        order = new Order(new OrderNumber("1"), CARL, new HashSet<>(List.of("panadol")),
+                    new Status(Status.OrderStatus.PENDING));
         list = new ArrayList<>();
         list.add(order);
         orderList = new OrderList();
