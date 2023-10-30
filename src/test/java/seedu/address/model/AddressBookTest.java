@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,9 +52,9 @@ public class AddressBookTest {
         // Two persons with the same identity fields
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        Order order = new Order(new OrderNumber("12"), ALICE, "panadol");
+        Order order = new Order(new OrderNumber("12"), ALICE, new HashSet<>(List.of("panadol")));
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        List<Order> newOrders = Arrays.asList(order);
+        List<Order> newOrders = List.of(order);
         AddressBookStub newData = new AddressBookStub(newPersons, newOrders);
 
         assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));

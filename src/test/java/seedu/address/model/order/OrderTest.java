@@ -5,15 +5,18 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
+import java.util.HashSet;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 class OrderTest {
-    private final Order order = new Order(new OrderNumber("1"), ALICE, "panadol");
+    private final Order order = new Order(new OrderNumber("1"), ALICE, new HashSet<>(List.of("panadol")));
     @Test
     public void toStringMethod() {
         String expected = Order.class.getCanonicalName() + "{orderNumber=" + order.getOrderNumber()
                 + ", person=" + order.getPerson().toString()
-                + ", medicineName=" + order.getMedicineName() + "}";
+                + ", medicines=" + order.getMedicines() + "}";
         assertEquals(expected, order.toString());
     }
 
@@ -26,7 +29,7 @@ class OrderTest {
         //null -> returns false
         assertFalse(order.equals(null));
 
-        Order newOrder = new Order(new OrderNumber("1"), ALICE, "panadol");
+        Order newOrder = new Order(new OrderNumber("1"), ALICE, new HashSet<>(List.of("panadol")));
 
         //all attributes same -> return true
         assertTrue(order.equals(newOrder));

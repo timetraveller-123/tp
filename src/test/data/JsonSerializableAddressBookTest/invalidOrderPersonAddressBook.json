@@ -15,6 +15,6 @@
       "address" : "123, Jurong West Ave 6, #08-111",
       "tags" : [ "friends" ]
     },
-    "medicineName" : "Panadol"
+    "medicines" : [ "Panadol" ]
   }]
 }

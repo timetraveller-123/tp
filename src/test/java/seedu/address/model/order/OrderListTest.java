@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalOrders.CARL_PANADOL_ORDER;
 import static seedu.address.testutil.TypicalPersons.CARL;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +24,7 @@ class OrderListTest {
     private Order order;
     @BeforeEach
     public void init() {
-        order = new Order(new OrderNumber("1"), CARL, "panadol");
+        order = new Order(new OrderNumber("1"), CARL, new HashSet<>(List.of("panadol")));
         list = new ArrayList<>();
         list.add(order);
         orderList = new OrderList();
