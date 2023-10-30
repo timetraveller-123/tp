@@ -4,9 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDERS;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -18,6 +21,7 @@ import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderNumber;
 import seedu.address.model.order.Status;
 import seedu.address.model.person.Person;
+
 
 /**
  * Edits the details of an existing person in the address book.
@@ -83,7 +87,7 @@ public class UpdateStatusCommand extends Command {
 
         OrderNumber updatedOrderNumber = orderToEdit.getOrderNumber();
         Person updatedPerson = editOrderDescriptor.getPerson().orElse(orderToEdit.getPerson());
-        String updatedMedicineName = editOrderDescriptor.getMedicineName().orElse(orderToEdit.getMedicineName());
+        Set<String> updatedMedicineName = editOrderDescriptor.getMedicines().orElse(orderToEdit.getMedicines());
         Status updatedStatus = editOrderDescriptor.getStatus().orElse(orderToEdit.getStatus());
 
         return new Order(updatedOrderNumber, updatedPerson, updatedMedicineName, updatedStatus);
@@ -120,8 +124,8 @@ public class UpdateStatusCommand extends Command {
     public static class EditOrderDescriptor {
         private OrderNumber orderNumber;
         private Person person;
-        private String medicineName;
         private Status status;
+        private Set<String> medicines;
 
         public EditOrderDescriptor() {}
 
@@ -132,7 +136,7 @@ public class UpdateStatusCommand extends Command {
         public EditOrderDescriptor(EditOrderDescriptor toCopy) {
             setOrderNumber(toCopy.orderNumber);
             setPerson(toCopy.person);
-            setMedicineName(toCopy.medicineName);
+            setMedicines(toCopy.medicines);
             setStatus(toCopy.status);
         }
 
@@ -140,7 +144,7 @@ public class UpdateStatusCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(orderNumber, person, medicineName, status);
+            return CollectionUtil.isAnyNonNull(orderNumber, person, medicines, status);
         }
 
         public void setOrderNumber(OrderNumber orderNumber) {
@@ -159,12 +163,21 @@ public class UpdateStatusCommand extends Command {
             return Optional.ofNullable(person);
         }
 
-        public void setMedicineName(String medicineName) {
-            this.medicineName = medicineName;
+        /**
+         * Sets {@code medicines} to this object's {@code medicines}.
+         * A defensive copy of {@code medicines} is used internally.
+         */
+        public void setMedicines(Set<String> medicines) {
+            this.medicines = (medicines != null) ? new HashSet<>(medicines) : null;
         }
 
-        public Optional<String> getMedicineName() {
-            return Optional.ofNullable(medicineName);
+        /**
+         * Returns an unmodifiable medicines set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code medicines} is null.
+         */
+        public Optional<Set<String>> getMedicines() {
+            return (medicines != null) ? Optional.of(Collections.unmodifiableSet(medicines)) : Optional.empty();
         }
 
         public void setStatus(Status orderStatus) {
@@ -189,7 +202,7 @@ public class UpdateStatusCommand extends Command {
             EditOrderDescriptor otherEditOrderDescriptor = (EditOrderDescriptor) other;
             return Objects.equals(orderNumber, otherEditOrderDescriptor.orderNumber)
                     && Objects.equals(person, otherEditOrderDescriptor.person)
-                    && Objects.equals(medicineName, otherEditOrderDescriptor.medicineName)
+                    && Objects.equals(medicines, otherEditOrderDescriptor.medicines)
                     && Objects.equals(status, otherEditOrderDescriptor.status);
         }
 
@@ -198,7 +211,7 @@ public class UpdateStatusCommand extends Command {
             return new ToStringBuilder(this)
                     .add("orderNumber", orderNumber)
                     .add("person", person)
-                    .add("medicineName", medicineName)
+                    .add("medicines", medicines)
                     .add("status", status)
                     .toString();
         }
