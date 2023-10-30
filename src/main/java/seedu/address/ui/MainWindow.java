@@ -191,7 +191,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @FXML
-    public void handleDisplayInfo(InfoObject objectToDisplay) {
+    protected void handleDisplayInfo(InfoObject objectToDisplay) {
         assert(objectToDisplay instanceof Order || objectToDisplay instanceof Person);
         if (objectToDisplay instanceof Order) {
             Order order = (Order) objectToDisplay;

@@ -9,8 +9,6 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.order.Order;
 
-import seedu.address.ui.MainWindow;
-
 /**
  * Panel containing the list of orders.
  */
