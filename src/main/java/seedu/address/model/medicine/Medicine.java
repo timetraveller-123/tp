@@ -13,16 +13,25 @@ import seedu.address.commons.util.ToStringBuilder;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Medicine {
+
+    public static final String MESSAGE_MEDICINE_NAME_CONSTRAINTS =
+            "Medicine Names should not be empty"; // temporarily this will change soon
+
+    public static final String MESSAGE_SHORT_FORM_CONSTRAINTS =
+            "Medicine fhort forms should not be empty"; // temporarily this will change soon
+
+
+
     public final String medicineName;
 
-    public final String shorfForm;
+    public final String shortForm;
     /**
      * Every field must be present and not null.
      */
     public Medicine(String medicineName) {
         requireNonNull(medicineName);
         this.medicineName = medicineName;
-        this.shorfForm = "";
+        this.shortForm = "";
     }
 
     /**
@@ -31,7 +40,7 @@ public class Medicine {
     public Medicine(String medicineName, String shorfForm) {
         requireAllNonNull(medicineName, shorfForm);
         this.medicineName = medicineName;
-        this.shorfForm = shorfForm;
+        this.shortForm = shorfForm;
     }
 
     public String getMedicineName() {
@@ -39,7 +48,7 @@ public class Medicine {
     }
 
     public String getShorfForm() {
-        return this.shorfForm;
+        return this.shortForm;
     }
 
 
@@ -52,7 +61,11 @@ public class Medicine {
             return true;
         }
 
-        return m != null && m.medicineName.equals(this.medicineName);
+        if (m != null && medicineName.equals(m.medicineName)) {
+            return true;
+        }
+
+        return m != null && !shortForm.isEmpty() && shortForm.equals(m.shortForm);
     }
 
     /**
@@ -69,19 +82,27 @@ public class Medicine {
         }
 
         Medicine otherMedicine = (Medicine) o;
-        return medicineName.equals(otherMedicine.medicineName) && shorfForm.equals(otherMedicine.shorfForm);
+        return medicineName.equals(otherMedicine.medicineName) && shortForm.equals(otherMedicine.shortForm);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(medicineName, shorfForm);
+        return Objects.hash(medicineName, shortForm);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("medicineName", medicineName)
-                .add("shortForm", shorfForm)
+                .add("shortForm", shortForm)
                 .toString();
+    }
+
+    public static boolean isValidMedicineName(String s) {
+        return true; // temporarily left to true will change in future commit
+    }
+
+    public static boolean isValidShortForm(String s) {
+        return true; //same as above
     }
 }
