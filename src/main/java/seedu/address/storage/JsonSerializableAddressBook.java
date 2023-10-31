@@ -30,7 +30,7 @@ class JsonSerializableAddressBook {
 
     private final List<JsonAdaptedOrder> orders = new ArrayList<>();
 
-    private final List<JsonAdaptedMedicine> medicines = new ArrayList<>();
+    private final List<JsonAdaptedMedicine> medicineList = new ArrayList<>();
 
 
     /**
@@ -39,10 +39,10 @@ class JsonSerializableAddressBook {
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
                                        @JsonProperty("orders") List<JsonAdaptedOrder> orders,
-                                       @JsonProperty("medicineList") List<JsonAdaptedMedicine> medicines) {
+                                       @JsonProperty("medicineList") List<JsonAdaptedMedicine> medicineList) {
         this.persons.addAll(persons);
         this.orders.addAll(orders);
-        this.medicines.addAll(medicines);
+        this.medicineList.addAll(medicineList);
     }
 
     /**
@@ -53,7 +53,7 @@ class JsonSerializableAddressBook {
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
         orders.addAll(source.getOrderList().stream().map(JsonAdaptedOrder::new).collect(Collectors.toList()));
-        medicines.addAll(source.getMedicineList().stream().map(JsonAdaptedMedicine::new).collect(Collectors.toList()));
+        medicineList.addAll(source.getMedicineList().stream().map(JsonAdaptedMedicine::new).collect(Collectors.toList()));
     }
 
     /**
@@ -70,13 +70,16 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
-        for (JsonAdaptedMedicine jsonAdaptedMedicine : medicines) {
+
+        for (JsonAdaptedMedicine jsonAdaptedMedicine : medicineList) {
             Medicine medicine = jsonAdaptedMedicine.toModelType();
             if (addressBook.hasMedicine(medicine)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MEDICINE);
             }
             addressBook.addMedicine(medicine);
         }
+
+
         for (JsonAdaptedOrder jsonAdaptedOrder : orders) {
             Order order = jsonAdaptedOrder.toModelType();
             if (addressBook.hasOrder(order)) {
@@ -87,6 +90,8 @@ class JsonSerializableAddressBook {
             }
             addressBook.addOrder(order);
         }
+
+
         return addressBook;
     }
 
