@@ -56,7 +56,7 @@ public class Allergy {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + allergy.toString() + ']';
+        return '[' + allergy.getMedicineName() + ']';
     }
 
     /**
