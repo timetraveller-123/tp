@@ -1,7 +1,8 @@
 package seedu.address.model.allergy;
 
+import seedu.address.model.medicine.Medicine;
+
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Allergy of a patient.
@@ -12,17 +13,16 @@ public class Allergy {
     public static final String MESSAGE_CONSTRAINTS = "Allergy names should be alphanumeric";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
-    public final String allergyName;
+    public final Medicine allergy;
 
     /**
      * Constructs a {@code Allergy}.
      *
-     * @param allergyName A valid allergy name.
+     * @param allergy A valid medicine.
      */
-    public Allergy(String allergyName) {
-        requireNonNull(allergyName);
-        checkArgument(isValidAllergyName(allergyName), MESSAGE_CONSTRAINTS);
-        this.allergyName = allergyName;
+    public Allergy(Medicine allergy) {
+        requireNonNull(allergy);
+        this.allergy = allergy;
     }
 
     /**
@@ -44,19 +44,26 @@ public class Allergy {
         }
 
         Allergy otherAllergy = (Allergy) other;
-        return allergyName.equals(otherAllergy.allergyName);
+        return allergy.equals(otherAllergy.allergy);
     }
 
     @Override
     public int hashCode() {
-        return allergyName.hashCode();
+        return allergy.hashCode();
     }
 
     /**
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + allergyName + ']';
+        return '[' + allergy.toString() + ']';
+    }
+
+    /**
+     * Retruns a copy of the allergic medicine.
+     */
+    public Medicine getAllery() {
+        return new Medicine(allergy.getMedicineName(), allergy.getShorfForm());
     }
 
 }

@@ -10,6 +10,7 @@ import java.util.Set;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.InfoObject;
 import seedu.address.model.allergy.Allergy;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -89,16 +90,15 @@ public class Person implements InfoObject {
     /**
      * Returns true if the person is allergic to the medicine.
      */
-    public boolean isAllergicTo(String medicineName) {
-        return allergies.stream().anyMatch(allergy ->allergy.allergyName.equals(medicineName));
+    public boolean isAllergicTo(Medicine medicine) {
+        return allergies.stream().anyMatch(allergy -> medicine.isSameMedicine(allergy.getAllery()));
     }
 
     /**
      * Returns true if the person is allergic to any of the given medicines.
      */
-    public boolean isAllergicToAny(Set<String> medicines) {
-        return medicines.stream().anyMatch(medicine -> allergies.stream().anyMatch(
-                allergy -> allergy.allergyName.equalsIgnoreCase(medicine)));
+    public boolean isAllergicToAny(Set<Medicine> medicines) {
+        return medicines.stream().anyMatch(medicine -> isAllergicTo(medicine));
     }
 
     /**

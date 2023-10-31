@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.allergy.Allergy;
+import seedu.address.model.medicine.Medicine;
 
 /**
  * Jackson-friendly version of {@link Allergy}.
@@ -25,7 +26,7 @@ class JsonAdaptedAllergy {
      * Converts a given {@code Allergy} into this class for Jackson use.
      */
     public JsonAdaptedAllergy(Allergy source) {
-        allergyName = source.allergyName;
+        allergyName = source.allergy.getMedicineName();
     }
 
     @JsonValue
@@ -42,7 +43,7 @@ class JsonAdaptedAllergy {
         if (!Allergy.isValidAllergyName(allergyName)) {
             throw new IllegalValueException(Allergy.MESSAGE_CONSTRAINTS);
         }
-        return new Allergy(allergyName);
+        return new Allergy(new Medicine(allergyName));
     }
 
 }

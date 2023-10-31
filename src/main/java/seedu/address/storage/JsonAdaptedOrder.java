@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderNumber;
 import seedu.address.model.order.Status;
@@ -51,7 +53,7 @@ public class JsonAdaptedOrder {
     public JsonAdaptedOrder(Order order) {
         this.orderNumber = order.getOrderNumber().value;
         this.person = new JsonAdaptedPerson(order.getPerson());
-        medicines.addAll(new ArrayList<>(order.getMedicines()));
+        medicines.addAll(order.getMedicines().stream().map(Medicine::getMedicineName).collect(Collectors.toList()));
         this.orderStatus = new JsonAdaptedStatus(order.getStatus());
     }
 
@@ -63,7 +65,7 @@ public class JsonAdaptedOrder {
      */
     public Order toModelType() throws IllegalValueException {
 
-        final List<String> orderMedicines = new ArrayList<>(medicines);
+        final List<Medicine> orderMedicines = medicines.stream().map(x -> new Medicine(x)).collect(Collectors.toList());
 
         if (person == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Person.class.getSimpleName()));
@@ -88,7 +90,7 @@ public class JsonAdaptedOrder {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "medicines"));
         }
 
-        final Set<String> modelMedicines = new HashSet<>(orderMedicines);
+        final Set<Medicine> modelMedicines = new HashSet<>(orderMedicines);
 
         return new Order(new OrderNumber(orderNumber), p, modelMedicines, s);
     }
