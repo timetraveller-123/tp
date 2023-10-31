@@ -8,6 +8,8 @@ import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.MedicineList;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderList;
 import seedu.address.model.person.Person;
@@ -23,6 +25,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final OrderList orders;
 
+    private final MedicineList medicines;
+
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -33,6 +37,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         orders = new OrderList();
+        medicines = new MedicineList();
     }
 
     public AddressBook() {}
@@ -63,6 +68,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the medicine list with {@code medicines}.
+     */
+    public void setMedicines(List<Medicine> medicines) {
+        this.medicines.setOrders(medicines);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -70,6 +82,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setOrders(newData.getOrderList());
+        setMedicines(newData.getMedicineList());
     }
 
 
@@ -156,6 +169,45 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         orders.setOrder(target, editedOrder);
     }
+
+    //// medicine-level operations
+
+    /**
+     * Returns true if a medicine with the same identity as {@code medicine} exists in the address book.
+     */
+    public boolean hasMedicine(Medicine medicine) {
+        requireNonNull(medicine);
+        return medicines.contains(medicine);
+    }
+
+    /**
+     * Adds a medicine to the address book.
+     */
+    public void addMedicine(Medicine m) {
+        medicines.add(m);
+    }
+
+    /**
+     * Removes {@code key} {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeMedicine(Medicine m) {
+        medicines.remove(m);
+    }
+
+    /**
+     * Replaces the given medicine {@code target} in the list with {@code editedMedicine}.
+     * {@code target} must exist in the address book.
+     * The medicine identity of {@code editedMedicine} must not be the same as another existing medicine
+     * in the address book.
+     */
+    public void setMedicine(Medicine target, Medicine editedMedicine) {
+        requireNonNull(editedMedicine);
+
+        medicines.setMedicine(target, editedMedicine);
+    }
+
+
     //// util methods
 
     @Override
@@ -177,6 +229,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Medicine> getMedicineList() {
+        return medicines.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -188,7 +245,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons) && orders.equals(otherAddressBook.orders);
+        return persons.equals(otherAddressBook.persons)
+                && orders.equals(otherAddressBook.orders)
+                && medicines.equals(otherAddressBook.medicines);
     }
 
     @Override

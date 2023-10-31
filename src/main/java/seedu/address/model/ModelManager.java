@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
 
@@ -140,6 +141,29 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedOrder);
 
         addressBook.setOrder(target, editedOrder);
+    }
+
+    @Override
+    public void addMedicine(Medicine medicine) {
+        requireNonNull(medicine);
+        addressBook.addMedicine(medicine);
+    }
+
+    @Override
+    public void deleteMedicine(Medicine medicine) {
+        addressBook.removeMedicine(medicine);
+    }
+    @Override
+    public boolean hasMedicine(Medicine medicine) {
+        requireNonNull(medicine);
+        return addressBook.hasMedicine(medicine);
+    }
+
+    @Override
+    public void setMedicine(Medicine target, Medicine editedMedicine) {
+        requireAllNonNull(target, editedMedicine);
+
+        addressBook.setMedicine(target, editedMedicine);
     }
 
     //=========== Filtered Person List Accessors =============================================================

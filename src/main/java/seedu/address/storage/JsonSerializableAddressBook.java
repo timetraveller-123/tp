@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
 
@@ -22,11 +23,14 @@ class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
     public static final String MESSAGE_DUPLICATE_ORDER = "Orders list contains duplicate order(s).";
+    public static final String MESSAGE_DUPLICATE_MEDICINE = "Medicines list contains duplicate medicine(s)";
     public static final String MESSAGE_INVALID_PERSON = "Order(s) belongs to person not in the Persons list";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
     private final List<JsonAdaptedOrder> orders = new ArrayList<>();
+
+    private final List<JsonAdaptedMedicine> medicines = new ArrayList<>();
 
 
     /**
@@ -34,9 +38,11 @@ class JsonSerializableAddressBook {
      */
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
-                                       @JsonProperty("orders") List<JsonAdaptedOrder> orders) {
+                                       @JsonProperty("orders") List<JsonAdaptedOrder> orders,
+                                       @JsonProperty("medicineList") List<JsonAdaptedMedicine> medicines) {
         this.persons.addAll(persons);
         this.orders.addAll(orders);
+        this.medicines.addAll(medicines);
     }
 
     /**
@@ -47,6 +53,7 @@ class JsonSerializableAddressBook {
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
         orders.addAll(source.getOrderList().stream().map(JsonAdaptedOrder::new).collect(Collectors.toList()));
+        medicines.addAll(source.getMedicineList().stream().map(JsonAdaptedMedicine::new).collect(Collectors.toList()));
     }
 
     /**
@@ -62,6 +69,13 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             addressBook.addPerson(person);
+        }
+        for (JsonAdaptedMedicine jsonAdaptedMedicine : medicines) {
+            Medicine medicine = jsonAdaptedMedicine.toModelType();
+            if (addressBook.hasMedicine(medicine)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MEDICINE);
+            }
+            addressBook.addMedicine(medicine);
         }
         for (JsonAdaptedOrder jsonAdaptedOrder : orders) {
             Order order = jsonAdaptedOrder.toModelType();
