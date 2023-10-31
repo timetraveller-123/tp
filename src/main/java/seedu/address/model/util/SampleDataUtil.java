@@ -52,10 +52,10 @@ public class SampleDataUtil {
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
-        Set<Medicine> meds = getMedicineSet("Paracetamol", "Penicillin", "Panadol", "Ibuprofen");
-        for (Medicine sampleMedicine : meds) {
-            sampleAb.addMedicine(sampleMedicine);
-        }
+        sampleAb.addMedicine(new Medicine("Paracetamol", "par"));
+        sampleAb.addMedicine(new Medicine("Panadol", "pan"));
+        sampleAb.addMedicine(new Medicine("Penicillin", "pen"));
+        sampleAb.addMedicine(new Medicine("Ibuprofen", "ibu"));
         return sampleAb;
     }
 
@@ -74,15 +74,6 @@ public class SampleDataUtil {
     public static Set<Allergy> getAllergySet(String... strings) {
         return Arrays.stream(strings)
                 .map(x -> new Allergy(new Medicine(x)))
-                .collect(Collectors.toSet());
-    }
-
-    /**
-     * Returns a medicine set containing the list of strings given.
-     */
-    public static Set<Medicine> getMedicineSet(String... strings) {
-        return Arrays.stream(strings)
-                .map(x -> new Medicine(x))
                 .collect(Collectors.toSet());
     }
 

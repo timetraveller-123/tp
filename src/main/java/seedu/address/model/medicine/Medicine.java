@@ -70,7 +70,7 @@ public class Medicine {
         }
 
         //for use in short form expansion
-        if (m != null && m.getMedicineName().equals(shortForm)) {
+        if (m != null && medicineName.equals(m.shortForm)) {
             return true;
         }
 
