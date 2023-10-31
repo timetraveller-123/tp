@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.order.Order;
 
 /**
@@ -42,9 +43,9 @@ public class OrderCard extends UiPart<Region> {
         orderNumber.setText("Order #" + order.getOrderNumber());
         personName.setText(order.getPerson().getName().fullName);
         address.setText(order.getPerson().getAddress().value);
-        order.getMedicines().stream()
+        order.getMedicines().stream().map(Medicine::getMedicineName)
                 .sorted()
-                .forEach(medicine -> medicines.getChildren().add(new Label(medicine.getMedicineName())));
+                .forEach(medicine -> medicines.getChildren().add(new Label(medicine)));
         status.setText(order.getStatus().toString());
         status.setWrapText(true);
 

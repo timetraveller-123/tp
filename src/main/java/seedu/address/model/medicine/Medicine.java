@@ -6,8 +6,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.commons.util.ToStringBuilder;
-
 
 /**
  * Represents a Medicine in the address book.
@@ -104,10 +102,7 @@ public class Medicine {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("medicineName", medicineName)
-                .add("shortForm", shortForm)
-                .toString();
+        return "[ " + medicineName + " ]";
     }
 
     public static boolean isValidMedicineName(String s) {
