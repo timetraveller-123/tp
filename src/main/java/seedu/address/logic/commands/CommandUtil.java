@@ -9,6 +9,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.medicine.Medicine;
 
+/**
+ * A class which contains utility methods for commands.
+ */
 public class CommandUtil {
 
     /**

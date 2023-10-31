@@ -7,6 +7,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -15,9 +19,7 @@ import seedu.address.model.allergy.Allergy;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.Person;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
+
 
 /**
  * Adds a person to the address book.

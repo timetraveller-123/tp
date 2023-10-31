@@ -11,7 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.medicine.exceptions.DuplicateMedicineException;
 import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
-import seedu.address.model.order.Order;
 
 
 /**

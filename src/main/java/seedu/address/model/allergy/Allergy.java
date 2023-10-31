@@ -1,8 +1,9 @@
 package seedu.address.model.allergy;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.model.medicine.Medicine;
 
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Allergy of a patient.

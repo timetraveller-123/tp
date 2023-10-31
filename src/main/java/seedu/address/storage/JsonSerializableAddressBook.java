@@ -1,8 +1,8 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -59,7 +59,8 @@ class JsonSerializableAddressBook {
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
         orders.addAll(source.getOrderList().stream().map(JsonAdaptedOrder::new).collect(Collectors.toList()));
-        medicineList.addAll(source.getMedicineList().stream().map(JsonAdaptedMedicine::new).collect(Collectors.toList()));
+        medicineList.addAll(source.getMedicineList().stream().map(JsonAdaptedMedicine::new)
+                .collect(Collectors.toList()));
     }
 
     /**
