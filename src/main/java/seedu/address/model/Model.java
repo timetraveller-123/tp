@@ -134,6 +134,13 @@ public interface Model {
     void deleteMedicine(Medicine medicine);
 
     /**
+     * Gets the medicine that has the identity as the given oven.
+     * @param medicine
+     * @return medicine with the same identity.
+     */
+    Optional<Medicine> getMedicine(Medicine medicine);
+
+    /**
      * Replaces the given medicine {@code target} with {@code editedMedicine}.
      * {@code target} must exist in the address book.
      * The Medicine identity of {@code editedMedicine} must not be the same as another existing Medicine in the
@@ -161,4 +168,15 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredOrderList(Predicate<Order> predicate);
+
+    /** Returns an unmodifiable view of the filtered medicine list */
+    ObservableList<Medicine> getFilteredMedicineList();
+
+    /**
+     * Updates the filter of the filtered medicine list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredMedicineList(Predicate<Medicine> predicate);
+
+
 }

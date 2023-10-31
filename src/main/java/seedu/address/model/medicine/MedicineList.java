@@ -4,11 +4,15 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.medicine.exceptions.DuplicateMedicineException;
 import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
+import seedu.address.model.order.Order;
+
 
 /**
  * A list of medicines that enforces uniqueness between its elements and does not allow nulls.
@@ -66,6 +70,16 @@ public class MedicineList {
     public void setOrders(List<Medicine> medicines) {
         requireAllNonNull(medicines);
         internalList.setAll(medicines);
+    }
+
+
+    /**
+     * Retrieves the medicine with the same identity as given medicine specified by Medicine#isSameMedicine(Medicine)
+     */
+    public Optional<Medicine> getMedicine(Medicine medicine) {
+        Stream<Medicine> filtered = internalList.stream().filter(m ->
+                medicine.isSameMedicine(m));
+        return filtered.findFirst();
     }
 
 

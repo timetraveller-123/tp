@@ -64,20 +64,23 @@ public class AddOrderCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        Set<Medicine> convertedMedicines = CommandUtil.getModelMedicine(model, medicines);
+
         Person person = lastShownList.get(index.getZeroBased());
 
         // If person is allergic to medicine and ignoreAllergy is false, throw exception
-        if (person.isAllergicToAny(medicines) && !ignoreAllergy) {
+        if (person.isAllergicToAny(convertedMedicines) && !ignoreAllergy) {
             throw new CommandException(Messages.MESSAGE_ALLERGIC_TO_MEDICINE);
         }
 
-        Order toAdd = new Order(orderNumber, person, medicines, orderStatus);
+        Order toAdd = new Order(orderNumber, person, convertedMedicines, orderStatus);
 
         if (model.hasOrder(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ORDER);

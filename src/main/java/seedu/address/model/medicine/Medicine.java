@@ -65,7 +65,16 @@ public class Medicine {
             return true;
         }
 
-        return m != null && !shortForm.isEmpty() && shortForm.equals(m.shortForm);
+        if (m != null && !shortForm.isEmpty() && shortForm.equals(m.shortForm)) {
+            return true;
+        }
+
+        //for use in short form expansion
+        if (m != null && m.getMedicineName().equals(shortForm)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

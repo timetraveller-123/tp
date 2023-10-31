@@ -24,4 +24,6 @@ public interface ReadOnlyAddressBook {
     ObservableList<Medicine> getMedicineList();
 
     Optional<Order> getOrder(String orderNumber);
+
+    Optional<Medicine> getMedicine(Medicine medicine);
 }

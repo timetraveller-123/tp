@@ -30,6 +30,7 @@ public class Messages {
     public static final String MESSAGE_NO_ORDER_WITH_GIVEN_ORDER_NUMBER =
             "There is no order with %1$s as order number.";
 
+    public static final String MESSAGE_INVALID_MEDICINE = "Provided medicine(s) do not exist.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

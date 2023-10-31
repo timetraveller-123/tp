@@ -196,6 +196,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Retrieves the medicine with the same identity as the given one.
+     */
+    public Optional<Medicine> getMedicine(Medicine medicine) {
+        return medicines.getMedicine(medicine);
+    }
+
+    /**
      * Replaces the given medicine {@code target} in the list with {@code editedMedicine}.
      * {@code target} must exist in the address book.
      * The medicine identity of {@code editedMedicine} must not be the same as another existing medicine
