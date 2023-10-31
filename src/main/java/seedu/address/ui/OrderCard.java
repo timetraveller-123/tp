@@ -44,7 +44,7 @@ public class OrderCard extends UiPart<Region> {
         address.setText(order.getPerson().getAddress().value);
         order.getMedicines().stream()
                 .sorted()
-                .forEach(medicine -> medicines.getChildren().add(new Label(medicine)));
+                .forEach(medicine -> medicines.getChildren().add(new Label(medicine.getMedicineName())));
         status.setText(order.getStatus().toString());
         status.setWrapText(true);
 
