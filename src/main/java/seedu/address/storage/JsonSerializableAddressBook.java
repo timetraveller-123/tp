@@ -2,6 +2,9 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -11,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.allergy.Allergy;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
@@ -25,6 +29,8 @@ class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_ORDER = "Orders list contains duplicate order(s).";
     public static final String MESSAGE_DUPLICATE_MEDICINE = "Medicines list contains duplicate medicine(s)";
     public static final String MESSAGE_INVALID_PERSON = "Order(s) belongs to person not in the Persons list";
+
+    public static final String MESSAGE_INVALID_MEDICINE = "Data contains medicine(s) not in the medicine list";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
@@ -63,13 +69,6 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-            }
-            addressBook.addPerson(person);
-        }
 
         for (JsonAdaptedMedicine jsonAdaptedMedicine : medicineList) {
             Medicine medicine = jsonAdaptedMedicine.toModelType();
@@ -80,6 +79,28 @@ class JsonSerializableAddressBook {
         }
 
 
+        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
+            Person person = jsonAdaptedPerson.toModelType();
+            if (addressBook.hasPerson(person)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            }
+
+            Set<Medicine> allergyMedicines = new HashSet<>(person.getAllergies().stream()
+                    .map(Allergy::getAllery).collect(Collectors.toList()));
+            Set<Medicine> convertedMedicines = getMedicines(addressBook, allergyMedicines);
+
+            Set<Allergy> convertedAllergies = new HashSet<>(convertedMedicines.stream().map(Allergy::new)
+                    .collect(Collectors.toList()));
+
+            Person newPerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
+                    person.getAddress(), person.getTags(), convertedAllergies);
+
+
+            addressBook.addPerson(newPerson);
+        }
+
+
+
         for (JsonAdaptedOrder jsonAdaptedOrder : orders) {
             Order order = jsonAdaptedOrder.toModelType();
             if (addressBook.hasOrder(order)) {
@@ -88,11 +109,31 @@ class JsonSerializableAddressBook {
             if (addressBook.getPersonList().stream().noneMatch(order.getPerson()::equals)) {
                 throw new IllegalValueException(MESSAGE_INVALID_PERSON);
             }
-            addressBook.addOrder(order);
+            Set<Medicine> convertedMedicines = getMedicines(addressBook, order.getMedicines());
+            Order toAdd = new Order(order.getOrderNumber(), order.getPerson(), convertedMedicines, order.getStatus());
+            addressBook.addOrder(toAdd);
         }
 
 
         return addressBook;
+    }
+
+    /**
+     * Converts the given set of medicines to another set of medicines with medicine short forms expanded to
+     * the full name of the medicine as it is in the given addressbook.
+     * Throws Illegal Value exception if the given medicine name or its short form cannot be found in the given
+     * addressbook.
+     */
+    public static Set<Medicine> getMedicines(AddressBook ab, Set<Medicine> medicines) throws IllegalValueException {
+        Set<Medicine> convertedMedicines = new HashSet<>();
+        for (Medicine medicine : medicines) {
+            Optional<Medicine> m = ab.getMedicine(medicine);
+            if (m.isEmpty()) {
+                throw new IllegalValueException(MESSAGE_INVALID_MEDICINE);
+            }
+            convertedMedicines.add(m.get());
+        }
+        return convertedMedicines;
     }
 
 }

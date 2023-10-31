@@ -91,12 +91,12 @@ public class Medicine {
         }
 
         Medicine otherMedicine = (Medicine) o;
-        return medicineName.equals(otherMedicine.medicineName) && shortForm.equals(otherMedicine.shortForm);
+        return medicineName.equals(otherMedicine.medicineName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(medicineName, shortForm);
+        return Objects.hash(medicineName);
     }
 
     @Override
