@@ -163,6 +163,20 @@ public class ParserUtil {
         }
         return new OrderNumber(trimmedOrderNumber);
     }
+
+    /**
+     * Parses {@code Collection<String> medicines} into a {@code Set<String> medicines}.
+     */
+    public static Set<String> parseMedicines(Collection<String> medicines) throws ParseException {
+        requireNonNull(medicines);
+        final Set<String> medicineSet = new HashSet<>();
+        for (String medicine : medicines) {
+            medicineSet.add(medicine);
+        }
+        return medicineSet;
+    }
+
+
     /**
      * Parses a {@code Status status} into a {@code Status}.
      * Leading and trailing whitespaces will be trimmed.

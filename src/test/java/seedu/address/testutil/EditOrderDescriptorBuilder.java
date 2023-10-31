@@ -26,7 +26,7 @@ public class EditOrderDescriptorBuilder {
         descriptor = new EditOrderDescriptor();
         descriptor.setOrderNumber(order.getOrderNumber());
         descriptor.setPerson(order.getPerson());
-        descriptor.setMedicineName(order.getMedicineName());
+        descriptor.setMedicines(order.getMedicines());
         descriptor.setStatus(order.getStatus());
     }
 

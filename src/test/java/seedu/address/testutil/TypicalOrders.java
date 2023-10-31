@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import seedu.address.model.order.Order;
@@ -19,10 +20,10 @@ public class TypicalOrders {
     public static final Status STATUS_COMPLETED = new Status(Status.OrderStatus.COMPLETED);
 
     public static final Order CARL_PANADOL_ORDER = new Order(new OrderNumber("1"),
-            TypicalPersons.CARL, "Panadol", STATUS_PENDING);
+            TypicalPersons.CARL, new HashSet<>(List.of("Panadol")), STATUS_PENDING);
 
     public static final Order BENSON_PANADOL_ORDER = new Order(new OrderNumber("1234"),
-            TypicalPersons.BENSON, "Panadol", STATUS_COMPLETED);
+            TypicalPersons.BENSON, new HashSet<>(List.of("Panadol")), STATUS_COMPLETED);
 
     public static List<Order> getTypicalOrders() {
         return new ArrayList<>(Arrays.asList(CARL_PANADOL_ORDER, BENSON_PANADOL_ORDER));
