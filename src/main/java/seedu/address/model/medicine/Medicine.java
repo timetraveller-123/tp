@@ -1,6 +1,7 @@
 package seedu.address.model.medicine;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
@@ -18,7 +19,7 @@ public class Medicine {
             "Medicine Names should not be empty"; // temporarily this will change soon
 
     public static final String MESSAGE_SHORT_FORM_CONSTRAINTS =
-            "Medicine fhort forms should not be empty"; // temporarily this will change soon
+            "Medicine short forms should not be empty"; // temporarily this will change soon
 
 
 
@@ -30,6 +31,7 @@ public class Medicine {
      */
     public Medicine(String medicineName) {
         requireNonNull(medicineName);
+        checkArgument(isValidMedicineName(medicineName), MESSAGE_MEDICINE_NAME_CONSTRAINTS);
         this.medicineName = medicineName;
         this.shortForm = "";
     }
@@ -39,6 +41,7 @@ public class Medicine {
      */
     public Medicine(String medicineName, String shorfForm) {
         requireAllNonNull(medicineName, shorfForm);
+        checkArgument(isValidMedicineName(medicineName), MESSAGE_MEDICINE_NAME_CONSTRAINTS);
         this.medicineName = medicineName;
         this.shortForm = shorfForm;
     }
@@ -108,7 +111,7 @@ public class Medicine {
     }
 
     public static boolean isValidMedicineName(String s) {
-        return true; // temporarily left to true will change in future commit
+        return !s.isEmpty();
     }
 
     public static boolean isValidShortForm(String s) {

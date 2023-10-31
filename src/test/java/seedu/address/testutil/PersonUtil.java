@@ -40,7 +40,7 @@ public class PersonUtil {
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
         person.getAllergies().stream().forEach(
-            s -> sb.append(PREFIX_ALLERGY + s.allergyName + " ")
+            s -> sb.append(PREFIX_ALLERGY + s.allergy.getMedicineName() + " ")
         );
         return sb.toString();
     }
@@ -67,7 +67,7 @@ public class PersonUtil {
             if (allergies.isEmpty()) {
                 sb.append(PREFIX_ALLERGY);
             } else {
-                allergies.forEach(s -> sb.append(PREFIX_ALLERGY).append(s.allergyName).append(" "));
+                allergies.forEach(s -> sb.append(PREFIX_ALLERGY).append(s.allergy.getMedicineName()).append(" "));
             }
         }
         return sb.toString();

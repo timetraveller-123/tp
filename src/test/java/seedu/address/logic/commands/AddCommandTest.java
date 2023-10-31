@@ -23,6 +23,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -173,6 +174,31 @@ public class AddCommandTest {
         public Optional<Order> getOrder(String orderNumber) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean hasMedicine(Medicine medicine) {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void setMedicine(Medicine target, Medicine medicine) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addMedicine(Medicine medicine) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteMedicine(Medicine medicine) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Medicine> getMedicine(Medicine medicine) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
@@ -190,6 +216,16 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredOrderList(Predicate<Order> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Medicine> getFilteredMedicineList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredMedicineList(Predicate<Medicine> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

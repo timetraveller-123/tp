@@ -22,5 +22,18 @@
     },
     "medicines" : [ "Panadol" ],
     "status" : "PENDING"
+  } ],
+  "medicineList" : [ {
+    "medicineName" : "Paracetamol",
+    "shortForm" : "par"
+  }, {
+    "medicineName" : "Panadol",
+    "shortForm" : "pan"
+  }, {
+    "medicineName" : "Penicillin",
+    "shortForm" : "pen"
+  }, {
+    "medicineName" : "Aspirin",
+    "shortForm" : "asp"
   } ]
 }

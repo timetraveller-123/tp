@@ -74,5 +74,18 @@
     },
     "medicines" : [ "Panadol" ],
     "status" : "COMPLETED"
+  } ],
+  "medicineList" : [ {
+    "medicineName" : "Aspirin",
+    "shortForm" : ""
+  }, {
+    "medicineName" : "Panadol",
+    "shortForm" : "pan"
+  }, {
+    "medicineName" : "Penicillin",
+    "shortForm" : "pen"
+  }, {
+    "medicineName" : "Paracetamol",
+    "shortForm" : "asp"
   } ]
 }

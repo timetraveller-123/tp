@@ -4,15 +4,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-
+import static seedu.address.testutil.TypicalOrders.PANADOL_MEDICINE;
 import java.util.HashSet;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import seedu.address.model.medicine.Medicine;
 
 class OrderTest {
-    private final Order order = new Order(new OrderNumber("1"), ALICE, new HashSet<>(List.of("panadol")),
-            new Status(Status.OrderStatus.PENDING));
+    private final Order order = new Order(new OrderNumber("1"), ALICE, new HashSet<>(List.of(PANADOL_MEDICINE)),
+                                            new Status(Status.OrderStatus.PENDING));
 
     @Test
     public void toStringMethod() {
@@ -32,7 +33,7 @@ class OrderTest {
         //null -> returns false
         assertFalse(order.equals(null));
 
-        Order newOrder = new Order(new OrderNumber("1"), ALICE, new HashSet<>(List.of("panadol")),
+        Order newOrder = new Order(new OrderNumber("1"), ALICE, new HashSet<>(List.of(PANADOL_MEDICINE)),
                 new Status(Status.OrderStatus.PENDING));
 
         //all attributes same -> return true

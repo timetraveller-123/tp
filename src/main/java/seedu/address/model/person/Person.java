@@ -91,7 +91,7 @@ public class Person implements InfoObject {
      * Returns true if the person is allergic to the medicine.
      */
     public boolean isAllergicTo(Medicine medicine) {
-        return allergies.stream().anyMatch(allergy -> medicine.isSameMedicine(allergy.getAllery()));
+        return allergies.stream().anyMatch(allergy -> allergy.getAllery().isSameMedicine(medicine));
     }
 
     /**

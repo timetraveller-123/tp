@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.allergy.Allergy;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -88,7 +89,8 @@ public class EditPersonDescriptorBuilder {
      * that we are building.
      */
     public EditPersonDescriptorBuilder withAllergies(String... allergies) {
-        Set<Allergy> allergySet = Stream.of(allergies).map(Allergy::new).collect(Collectors.toSet());
+        Set<Allergy> allergySet = Stream.of(allergies).map(x -> new Allergy(new Medicine(x)))
+                .collect(Collectors.toSet());
         descriptor.setAllergies(allergySet);
         return this;
     }
