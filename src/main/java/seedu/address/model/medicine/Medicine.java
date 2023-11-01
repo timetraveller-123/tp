@@ -65,7 +65,8 @@ public class Medicine {
             return false;
         }
         return (medicineName.toLowerCase().equals(m.medicineName.toLowerCase())
-                || medicineName.toLowerCase().equals(m.shortForm.toLowerCase()));
+                || medicineName.toLowerCase().equals(m.shortForm.toLowerCase())
+                || m.shortForm.toLowerCase().equals(medicineName.toLowerCase()));
     }
 
     /**
