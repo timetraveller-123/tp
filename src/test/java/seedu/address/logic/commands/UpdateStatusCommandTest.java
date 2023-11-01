@@ -41,8 +41,7 @@ public class UpdateStatusCommandTest {
 
         String expectedMessage = String.format(
                 UpdateStatusCommand.MESSAGE_EDIT_ORDER_STATUS_SUCCESS,
-                Messages.formatStatus(editedOrder));
-
+                Messages.format(editedOrder));
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel.setOrder(model.getFilteredOrderList().get(0), editedOrder);
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, editedOrder);
