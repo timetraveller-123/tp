@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.format;
 
 import java.util.Optional;
 
@@ -22,9 +23,9 @@ public class ViewOrderCommand extends Command {
             + "Parameters: ORDER_NUMBER\n"
             + "Example: " + COMMAND_WORD + " 12345";
 
-    public static final String MESSAGE_ORDER_NOT_FOUND = "No order found with order number #%s";
+    public static final String MESSAGE_ORDER_NOT_FOUND = "No order found with order number #%1$s";
 
-    public static final String MESSAGE_VIEW_ORDER_SUCCESS = "Displayed Order #%s";
+    public static final String MESSAGE_VIEW_ORDER_SUCCESS = "Displayed Order: #%1$s";
 
     private final String orderNumber;
 
@@ -41,7 +42,7 @@ public class ViewOrderCommand extends Command {
             throw new CommandException(String.format(MESSAGE_ORDER_NOT_FOUND, orderNumber));
         } else {
             return new CommandResult(
-                    String.format(MESSAGE_VIEW_ORDER_SUCCESS, orderNumber),
+                    String.format(MESSAGE_VIEW_ORDER_SUCCESS, format(orderOptional.get())),
                     orderOptional.get());
         }
     }

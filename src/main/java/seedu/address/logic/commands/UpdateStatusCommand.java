@@ -38,7 +38,7 @@ public class UpdateStatusCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_STATUS + "PENDING/PREPARING/COMPLETED/OTHERS ";
 
-    public static final String MESSAGE_EDIT_ORDER_STATUS_SUCCESS = "Edited Order Status: %1$s";
+    public static final String MESSAGE_EDIT_ORDER_STATUS_SUCCESS = "Successfully updated status of Order #%1$s";
     public static final String MESSAGE_NOT_EDITED = "Status to edit to must be provided.";
     public static final String MESSAGE_DUPLICATE_ORDER = "Operation would result in duplicate order";
 
@@ -76,7 +76,7 @@ public class UpdateStatusCommand extends Command {
         model.setOrder(orderToEdit, editedOrder);
         model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
         return new CommandResult(
-                String.format(MESSAGE_EDIT_ORDER_STATUS_SUCCESS, Messages.formatStatus(editedOrder)), editedOrder);
+                String.format(MESSAGE_EDIT_ORDER_STATUS_SUCCESS, Messages.format(editedOrder)), editedOrder);
     }
 
     /**

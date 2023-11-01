@@ -24,7 +24,7 @@ public class ViewPersonCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 3";
 
-    public static final String MESSAGE_VIEW_ORDER_SUCCESS = "Displayed %s";
+    public static final String MESSAGE_VIEW_ORDER_SUCCESS = "Displayed Person: %1$s";
 
     private final Index targetIndex;
 
