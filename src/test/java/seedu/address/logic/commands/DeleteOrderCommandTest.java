@@ -34,8 +34,9 @@ class DeleteOrderCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteOrder(orderToDelete);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, orderToDelete);
 
-        assertCommandSuccess(deleteOrderCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteOrderCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -59,8 +60,9 @@ class DeleteOrderCommandTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteOrder(orderToDelete);
         showNoOrder(expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, orderToDelete);
 
-        assertCommandSuccess(deleteOrderCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteOrderCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test

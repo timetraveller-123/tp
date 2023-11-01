@@ -45,8 +45,9 @@ public class UpdateStatusCommandTest {
 
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel.setOrder(model.getFilteredOrderList().get(0), editedOrder);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, editedOrder);
 
-        assertCommandSuccess(updateStatusCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(updateStatusCommand, model, expectedCommandResult, expectedModel);
     }
     @Test
     public void toStringMethod() {
