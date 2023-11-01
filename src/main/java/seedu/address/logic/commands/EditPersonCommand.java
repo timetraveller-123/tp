@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -22,6 +23,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.allergy.Allergy;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -84,10 +86,20 @@ public class EditPersonCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(personToEdit, editedPerson);
+        Set<Medicine> allergyMedicines = new HashSet<>(editedPerson.getAllergies().stream()
+                .map(Allergy::getAllery).collect(Collectors.toList()));
+        Set<Medicine> convertedMedicines = CommandUtil.getModelMedicine(model, allergyMedicines);
+
+        Set<Allergy> convertedAllergies = new HashSet<>(convertedMedicines.stream().map(Allergy::new)
+                .collect(Collectors.toList()));
+
+        Person newPerson = new Person(editedPerson.getName(), editedPerson.getPhone(), editedPerson.getEmail(),
+                                       editedPerson.getAddress(), editedPerson.getTags(), convertedAllergies);
+
+        model.setPerson(personToEdit, newPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(
-                String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)), editedPerson);
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(newPerson)), newPerson);
+
     }
 
     /**

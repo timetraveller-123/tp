@@ -15,7 +15,23 @@
       "address" : "123, Jurong West Ave 6, #08-111",
       "tags" : [ "friends" ]
     },
-    "medicines" : [ "Panadol" ],
+    "medicines" : [ {
+      "medicineName" : "Panadol",
+      "shortForm" : "pan"
+    } ],
     "status" : "PENDING"
-  }]
+  }],
+  "medicineList" : [ {
+    "medicineName" : "Paracetamol",
+    "shortForm" : "par"
+  }, {
+    "medicineName" : "Panadol",
+    "shortForm" : "pan"
+  }, {
+    "medicineName" : "Penicillin",
+    "shortForm" : "pen"
+  }, {
+    "medicineName" : "Aspirin",
+    "shortForm" : "asp"
+  } ]
 }

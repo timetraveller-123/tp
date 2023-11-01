@@ -9,6 +9,7 @@ import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.InfoObject;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.Person;
 
 
@@ -20,13 +21,13 @@ import seedu.address.model.person.Person;
 public class Order implements InfoObject {
     private final OrderNumber orderNumber;
     private final Person person;
-    private final Set<String> medicines = new HashSet<>();
+    private final Set<Medicine> medicines = new HashSet<>();
 
     private final Status orderStatus;
     /**
      * Every field must be present and not null.
      */
-    public Order(OrderNumber orderNumber, Person person, Set<String> medicines, Status orderStatus) {
+    public Order(OrderNumber orderNumber, Person person, Set<Medicine> medicines, Status orderStatus) {
         requireAllNonNull(orderNumber, person, medicines);
         this.orderNumber = orderNumber;
         this.person = person;
@@ -42,7 +43,7 @@ public class Order implements InfoObject {
         return person;
     }
 
-    public Set<String> getMedicines() {
+    public Set<Medicine> getMedicines() {
         return Collections.unmodifiableSet(medicines);
     }
 

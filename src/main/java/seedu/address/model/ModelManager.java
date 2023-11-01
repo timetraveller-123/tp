@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
 
@@ -26,6 +27,8 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Order> filteredOrders;
 
+    private final FilteredList<Medicine> filteredMedicines;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -38,6 +41,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredOrders = new FilteredList<>(this.addressBook.getOrderList());
+        filteredMedicines = new FilteredList<>(this.addressBook.getMedicineList());
     }
 
     public ModelManager() {
@@ -142,6 +146,34 @@ public class ModelManager implements Model {
         addressBook.setOrder(target, editedOrder);
     }
 
+    @Override
+    public void addMedicine(Medicine medicine) {
+        requireNonNull(medicine);
+        addressBook.addMedicine(medicine);
+    }
+
+    @Override
+    public void deleteMedicine(Medicine medicine) {
+        addressBook.removeMedicine(medicine);
+    }
+
+    @Override
+    public Optional<Medicine> getMedicine(Medicine medicine) {
+        return addressBook.getMedicine(medicine);
+    }
+    @Override
+    public boolean hasMedicine(Medicine medicine) {
+        requireNonNull(medicine);
+        return addressBook.hasMedicine(medicine);
+    }
+
+    @Override
+    public void setMedicine(Medicine target, Medicine editedMedicine) {
+        requireAllNonNull(target, editedMedicine);
+
+        addressBook.setMedicine(target, editedMedicine);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -175,6 +207,23 @@ public class ModelManager implements Model {
     public void updateFilteredOrderList(Predicate<Order> predicate) {
         requireNonNull(predicate);
         filteredOrders.setPredicate(predicate);
+    }
+
+    //=========== Filtered Medicine List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Medicine} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Medicine> getFilteredMedicineList() {
+        return filteredMedicines;
+    }
+
+    @Override
+    public void updateFilteredMedicineList(Predicate<Medicine> predicate) {
+        requireNonNull(predicate);
+        filteredMedicines.setPredicate(predicate);
     }
 
     @Override

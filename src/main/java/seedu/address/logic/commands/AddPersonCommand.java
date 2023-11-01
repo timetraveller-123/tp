@@ -7,11 +7,19 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.allergy.Allergy;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.Person;
+
+
 
 /**
  * Adds a person to the address book.
@@ -56,8 +64,19 @@ public class AddPersonCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)), toAdd);
+        Set<Medicine> allergyMedicines = new HashSet<>(toAdd.getAllergies().stream()
+                                                        .map(Allergy::getAllery).collect(Collectors.toList()));
+        Set<Medicine> convertedMedicines = CommandUtil.getModelMedicine(model, allergyMedicines);
+
+        Set<Allergy> convertedAllergies = new HashSet<>(convertedMedicines.stream().map(Allergy::new)
+                                                        .collect(Collectors.toList()));
+
+        Person newPerson = new Person(toAdd.getName(), toAdd.getPhone(), toAdd.getEmail(), toAdd.getAddress(),
+                                    toAdd.getTags(), convertedAllergies);
+
+        model.addPerson(newPerson);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(newPerson)), newPerson);
+
     }
 
     @Override

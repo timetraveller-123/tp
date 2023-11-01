@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.Person;
 
 /**
@@ -70,10 +71,15 @@ public class TypicalPersons {
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
+        ab.addMedicine(new Medicine("Aspirin"));
+        ab.addMedicine(new Medicine("Panadol"));
+        ab.addMedicine(new Medicine("Penicillin"));
+        ab.addMedicine(new Medicine("Paracetamol"));
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }
         ab.setOrders(TypicalOrders.getTypicalOrders());
+
         return ab;
     }
 

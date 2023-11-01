@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import static seedu.address.storage.JsonAdaptedOrder.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalOrders.PANADOL_MEDICINE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.util.List;
@@ -23,10 +24,12 @@ public class JsonAdaptedOrderTest {
     private static final JsonAdaptedPerson VALID_PERSON = new JsonAdaptedPerson(BENSON);
     private static final JsonAdaptedStatus VALID_STATUS = new JsonAdaptedStatus("PENDING");
 
+    private static final JsonAdaptedMedicine VALID_MEDICINE = new JsonAdaptedMedicine(PANADOL_MEDICINE);
+
     @Test
     public void toModelType_nonIntegerOrderNumber_throwsIllegalValueException() {
         JsonAdaptedOrder order = new JsonAdaptedOrder(INVALID_ORDERNUMBER_NONINTEGER,
-                VALID_PERSON, List.of("panadol"), VALID_STATUS);
+                VALID_PERSON, List.of(VALID_MEDICINE), VALID_STATUS);
         String expectedMessage = OrderNumber.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, order::toModelType);
     }
@@ -34,7 +37,7 @@ public class JsonAdaptedOrderTest {
     @Test
     public void toModelType_negativeIntegerOrderNumber_throwsIllegalValueException() {
         JsonAdaptedOrder order = new JsonAdaptedOrder(INVALID_ORDERNUMBER_NEGATIVE,
-                VALID_PERSON, List.of("panadol"), VALID_STATUS);
+                VALID_PERSON, List.of(VALID_MEDICINE), VALID_STATUS);
         String expectedMessage = OrderNumber.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, order::toModelType);
     }
@@ -42,7 +45,7 @@ public class JsonAdaptedOrderTest {
     @Test
     public void toModelType_nullOrderNumber_throwsIllegalValueException() {
         JsonAdaptedOrder order = new JsonAdaptedOrder(null,
-                VALID_PERSON, List.of("panadol"), VALID_STATUS);
+                VALID_PERSON, List.of(VALID_MEDICINE), VALID_STATUS);
 
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, OrderNumber.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, order::toModelType);
@@ -51,7 +54,7 @@ public class JsonAdaptedOrderTest {
     @Test
     public void toModelType_nullPerson_throwsIllegalValueException() {
         JsonAdaptedOrder order = new JsonAdaptedOrder(VALID_ORDERNUMBER,
-                null, List.of("panadol"), VALID_STATUS);
+                null, List.of(VALID_MEDICINE), VALID_STATUS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Person.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, order::toModelType);
     }

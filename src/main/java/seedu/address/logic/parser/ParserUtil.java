@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.allergy.Allergy;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.order.OrderNumber;
 import seedu.address.model.order.Status;
 import seedu.address.model.person.Address;
@@ -137,7 +138,7 @@ public class ParserUtil {
         if (!Allergy.isValidAllergyName(trimmedAllergy)) {
             throw new ParseException(Allergy.MESSAGE_CONSTRAINTS);
         }
-        return new Allergy(trimmedAllergy);
+        return new Allergy(new Medicine(allergy));
     }
 
     /**
@@ -167,11 +168,11 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> medicines} into a {@code Set<String> medicines}.
      */
-    public static Set<String> parseMedicines(Collection<String> medicines) throws ParseException {
+    public static Set<Medicine> parseMedicines(Collection<String> medicines) throws ParseException {
         requireNonNull(medicines);
-        final Set<String> medicineSet = new HashSet<>();
+        final Set<Medicine> medicineSet = new HashSet<>();
         for (String medicine : medicines) {
-            medicineSet.add(medicine);
+            medicineSet.add(new Medicine(medicine));
         }
         return medicineSet;
     }

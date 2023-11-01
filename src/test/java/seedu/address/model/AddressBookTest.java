@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalOrders.PANADOL_MEDICINE;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -20,6 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderNumber;
 import seedu.address.model.order.Status;
@@ -54,11 +56,12 @@ public class AddressBookTest {
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         Order order = new Order(
-                new OrderNumber("12"), ALICE, new HashSet<>(List.of("panadol")),
+                new OrderNumber("12"), ALICE, new HashSet<>(List.of(PANADOL_MEDICINE)),
                 new Status(Status.OrderStatus.PENDING));
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         List<Order> newOrders = List.of(order);
-        AddressBookStub newData = new AddressBookStub(newPersons, newOrders);
+        List<Medicine> newMedicines = List.of(PANADOL_MEDICINE);
+        AddressBookStub newData = new AddressBookStub(newPersons, newOrders, newMedicines);
 
         assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
     }
@@ -107,9 +110,12 @@ public class AddressBookTest {
 
         private final ObservableList<Order> orders = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons, Collection<Order> orders) {
+        private final ObservableList<Medicine> medicines = FXCollections.observableArrayList();
+
+        AddressBookStub(Collection<Person> persons, Collection<Order> orders, Collection<Medicine> medicines) {
             this.persons.setAll(persons);
             this.orders.setAll(orders);
+            this.medicines.setAll(medicines);
         }
 
         @Override
@@ -123,9 +129,19 @@ public class AddressBookTest {
         }
 
         @Override
+        public ObservableList<Medicine> getMedicineList() {
+            return medicines;
+        }
+
+        @Override
         public Optional<Order> getOrder(String orderNumber) {
             return orders.stream().filter(order ->
                     order.getOrderNumber().toString().equals(orderNumber)).findFirst();
+        }
+
+        @Override
+        public Optional<Medicine> getMedicine(Medicine medicine) {
+            return medicines.stream().filter(m -> medicine.isSameMedicine(m)).findFirst();
         }
     }
 

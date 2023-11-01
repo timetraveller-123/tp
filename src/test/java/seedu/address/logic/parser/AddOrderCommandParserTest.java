@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERNUMBER;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.address.testutil.TypicalOrders.PANADOL_MEDICINE;
 
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +25,7 @@ class AddOrderCommandParserTest {
 
     private static final String INVALID_ORDERNUMBER = PREFIX_ORDERNUMBER + " asd ";
 
-    private static final String VALID_MEDICINE_NAME = PREFIX_MEDICINENAME + " panadol ";
+    private static final String VALID_MEDICINE_NAME = PREFIX_MEDICINENAME + " Panadol ";
 
     private static final String INVALID_MEDICINE_NAME = PREFIX_MEDICINENAME + " ";
 
@@ -76,7 +77,7 @@ class AddOrderCommandParserTest {
 
         AddOrderCommand expectedCommand = new AddOrderCommand(
                 Index.fromOneBased(1),
-                new OrderNumber("1"), new HashSet<>(List.of("panadol")), false);
+                new OrderNumber("1"), new HashSet<>(List.of(PANADOL_MEDICINE)), false);
 
 
 
@@ -88,7 +89,7 @@ class AddOrderCommandParserTest {
     public void parse_containsIgnoreAllergy_success() {
         AddOrderCommand expectedCommand = new AddOrderCommand(
                 Index.fromOneBased(1),
-                new OrderNumber("1"), new HashSet<>(List.of("panadol")), true);
+                new OrderNumber("1"), new HashSet<>(List.of(PANADOL_MEDICINE)), true);
         assertParseSuccess(parser, "1 " + VALID_ORDERNUMBER + VALID_MEDICINE_NAME + " ia/", expectedCommand);
     }
 

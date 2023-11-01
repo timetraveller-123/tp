@@ -14,6 +14,7 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.medicine.Medicine;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
@@ -53,17 +54,17 @@ public class PersonTest {
 
     @Test void isAllergicTo() {
         // medicineName exists in allergies of patient -> returns true
-        assertTrue(ALICE.isAllergicTo("Aspirin"));
+        assertTrue(ALICE.isAllergicTo(new Medicine("Aspirin")));
 
         // medicineName does not exist in allergies of patient -> returns false
-        assertFalse(ALICE.isAllergicTo("Paracetamol"));
+        assertFalse(ALICE.isAllergicTo(new Medicine("Paracetamol")));
 
         // null -> returns false
         assertFalse(ALICE.isAllergicTo(null));
 
         // same name, medicineName exists in allergies of patient -> returns true
         Person editedAlice = new PersonBuilder(ALICE).withAllergies("paracetamol").build();
-        assertTrue(editedAlice.isAllergicTo("paracetamol"));
+        assertTrue(editedAlice.isAllergicTo(new Medicine("paracetamol")));
     }
 
     @Test
