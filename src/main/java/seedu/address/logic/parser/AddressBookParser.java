@@ -60,7 +60,7 @@ public class AddressBookParser {
         switch (commandWord.toLowerCase()) {
 
         case AddPersonCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+            return new AddPersonCommandParser().parse(arguments);
 
         case EditPersonCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
