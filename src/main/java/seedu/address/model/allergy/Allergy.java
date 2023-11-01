@@ -12,7 +12,6 @@ import seedu.address.model.medicine.Medicine;
 public class Allergy {
 
     public static final String MESSAGE_CONSTRAINTS = "Allergy names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final Medicine allergy;
 
@@ -27,10 +26,10 @@ public class Allergy {
     }
 
     /**
-     * Returns true if a given string is a valid allergy name.
+     * Returns true if a given medicine is a valid medicine.
      */
     public static boolean isValidAllergyName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return Medicine.isValidMedicineName(test);
     }
 
     @Override
@@ -64,7 +63,7 @@ public class Allergy {
      * Retruns a copy of the allergic medicine.
      */
     public Medicine getAllery() {
-        return new Medicine(allergy.getMedicineName(), allergy.getShorfForm());
+        return new Medicine(allergy.getMedicineName(), allergy.getShortForm());
     }
 
 }

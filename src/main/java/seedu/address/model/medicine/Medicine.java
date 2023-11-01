@@ -48,7 +48,7 @@ public class Medicine {
         return this.medicineName;
     }
 
-    public String getShorfForm() {
+    public String getShortForm() {
         return this.shortForm;
     }
 
@@ -61,21 +61,11 @@ public class Medicine {
         if (m == this) {
             return true;
         }
-
-        if (m != null && medicineName.equals(m.medicineName)) {
-            return true;
+        if (m == null) {
+            return false;
         }
-
-        if (m != null && !shortForm.isEmpty() && shortForm.equals(m.shortForm)) {
-            return true;
-        }
-
-        //for use in short form expansion
-        if (m != null && medicineName.equals(m.shortForm)) {
-            return true;
-        }
-
-        return false;
+        return (medicineName.toLowerCase().equals(m.medicineName.toLowerCase())
+                || medicineName.toLowerCase().equals(m.shortForm.toLowerCase()));
     }
 
     /**

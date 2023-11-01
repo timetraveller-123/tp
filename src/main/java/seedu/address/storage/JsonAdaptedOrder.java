@@ -28,7 +28,7 @@ public class JsonAdaptedOrder {
 
     private final JsonAdaptedPerson person;
 
-    private final List<String> medicines = new ArrayList<>();
+    private final List<JsonAdaptedMedicine> medicines = new ArrayList<>();
 
     private final JsonAdaptedStatus orderStatus;
     /**
@@ -37,7 +37,7 @@ public class JsonAdaptedOrder {
     @JsonCreator
     public JsonAdaptedOrder(@JsonProperty("orderNumber") String orderNumber,
                             @JsonProperty("person") JsonAdaptedPerson person,
-                            @JsonProperty("medicines") List<String> medicines,
+                            @JsonProperty("medicines") List<JsonAdaptedMedicine> medicines,
                             @JsonProperty("status") JsonAdaptedStatus orderStatus) {
         this.orderNumber = orderNumber;
         this.person = person;
@@ -53,7 +53,7 @@ public class JsonAdaptedOrder {
     public JsonAdaptedOrder(Order order) {
         this.orderNumber = order.getOrderNumber().value;
         this.person = new JsonAdaptedPerson(order.getPerson());
-        medicines.addAll(order.getMedicines().stream().map(Medicine::getMedicineName).collect(Collectors.toList()));
+        medicines.addAll(order.getMedicines().stream().map(JsonAdaptedMedicine::new).collect(Collectors.toList()));
         this.orderStatus = new JsonAdaptedStatus(order.getStatus());
     }
 
@@ -65,7 +65,11 @@ public class JsonAdaptedOrder {
      */
     public Order toModelType() throws IllegalValueException {
 
-        final List<Medicine> orderMedicines = medicines.stream().map(x -> new Medicine(x)).collect(Collectors.toList());
+        final List<Medicine> orderMedicines = new ArrayList<>();
+
+        for (JsonAdaptedMedicine medicine : medicines) {
+            orderMedicines.add(medicine.toModelType());
+        }
 
         if (person == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Person.class.getSimpleName()));

@@ -12,27 +12,23 @@ import seedu.address.model.medicine.Medicine;
  */
 class JsonAdaptedAllergy {
 
-    private final String allergyName;
+    private final JsonAdaptedMedicine allergy;
 
     /**
      * Constructs a {@code JsonAdaptedAllergy} with the given {@code allergyName}.
      */
     @JsonCreator
-    public JsonAdaptedAllergy(String allergyName) {
-        this.allergyName = allergyName;
+    public JsonAdaptedAllergy(JsonAdaptedMedicine allergy) {
+        this.allergy = allergy;
     }
 
     /**
      * Converts a given {@code Allergy} into this class for Jackson use.
      */
     public JsonAdaptedAllergy(Allergy source) {
-        allergyName = source.allergy.getMedicineName();
+        allergy = new JsonAdaptedMedicine(source.allergy);
     }
 
-    @JsonValue
-    public String getAllergyName() {
-        return allergyName;
-    }
 
     /**
      * Converts this Jackson-friendly adapted allergy object into the model's {@code Allergy} object.
@@ -40,10 +36,7 @@ class JsonAdaptedAllergy {
      * @throws IllegalValueException if there were any data constraints violated in the adapted allergy.
      */
     public Allergy toModelType() throws IllegalValueException {
-        if (!Allergy.isValidAllergyName(allergyName)) {
-            throw new IllegalValueException(Allergy.MESSAGE_CONSTRAINTS);
-        }
-        return new Allergy(new Medicine(allergyName));
+        return new Allergy(allergy.toModelType());
     }
 
 }

@@ -31,7 +31,7 @@ public class JsonAdaptedMedicine {
      */
     public JsonAdaptedMedicine(Medicine medicine) {
         this.medicineName = medicine.getMedicineName();
-        this.shortForm = medicine.getShorfForm();
+        this.shortForm = medicine.getShortForm();
     }
 
     /**
