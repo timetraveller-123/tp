@@ -1,11 +1,10 @@
 package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.allergy.Allergy;
-import seedu.address.model.medicine.Medicine;
 
 /**
  * Jackson-friendly version of {@link Allergy}.
@@ -18,7 +17,7 @@ class JsonAdaptedAllergy {
      * Constructs a {@code JsonAdaptedAllergy} with the given {@code allergyName}.
      */
     @JsonCreator
-    public JsonAdaptedAllergy(JsonAdaptedMedicine allergy) {
+    public JsonAdaptedAllergy(@JsonProperty("allergy") JsonAdaptedMedicine allergy) {
         this.allergy = allergy;
     }
 

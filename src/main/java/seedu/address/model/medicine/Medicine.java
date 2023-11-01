@@ -37,11 +37,11 @@ public class Medicine {
     /**
      * Every field must be present and not null.
      */
-    public Medicine(String medicineName, String shorfForm) {
-        requireAllNonNull(medicineName, shorfForm);
+    public Medicine(String medicineName, String shortForm) {
+        requireAllNonNull(medicineName, shortForm);
         checkArgument(isValidMedicineName(medicineName), MESSAGE_MEDICINE_NAME_CONSTRAINTS);
         this.medicineName = medicineName;
-        this.shortForm = shorfForm;
+        this.shortForm = shortForm;
     }
 
     public String getMedicineName() {
