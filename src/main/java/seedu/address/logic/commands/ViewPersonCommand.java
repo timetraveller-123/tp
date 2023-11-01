@@ -17,7 +17,7 @@ import seedu.address.model.person.Person;
  */
 public class ViewPersonCommand extends Command {
 
-    public static final String COMMAND_WORD = "viewperson";
+    public static final String COMMAND_WORD = "viewp";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the person identified by the index number "
             + "in the displayed person list.\n"
