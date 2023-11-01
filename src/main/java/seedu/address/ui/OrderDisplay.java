@@ -26,6 +26,8 @@ public class OrderDisplay extends UiPart<Region> {
     private Label orderPerson;
     @FXML
     private Label orderDetails;
+    @FXML
+    private Label status;
 
     /**
      * Creates the order display.
@@ -44,5 +46,11 @@ public class OrderDisplay extends UiPart<Region> {
         orderNumber.setText(order.getOrderNumber().toString());
         orderPerson.setText(order.getPerson().getName().fullName);
         orderDetails.setText(StringUtil.unmodifiableSetToCommaSeparatedStr(order.getMedicines()));
+        status.setText(order.getStatus().toString());
+        status.setWrapText(true);
+
+        // Set the appropriate CSS style class based on the status
+        String statusStyleClass = "status-" + order.getStatus().toString();
+        status.getStyleClass().add(statusStyleClass);
     }
 }
