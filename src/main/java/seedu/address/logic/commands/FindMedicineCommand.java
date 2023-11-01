@@ -36,7 +36,8 @@ public class FindMedicineCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         Predicate<Medicine> predicate = m -> Stream.of(keyWords).anyMatch(x ->
-                m.getMedicineName().toLowerCase().contains(x.toLowerCase()));
+                m.getMedicineName().toLowerCase().contains(x.toLowerCase())
+                || m.getShortForm().toLowerCase().contains(x.toLowerCase()));
         model.updateFilteredMedicineList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_MEDICINES_LISTED_OVERVIEW, model.getFilteredMedicineList().size()),
