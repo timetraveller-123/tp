@@ -18,6 +18,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -143,6 +144,19 @@ public class CommandTestUtil {
         model.updateFilteredOrderList(x-> x.getOrderNumber() == order.getOrderNumber());
 
         assertEquals(1, model.getFilteredOrderList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the medicine at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showMedicineAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredOrderList().size());
+
+        Medicine medicine = model.getFilteredMedicineList().get(targetIndex.getZeroBased());
+        model.updateFilteredMedicineList(x-> medicine.getMedicineName().equals(x.getMedicineName()));
+
+        assertEquals(1, model.getFilteredMedicineList().size());
     }
 
 }

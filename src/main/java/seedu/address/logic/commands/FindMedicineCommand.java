@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -55,13 +55,13 @@ public class FindMedicineCommand extends Command {
         }
 
         FindMedicineCommand otherFindCommand = (FindMedicineCommand) other;
-        return keyWords.equals(otherFindCommand.keyWords);
+        return Arrays.equals(keyWords, otherFindCommand.keyWords);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("keyWord", keyWords)
+                .add("keyWords", keyWords)
                 .toString();
     }
 }
