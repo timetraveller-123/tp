@@ -9,7 +9,7 @@ import seedu.address.model.medicine.Medicine;
 import seedu.address.model.order.Order;
 
 /**
- * A UI component that displays information of a {@code Person}.
+ * A UI component that displays information of a {@code Order}.
  */
 public class OrderCard extends UiPart<Region> {
     private static final String FXML = "OrderListCard.fxml";

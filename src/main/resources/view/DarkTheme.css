@@ -348,7 +348,7 @@
     -fx-background-radius: 0;
 }
 
-#tags, #allergies, #medicines {
+#tags, #allergies, #medicines, #shortForm {
     -fx-hgap: 7;
     -fx-vgap: 3;
 }
@@ -371,6 +371,10 @@
 
 #medicines .label {
     -fx-background-color: #40A347;
+}
+
+#shortForm .label {
+    -fx-background-color: #00FF00;
 }
 
 .status-PENDING {
