@@ -42,7 +42,7 @@ public class DeleteOrderCommand extends Command {
         }
         Order order = orderList.get(index.getZeroBased());
         model.deleteOrder(order);
-        return new CommandResult(String.format(MESSAGE_DELETE_ORDER_SUCCESS, Messages.formatOrder(order)));
+        return new CommandResult(String.format(MESSAGE_DELETE_ORDER_SUCCESS, Messages.formatOrder(order)), order);
 
     }
 

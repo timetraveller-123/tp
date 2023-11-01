@@ -75,7 +75,8 @@ public class UpdateStatusCommand extends Command {
 
         model.setOrder(orderToEdit, editedOrder);
         model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
-        return new CommandResult(String.format(MESSAGE_EDIT_ORDER_STATUS_SUCCESS, Messages.formatStatus(editedOrder)));
+        return new CommandResult(
+                String.format(MESSAGE_EDIT_ORDER_STATUS_SUCCESS, Messages.formatStatus(editedOrder)), editedOrder);
     }
 
     /**
