@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.model.order.Order;
 
 /**
@@ -40,9 +41,8 @@ public class OrderDisplay extends UiPart<Region> {
             e.printStackTrace();
         }
 
-        String display = order.toString();
         orderNumber.setText(order.getOrderNumber().toString());
         orderPerson.setText(order.getPerson().getName().fullName);
-        orderDetails.setText(order.getMedicineName());
+        orderDetails.setText(StringUtil.unmodifiableSetToCommaSeparatedStr(order.getMedicines()));
     }
 }

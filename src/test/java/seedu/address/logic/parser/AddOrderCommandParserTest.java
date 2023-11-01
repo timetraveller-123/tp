@@ -7,6 +7,9 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 
+import java.util.HashSet;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -71,8 +74,9 @@ class AddOrderCommandParserTest {
         assertParseFailure(parser, "1 " + INVALID_ORDERNUMBER + VALID_MEDICINE_NAME,
                 OrderNumber.MESSAGE_CONSTRAINTS); // invalid orderNumber
 
-        AddOrderCommand expectedCommand = new AddOrderCommand(Index.fromOneBased(1),
-                                                              new OrderNumber("1"), "panadol", false);
+        AddOrderCommand expectedCommand = new AddOrderCommand(
+                Index.fromOneBased(1),
+                new OrderNumber("1"), new HashSet<>(List.of("panadol")), false);
 
 
 
@@ -82,8 +86,9 @@ class AddOrderCommandParserTest {
 
     @Test
     public void parse_containsIgnoreAllergy_success() {
-        AddOrderCommand expectedCommand = new AddOrderCommand(Index.fromOneBased(1),
-                                                              new OrderNumber("1"), "panadol", true);
+        AddOrderCommand expectedCommand = new AddOrderCommand(
+                Index.fromOneBased(1),
+                new OrderNumber("1"), new HashSet<>(List.of("panadol")), true);
         assertParseSuccess(parser, "1 " + VALID_ORDERNUMBER + VALID_MEDICINE_NAME + " ia/", expectedCommand);
     }
 

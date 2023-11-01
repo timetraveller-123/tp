@@ -5,7 +5,7 @@
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
     "tags": [ "friends" ]
-  }],
+  } ],
   "orders" : [ {
     "orderNumber" : 1,
     "person" : {
@@ -15,9 +15,8 @@
       "address" : "123, Jurong West Ave 6, #08-111",
       "tags" : [ "friends" ]
     },
-    "medicineName" : "Panadol",
+    "medicines" : [ "Panadol" ],
     "status" : "PENDING"
-
   }, {
     "orderNumber" : 1,
     "person" : {
@@ -27,8 +26,7 @@
       "address" : "123, Jurong West Ave 6, #08-111",
       "tags" : [ "friends" ]
     },
-    "medicineName" : "Panadol",
+    "medicines" : [ "Panadol" ],
     "status" : "PENDING"
-
-  }]
+  } ]
 }

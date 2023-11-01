@@ -2,11 +2,15 @@ package seedu.address.model.order;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.InfoObject;
 import seedu.address.model.person.Person;
+
 
 
 /**
@@ -16,17 +20,17 @@ import seedu.address.model.person.Person;
 public class Order implements InfoObject {
     private final OrderNumber orderNumber;
     private final Person person;
-    private final String medicineName;
+    private final Set<String> medicines = new HashSet<>();
 
     private final Status orderStatus;
     /**
      * Every field must be present and not null.
      */
-    public Order(OrderNumber orderNumber, Person person, String medicineName, Status orderStatus) {
-        requireAllNonNull(orderNumber, person, medicineName);
+    public Order(OrderNumber orderNumber, Person person, Set<String> medicines, Status orderStatus) {
+        requireAllNonNull(orderNumber, person, medicines);
         this.orderNumber = orderNumber;
         this.person = person;
-        this.medicineName = medicineName;
+        this.medicines.addAll(medicines);
         this.orderStatus = orderStatus;
     }
 
@@ -38,8 +42,8 @@ public class Order implements InfoObject {
         return person;
     }
 
-    public String getMedicineName() {
-        return medicineName;
+    public Set<String> getMedicines() {
+        return Collections.unmodifiableSet(medicines);
     }
 
     public Status getStatus() {
@@ -74,7 +78,7 @@ public class Order implements InfoObject {
 
         Order otherOrder = (Order) other;
         return orderNumber.equals(otherOrder.orderNumber)
-                && medicineName.equals(otherOrder.medicineName)
+                && medicines.equals(otherOrder.medicines)
                 && person.equals(otherOrder.person)
                 && orderStatus.equals(otherOrder.orderStatus);
     }
@@ -82,7 +86,7 @@ public class Order implements InfoObject {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(orderNumber, person, medicineName, orderStatus);
+        return Objects.hash(orderNumber, person, medicines, orderStatus);
     }
 
     @Override
@@ -90,7 +94,7 @@ public class Order implements InfoObject {
         return new ToStringBuilder(this)
                 .add("orderNumber", orderNumber)
                 .add("person", person)
-                .add("medicineName", medicineName)
+                .add("medicines", medicines)
                 .add("status", orderStatus)
                 .toString();
     }

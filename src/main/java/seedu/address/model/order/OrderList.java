@@ -78,7 +78,7 @@ public class OrderList implements Iterable<Order> {
     public void editOrdersWithPerson(Person person, Person newPerson) {
         requireNonNull(person);
         List<Order> temp = internalList.stream().map(x -> x.getPerson().equals(person)
-                ? new Order(x.getOrderNumber(), newPerson, x.getMedicineName(), x.getStatus()) : x)
+                ? new Order(x.getOrderNumber(), newPerson, x.getMedicines(), x.getStatus()) : x)
                 .collect(Collectors.toList());
         this.setOrders(temp);
     }

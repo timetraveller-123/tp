@@ -60,7 +60,7 @@
       "tags" : [ ],
       "allergies" : [ ]
     },
-    "medicineName" : "Panadol",
+    "medicines" : [ "Panadol" ],
     "status" : "PENDING"
   }, {
     "orderNumber" : "1234",
@@ -72,8 +72,7 @@
       "tags" : [ "owesMoney", "friends" ],
         "allergies" : [ "Aspirin", "Penicillin" ]
     },
-    "medicineName" : "Panadol",
+    "medicines" : [ "Panadol" ],
     "status" : "COMPLETED"
-
   } ]
 }
