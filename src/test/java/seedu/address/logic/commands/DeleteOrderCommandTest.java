@@ -30,12 +30,12 @@ class DeleteOrderCommandTest {
         DeleteOrderCommand deleteOrderCommand = new DeleteOrderCommand(INDEX_FIRST);
 
         String expectedMessage = String.format(DeleteOrderCommand.MESSAGE_DELETE_ORDER_SUCCESS,
-                Messages.formatOrder(orderToDelete));
-
+                Messages.format(orderToDelete));
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteOrder(orderToDelete);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, orderToDelete);
 
-        assertCommandSuccess(deleteOrderCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteOrderCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -54,13 +54,13 @@ class DeleteOrderCommandTest {
         DeleteOrderCommand deleteOrderCommand = new DeleteOrderCommand(INDEX_FIRST);
 
         String expectedMessage = String.format(DeleteOrderCommand.MESSAGE_DELETE_ORDER_SUCCESS,
-                Messages.formatOrder(orderToDelete));
-
+                Messages.format(orderToDelete));
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteOrder(orderToDelete);
         showNoOrder(expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, orderToDelete);
 
-        assertCommandSuccess(deleteOrderCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteOrderCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test

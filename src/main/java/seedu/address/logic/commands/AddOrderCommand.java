@@ -24,7 +24,7 @@ import seedu.address.model.person.Person;
  */
 public class AddOrderCommand extends Command {
 
-    public static final String COMMAND_WORD = "addorder";
+    public static final String COMMAND_WORD = "addo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an order to the person identified "
             + "by the index number used in the displayed person list. \n "
@@ -35,7 +35,7 @@ public class AddOrderCommand extends Command {
             + PREFIX_ORDERNUMBER + "91234567 "
             + PREFIX_MEDICINENAME + "panadol";
 
-    public static final String MESSAGE_SUCCESS = "Order added successfully.";
+    public static final String MESSAGE_SUCCESS = "New order added: #%1$s";
 
     public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists in the address book";
 
@@ -88,7 +88,7 @@ public class AddOrderCommand extends Command {
 
         model.addOrder(toAdd);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)), toAdd);
     }
 
     @Override
