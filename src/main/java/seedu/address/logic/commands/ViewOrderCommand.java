@@ -15,7 +15,7 @@ import seedu.address.model.order.Order;
  */
 public class ViewOrderCommand extends Command {
 
-    public static final String COMMAND_WORD = "vieworder";
+    public static final String COMMAND_WORD = "viewo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds the order which has the specified order number "
             + "displays it on the info panel.\n"
