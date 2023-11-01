@@ -36,7 +36,9 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private OrderListPanel orderListPanel;
     private PersonListPanel personListPanel;
+    private MedicineListPanel medicineListPanel;
     private OrderDisplay orderDisplay;
+
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     @FXML
@@ -119,6 +121,7 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         personListPanel = new PersonListPanel(this, logic.getFilteredPersonList());
         orderListPanel = new OrderListPanel(this, logic.getFilteredOrderList());
+        medicineListPanel = new MedicineListPanel(this, logic.getFilteredMedicineList());
         listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -174,7 +177,16 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleListPanelDisplay(CommandResult.ListPanelEffects panelToShow) {
         assert (panelToShow != CommandResult.ListPanelEffects.NO_EFFECT);
+        listPanelPlaceholder.getChildren().clear();
 
+        if (panelToShow == CommandResult.ListPanelEffects.PERSON) {
+            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        } else if (panelToShow == CommandResult.ListPanelEffects.ORDER) {
+            listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
+        } else {
+            listPanelPlaceholder.getChildren().add(medicineListPanel.getRoot());
+        }
+        /*
         if (panelToShow == CommandResult.ListPanelEffects.PERSON
                 && listPanelPlaceholder.getChildren().contains(orderListPanel.getRoot())) {
             listPanelPlaceholder.getChildren().remove(orderListPanel.getRoot());
@@ -184,6 +196,7 @@ public class MainWindow extends UiPart<Stage> {
             listPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
             listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
         }
+         */
     }
 
     public PersonListPanel getPersonListPanel() {
