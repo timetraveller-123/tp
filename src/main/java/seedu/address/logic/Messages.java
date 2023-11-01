@@ -47,19 +47,14 @@ public class Messages {
      * Formats the {@code person} for display to the user.
      */
     public static String format(Person person) {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(person.getName())
-                .append("; Phone: ")
-                .append(person.getPhone())
-                .append("; Email: ")
-                .append(person.getEmail())
-                .append("; Address: ")
-                .append(person.getAddress())
-                .append("; Tags: ");
-        person.getTags().forEach(builder::append);
-        builder.append("; Allergies: ");
-        person.getAllergies().forEach(builder::append);
-        return builder.toString();
+        return person.getName().toString();
+    }
+
+    /**
+     * Formats the {@code order} for display to the user.
+     */
+    public static String format(Order order) {
+        return order.getOrderNumber().toString();
     }
 
     /**

@@ -23,7 +23,7 @@ public class DeleteOrderCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_ORDER_SUCCESS = "Deleted Order: %1$s";
+    public static final String MESSAGE_DELETE_ORDER_SUCCESS = "Deleted Order: #%1$s";
 
     private final Index index;
 
@@ -42,7 +42,7 @@ public class DeleteOrderCommand extends Command {
         }
         Order order = orderList.get(index.getZeroBased());
         model.deleteOrder(order);
-        return new CommandResult(String.format(MESSAGE_DELETE_ORDER_SUCCESS, Messages.formatOrder(order)));
+        return new CommandResult(String.format(MESSAGE_DELETE_ORDER_SUCCESS, Messages.format(order)), order);
 
     }
 

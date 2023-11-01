@@ -41,12 +41,12 @@ public class UpdateStatusCommandTest {
 
         String expectedMessage = String.format(
                 UpdateStatusCommand.MESSAGE_EDIT_ORDER_STATUS_SUCCESS,
-                Messages.formatStatus(editedOrder));
-
+                Messages.format(editedOrder));
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel.setOrder(model.getFilteredOrderList().get(0), editedOrder);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, editedOrder);
 
-        assertCommandSuccess(updateStatusCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(updateStatusCommand, model, expectedCommandResult, expectedModel);
     }
     @Test
     public void toStringMethod() {
@@ -114,7 +114,9 @@ public class UpdateStatusCommandTest {
         assertNotEquals(null, standardCommand);
 
         // different types -> returns false
-        assertNotEquals(standardCommand, new EditCommand(INDEX_FIRST, new EditCommand.EditPersonDescriptor()));
+        assertNotEquals(
+                standardCommand,
+                new EditPersonCommand(INDEX_FIRST, new EditPersonCommand.EditPersonDescriptor()));
 
         // different index -> returns false
         assertNotEquals(standardCommand, new UpdateStatusCommand(INDEX_SECOND, descriptor));
