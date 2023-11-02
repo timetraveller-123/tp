@@ -35,7 +35,8 @@ public class FindOrderCommandParser implements Parser<FindOrderCommand> {
         String[] nameKeywords = null;
 
         if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
-            statusToFind = ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get());
+            String s = argMultimap.getValue(PREFIX_STATUS).get();
+            statusToFind = ParserUtil.parseStatus(Status.shortFormToFull(s));
         }
         if (argMultimap.getValue(PREFIX_MEDICINENAME).isPresent()) {
             String medicineArg = argMultimap.getValue(PREFIX_MEDICINENAME).get();
