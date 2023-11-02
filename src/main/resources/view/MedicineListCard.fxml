@@ -27,7 +27,7 @@
                 </Label>
                 <Label fx:id="medicineName" text="\$first" styleClass="cell_big_label" />
             </HBox>
-            <FlowPane fx:id="shortForm" />
+            <Label fx:id="shortForm" styleClass="cell_small_label"/>
         </VBox>
     </GridPane>
 </HBox>

@@ -52,6 +52,9 @@ public class Medicine {
         return this.shortForm;
     }
 
+    public boolean hasShortForm() {
+        return !shortForm.isEmpty();
+    }
 
     /**
      * Returns true if both medicines have the same medicine name.
