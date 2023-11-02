@@ -40,7 +40,7 @@ public class EditPersonCommandTest {
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Person editedPerson = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
-        EditPersonCommand editCommand = new EditPersonCommand(INDEX_FIRST, descriptor);
+        EditPersonCommand editCommand = new EditPersonCommand(INDEX_FIRST, descriptor, false);
 
         String expectedMessage =
                 String.format(EditPersonCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
@@ -63,7 +63,7 @@ public class EditPersonCommandTest {
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).withAllergies("Penicillin").build();
-        EditPersonCommand editCommand = new EditPersonCommand(indexLastPerson, descriptor);
+        EditPersonCommand editCommand = new EditPersonCommand(indexLastPerson, descriptor, false);
 
         String expectedMessage =
                 String.format(EditPersonCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
@@ -78,7 +78,7 @@ public class EditPersonCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditPersonCommand editCommand = new EditPersonCommand(INDEX_FIRST, new EditPersonDescriptor());
+        EditPersonCommand editCommand = new EditPersonCommand(INDEX_FIRST, new EditPersonDescriptor(), false);
         Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
 
         String expectedMessage =
@@ -96,7 +96,7 @@ public class EditPersonCommandTest {
         Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
         Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
         EditPersonCommand editCommand = new EditPersonCommand(INDEX_FIRST,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build(), false);
 
         String expectedMessage =
                 String.format(EditPersonCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
@@ -112,7 +112,7 @@ public class EditPersonCommandTest {
     public void execute_duplicatePersonUnfilteredList_failure() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
-        EditPersonCommand editCommand = new EditPersonCommand(INDEX_SECOND, descriptor);
+        EditPersonCommand editCommand = new EditPersonCommand(INDEX_SECOND, descriptor, false);
 
         assertCommandFailure(editCommand, model,
                 String.format(EditPersonCommand.MESSAGE_DUPLICATE_PERSON, descriptor.getName().get()));
@@ -125,7 +125,7 @@ public class EditPersonCommandTest {
         // edit person in filtered list into a duplicate in address book
         Person personInList = model.getAddressBook().getPersonList().get(INDEX_SECOND.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(personInList).build();
-        EditPersonCommand editCommand = new EditPersonCommand(INDEX_FIRST, descriptor);
+        EditPersonCommand editCommand = new EditPersonCommand(INDEX_FIRST, descriptor, false);
 
         assertCommandFailure(editCommand, model,
                 String.format(EditPersonCommand.MESSAGE_DUPLICATE_PERSON, descriptor.getName().get()));
@@ -135,7 +135,7 @@ public class EditPersonCommandTest {
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
-        EditPersonCommand editCommand = new EditPersonCommand(outOfBoundIndex, descriptor);
+        EditPersonCommand editCommand = new EditPersonCommand(outOfBoundIndex, descriptor, false);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -152,18 +152,18 @@ public class EditPersonCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
         EditPersonCommand editCommand = new EditPersonCommand(outOfBoundIndex,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build(), false);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final EditPersonCommand standardCommand = new EditPersonCommand(INDEX_FIRST, DESC_AMY);
+        final EditPersonCommand standardCommand = new EditPersonCommand(INDEX_FIRST, DESC_AMY, false);
 
         // same values -> returns true
         EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
-        EditPersonCommand commandWithSameValues = new EditPersonCommand(INDEX_FIRST, copyDescriptor);
+        EditPersonCommand commandWithSameValues = new EditPersonCommand(INDEX_FIRST, copyDescriptor, false);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -176,17 +176,17 @@ public class EditPersonCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditPersonCommand(INDEX_SECOND, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditPersonCommand(INDEX_SECOND, DESC_AMY, false)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditPersonCommand(INDEX_FIRST, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditPersonCommand(INDEX_FIRST, DESC_BOB, false)));
     }
 
     @Test
     public void toStringMethod() {
         Index index = Index.fromOneBased(1);
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
-        EditPersonCommand editCommand = new EditPersonCommand(index, editPersonDescriptor);
+        EditPersonCommand editCommand = new EditPersonCommand(index, editPersonDescriptor, false);
         String expected = EditPersonCommand.class.getCanonicalName() + "{index=" + index + ", editPersonDescriptor="
                 + editPersonDescriptor + "}";
         assertEquals(expected, editCommand.toString());
