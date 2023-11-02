@@ -71,8 +71,13 @@ public class PersonDisplay extends UiPart<Region> {
                         new PersonDisplayOrderCard(o, indexes.get(Status.OrderStatus.COMPLETED)).getRoot());
                 indexes.put(Status.OrderStatus.COMPLETED, indexes.get(Status.OrderStatus.COMPLETED) + 1);
                 break;
+            case CANCELLED:
+                cancelledOrderVbox.getChildren().add(
+                        new PersonDisplayOrderCard(o, indexes.get(Status.OrderStatus.CANCELLED)).getRoot());
+                indexes.put(Status.OrderStatus.CANCELLED, indexes.get(Status.OrderStatus.CANCELLED) + 1);
+                break;
             default:
-                throw new RuntimeException("Unknown order status type");
+                throw new RuntimeException("Unknown order status type: " + o.getStatus().getStatus());
             }
         });
     }
