@@ -35,19 +35,19 @@ public class UpdateStatusCommand extends Command {
             + "by the order number used in the displayed order list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_STATUS + "NAME] \n"
+            + PREFIX_STATUS + "STATUS\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_STATUS + "PENDING/PREPARING/COMPLETED/OTHERS ";
+            + PREFIX_STATUS + "completed";
 
     public static final String MESSAGE_EDIT_ORDER_STATUS_SUCCESS = "Successfully updated status of Order #%1$s";
     public static final String MESSAGE_NOT_EDITED = "Status to edit to must be provided.";
     public static final String MESSAGE_DUPLICATE_ORDER = "Operation would result in duplicate order";
     public static final String MESSAGE_WRONG_CHRONOLOGICAL_ORDER_STATUS =
             "Status can only be updated in a chronological order "
-                    + Status.OrderStatus.PENDING + "(PD) -> "
-                    + Status.OrderStatus.PREPARING + "(PR) -> "
-                    + Status.OrderStatus.COMPLETED + "(CP) -> "
-                    + Status.OrderStatus.CANCELLED + "(CC)";
+                    + Status.OrderStatus.PENDING + " (PD) -> "
+                    + Status.OrderStatus.PREPARING + " (PR) -> "
+                    + Status.OrderStatus.COMPLETED + " (CP) -> "
+                    + Status.OrderStatus.CANCELLED + " (CC)";
 
     private final Index index;
     private final EditOrderDescriptor editOrderDescriptor;

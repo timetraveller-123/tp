@@ -126,7 +126,8 @@ public class Status {
      */
     public static boolean isValidShortForm(String shortForm) {
         String sf = shortForm.toLowerCase().trim();
-        if (sf.equals("pd") || sf.equals("pr") || sf.equals("cd") || sf.equals("cc")) {
+        if (sf.equalsIgnoreCase("pd") || sf.equalsIgnoreCase("pr")
+                || sf.equalsIgnoreCase("cp") || sf.equalsIgnoreCase("cc")) {
             return true;
         }
         return false;
@@ -155,7 +156,7 @@ public class Status {
         case "pr":
             return "PREPARING";
 
-        case "cd":
+        case "cp":
             return "COMPLETED";
 
         case "cc":
