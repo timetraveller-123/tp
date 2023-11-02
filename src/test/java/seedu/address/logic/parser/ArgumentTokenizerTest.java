@@ -59,7 +59,7 @@ public class ArgumentTokenizerTest {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString);
 
         // Same string expected as preamble, but leading/trailing spaces should be trimmed
-        assertPreamblePresent(argMultimap, argsString.trim());
+        assertPreamblePresent(argMultimap, argsString.trim().replaceAll("/", ""));
 
     }
 
@@ -128,7 +128,7 @@ public class ArgumentTokenizerTest {
 
     @Test
     public void tokenize_multipleArgumentsJoined() {
-        String argsString = "SomePreambleStringp/ pSlash joined-tjoined -t not joined^Qjoined";
+        String argsString = "SomePreambleStringp// pSlash joined-tjoined -t not joined^Qjoined";
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash, dashT, hatQ);
         assertPreamblePresent(argMultimap, "SomePreambleStringp/ pSlash joined-tjoined");
         assertArgumentAbsent(argMultimap, pSlash);

@@ -24,7 +24,8 @@ public class ArgumentTokenizer {
      * @return           ArgumentMultimap object that maps prefixes to their arguments
      */
     public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
-        String newString = argsString.replaceAll(" +"," ").replaceAll("//", Character.toString((char) 127));
+        String newString = argsString.replaceAll(" +", " ")
+            .replaceAll("//", Character.toString((char) 127));
         List<PrefixPosition> positions = findAllPrefixPositions(newString, prefixes);
         return extractArguments(newString, positions);
     }
@@ -122,7 +123,8 @@ public class ArgumentTokenizer {
         int valueStartPos = currentPrefixPosition.getStartPosition() + prefix.getPrefix().length();
         String value = argsString.substring(valueStartPos, nextPrefixPosition.getStartPosition());
 
-        return value.trim().replaceAll("/","").replaceAll(Character.toString((char) 127), "/");
+        return value.trim().replaceAll("/", "")
+            .replaceAll(Character.toString((char) 127), "/");
     }
 
     /**
