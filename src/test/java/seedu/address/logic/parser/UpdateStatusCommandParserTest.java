@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -19,6 +18,7 @@ public class UpdateStatusCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateStatusCommand.MESSAGE_USAGE);
+    private static final String VALID_STATUS = " s/PENDING";
 
     private UpdateStatusCommandParser parser = new UpdateStatusCommandParser();
 
@@ -39,18 +39,36 @@ public class UpdateStatusCommandParserTest {
         assertParseSuccess(parser, "1 " + PREFIX_STATUS + "PENDING", expectedCommand);
     }
     @Test
+    public void parse_validInputWithShortForm_returnsUpdateStatusCommand() {
+        UpdateStatusCommand.EditOrderDescriptor descriptor = new UpdateStatusCommand.EditOrderDescriptor();
+        descriptor.setStatus(new Status(Status.OrderStatus.PENDING));
+        UpdateStatusCommand expectedCommand = new UpdateStatusCommand(INDEX_FIRST, descriptor);
+        assertParseSuccess(parser, "1 " + PREFIX_STATUS + "pd", expectedCommand);
+    }
+    @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + VALID_STATUS, MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + VALID_STATUS, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
 
         // invalid prefix being parsed as preamble
         assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+    }
+    @Test
+    public void parse_invalidshortform_failure() {
+        // invalid status lower case
+        assertParseFailure(parser, "1 s/ww", Status.MESSAGE_CONSTRAINTS);
+
+        // invalid status upper case
+        assertParseFailure(parser, "1 s/WO", Status.MESSAGE_CONSTRAINTS);
+
+        // empty
+        assertParseFailure(parser, "1 s/", Status.MESSAGE_CONSTRAINTS);
     }
     @Test
     public void parse_missingStatusPrefix_throwsParseException() {

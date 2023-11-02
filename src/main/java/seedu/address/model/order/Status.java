@@ -22,7 +22,7 @@ public class Status {
         CANCELLED
     }
 
-    public static final String MESSAGE_CONSTRAINTS = "Order Status can only be"
+    public static final String MESSAGE_CONSTRAINTS = "Order Status can only be "
             + OrderStatus.PENDING + ("/PD, ")
             + OrderStatus.PREPARING + ("/PR, ")
             + OrderStatus.COMPLETED + ("/CP, ")
@@ -37,7 +37,7 @@ public class Status {
     public Status(OrderStatus orderStatus) {
         requireNonNull(orderStatus);
         assert isValidOrderStatus(orderStatus)
-                : "OrderStatus can only be PENDING/PREPARING/COMPLETED/OTHERS";
+                : "OrderStatus can only be PENDING/PREPARING/COMPLETED/CANCELLED";
         checkArgument(isValidOrderStatus(orderStatus), MESSAGE_CONSTRAINTS);
         this.orderStatus = orderStatus;
     }
@@ -57,7 +57,7 @@ public class Status {
      */
     public static OrderStatus toOrderStatus(String status) {
         assert isValidOrderStatus(status)
-                : "OrderStatus can only be PENDING/PREPARING/COMPLETED/OTHERS";
+                : "OrderStatus can only be PENDING/PREPARING/COMPLETED/CANCELLED";
         checkArgument(isValidOrderStatus(status), MESSAGE_CONSTRAINTS);
         for (OrderStatus validStatus : OrderStatus.values()) {
             if (validStatus.toString().equals(status.toUpperCase())) {
@@ -119,31 +119,50 @@ public class Status {
     }
 
     /**
+     * Testing whether the input is a valid short form.
+     *
+     * @param shortForm The input short form.
+     * @return The boolean on if it is true.
+     */
+    public static boolean isValidShortForm(String shortForm) {
+        String sf = shortForm.toLowerCase().trim();
+        if (sf.equals("pd") || sf.equals("pr") || sf.equals("cd") || sf.equals("cc")) {
+            return true;
+        }
+        return false;
+    }
+    /**
      * Returns a OrderStatus from the short form provided.
      *
      * @param shortForm The short form given.
      * @return The orderStatus it converted to.
      * @throws CommandException If the short form provided is not valid.
      */
-    public OrderStatus shortFormToFull(String shortForm) throws CommandException {
+    public static String shortFormToFull(String shortForm) {
+        if (isValidOrderStatus(shortForm)) {
+            return shortForm;
+        }
+        if (!isValidShortForm(shortForm)) {
+            return null;
+        }
         requireNonNull(shortForm);
         assert !shortForm.equals("") : "short form should not be empty";
         String sf = shortForm.toLowerCase().trim();
         switch (sf) {
         case "pd":
-            return OrderStatus.PENDING;
+            return "PENDING";
 
         case "pr":
-            return OrderStatus.PREPARING;
+            return "PREPARING";
 
-        case "cp":
-            return OrderStatus.COMPLETED;
+        case "cd":
+            return "COMPLETED";
 
         case "cc":
-            return OrderStatus.CANCELLED;
+            return "CANCELLED";
 
         default:
-            throw new CommandException(MESSAGE_CONSTRAINTS);
+            return null;
         }
     }
 

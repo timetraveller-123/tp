@@ -74,6 +74,7 @@ public class UpdateStatusCommand extends Command {
 
         Order orderToEdit = lastShownList.get(index.getZeroBased());
         Order editedOrder = createEditedOrder(orderToEdit, editOrderDescriptor);
+
         if (!Status.isValidChronologicalStatus(orderToEdit.getStatus().getStatus(),
                 editedOrder.getStatus().getStatus())) {
             throw new CommandException(MESSAGE_WRONG_CHRONOLOGICAL_ORDER_STATUS);
