@@ -124,7 +124,7 @@ public class UpdateStatusCommandTest {
         // different types -> returns false
         assertNotEquals(
                 standardCommand,
-                new EditPersonCommand(INDEX_FIRST, new EditPersonCommand.EditPersonDescriptor()));
+                new EditPersonCommand(INDEX_FIRST, new EditPersonCommand.EditPersonDescriptor(), false));
 
         // different index -> returns false
         assertNotEquals(standardCommand, new UpdateStatusCommand(INDEX_SECOND, descriptor));
