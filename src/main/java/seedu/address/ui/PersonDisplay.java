@@ -58,17 +58,17 @@ public class PersonDisplay extends UiPart<Region> {
             switch (o.getStatus().getStatus()) {
             case PENDING:
                 pendingOrderVbox.getChildren().add(
-                        new OrderCard(o, indexes.get(Status.OrderStatus.PENDING)).getRoot());
+                        new PersonDisplayOrderCard(o, indexes.get(Status.OrderStatus.PENDING)).getRoot());
                 indexes.put(Status.OrderStatus.PENDING, indexes.get(Status.OrderStatus.PENDING) + 1);
                 break;
             case PREPARING:
                 preparingOrderVbox.getChildren().add(
-                        new OrderCard(o, indexes.get(Status.OrderStatus.PREPARING)).getRoot());
+                        new PersonDisplayOrderCard(o, indexes.get(Status.OrderStatus.PREPARING)).getRoot());
                 indexes.put(Status.OrderStatus.PREPARING, indexes.get(Status.OrderStatus.PREPARING) + 1);
                 break;
             case COMPLETED:
                 completedOrderVbox.getChildren().add(
-                        new OrderCard(o, indexes.get(Status.OrderStatus.COMPLETED)).getRoot());
+                        new PersonDisplayOrderCard(o, indexes.get(Status.OrderStatus.COMPLETED)).getRoot());
                 indexes.put(Status.OrderStatus.COMPLETED, indexes.get(Status.OrderStatus.COMPLETED) + 1);
                 break;
             default:
