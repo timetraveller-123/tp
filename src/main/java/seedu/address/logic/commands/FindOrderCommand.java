@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Set;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -51,12 +50,9 @@ public class FindOrderCommand extends Command {
         Predicate<Order> statusMatches = order -> statusToFind == null
                 || order.getStatus().getStatus() == statusToFind.getStatus();
         Predicate<Order> medicineMatches = order -> medicineToFind == null
-                || Stream.of(medicineToFind)
-                .anyMatch(medicineName ->
-                        order.getMedicines().stream()
-                                .anyMatch(orderMedicine ->
-                                        medicineName.stream().anyMatch(
-                                                orderMedicine::isSameMedicine)));
+                || order.getMedicines().stream()
+                .anyMatch(medicine -> medicineToFind.stream()
+                        .anyMatch(checkMedicine -> checkMedicine.isSameMedicine(medicine)));
 
         Predicate<Order> combined = statusMatches.and(medicineMatches);
 
