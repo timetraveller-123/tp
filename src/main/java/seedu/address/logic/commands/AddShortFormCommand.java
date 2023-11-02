@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_SHORT_FORM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINENAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEDICINES;
 
@@ -18,7 +19,7 @@ import seedu.address.model.medicine.Medicine;
  * A class which represents the adding of a short form to a medicine.
  */
 public class AddShortFormCommand extends Command {
-    public static final String COMMAND_WORD = "addsfm";
+    public static final String COMMAND_WORD = "sfm";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a short form to the Medicine identified "
             + "by the index number used in the displayed medicine list. "
@@ -26,9 +27,12 @@ public class AddShortFormCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
              + PREFIX_MEDICINENAME + "SHORTFORM "
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_MEDICINENAME + "pan ";
+            + PREFIX_MEDICINENAME + "pan "
+            + " Add the tag " + PREFIX_DELETE_SHORT_FORM + " to delete the short form";
 
     public static final String MESSAGE_ADD_SHORT_FORM_SUCCESS = "Added Short From: %1$s";
+
+    public static final String MESSAGE_DELETE_SHORT_FORM_SUCCESS = "Deleted Short From: %1$s";
     public static final String MESSAGE_DUPLICATE_SHORT_FORM =
             "This short form/medicine already exists in the address book.";
 
@@ -46,12 +50,30 @@ public class AddShortFormCommand extends Command {
         this.medicine = medicine;
     }
 
+    /**
+     * Creates an AddShortForm Command
+     */
+    public AddShortFormCommand(Index index) {
+        requireNonNull(index);
+        this.index = index;
+        medicine = null;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         List<Medicine> lastShownList = model.getFilteredMedicineList();
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
+        }
+
+        if (medicine == null) {
+            Medicine medicineToAddShortForm = lastShownList.get(index.getZeroBased());
+            Medicine newMedicine = new Medicine(medicineToAddShortForm.getMedicineName(), "");
+            model.setMedicine(medicineToAddShortForm, newMedicine);
+            model.updateFilteredMedicineList(PREDICATE_SHOW_ALL_MEDICINES);
+            return new CommandResult(String.format(MESSAGE_DELETE_SHORT_FORM_SUCCESS, Messages.format(newMedicine)));
         }
 
         if (model.hasMedicine(medicine)) {
