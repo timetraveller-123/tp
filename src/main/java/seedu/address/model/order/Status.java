@@ -3,8 +3,6 @@ package seedu.address.model.order;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.util.Objects;
-
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**

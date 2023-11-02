@@ -36,8 +36,8 @@ public class Messages {
     public static final String MESSAGE_NO_ORDER_WITH_GIVEN_ORDER_NUMBER =
             "There is no order with %1$s as order number.";
 
-    public static final String MESSAGE_INVALID_MEDICINE = "Medicine '%1$s' does not exist. Use addm to add a new" +
-            " medicine to PharmHub";
+    public static final String MESSAGE_INVALID_MEDICINE = "Medicine '%1$s' does not exist. Use 'addm' to add a new"
+            + " medicine to PharmHub";
 
     public static final String MESSAGE_NO_VALID_PREVIOUS_STATE = "No previous state to revert to";
 
