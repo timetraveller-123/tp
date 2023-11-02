@@ -18,7 +18,8 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         if (!model.canUndo()) {
-            throw new CommandException(Messages.MESSAGE_NO_VALID_PREVIOUS_STATE);
+            throw new CommandException(
+                    "Undo failed: " + Messages.MESSAGE_NO_VALID_PREVIOUS_STATE);
         }
 
         model.undo();
