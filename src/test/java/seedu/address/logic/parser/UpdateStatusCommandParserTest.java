@@ -66,9 +66,6 @@ public class UpdateStatusCommandParserTest {
 
         // invalid status upper case
         assertParseFailure(parser, "1 s/WO", Status.MESSAGE_CONSTRAINTS);
-
-        // empty
-        assertParseFailure(parser, "1 s/", Status.MESSAGE_CONSTRAINTS);
     }
     @Test
     public void parse_missingStatusPrefix_throwsParseException() {

@@ -139,14 +139,14 @@ public class Status {
      * @throws CommandException If the short form provided is not valid.
      */
     public static String shortFormToFull(String shortForm) {
-        if (isValidOrderStatus(shortForm)) {
+        assert !shortForm.equals("") : MESSAGE_CONSTRAINTS + "Cannot be empty";
+        if (isValidOrderStatus(shortForm.toUpperCase())) {
             return shortForm;
         }
         if (!isValidShortForm(shortForm)) {
             return null;
         }
         requireNonNull(shortForm);
-        assert !shortForm.equals("") : "short form should not be empty";
         String sf = shortForm.toLowerCase().trim();
         switch (sf) {
         case "pd":
