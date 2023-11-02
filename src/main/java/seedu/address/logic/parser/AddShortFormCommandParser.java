@@ -32,13 +32,11 @@ public class AddShortFormCommandParser implements Parser<AddShortFormCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddShortFormCommand.MESSAGE_USAGE), pe);
         }
 
-
-
         if (argMultimap.getValue(PREFIX_DELETE_SHORT_FORM).isPresent()) {
             return new AddShortFormCommand(index);
         }
 
-        if (argMultimap.getValue(PREFIX_MEDICINE_NAME).isEmpty()) {
+        if (argMultimap.getValue(PREFIX_MEDICINE_NAME).orElse("").isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddShortFormCommand.MESSAGE_USAGE));
         }
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_MEDICINE_NAME);

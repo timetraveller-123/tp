@@ -21,14 +21,14 @@ import seedu.address.model.medicine.Medicine;
 public class AddShortFormCommand extends Command {
     public static final String COMMAND_WORD = "sfm";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a short form to the Medicine identified "
-            + "by the index number used in the displayed medicine list. "
-            + "Existing short form will be overwritten by the input values.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the short form for the Medicine identified "
+            + "by the index number used in the displayed medicine list.\n"
+            + "Add the tag '" + PREFIX_DELETE_SHORT_FORM + "' to delete the current short form for the medicine\n"
             + "Parameters: INDEX (must be a positive integer) "
-             + PREFIX_MEDICINE_NAME + "SHORTFORM "
+            + PREFIX_MEDICINE_NAME + "SHORT_FORM "
+            + "[" + PREFIX_DELETE_SHORT_FORM + "]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_MEDICINE_NAME + "pan "
-            + " Add the tag " + PREFIX_DELETE_SHORT_FORM + " to delete the short form";
+            + PREFIX_MEDICINE_NAME + "pan";
 
     public static final String MESSAGE_ADD_SHORT_FORM_SUCCESS = "Added Short From: %1$s";
 
