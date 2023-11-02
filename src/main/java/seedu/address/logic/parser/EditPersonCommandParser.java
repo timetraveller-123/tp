@@ -2,7 +2,13 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IGNORE_ALLERGY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -65,12 +71,12 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
             throw new ParseException(EditPersonCommand.MESSAGE_NOT_EDITED);
         }
 
-        boolean ignoreOrderAllergyConflicts = false;
+        boolean ignoreAllergies = false;
         if (argMultimap.getValue(PREFIX_IGNORE_ALLERGY).isPresent()) {
-            ignoreOrderAllergyConflicts = true;
+            ignoreAllergies = true;
         }
 
-        return new EditPersonCommand(index, editPersonDescriptor, ignoreOrderAllergyConflicts);
+        return new EditPersonCommand(index, editPersonDescriptor, ignoreAllergies);
     }
 
     /**
