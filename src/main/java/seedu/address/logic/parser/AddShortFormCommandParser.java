@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_SHORT_FORM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINENAME;
 
 import seedu.address.commons.core.index.Index;
@@ -21,7 +22,7 @@ public class AddShortFormCommandParser implements Parser<AddShortFormCommand> {
      */
     public AddShortFormCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MEDICINENAME);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MEDICINENAME, PREFIX_DELETE_SHORT_FORM);
         Index index;
 
         try {
@@ -29,6 +30,12 @@ public class AddShortFormCommandParser implements Parser<AddShortFormCommand> {
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddShortFormCommand.MESSAGE_USAGE), pe);
+        }
+
+
+
+        if (argMultimap.getValue(PREFIX_DELETE_SHORT_FORM).isPresent()) {
+            return new AddShortFormCommand(index);
         }
 
         if (argMultimap.getValue(PREFIX_MEDICINENAME).isEmpty()) {

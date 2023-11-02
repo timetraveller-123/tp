@@ -17,4 +17,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_STATUS = new Prefix("s/");
     public static final Prefix PREFIX_IGNORE_ALLERGY = new Prefix("ia/");
 
+    public static final Prefix PREFIX_DELETE_SHORT_FORM = new Prefix("d/");
+
 }
