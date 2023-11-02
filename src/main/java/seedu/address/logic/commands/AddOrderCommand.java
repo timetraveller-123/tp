@@ -38,7 +38,7 @@ public class AddOrderCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New order added: #%1$s";
 
-    public static final String MESSAGE_DUPLICATE_ORDER = "Order number '%1$s' already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_ORDER = "Order number '%1$s' already exists in PharmHub";
 
     private final Index index;
     private final OrderNumber orderNumber;

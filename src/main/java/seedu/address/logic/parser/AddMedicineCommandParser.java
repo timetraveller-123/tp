@@ -21,7 +21,8 @@ public class AddMedicineCommandParser implements Parser<AddMedicineCommand> {
     public AddMedicineCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MEDICINE_NAME);
 
-        if (!argMultimap.getPreamble().isEmpty() || argMultimap.getValue(PREFIX_MEDICINE_NAME).isEmpty()) {
+        if (!argMultimap.getPreamble().isEmpty()
+                || argMultimap.getValue(PREFIX_MEDICINE_NAME).orElse("").isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedicineCommand.MESSAGE_USAGE));
         }
 
