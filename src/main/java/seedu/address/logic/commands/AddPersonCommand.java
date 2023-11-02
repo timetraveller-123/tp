@@ -64,15 +64,14 @@ public class AddPersonCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        Set<Medicine> allergyMedicines = new HashSet<>(toAdd.getAllergies().stream()
-                                                        .map(Allergy::getAllery).collect(Collectors.toList()));
+        Set<Medicine> allergyMedicines = toAdd.getAllergies().stream()
+                .map(Allergy::getAllery).collect(Collectors.toSet());
         Set<Medicine> convertedMedicines = CommandUtil.getModelMedicine(model, allergyMedicines);
 
-        Set<Allergy> convertedAllergies = new HashSet<>(convertedMedicines.stream().map(Allergy::new)
-                                                        .collect(Collectors.toList()));
+        Set<Allergy> convertedAllergies = convertedMedicines.stream().map(Allergy::new).collect(Collectors.toSet());
 
         Person newPerson = new Person(toAdd.getName(), toAdd.getPhone(), toAdd.getEmail(), toAdd.getAddress(),
-                                    toAdd.getTags(), convertedAllergies);
+                                    toAdd.getTags(), convertedAllergies, new HashSet<>());
 
         model.addPerson(newPerson);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(newPerson)), newPerson);

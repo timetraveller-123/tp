@@ -11,6 +11,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.InfoObject;
 import seedu.address.model.allergy.Allergy;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.order.Order;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -28,11 +29,13 @@ public class Person implements InfoObject {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private final Set<Allergy> allergies = new HashSet<>();
+    private final Set<Order> orders = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Allergy> allergies) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Allergy> allergies,
+                  Set<Order> orders) {
         requireAllNonNull(name, phone, email, address, tags, allergies);
         this.name = name;
         this.phone = phone;
@@ -40,6 +43,7 @@ public class Person implements InfoObject {
         this.address = address;
         this.tags.addAll(tags);
         this.allergies.addAll(allergies);
+        this.orders.addAll(orders);
     }
 
     public Name getName() {
@@ -72,6 +76,40 @@ public class Person implements InfoObject {
      */
     public Set<Allergy> getAllergies() {
         return Collections.unmodifiableSet(allergies);
+    }
+
+    /**
+     * Returns an immutable order set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Order> getOrders() {
+        return Collections.unmodifiableSet(orders);
+    }
+
+    /**
+     * Adds an order to the person.
+     * @param o The order to be added.
+     */
+    public void addOrder(Order o) {
+        this.orders.add(o);
+    }
+
+    /**
+     * Removes an order from the person.
+     * @param o The order to be removed.
+     */
+    public void removeOrder(Order o) {
+        this.orders.remove(o);
+    }
+
+    /**
+     * Replaces an order in the person.
+     * @param oldOrder The order to be replaced.
+     * @param newOrder The new order.
+     */
+    public void replaceOrder(Order oldOrder, Order newOrder) {
+        this.orders.remove(oldOrder);
+        this.orders.add(newOrder);
     }
 
     /**

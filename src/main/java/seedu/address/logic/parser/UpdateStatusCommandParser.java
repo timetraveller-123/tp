@@ -8,6 +8,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.UpdateStatusCommand;
 import seedu.address.logic.commands.UpdateStatusCommand.EditOrderDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.order.Status;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -38,7 +39,12 @@ public class UpdateStatusCommandParser implements Parser<UpdateStatusCommand> {
         EditOrderDescriptor editOrderDescriptor = new EditOrderDescriptor();
 
         if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
-            editOrderDescriptor.setStatus(ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get()));
+            String s = argMultimap.getValue(PREFIX_STATUS).get();
+            String inputStatus = Status.shortFormToFull(s);
+            if (inputStatus == null) {
+                throw new ParseException(Status.MESSAGE_CONSTRAINTS);
+            }
+            editOrderDescriptor.setStatus(ParserUtil.parseStatus(inputStatus));
         }
 
         if (!editOrderDescriptor.isAnyFieldEdited()) {
