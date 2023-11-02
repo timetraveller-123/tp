@@ -36,7 +36,7 @@ public class UpdateStatusCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Order editedOrder = new OrderBuilder().withStatus("PREPARING").build();
-        EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder(editedOrder).build();
+        EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder(editedOrder).withStatus("PREPARING").build();
         UpdateStatusCommand updateStatusCommand = new UpdateStatusCommand(INDEX_FIRST, descriptor);
 
         String expectedMessage = String.format(
@@ -47,6 +47,14 @@ public class UpdateStatusCommandTest {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, editedOrder);
 
         assertCommandSuccess(updateStatusCommand, model, expectedCommandResult, expectedModel);
+    }
+    @Test
+    public void execute_inValidChronological_failure() {
+        Order editedOrder = new OrderBuilder().withStatus("PREPARING").build();
+        EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder(editedOrder).withStatus("PREPARING").build();
+        UpdateStatusCommand updateStatusCommand = new UpdateStatusCommand(INDEX_SECOND, descriptor);
+
+        assertCommandFailure(updateStatusCommand, model, UpdateStatusCommand.MESSAGE_WRONG_CHRONOLOGICAL_ORDER_STATUS);
     }
     @Test
     public void toStringMethod() {

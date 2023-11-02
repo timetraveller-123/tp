@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane styleClass="pane-with-border" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane styleClass="pane-with-border" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" VBox.vgrow="ALWAYS">
   <VBox spacing="20">
 
     <HBox spacing="10">
@@ -30,7 +30,22 @@
       <Label styleClass="cell_order_label" text="Allergies: " underline="true" />
       <Label fx:id="allergies" styleClass="cell_order_label" text="Label" />
     </HBox>
+
+    <VBox fx:id="pendingOrderVbox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+      <Label styleClass="cell_order_label" text="Orders pending: " />
+    </VBox>
+
+    <VBox fx:id="preparingOrderVbox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+      <Label styleClass="cell_order_label" text="Orders preparing: " />
+    </VBox>
+
+    <VBox fx:id="completedOrderVbox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+      <Label styleClass="cell_order_label" text="Orders completed: " />
+    </VBox>
+
+    <VBox fx:id="cancelledOrderVbox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+      <Label styleClass="cell_order_label" text="Orders cancelled: " />
+    </VBox>
+
   </VBox>
-
-
-</StackPane>
+</ScrollPane>
