@@ -24,12 +24,12 @@ public class DeleteMedicineCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_MEDICINE_SUCCESS = "Deleted Medicine: #%1$s";
+    public static final String MESSAGE_DELETE_MEDICINE_SUCCESS = "Deleted Medicine: %1$s";
 
-    public static final String MESSAGE_DELETE_MEDICINE_FAILURE = "Unable to delete medicine: #%1$s \n"
+    public static final String MESSAGE_DELETE_MEDICINE_FAILURE = "Unable to delete medicine '%1$s'\n"
             + "Existing orders or allergies with given medicine must be deleted before medicine can be deleted. \n"
-            + "Use " + ListPeopleCommand.COMMAND_WORD + " or " + ListOrderCommand.COMMAND_WORD + " to find out affected"
-            + " orders or allergies";
+            + "Use '" + ListPeopleCommand.COMMAND_WORD + "' or '" + ListOrderCommand.COMMAND_WORD + "' commands to "
+            + "find out affected orders or allergies";
 
     private final Index index;
 
