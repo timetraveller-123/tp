@@ -55,20 +55,26 @@ public class EditPersonCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "Person with name '%1$s' already exists in PharmHub.";
+    public static final String MESSAGE_CONFLICTING_ORDERS = "Warning: Person's new allergies conflict with "
+            + "existing orders. Add 'ia/' (ignore allergy) to the end of the command to add this medicine to the "
+            + "order anyway. ";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
+    private final boolean ignoreAllergyOrderConflicts;
 
     /**
      * @param index of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
-    public EditPersonCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditPersonCommand(Index index, EditPersonDescriptor editPersonDescriptor,
+                             boolean ignoreAllergyOrderConflicts) {
         requireNonNull(index);
         requireNonNull(editPersonDescriptor);
 
         this.index = index;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.ignoreAllergyOrderConflicts = ignoreAllergyOrderConflicts;
     }
 
     @Override
@@ -97,6 +103,10 @@ public class EditPersonCommand extends Command {
         Person newPerson = new Person(editedPerson.getName(), editedPerson.getPhone(), editedPerson.getEmail(),
                                        editedPerson.getAddress(), editedPerson.getTags(), convertedAllergies,
                                         editedPerson.getOrders());
+
+        if (!ignoreAllergyOrderConflicts && newPerson.hasOrderConflicts()) {
+            throw new CommandException(MESSAGE_CONFLICTING_ORDERS);
+        }
 
         model.setPerson(personToEdit, newPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

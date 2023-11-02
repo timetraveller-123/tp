@@ -139,6 +139,10 @@ public class Person implements InfoObject {
         return medicines.stream().anyMatch(medicine -> isAllergicTo(medicine));
     }
 
+    public boolean hasOrderConflicts() {
+        return orders.stream().anyMatch(o -> isAllergicToAny(o.getMedicines()));
+    }
+
     /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
