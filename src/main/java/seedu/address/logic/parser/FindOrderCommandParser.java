@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
@@ -8,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import seedu.address.logic.commands.FindMedicineCommand;
 import seedu.address.logic.commands.FindOrderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicine.Medicine;
@@ -24,7 +26,12 @@ public class FindOrderCommandParser implements Parser<FindOrderCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindOrderCommand parse(String args) throws ParseException {
-        requireNonNull(args);
+        String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindOrderCommand.MESSAGE_USAGE));
+        }
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_STATUS, PREFIX_MEDICINE_NAME);
 
@@ -32,7 +39,6 @@ public class FindOrderCommandParser implements Parser<FindOrderCommand> {
 
         Status statusToFind = null;
         Set<Medicine> medicineToFind = null;
-        String[] nameKeywords = null;
 
         if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
             String s = argMultimap.getValue(PREFIX_STATUS).get();
@@ -40,9 +46,13 @@ public class FindOrderCommandParser implements Parser<FindOrderCommand> {
         }
         if (argMultimap.getValue(PREFIX_MEDICINE_NAME).isPresent()) {
             String medicineArg = argMultimap.getValue(PREFIX_MEDICINE_NAME).get();
-            nameKeywords = medicineArg.split("\\s+");
-            List<String> list = Arrays.asList(nameKeywords);
+            List<String> list = Arrays.asList(medicineArg.split("\\s+"));
             medicineToFind = ParserUtil.parseMedicines(list);
+        }
+
+        if (statusToFind == null && medicineToFind == null) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindOrderCommand.MESSAGE_USAGE));
         }
 
         return new FindOrderCommand(statusToFind, medicineToFind);

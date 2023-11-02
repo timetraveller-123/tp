@@ -82,7 +82,7 @@ public class Status {
      */
     public static boolean isValidOrderStatus(String orderStatus) {
         for (OrderStatus validStatus : OrderStatus.values()) {
-            if (Objects.equals(validStatus.toString(), orderStatus)) {
+            if (validStatus.toString().equalsIgnoreCase(orderStatus)) {
                 return true;
             }
         }
