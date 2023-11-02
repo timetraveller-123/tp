@@ -1,10 +1,11 @@
 package seedu.address.model.order;
 
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.Objects;
+
+import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
  * Represents a Status of a order.
@@ -18,11 +19,14 @@ public class Status {
         PENDING,
         PREPARING,
         COMPLETED,
-        OTHERS
+        CANCELLED
     }
 
-    public static final String MESSAGE_CONSTRAINTS = "Order Status can only be"
-            + OrderStatus.PENDING + OrderStatus.PREPARING + OrderStatus.COMPLETED + OrderStatus.OTHERS;
+    public static final String MESSAGE_CONSTRAINTS = "Order Status can only be "
+            + OrderStatus.PENDING + ("/PD, ")
+            + OrderStatus.PREPARING + ("/PR, ")
+            + OrderStatus.COMPLETED + ("/CP, ")
+            + OrderStatus.CANCELLED + ("/CC");
     private final OrderStatus orderStatus;
 
     /**
@@ -33,7 +37,7 @@ public class Status {
     public Status(OrderStatus orderStatus) {
         requireNonNull(orderStatus);
         assert isValidOrderStatus(orderStatus)
-                : "OrderStatus can only be PENDING/PREPARING/COMPLETED/OTHERS";
+                : "OrderStatus can only be PENDING/PREPARING/COMPLETED/CANCELLED";
         checkArgument(isValidOrderStatus(orderStatus), MESSAGE_CONSTRAINTS);
         this.orderStatus = orderStatus;
     }
@@ -53,7 +57,7 @@ public class Status {
      */
     public static OrderStatus toOrderStatus(String status) {
         assert isValidOrderStatus(status)
-                : "OrderStatus can only be PENDING/PREPARING/COMPLETED/OTHERS";
+                : "OrderStatus can only be PENDING/PREPARING/COMPLETED/CANCELLED";
         checkArgument(isValidOrderStatus(status), MESSAGE_CONSTRAINTS);
         for (OrderStatus validStatus : OrderStatus.values()) {
             if (validStatus.toString().equals(status.toUpperCase())) {
@@ -83,6 +87,83 @@ public class Status {
             }
         }
         return false;
+    }
+
+    /**
+     * Returns where the status input is in chronological order.
+     *
+     * @param oldStatus The old Status.
+     * @param newStatus The new Status.
+     * @return Whether the New Status is valid.
+     */
+    public static boolean isValidChronologicalStatus(OrderStatus oldStatus, OrderStatus newStatus) {
+        switch (oldStatus) {
+        case PENDING:
+            return newStatus != OrderStatus.PENDING;
+
+        case PREPARING:
+            return !(newStatus == OrderStatus.PENDING
+                    || newStatus == OrderStatus.PREPARING);
+
+        case COMPLETED:
+            return !(newStatus == OrderStatus.PENDING
+                    || newStatus == OrderStatus.PREPARING
+                        || newStatus == OrderStatus.COMPLETED);
+
+        case CANCELLED:
+            return false;
+
+        default:
+            return true;
+        }
+    }
+
+    /**
+     * Testing whether the input is a valid short form.
+     *
+     * @param shortForm The input short form.
+     * @return The boolean on if it is true.
+     */
+    public static boolean isValidShortForm(String shortForm) {
+        String sf = shortForm.toLowerCase().trim();
+        if (sf.equals("pd") || sf.equals("pr") || sf.equals("cd") || sf.equals("cc")) {
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Returns a OrderStatus from the short form provided.
+     *
+     * @param shortForm The short form given.
+     * @return The orderStatus it converted to.
+     * @throws CommandException If the short form provided is not valid.
+     */
+    public static String shortFormToFull(String shortForm) {
+        assert !shortForm.equals("") : MESSAGE_CONSTRAINTS + "Cannot be empty";
+        if (isValidOrderStatus(shortForm.toUpperCase())) {
+            return shortForm;
+        }
+        if (!isValidShortForm(shortForm)) {
+            return null;
+        }
+        requireNonNull(shortForm);
+        String sf = shortForm.toLowerCase().trim();
+        switch (sf) {
+        case "pd":
+            return "PENDING";
+
+        case "pr":
+            return "PREPARING";
+
+        case "cd":
+            return "COMPLETED";
+
+        case "cc":
+            return "CANCELLED";
+
+        default:
+            return null;
+        }
     }
 
     @Override

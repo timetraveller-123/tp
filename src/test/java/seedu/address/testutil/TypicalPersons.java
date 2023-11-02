@@ -75,6 +75,9 @@ public class TypicalPersons {
         ab.addMedicine(new Medicine("Panadol"));
         ab.addMedicine(new Medicine("Penicillin"));
         ab.addMedicine(new Medicine("Paracetamol"));
+        ab.addMedicine(new Medicine("For Deleting"));
+
+
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }

@@ -24,6 +24,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.allergy.Allergy;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.order.Order;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -94,7 +95,8 @@ public class EditPersonCommand extends Command {
                 .collect(Collectors.toList()));
 
         Person newPerson = new Person(editedPerson.getName(), editedPerson.getPhone(), editedPerson.getEmail(),
-                                       editedPerson.getAddress(), editedPerson.getTags(), convertedAllergies);
+                                       editedPerson.getAddress(), editedPerson.getTags(), convertedAllergies,
+                                        editedPerson.getOrders());
 
         model.setPerson(personToEdit, newPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -115,8 +117,10 @@ public class EditPersonCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Set<Allergy> updatedAllergies = editPersonDescriptor.getAllergies().orElse(personToEdit.getAllergies());
+        Set<Order> orders = personToEdit.getOrders();
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedAllergies);
+        return new Person(updatedName, updatedPhone, updatedEmail,
+                updatedAddress, updatedTags, updatedAllergies, orders);
     }
 
     @Override

@@ -24,6 +24,7 @@ public class TypicalOrders {
     public static final Medicine ASPIRIN_MEDICINE = new Medicine("Aspirin");
     public static final Medicine PARACETAMOL_MEDICINE = new Medicine("Paracetamol");
     public static final Medicine PENICILLIN_MEDICINE = new Medicine("Penicillin");
+    public static final Medicine IBUPROFEN_MEDICINE = new Medicine("Ibuprofen");
     public static final Order CARL_PANADOL_ORDER = new Order(new OrderNumber("1"),
             TypicalPersons.CARL, new HashSet<>(List.of(PANADOL_MEDICINE)), STATUS_PENDING);
 

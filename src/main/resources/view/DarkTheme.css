@@ -10,6 +10,10 @@
     -fx-opacity: 0.9;
 }
 
+.person-display > .label {
+    -fx-text-fill: white;
+}
+
 .label-bright {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -126,10 +130,22 @@
     -fx-text-fill: #010504;
 }
 
+.person_display_cell_big_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+}
+
 .cell_small_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
     -fx-text-fill: #010504;
+}
+
+.person_display_cell_small_label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
 }
 
 .cell_order_label {
@@ -137,6 +153,7 @@
     -fx-font-size: 20px;
     -fx-text-fill: white;
 }
+
 .cell_detail_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 15px;
@@ -151,6 +168,10 @@
      -fx-background-color: derive(#1d1d1d, 20%);
      -fx-border-color: derive(#1d1d1d, 10%);
      -fx-border-top-width: 1px;
+}
+
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
 }
 
 .status-bar {

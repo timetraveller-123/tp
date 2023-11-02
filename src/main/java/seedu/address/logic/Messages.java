@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.Prefix;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
 
@@ -20,9 +21,12 @@ public class Messages {
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
 
     public static final String MESSAGE_INVALID_ORDER_DISPLAYED_INDEX = "The order index provided is invalid";
+
+    public static final String MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX = "The medicine index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
 
     public static final String MESSAGE_MEDICINES_LISTED_OVERVIEW = "%1$d medicines listed!";
+    public static final String MESSAGE_ORDERS_LISTED_OVERVIEW = "%1$d orders listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
 
@@ -61,6 +65,13 @@ public class Messages {
      */
     public static String format(Order order) {
         return order.getOrderNumber().toString();
+    }
+
+    /**
+     * Formats the {@code medicine} for display to the user.
+     */
+    public static String format(Medicine medicine) {
+        return medicine.getMedicineName().toString();
     }
 
     /**
