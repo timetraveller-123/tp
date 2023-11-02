@@ -42,6 +42,12 @@ public class UpdateStatusCommand extends Command {
     public static final String MESSAGE_EDIT_ORDER_STATUS_SUCCESS = "Successfully updated status of Order #%1$s";
     public static final String MESSAGE_NOT_EDITED = "Status to edit to must be provided.";
     public static final String MESSAGE_DUPLICATE_ORDER = "Operation would result in duplicate order";
+    public static final String MESSAGE_WRONG_CHRONOLOGICAL_ORDER_STATUS =
+            "Status can only be updated in a chronological order "
+                    + Status.OrderStatus.PENDING + "(PD) -> "
+                    + Status.OrderStatus.PREPARING + "(PR) -> "
+                    + Status.OrderStatus.COMPLETED + "(CP) -> "
+                    + Status.OrderStatus.CANCELLED + "(CC)";
 
     private final Index index;
     private final EditOrderDescriptor editOrderDescriptor;
@@ -69,6 +75,11 @@ public class UpdateStatusCommand extends Command {
 
         Order orderToEdit = lastShownList.get(index.getZeroBased());
         Order editedOrder = createEditedOrder(orderToEdit, editOrderDescriptor);
+
+        if (!Status.isValidChronologicalStatus(orderToEdit.getStatus().getStatus(),
+                editedOrder.getStatus().getStatus())) {
+            throw new CommandException(MESSAGE_WRONG_CHRONOLOGICAL_ORDER_STATUS);
+        }
 
         if (!orderToEdit.isSameOrder(editedOrder) && model.hasOrder(editedOrder)) {
             throw new CommandException(MESSAGE_DUPLICATE_ORDER);
