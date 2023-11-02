@@ -94,7 +94,7 @@ class JsonSerializableAddressBook {
                     .collect(Collectors.toList()));
 
             Person newPerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
-                    person.getAddress(), person.getTags(), convertedAllergies);
+                    person.getAddress(), person.getTags(), convertedAllergies, new HashSet<>());
 
 
             addressBook.addPerson(newPerson);
@@ -107,11 +107,10 @@ class JsonSerializableAddressBook {
             if (addressBook.hasOrder(order)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_ORDER);
             }
-            if (addressBook.getPersonList().stream().noneMatch(order.getPerson()::equals)) {
-                throw new IllegalValueException(MESSAGE_INVALID_PERSON);
-            }
+            Person person = addressBook.getPersonList().stream().filter(order.getPerson()::isSamePerson)
+                    .findFirst().orElseThrow(() -> new IllegalValueException(MESSAGE_INVALID_PERSON));
             Set<Medicine> convertedMedicines = getMedicines(addressBook, order.getMedicines());
-            Order toAdd = new Order(order.getOrderNumber(), order.getPerson(), convertedMedicines, order.getStatus());
+            Order toAdd = new Order(order.getOrderNumber(), person, convertedMedicines, order.getStatus());
             addressBook.addOrder(toAdd);
         }
 

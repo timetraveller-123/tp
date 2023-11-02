@@ -86,6 +86,19 @@ public class Person implements InfoObject {
         return Collections.unmodifiableSet(orders);
     }
 
+    public void addOrder(Order o) {
+        this.orders.add(o);
+    }
+
+    public void removeOrder(Order o) {
+        this.orders.remove(o);
+    }
+
+    public void replaceOrder(Order oldOrder, Order newOrder) {
+        this.orders.remove(oldOrder);
+        this.orders.add(newOrder);
+    }
+
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
