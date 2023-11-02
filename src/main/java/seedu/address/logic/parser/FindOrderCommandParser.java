@@ -4,12 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINENAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+
 import seedu.address.logic.commands.FindOrderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.order.Status;
-
-
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -29,13 +31,17 @@ public class FindOrderCommandParser implements Parser<FindOrderCommand> {
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_STATUS, PREFIX_MEDICINENAME);
 
         Status statusToFind = null;
-        Medicine medicineToFind = null;
+        Set<Medicine> medicineToFind = null;
+        String[] nameKeywords = null;
 
         if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
             statusToFind = ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get());
         }
         if (argMultimap.getValue(PREFIX_MEDICINENAME).isPresent()) {
-            medicineToFind = ParserUtil.parseMedicine(argMultimap.getValue(PREFIX_MEDICINENAME).get());
+            String medicineArg = argMultimap.getValue(PREFIX_MEDICINENAME).get();
+            nameKeywords = medicineArg.split("\\s+");
+            List<String> list = Arrays.asList(nameKeywords);
+            medicineToFind = ParserUtil.parseMedicines(list);
         }
 
         return new FindOrderCommand(statusToFind, medicineToFind);

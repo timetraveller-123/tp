@@ -2,7 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -27,14 +29,14 @@ public class FindOrderCommand extends Command {
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
     private final Status statusToFind;
-    private final Medicine medicineToFind;
+    private final Set<Medicine> medicineToFind;
 
     /**
      * Constructor method for the find order class.
      * @param statusToFind The status to find.
      * @param medicineToFind The Medicine to find.
      */
-    public FindOrderCommand(Status statusToFind, Medicine medicineToFind) {
+    public FindOrderCommand(Status statusToFind, Set<Medicine> medicineToFind) {
         this.statusToFind = statusToFind;
         this.medicineToFind = medicineToFind;
     }
@@ -49,7 +51,12 @@ public class FindOrderCommand extends Command {
         Predicate<Order> statusMatches = order -> statusToFind == null
                 || order.getStatus().getStatus() == statusToFind.getStatus();
         Predicate<Order> medicineMatches = order -> medicineToFind == null
-                || order.getMedicines().contains(medicineToFind);
+                || Stream.of(medicineToFind)
+                .anyMatch(medicineName ->
+                        order.getMedicines().stream()
+                                .anyMatch(orderMedicine ->
+                                        medicineName.stream().anyMatch(
+                                                orderMedicine::isSameMedicine)));
 
         Predicate<Order> combined = statusMatches.and(medicineMatches);
 
