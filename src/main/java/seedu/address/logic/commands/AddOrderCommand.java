@@ -13,6 +13,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderNumber;
 import seedu.address.model.order.Status;
@@ -40,7 +41,7 @@ public class AddOrderCommand extends Command {
 
     private final Index index;
     private final OrderNumber orderNumber;
-    private final Set<String> medicines;
+    private final Set<Medicine> medicines;
 
     private final Boolean ignoreAllergy;
     private final Status orderStatus;
@@ -51,7 +52,7 @@ public class AddOrderCommand extends Command {
      * @param orderNumber  of the order.
      * @param medicines    the set of medicines for this order
      */
-    public AddOrderCommand(Index index, OrderNumber orderNumber, Set<String> medicines, Boolean ignoreAllergy) {
+    public AddOrderCommand(Index index, OrderNumber orderNumber, Set<Medicine> medicines, Boolean ignoreAllergy) {
         requireAllNonNull(index, orderNumber, medicines);
         this.index = index;
         this.orderNumber = orderNumber;
@@ -63,20 +64,23 @@ public class AddOrderCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        Set<Medicine> convertedMedicines = CommandUtil.getModelMedicine(model, medicines);
+
         Person person = lastShownList.get(index.getZeroBased());
 
         // If person is allergic to medicine and ignoreAllergy is false, throw exception
-        if (person.isAllergicToAny(medicines) && !ignoreAllergy) {
+        if (person.isAllergicToAny(convertedMedicines) && !ignoreAllergy) {
             throw new CommandException(Messages.MESSAGE_ALLERGIC_TO_MEDICINE);
         }
 
-        Order toAdd = new Order(orderNumber, person, medicines, orderStatus);
+        Order toAdd = new Order(orderNumber, person, convertedMedicines, orderStatus);
 
         if (model.hasOrder(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ORDER);

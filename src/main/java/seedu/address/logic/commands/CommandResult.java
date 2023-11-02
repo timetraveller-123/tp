@@ -18,7 +18,8 @@ public class CommandResult {
     public enum ListPanelEffects {
         NO_EFFECT,
         PERSON,
-        ORDER
+        ORDER,
+        MEDICINE
     }
 
     private final String feedbackToUser;

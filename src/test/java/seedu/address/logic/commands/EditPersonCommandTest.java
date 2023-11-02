@@ -35,6 +35,7 @@ public class EditPersonCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
+
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Person editedPerson = new PersonBuilder().build();
@@ -68,6 +69,7 @@ public class EditPersonCommandTest {
                 String.format(EditPersonCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+
         expectedModel.setPerson(lastPerson, editedPerson);
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, editedPerson);
 
@@ -83,8 +85,8 @@ public class EditPersonCommandTest {
                 String.format(EditPersonCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, editedPerson);
-
         assertCommandSuccess(editCommand, model, expectedCommandResult, expectedModel);
+
     }
 
     @Test

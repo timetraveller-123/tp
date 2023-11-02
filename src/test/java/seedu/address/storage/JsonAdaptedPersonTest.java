@@ -24,7 +24,7 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String INVALID_ALLERGY = "#paracetamol";
+    private static final String INVALID_ALLERGY = "";
 
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
@@ -125,7 +125,7 @@ public class JsonAdaptedPersonTest {
     @Test
     public void toModelType_invalidAllergies_throwsIllegalValueException() {
         List<JsonAdaptedAllergy> invalidAllergies = new ArrayList<>(VALID_ALLERGIES);
-        invalidAllergies.add(new JsonAdaptedAllergy(INVALID_ALLERGY));
+        invalidAllergies.add(new JsonAdaptedAllergy(new JsonAdaptedMedicine(INVALID_ALLERGY, "")));
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS,
                         invalidAllergies);

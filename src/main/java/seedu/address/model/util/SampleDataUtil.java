@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.allergy.Allergy;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -51,6 +52,10 @@ public class SampleDataUtil {
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
+        sampleAb.addMedicine(new Medicine("Paracetamol", "par"));
+        sampleAb.addMedicine(new Medicine("Panadol", "pan"));
+        sampleAb.addMedicine(new Medicine("Penicillin", "pen"));
+        sampleAb.addMedicine(new Medicine("Ibuprofen", "ibu"));
         return sampleAb;
     }
 
@@ -68,7 +73,7 @@ public class SampleDataUtil {
      */
     public static Set<Allergy> getAllergySet(String... strings) {
         return Arrays.stream(strings)
-                .map(Allergy::new)
+                .map(x -> new Allergy(new Medicine(x)))
                 .collect(Collectors.toSet());
     }
 

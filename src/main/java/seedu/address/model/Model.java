@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
 
@@ -18,6 +19,9 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Order> PREDICATE_SHOW_ALL_ORDERS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Medicine> PREDICATE_SHOW_ALL_MEDICINES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -68,6 +72,13 @@ public interface Model {
      */
     boolean hasOrder(Order order);
 
+
+    /**
+     * Returns true if a medicine with the same identity as {@code medicine} exists in the address book.
+     */
+    boolean hasMedicine(Medicine medicine);
+
+
     /**
      * Deletes the given person and the person's orders.
      * The person must exist in the address book.
@@ -111,6 +122,34 @@ public interface Model {
      */
     void setOrder(Order target, Order editedOrder);
 
+    /**
+     * Adds the given medicine.
+     */
+    void addMedicine(Medicine medicine);
+
+    /**
+     * Deletes the given medicine.
+     * The medicine must exist in the address book.
+     */
+    void deleteMedicine(Medicine medicine);
+
+    /**
+     * Gets the medicine that has the identity as the given oven.
+     * @param medicine
+     * @return medicine with the same identity.
+     */
+    Optional<Medicine> getMedicine(Medicine medicine);
+
+    /**
+     * Replaces the given medicine {@code target} with {@code editedMedicine}.
+     * {@code target} must exist in the address book.
+     * The Medicine identity of {@code editedMedicine} must not be the same as another existing Medicine in the
+     * address book.
+     */
+    void setMedicine(Medicine target, Medicine editedMedicine);
+
+
+
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
@@ -129,4 +168,15 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredOrderList(Predicate<Order> predicate);
+
+    /** Returns an unmodifiable view of the filtered medicine list */
+    ObservableList<Medicine> getFilteredMedicineList();
+
+    /**
+     * Updates the filter of the filtered medicine list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredMedicineList(Predicate<Medicine> predicate);
+
+
 }

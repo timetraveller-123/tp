@@ -19,7 +19,7 @@ import seedu.address.model.person.Person;
 /**
  * A list of orders that enforces uniqueness between its elements and does not allow nulls.
  * An order is considered unique by comparing using {@code Order#isSameOrder(Order)}. As such, adding of
- * orders uses Order#isSameOrder(Order) for equality so as to ensure that the person being added or updated is
+ * orders uses Order#isSameOrder(Order) for equality so as to ensure that the order being added or updated is
  * unique in terms of identity in the OrderList.
  *
  * Supports a minimal set of list operations.

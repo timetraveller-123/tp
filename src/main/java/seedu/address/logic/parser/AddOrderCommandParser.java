@@ -10,6 +10,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddOrderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.order.OrderNumber;
 
 
@@ -36,7 +37,7 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ORDERNUMBER);
         Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
         OrderNumber orderNumber = ParserUtil.parseOrderNumber(argMultimap.getValue(PREFIX_ORDERNUMBER).get());
-        Set<String> medicines = ParserUtil.parseMedicines(argMultimap.getAllValues(PREFIX_MEDICINENAME));
+        Set<Medicine> medicines = ParserUtil.parseMedicines(argMultimap.getAllValues(PREFIX_MEDICINENAME));
 
         Boolean ignoreAllergy = false;
         if (argMultimap.getValue(PREFIX_IGNORE_ALLERGY).isPresent()) {

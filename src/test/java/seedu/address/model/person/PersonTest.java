@@ -14,6 +14,7 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.medicine.Medicine;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
@@ -37,33 +38,29 @@ public class PersonTest {
                 .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
+        // name differs in case + trailing whitespace, all other attributes same -> returns true
+        Person editedBob = new PersonBuilder(BOB).withName((VALID_NAME_BOB + " ").toLowerCase()).build();
+        assertTrue(BOB.isSamePerson(editedBob));
+
         // different name, all other attributes same -> returns false
         editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
 
-        // name differs in case, all other attributes same -> returns false
-        Person editedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
-        assertFalse(BOB.isSamePerson(editedBob));
-
-        // name has trailing spaces, all other attributes same -> returns false
-        String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
-        editedBob = new PersonBuilder(BOB).withName(nameWithTrailingSpaces).build();
-        assertFalse(BOB.isSamePerson(editedBob));
     }
 
     @Test void isAllergicTo() {
         // medicineName exists in allergies of patient -> returns true
-        assertTrue(ALICE.isAllergicTo("Aspirin"));
+        assertTrue(ALICE.isAllergicTo(new Medicine("Aspirin")));
 
         // medicineName does not exist in allergies of patient -> returns false
-        assertFalse(ALICE.isAllergicTo("Paracetamol"));
+        assertFalse(ALICE.isAllergicTo(new Medicine("Paracetamol")));
 
         // null -> returns false
         assertFalse(ALICE.isAllergicTo(null));
 
         // same name, medicineName exists in allergies of patient -> returns true
         Person editedAlice = new PersonBuilder(ALICE).withAllergies("paracetamol").build();
-        assertTrue(editedAlice.isAllergicTo("paracetamol"));
+        assertTrue(editedAlice.isAllergicTo(new Medicine("paracetamol")));
     }
 
     @Test

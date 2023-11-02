@@ -21,6 +21,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderNumber;
 import seedu.address.model.order.Status;
@@ -31,14 +32,16 @@ import seedu.address.testutil.PersonBuilder;
 class AddOrderCommandTest {
 
     private final OrderNumber orderNumber = new OrderNumber("2");
-    private final String medicineName = "panadol";
-    private final Set<String> medicines = new HashSet<>(List.of(medicineName));
+
+    private final String medicineName = "Panadol";
+    private final Medicine medicine = new Medicine(medicineName);
+    private final Set<Medicine> medicines = new HashSet<>(List.of(medicine));
     private final Status orderStatus = new Status(Status.OrderStatus.PENDING);
+
 
 
     @Test
     public void execute_unfilteredList_success() {
-
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         AddOrderCommand addOrderCommand = new AddOrderCommand(INDEX_FIRST, orderNumber, medicines, false);
         Order order = new Order(orderNumber, model.getFilteredPersonList().get(0), medicines, orderStatus);
@@ -55,7 +58,6 @@ class AddOrderCommandTest {
     @Test
     public void execute_filteredList_success() {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-
         showPersonAtIndex(model, INDEX_FIRST);
 
         Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
@@ -93,7 +95,6 @@ class AddOrderCommandTest {
     @Test
     public void execute_filteredList_failure() {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-
         showPersonAtIndex(model, INDEX_FIRST);
         Index outOfBoundIndex = INDEX_SECOND;
 

@@ -17,6 +17,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderNumber;
 import seedu.address.model.order.Status;
@@ -99,7 +100,7 @@ public class UpdateStatusCommand extends Command {
 
         OrderNumber updatedOrderNumber = orderToEdit.getOrderNumber();
         Person updatedPerson = editOrderDescriptor.getPerson().orElse(orderToEdit.getPerson());
-        Set<String> updatedMedicineName = editOrderDescriptor.getMedicines().orElse(orderToEdit.getMedicines());
+        Set<Medicine> updatedMedicineName = editOrderDescriptor.getMedicines().orElse(orderToEdit.getMedicines());
         Status updatedStatus = editOrderDescriptor.getStatus().orElse(orderToEdit.getStatus());
 
         return new Order(updatedOrderNumber, updatedPerson, updatedMedicineName, updatedStatus);
@@ -137,7 +138,7 @@ public class UpdateStatusCommand extends Command {
         private OrderNumber orderNumber;
         private Person person;
         private Status status;
-        private Set<String> medicines;
+        private Set<Medicine> medicines;
 
         public EditOrderDescriptor() {}
 
@@ -179,7 +180,7 @@ public class UpdateStatusCommand extends Command {
          * Sets {@code medicines} to this object's {@code medicines}.
          * A defensive copy of {@code medicines} is used internally.
          */
-        public void setMedicines(Set<String> medicines) {
+        public void setMedicines(Set<Medicine> medicines) {
             this.medicines = (medicines != null) ? new HashSet<>(medicines) : null;
         }
 
@@ -188,7 +189,7 @@ public class UpdateStatusCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code medicines} is null.
          */
-        public Optional<Set<String>> getMedicines() {
+        public Optional<Set<Medicine>> getMedicines() {
             return (medicines != null) ? Optional.of(Collections.unmodifiableSet(medicines)) : Optional.empty();
         }
 

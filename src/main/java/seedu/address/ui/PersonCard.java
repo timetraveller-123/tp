@@ -59,7 +59,7 @@ public class PersonCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         person.getAllergies().stream()
-                .sorted(Comparator.comparing(allergy -> allergy.allergyName))
-                .forEach(allergy -> allergies.getChildren().add(new Label(allergy.allergyName)));
+                .sorted(Comparator.comparing(allergy -> allergy.allergy.getMedicineName()))
+                .forEach(allergy -> allergies.getChildren().add(new Label(allergy.allergy.getMedicineName())));
     }
 }

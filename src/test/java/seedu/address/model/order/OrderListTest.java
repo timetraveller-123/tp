@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalOrders.CARL_PANADOL_ORDER;
+import static seedu.address.testutil.TypicalOrders.PANADOL_MEDICINE;
 import static seedu.address.testutil.TypicalPersons.CARL;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ class OrderListTest {
     private Order order;
     @BeforeEach
     public void init() {
-        order = new Order(new OrderNumber("1"), CARL, new HashSet<>(List.of("panadol")),
+        order = new Order(new OrderNumber("1"), CARL, new HashSet<>(List.of(PANADOL_MEDICINE)),
                     new Status(Status.OrderStatus.PENDING));
         list = new ArrayList<>();
         list.add(order);
