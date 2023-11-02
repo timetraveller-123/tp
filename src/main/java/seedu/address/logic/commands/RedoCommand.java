@@ -18,7 +18,8 @@ public class RedoCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         if (!model.canRedo()) {
-            throw new CommandException(Messages.MESSAGE_NO_VALID_PREVSTATE);
+            throw new CommandException(
+                    "Redo failed: " + Messages.MESSAGE_NO_VALID_PREVIOUS_STATE);
         }
 
         model.redo();

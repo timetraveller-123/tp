@@ -3,8 +3,6 @@ package seedu.address.model.order;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.util.Objects;
-
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
@@ -82,7 +80,7 @@ public class Status {
      */
     public static boolean isValidOrderStatus(String orderStatus) {
         for (OrderStatus validStatus : OrderStatus.values()) {
-            if (Objects.equals(validStatus.toString(), orderStatus)) {
+            if (validStatus.toString().equalsIgnoreCase(orderStatus)) {
                 return true;
             }
         }
@@ -126,7 +124,8 @@ public class Status {
      */
     public static boolean isValidShortForm(String shortForm) {
         String sf = shortForm.toLowerCase().trim();
-        if (sf.equals("pd") || sf.equals("pr") || sf.equals("cd") || sf.equals("cc")) {
+        if (sf.equalsIgnoreCase("pd") || sf.equalsIgnoreCase("pr")
+                || sf.equalsIgnoreCase("cp") || sf.equalsIgnoreCase("cc")) {
             return true;
         }
         return false;
@@ -155,7 +154,7 @@ public class Status {
         case "pr":
             return "PREPARING";
 
-        case "cd":
+        case "cp":
             return "COMPLETED";
 
         case "cc":

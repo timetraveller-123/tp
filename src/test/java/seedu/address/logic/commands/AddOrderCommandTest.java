@@ -140,7 +140,7 @@ class AddOrderCommandTest {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         Order orderInList = model.getFilteredOrderList().get(0);
         assertCommandFailure(new AddOrderCommand(INDEX_FIRST, orderInList.getOrderNumber() , medicines, true),
-                model, AddOrderCommand.MESSAGE_DUPLICATE_ORDER);
+                model, String.format(AddOrderCommand.MESSAGE_DUPLICATE_ORDER, orderInList.getOrderNumber()));
     }
 
 }

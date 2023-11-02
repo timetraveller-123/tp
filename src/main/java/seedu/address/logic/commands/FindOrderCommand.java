@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import java.util.Set;
 import java.util.function.Predicate;
@@ -22,10 +24,11 @@ public class FindOrderCommand extends Command {
     public static final String COMMAND_WORD = "findo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Finds all orders whose order information contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + ": Finds all orders with statuses matching the given status (if any) AND containing "
+            + "any of the given medicines (if any) and displays them as a list with index numbers.\n"
+            + "Parameters: " + "[" + PREFIX_STATUS + "STATUS]"
+            + "[" + PREFIX_MEDICINE_NAME + "MEDICINE_NAME]...\n"
+            + "Example: " + COMMAND_WORD + " s/preparing m/panadol";
 
     private final Status statusToFind;
     private final Set<Medicine> medicineToFind;

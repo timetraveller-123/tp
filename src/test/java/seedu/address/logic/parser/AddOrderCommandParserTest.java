@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINENAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERNUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER_NUMBER;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
@@ -20,14 +20,14 @@ import seedu.address.model.order.OrderNumber;
 
 class AddOrderCommandParserTest {
 
-    private static final String VALID_ORDERNUMBER = PREFIX_ORDERNUMBER + " 1 ";
-    private static final String INVALID_ORDERNUMBER_NEGATIVE = PREFIX_ORDERNUMBER + "  -1 ";
+    private static final String VALID_ORDERNUMBER = PREFIX_ORDER_NUMBER + " 1 ";
+    private static final String INVALID_ORDERNUMBER_NEGATIVE = PREFIX_ORDER_NUMBER + "  -1 ";
 
-    private static final String INVALID_ORDERNUMBER = PREFIX_ORDERNUMBER + " asd ";
+    private static final String INVALID_ORDERNUMBER = PREFIX_ORDER_NUMBER + " asd ";
 
-    private static final String VALID_MEDICINE_NAME = PREFIX_MEDICINENAME + " Panadol ";
+    private static final String VALID_MEDICINE_NAME = PREFIX_MEDICINE_NAME + " Panadol ";
 
-    private static final String INVALID_MEDICINE_NAME = PREFIX_MEDICINENAME + " ";
+    private static final String INVALID_MEDICINE_NAME = PREFIX_MEDICINE_NAME + " ";
 
 
     private static final String MESSAGE_INVALID_FORMAT =

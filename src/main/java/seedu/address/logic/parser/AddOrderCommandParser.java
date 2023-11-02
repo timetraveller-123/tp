@@ -2,8 +2,8 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IGNORE_ALLERGY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINENAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERNUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER_NUMBER;
 
 import java.util.Set;
 
@@ -26,18 +26,18 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
      */
     public AddOrderCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_ORDERNUMBER, PREFIX_MEDICINENAME, PREFIX_IGNORE_ALLERGY);
+                ArgumentTokenizer.tokenize(args, PREFIX_ORDER_NUMBER, PREFIX_MEDICINE_NAME, PREFIX_IGNORE_ALLERGY);
 
         if (argMultimap.getPreamble().isEmpty()
-            || argMultimap.getValue(PREFIX_MEDICINENAME).orElse("").isEmpty()
-            || argMultimap.getValue(PREFIX_ORDERNUMBER).orElse("").isEmpty()) {
+            || argMultimap.getValue(PREFIX_MEDICINE_NAME).orElse("").isEmpty()
+            || argMultimap.getValue(PREFIX_ORDER_NUMBER).orElse("").isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddOrderCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ORDERNUMBER);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ORDER_NUMBER);
         Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        OrderNumber orderNumber = ParserUtil.parseOrderNumber(argMultimap.getValue(PREFIX_ORDERNUMBER).get());
-        Set<Medicine> medicines = ParserUtil.parseMedicines(argMultimap.getAllValues(PREFIX_MEDICINENAME));
+        OrderNumber orderNumber = ParserUtil.parseOrderNumber(argMultimap.getValue(PREFIX_ORDER_NUMBER).get());
+        Set<Medicine> medicines = ParserUtil.parseMedicines(argMultimap.getAllValues(PREFIX_MEDICINE_NAME));
 
         Boolean ignoreAllergy = false;
         if (argMultimap.getValue(PREFIX_IGNORE_ALLERGY).isPresent()) {

@@ -114,7 +114,8 @@ public class EditPersonCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
         EditPersonCommand editCommand = new EditPersonCommand(INDEX_SECOND, descriptor);
 
-        assertCommandFailure(editCommand, model, EditPersonCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model,
+                String.format(EditPersonCommand.MESSAGE_DUPLICATE_PERSON, descriptor.getName().get()));
     }
 
     @Test
@@ -123,10 +124,11 @@ public class EditPersonCommandTest {
 
         // edit person in filtered list into a duplicate in address book
         Person personInList = model.getAddressBook().getPersonList().get(INDEX_SECOND.getZeroBased());
-        EditPersonCommand editCommand = new EditPersonCommand(INDEX_FIRST,
-                new EditPersonDescriptorBuilder(personInList).build());
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(personInList).build();
+        EditPersonCommand editCommand = new EditPersonCommand(INDEX_FIRST, descriptor);
 
-        assertCommandFailure(editCommand, model, EditPersonCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model,
+                String.format(EditPersonCommand.MESSAGE_DUPLICATE_PERSON, descriptor.getName().get()));
     }
 
     @Test

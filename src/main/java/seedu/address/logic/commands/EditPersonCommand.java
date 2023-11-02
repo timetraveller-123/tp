@@ -54,7 +54,7 @@ public class EditPersonCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Person with name '%1$s' already exists in PharmHub.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -84,7 +84,7 @@ public class EditPersonCommand extends Command {
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_PERSON, editedPerson.getName()));
         }
 
         Set<Medicine> allergyMedicines = new HashSet<>(editedPerson.getAllergies().stream()

@@ -45,7 +45,7 @@ public class OrderDisplay extends UiPart<Region> {
 
         orderNumber.setText(order.getOrderNumber().toString());
         orderPerson.setText(order.getPerson().getName().fullName);
-        orderDetails.setText(StringUtil.unmodifiableSetToCommaSeparatedStr(order.getMedicines()));
+        orderDetails.setText(StringUtil.setToStr(order.getMedicines()));
         status.setText(order.getStatus().toString());
         status.setWrapText(true);
 

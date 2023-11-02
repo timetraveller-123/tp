@@ -48,7 +48,7 @@ public class AddMedicineCommandTest {
     public void execute_duplicateMedicine_throwsCommandException() {
         Medicine medicineInList = model.getFilteredMedicineList().get(0);
         assertCommandFailure(new AddMedicineCommand(medicineInList), model,
-                AddMedicineCommand.MESSAGE_DUPLICATE_MEDICINE);
+                String.format(AddMedicineCommand.MESSAGE_DUPLICATE_MEDICINE, medicineInList.getMedicineName()));
     }
 
     @Test

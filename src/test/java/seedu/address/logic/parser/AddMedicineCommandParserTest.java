@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINENAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERNUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER_NUMBER;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 
 import org.junit.jupiter.api.Test;
@@ -26,19 +26,19 @@ public class AddMedicineCommandParserTest {
         assertParseFailure(parser, " ", MESSAGE_INVALID_FORMAT);
 
         //Wrong prefix
-        assertParseFailure(parser, PREFIX_ORDERNUMBER + " panadol" , MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, PREFIX_ORDER_NUMBER + " panadol" , MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_preamblePresent_failure() {
         //preamble present
-        assertParseFailure(parser, "1 " + PREFIX_MEDICINENAME + " panadol" , MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 " + PREFIX_MEDICINE_NAME + " panadol" , MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_multipleValue_failure() {
         //empty medicine name
-        assertParseFailure(parser, PREFIX_MEDICINENAME + "panadol" + PREFIX_MEDICINENAME + "panadol",
+        assertParseFailure(parser, PREFIX_MEDICINE_NAME + "panadol" + PREFIX_MEDICINE_NAME + "panadol",
                 MESSAGE_INVALID_FORMAT);
     }
 

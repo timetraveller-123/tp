@@ -47,7 +47,7 @@ public class PersonDisplay extends UiPart<Region> {
         address.setText(person.getAddress().value);
         phoneNumber.setText(person.getPhone().value);
         email.setText(person.getEmail().value);
-        allergies.setText(StringUtil.unmodifiableSetToCommaSeparatedStr(person.getAllergies()));
+        allergies.setText(StringUtil.setToStr(person.getAllergies()));
 
         EnumMap<Status.OrderStatus, Integer> indexes = new EnumMap<>(Status.OrderStatus.class);
         for (Status.OrderStatus e : Status.OrderStatus.values()) {

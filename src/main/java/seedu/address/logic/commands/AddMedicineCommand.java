@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINENAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -20,12 +20,12 @@ public class AddMedicineCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds the given medicine \n"
             + "Parameters:  "
-            + PREFIX_MEDICINENAME + "MEDICINENAME (Full name of Medicine) \n"
+            + PREFIX_MEDICINE_NAME + "MEDICINE_NAME (Full name of Medicine) \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_MEDICINENAME + "Panadol";
+            + PREFIX_MEDICINE_NAME + "Panadol";
 
-    public static final String MESSAGE_SUCCESS = "New medicine added: #%1$s";
-    public static final String MESSAGE_DUPLICATE_MEDICINE = "This medicine already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New medicine added: %1$s";
+    public static final String MESSAGE_DUPLICATE_MEDICINE = "Medicine named '%1$s' already exists in PharmHub";
 
     private final Medicine toAdd;
 
@@ -41,7 +41,8 @@ public class AddMedicineCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (model.hasMedicine(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
+            throw new CommandException(
+                    String.format(MESSAGE_DUPLICATE_MEDICINE, toAdd.getMedicineName()));
         }
 
         model.addMedicine(toAdd);

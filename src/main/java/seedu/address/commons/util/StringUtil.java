@@ -70,13 +70,13 @@ public class StringUtil {
     /**
      * Returns a string representation of an unmodifiableSet, as a comma separated string of the objects in
      * the set
-     * @param unmodifiableSet
+     * @param set to be converted to String
      * @return Comma separated string
      */
-    public static String unmodifiableSetToCommaSeparatedStr(Set<? extends Object> unmodifiableSet) {
+    public static String setToStr(Set<? extends Object> set) {
         StringBuilder builder = new StringBuilder();
-        for (Object o : unmodifiableSet) {
-            builder.append(o.toString()).append(", ");
+        for (Object o : set) {
+            builder.append(o.toString()).append("  ");
         }
 
         if (builder.length() > 0) {

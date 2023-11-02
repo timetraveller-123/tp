@@ -46,7 +46,7 @@ public class AddPersonCommandIntegrationTest {
     public void execute_duplicatePerson_throwsCommandException() {
         Person personInList = model.getAddressBook().getPersonList().get(0);
         assertCommandFailure(new AddPersonCommand(personInList), model,
-                AddPersonCommand.MESSAGE_DUPLICATE_PERSON);
+                String.format(AddPersonCommand.MESSAGE_DUPLICATE_PERSON, personInList.getName()));
     }
 
 }

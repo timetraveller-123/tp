@@ -24,7 +24,8 @@ public class CommandUtil {
         for (Medicine medicine : medicines) {
             Optional<Medicine> m = model.getMedicine(medicine);
             if (m.isEmpty()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_MEDICINE);
+                throw new CommandException(
+                        String.format(Messages.MESSAGE_INVALID_MEDICINE, medicine.getMedicineName()));
             }
             convertedMedicines.add(m.get());
         }
