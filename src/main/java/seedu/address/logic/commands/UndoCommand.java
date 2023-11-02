@@ -4,6 +4,9 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Undoes the last action that modified PharmHub
+ */
 public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
 

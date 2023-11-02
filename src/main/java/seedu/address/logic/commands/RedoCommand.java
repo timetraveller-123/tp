@@ -4,6 +4,9 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Redoes the last undo
+ */
 public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
 

@@ -1,13 +1,14 @@
 package seedu.address.model;
 
+import java.util.ArrayDeque;
+
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
 
-import java.util.ArrayDeque;
-
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Wraps the {@code AddressBook} with an AddressBook that supports versioning
+ */
 public class VersionedAddressBook extends AddressBook {
     private final ArrayDeque<AddressBook> undoHistory;
     private final ArrayDeque<AddressBook> redoHistory;
@@ -19,6 +20,10 @@ public class VersionedAddressBook extends AddressBook {
         redoHistory = new ArrayDeque<>();
         modelManager = null;
     }
+
+    /**
+     * Creates a VersionedAddressBook using the models in {@code toBeCopied} and the {@code modelManager}
+     */
     public VersionedAddressBook(ReadOnlyAddressBook toBeCopied, ModelManager modelManager) {
         super(toBeCopied);
         undoHistory = new ArrayDeque<>();
@@ -33,10 +38,20 @@ public class VersionedAddressBook extends AddressBook {
         undoHistory.addFirst(new AddressBook(this));
     }
 
+    private void clearRedoHistory() {
+        redoHistory.clear();
+    }
+
+    /**
+     * Returns true if the VersionedAddressBook can be reverted to the previous state
+     */
     public boolean canUndo() {
         return !undoHistory.isEmpty();
     }
 
+    /**
+     * Reverts the VersionedAddressBook to the previous state
+     */
     public void undo() {
         assert(!undoHistory.isEmpty());
 
@@ -45,20 +60,22 @@ public class VersionedAddressBook extends AddressBook {
         modelManager.setAddressBook(prev);
     }
 
+    /**
+     * Returns true if the VersionedAddressBook can be reverted to the next state (before the previous undo)
+     */
     public boolean canRedo() {
         return !redoHistory.isEmpty();
     }
 
+    /**
+     * Reverts the VersionedAddressBook to the next state (before the previous undo)
+     */
     public void redo() {
         assert(!redoHistory.isEmpty());
 
         AddressBook next = redoHistory.pollFirst();
         undoHistory.addFirst(new AddressBook(this));
         modelManager.setAddressBook(next);
-    }
-
-    private void clearRedoHistory() {
-        redoHistory.clear();
     }
 
     //=========== Undoable functions =============================================================
