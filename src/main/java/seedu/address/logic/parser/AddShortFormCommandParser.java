@@ -1,14 +1,13 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddShortFormCommand;
-import seedu.address.logic.commands.EditPersonCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.medicine.Medicine;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINENAME;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.AddShortFormCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.medicine.Medicine;
 
 /**
  * Parses input arguments and creates a new AddShortFormCommand object

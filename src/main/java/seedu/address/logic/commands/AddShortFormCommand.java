@@ -36,6 +36,9 @@ public class AddShortFormCommand extends Command {
 
     private final Medicine medicine;
 
+    /**
+     * Creates an AddShortFormCommand
+     */
     public AddShortFormCommand(Index index, Medicine medicine) {
         requireNonNull(index);
         requireNonNull(medicine);
