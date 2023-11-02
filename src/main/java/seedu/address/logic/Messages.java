@@ -84,7 +84,7 @@ public class Messages {
                 .append("; Person Name: ")
                 .append(order.getPerson().getName())
                 .append("; Medicines: ")
-                .append(StringUtil.unmodifiableSetToCommaSeparatedStr(order.getMedicines()))
+                .append(StringUtil.setToStr(order.getMedicines()))
                 .append("; Status: ")
                 .append(order.getStatus());
         return builder.toString();

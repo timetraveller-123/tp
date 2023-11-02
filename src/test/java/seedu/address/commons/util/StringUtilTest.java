@@ -148,9 +148,9 @@ public class StringUtilTest {
     @Test
     public void unmodifiableSetToCommaSeparatedStr_validInputs_correctResults() {
         // Empty set
-        assertEquals("", StringUtil.unmodifiableSetToCommaSeparatedStr(Collections.emptySet()));
+        assertEquals("", StringUtil.setToStr(Collections.emptySet()));
 
         // Set with 1 object
-        assertEquals("1", StringUtil.unmodifiableSetToCommaSeparatedStr(new HashSet<>(List.of(1))));
+        assertEquals("1", StringUtil.setToStr(new HashSet<>(List.of(1))));
     }
 }
