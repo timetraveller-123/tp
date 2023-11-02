@@ -176,6 +176,17 @@ public class ParserUtil {
         }
         return medicineSet;
     }
+    /**
+     * Parses {@code Collection<String> medicines} into a {@code Set<String> medicines}.
+     */
+    public static Medicine parseMedicine(String medicine) throws ParseException {
+        requireNonNull(medicine);
+        String trimmedMedicineName = medicine.trim();
+        if (!Medicine.isValidMedicineName(trimmedMedicineName)) {
+            throw new ParseException(Medicine.MESSAGE_MEDICINE_NAME_CONSTRAINTS);
+        }
+        return new Medicine(trimmedMedicineName);
+    }
 
 
     /**
