@@ -26,6 +26,8 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListMedicineCommand;
 import seedu.address.logic.commands.ListOrderCommand;
 import seedu.address.logic.commands.ListPeopleCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateStatusCommand;
 import seedu.address.logic.commands.ViewOrderCommand;
 import seedu.address.logic.commands.ViewPersonCommand;
@@ -115,6 +117,12 @@ public class AddressBookParser {
 
         case UpdateStatusCommand.COMMAND_WORD:
             return new UpdateStatusCommandParser().parse(arguments);
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         case AddMedicineCommand.COMMAND_WORD:
             return new AddMedicineCommandParser().parse(arguments);

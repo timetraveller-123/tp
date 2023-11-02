@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.medicine.Medicine;
@@ -23,7 +22,7 @@ public class MedicineCard extends UiPart<Region> {
     @FXML
     private Label medicineName;
     @FXML
-    private FlowPane shortForm;
+    private Label shortForm;
     @FXML
     private Label id;
 
@@ -36,6 +35,8 @@ public class MedicineCard extends UiPart<Region> {
         this.medicine = medicine;
         id.setText(displayedIndex + ". ");
         medicineName.setText(medicine.getMedicineName());
-        shortForm.getChildren().add(new Label(medicine.getShortForm()));
+        if (medicine.hasShortForm()) {
+            shortForm.setText("Shortform: " + medicine.getShortForm());
+        }
     }
 }

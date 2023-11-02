@@ -22,7 +22,7 @@ import seedu.address.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final VersionedAddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Order> filteredOrders;
@@ -37,7 +37,7 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.addressBook = new VersionedAddressBook(addressBook, this);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredOrders = new FilteredList<>(this.addressBook.getOrderList());
@@ -45,7 +45,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new VersionedAddressBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -172,6 +172,27 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedMedicine);
 
         addressBook.setMedicine(target, editedMedicine);
+    }
+
+    //=========== Undo/Redo Methods =============================================================
+    @Override
+    public boolean canUndo() {
+        return addressBook.canUndo();
+    }
+
+    @Override
+    public void undo() {
+        addressBook.undo();
+    }
+
+    @Override
+    public boolean canRedo() {
+        return addressBook.canRedo();
+    }
+
+    @Override
+    public void redo() {
+        addressBook.redo();
     }
 
     //=========== Filtered Person List Accessors =============================================================
