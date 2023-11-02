@@ -86,14 +86,27 @@ public class Person implements InfoObject {
         return Collections.unmodifiableSet(orders);
     }
 
+    /**
+     * Adds an order to the person.
+     * @param o The order to be added.
+     */
     public void addOrder(Order o) {
         this.orders.add(o);
     }
 
+    /**
+     * Removes an order from the person.
+     * @param o The order to be removed.
+     */
     public void removeOrder(Order o) {
         this.orders.remove(o);
     }
 
+    /**
+     * Replaces an order in the person.
+     * @param oldOrder The order to be replaced.
+     * @param newOrder The new order.
+     */
     public void replaceOrder(Order oldOrder, Order newOrder) {
         this.orders.remove(oldOrder);
         this.orders.add(newOrder);

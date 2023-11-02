@@ -1,22 +1,20 @@
 package seedu.address.ui;
 
+import java.util.EnumMap;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.order.Status;
 import seedu.address.model.person.Person;
 
-import java.util.EnumMap;
-import java.util.logging.Logger;
 
 /**
  * An ui for the status bar that is displayed at the header of the application.
  */
 public class PersonDisplay extends UiPart<Region> {
-    private final Logger logger = LogsCenter.getLogger(OrderListPanel.class);
 
     private static final String FXML = "PersonDisplay.fxml";
 
@@ -58,23 +56,23 @@ public class PersonDisplay extends UiPart<Region> {
 
         person.getOrders().forEach(o -> {
             switch (o.getStatus().getStatus()) {
-                case PENDING:
-                    pendingOrderVbox.getChildren().add(
-                            new OrderCard(o, indexes.get(Status.OrderStatus.PENDING)).getRoot());
-                    indexes.put(Status.OrderStatus.PENDING, indexes.get(Status.OrderStatus.PENDING) + 1);
-                    break;
-                case PREPARING:
-                    preparingOrderVbox.getChildren().add(
-                            new OrderCard(o, indexes.get(Status.OrderStatus.PREPARING)).getRoot());
-                    indexes.put(Status.OrderStatus.PREPARING, indexes.get(Status.OrderStatus.PREPARING) + 1);
-                    break;
-                case COMPLETED:
-                    completedOrderVbox.getChildren().add(
-                            new OrderCard(o, indexes.get(Status.OrderStatus.COMPLETED)).getRoot());
-                    indexes.put(Status.OrderStatus.COMPLETED, indexes.get(Status.OrderStatus.COMPLETED) + 1);
-                    break;
-                default:
-                    throw new RuntimeException("Unknown order status type");
+            case PENDING:
+                pendingOrderVbox.getChildren().add(
+                        new OrderCard(o, indexes.get(Status.OrderStatus.PENDING)).getRoot());
+                indexes.put(Status.OrderStatus.PENDING, indexes.get(Status.OrderStatus.PENDING) + 1);
+                break;
+            case PREPARING:
+                preparingOrderVbox.getChildren().add(
+                        new OrderCard(o, indexes.get(Status.OrderStatus.PREPARING)).getRoot());
+                indexes.put(Status.OrderStatus.PREPARING, indexes.get(Status.OrderStatus.PREPARING) + 1);
+                break;
+            case COMPLETED:
+                completedOrderVbox.getChildren().add(
+                        new OrderCard(o, indexes.get(Status.OrderStatus.COMPLETED)).getRoot());
+                indexes.put(Status.OrderStatus.COMPLETED, indexes.get(Status.OrderStatus.COMPLETED) + 1);
+                break;
+            default:
+                throw new RuntimeException("Unknown order status type");
             }
         });
     }
