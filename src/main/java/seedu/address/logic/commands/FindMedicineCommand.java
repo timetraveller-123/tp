@@ -22,8 +22,8 @@ public class FindMedicineCommand extends Command {
     public static final String COMMAND_WORD = "findm";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all medicines whose names contain "
-            + "the given substring(case insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD \n"
+            + "the given substring (case insensitive) and displays them as a list with index numbers.\n"
+            + "Parameters: KEYWORD [MORE_KEYWORDS]... \n"
             + "Example: " + COMMAND_WORD + " ol";
 
     private final String[] keyWords;
