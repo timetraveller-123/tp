@@ -148,8 +148,13 @@ public interface Model {
      */
     void setMedicine(Medicine target, Medicine editedMedicine);
 
+    boolean canUndo();
 
+    void undo();
 
+    boolean canRedo();
+
+    void redo();
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
