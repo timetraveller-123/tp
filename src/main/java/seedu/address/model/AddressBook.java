@@ -140,6 +140,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addOrder(Order o) {
         orders.add(o);
+        o.getPerson().addOrder(o);
     }
 
     /**
@@ -148,6 +149,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeOrder(Order key) {
         orders.remove(key);
+        key.getPerson().removeOrder(key);
     }
 
 
@@ -168,6 +170,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedOrder);
 
         orders.setOrder(target, editedOrder);
+        target.getPerson().replaceOrder(target, editedOrder);
     }
 
     //// medicine-level operations
