@@ -30,15 +30,16 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
 
-    public static final String MESSAGE_ALLERGIC_TO_MEDICINE = "Warning: This patient is allergic to this medicine! add"
+    public static final String MESSAGE_ALLERGIC_TO_MEDICINE = "Warning: This patient is allergic to this medicine! Add"
             + " ia/ (ignore allergy) to the end of the command to add this medicine to the order anyway.";
 
     public static final String MESSAGE_NO_ORDER_WITH_GIVEN_ORDER_NUMBER =
             "There is no order with %1$s as order number.";
 
-    public static final String MESSAGE_INVALID_MEDICINE = "Provided medicine(s) do not exist.";
+    public static final String MESSAGE_INVALID_MEDICINE = "Medicine '%1$s' does not exist. Use addm to add a new" +
+            " medicine to PharmHub";
 
-    public static final String MESSAGE_NO_VALID_PREVSTATE = "No past state to revert to";
+    public static final String MESSAGE_NO_VALID_PREVIOUS_STATE = "No past state to revert to";
 
 
     /**

@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINENAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import java.util.Arrays;
@@ -26,9 +26,9 @@ public class FindOrderCommandParser implements Parser<FindOrderCommand> {
     public FindOrderCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_STATUS, PREFIX_MEDICINENAME);
+                ArgumentTokenizer.tokenize(args, PREFIX_STATUS, PREFIX_MEDICINE_NAME);
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_STATUS, PREFIX_MEDICINENAME);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_STATUS, PREFIX_MEDICINE_NAME);
 
         Status statusToFind = null;
         Set<Medicine> medicineToFind = null;
@@ -38,8 +38,8 @@ public class FindOrderCommandParser implements Parser<FindOrderCommand> {
             String s = argMultimap.getValue(PREFIX_STATUS).get();
             statusToFind = ParserUtil.parseStatus(Status.shortFormToFull(s));
         }
-        if (argMultimap.getValue(PREFIX_MEDICINENAME).isPresent()) {
-            String medicineArg = argMultimap.getValue(PREFIX_MEDICINENAME).get();
+        if (argMultimap.getValue(PREFIX_MEDICINE_NAME).isPresent()) {
+            String medicineArg = argMultimap.getValue(PREFIX_MEDICINE_NAME).get();
             nameKeywords = medicineArg.split("\\s+");
             List<String> list = Arrays.asList(nameKeywords);
             medicineToFind = ParserUtil.parseMedicines(list);

@@ -3,7 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_SHORT_FORM;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINENAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddShortFormCommand;
@@ -22,7 +22,7 @@ public class AddShortFormCommandParser implements Parser<AddShortFormCommand> {
      */
     public AddShortFormCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MEDICINENAME, PREFIX_DELETE_SHORT_FORM);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MEDICINE_NAME, PREFIX_DELETE_SHORT_FORM);
         Index index;
 
         try {
@@ -38,11 +38,11 @@ public class AddShortFormCommandParser implements Parser<AddShortFormCommand> {
             return new AddShortFormCommand(index);
         }
 
-        if (argMultimap.getValue(PREFIX_MEDICINENAME).isEmpty()) {
+        if (argMultimap.getValue(PREFIX_MEDICINE_NAME).isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddShortFormCommand.MESSAGE_USAGE));
         }
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_MEDICINENAME);
-        String shortForm = argMultimap.getValue(PREFIX_MEDICINENAME).get().trim();
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_MEDICINE_NAME);
+        String shortForm = argMultimap.getValue(PREFIX_MEDICINE_NAME).get().trim();
         if (!Medicine.isValidShortForm(shortForm)) {
             throw new ParseException(Medicine.MESSAGE_SHORT_FORM_CONSTRAINTS);
         }

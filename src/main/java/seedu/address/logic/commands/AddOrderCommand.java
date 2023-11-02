@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINENAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERNUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER_NUMBER;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
@@ -27,17 +27,18 @@ public class AddOrderCommand extends Command {
     public static final String COMMAND_WORD = "addo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an order to the person identified "
-            + "by the index number used in the displayed person list. \n "
+            + "by the index number used in the displayed person list. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_ORDERNUMBER + "ORDERNUMBER"
-            + PREFIX_MEDICINENAME + "MEDICINENAME \n"
+            + PREFIX_ORDER_NUMBER + "ORDER_NUMBER "
+            + "[" + PREFIX_MEDICINE_NAME + "MEDICINE_NAME]+.. \n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_ORDERNUMBER + "91234567 "
-            + PREFIX_MEDICINENAME + "panadol";
+            + PREFIX_ORDER_NUMBER + "91234567 "
+            + PREFIX_MEDICINE_NAME + "panadol "
+            + PREFIX_MEDICINE_NAME + "ibu";
 
     public static final String MESSAGE_SUCCESS = "New order added: #%1$s";
 
-    public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_ORDER = "Order number '%1$s' already exists in the address book";
 
     private final Index index;
     private final OrderNumber orderNumber;
@@ -72,18 +73,16 @@ public class AddOrderCommand extends Command {
         }
 
         Set<Medicine> convertedMedicines = CommandUtil.getModelMedicine(model, medicines);
-
         Person person = lastShownList.get(index.getZeroBased());
-
-        // If person is allergic to medicine and ignoreAllergy is false, throw exception
-        if (person.isAllergicToAny(convertedMedicines) && !ignoreAllergy) {
-            throw new CommandException(Messages.MESSAGE_ALLERGIC_TO_MEDICINE);
-        }
-
         Order toAdd = new Order(orderNumber, person, convertedMedicines, orderStatus);
 
         if (model.hasOrder(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_ORDER);
+            throw new CommandException(
+                    String.format(MESSAGE_DUPLICATE_ORDER, orderNumber));
+        }
+
+        if (person.isAllergicToAny(convertedMedicines) && !ignoreAllergy) {
+            throw new CommandException(Messages.MESSAGE_ALLERGIC_TO_MEDICINE);
         }
 
         model.addOrder(toAdd);

@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINENAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 
 import seedu.address.logic.commands.AddMedicineCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -19,15 +19,15 @@ public class AddMedicineCommandParser implements Parser<AddMedicineCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddMedicineCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MEDICINENAME);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MEDICINE_NAME);
 
-        if (!argMultimap.getPreamble().isEmpty() || argMultimap.getValue(PREFIX_MEDICINENAME).isEmpty()) {
+        if (!argMultimap.getPreamble().isEmpty() || argMultimap.getValue(PREFIX_MEDICINE_NAME).isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedicineCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_MEDICINENAME);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_MEDICINE_NAME);
 
-        String medicineName = argMultimap.getValue(PREFIX_MEDICINENAME).get();
+        String medicineName = argMultimap.getValue(PREFIX_MEDICINE_NAME).get();
         if (!Medicine.isValidMedicineName(medicineName)) {
             throw new ParseException(Medicine.MESSAGE_MEDICINE_NAME_CONSTRAINTS);
         }
