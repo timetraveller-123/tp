@@ -148,7 +148,9 @@ public interface Model {
      */
     void setMedicine(Medicine target, Medicine editedMedicine);
 
+    boolean canUndo();
 
+    void undo();
 
 
     /** Returns an unmodifiable view of the filtered person list */
