@@ -25,7 +25,7 @@ public class AddShortFormCommand extends Command {
             + "by the index number used in the displayed medicine list.\n"
             + "Add the tag '" + PREFIX_DELETE_SHORT_FORM + "' to delete the current short form for the medicine\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_MEDICINE_NAME + "SHORT_FORM "
+            + "[" + PREFIX_MEDICINE_NAME + "SHORT_FORM] "
             + "[" + PREFIX_DELETE_SHORT_FORM + "]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_MEDICINE_NAME + "pan";
