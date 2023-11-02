@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.Prefix;
+import seedu.address.model.medicine.Medicine;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
 
@@ -59,6 +60,13 @@ public class Messages {
      */
     public static String format(Order order) {
         return order.getOrderNumber().toString();
+    }
+
+    /**
+     * Formats the {@code medicine} for display to the user.
+     */
+    public static String format(Medicine medicine) {
+        return medicine.getMedicineName().toString();
     }
 
     /**
