@@ -72,37 +72,40 @@ Shows a message explaining how to access the help page.
 Format: `help`
 
 
-### Adding a person: `add`
+### Adding a person: `addp`
 
 Adds a person to PharmHub.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [no/ALLERGY]…​`
+Format: `addp n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [no/ALLERGY]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags or allergies (including 0)
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 no/paracetamol no/aspirin`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `addp n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 no/paracetamol no/aspirin`
+* `addp n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 ### Listing all persons : `listp`
 
-Shows a list of all persons in PharmHub.
+Shows an interactive list of all persons in PharmHub.
 
 Format: `listp`
 
-### Viewing all orders : `listo` `[v1.2]`
+### Viewing a person `[v1.3]`
 
-Shows a list of all orders in PharmHub.
+Displays the specified person with more details in the info panel.
 
-Format: `listo`
+Format: `viewp INDEX`
 
-### Editing a person : `edit`
+Examples:
+* `listp` followed by `viewp 2` opens the 2nd person in the list into the info panel.
+
+### Editing a person : `editp`
 
 Edits an existing person in the PharmHub.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/ALLERGY]…​`
+Format: `editp INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/ALLERGY]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -114,15 +117,15 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/ALLERGY
     specifying any allergies after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-*  `edit 3 no/` Edits the allergies of the 3rd person to be empty.
+*  `editp 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `editp 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `editp 3 no/` Edits the allergies of the 3rd person to be empty.
 
-### Locating persons by name: `find`
+### Locating persons by name: `findp`
 
 Finds persons whose names contain any of the given keywords.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `findp KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -132,23 +135,98 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
+* `findp John` returns `john` and `John Doe`
+* `findp alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete`
+### Deleting a person : `deletep`
 
 Deletes the specified person from PharmHub.
 
-Format: `delete INDEX`
+Format: `deletep INDEX`
 
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `listp` followed by `deletep 2` deletes the 2nd person in the address book.
+* `findp Betsy` followed by `deletep 1` deletes the 1st person in the results of the `find` command.
+
+### Listing all orders : `listo` `[v1.2]`
+
+Shows an interactive list of all orders in PharmHub.
+
+Format: `listo`
+
+### Viewing an order : `viewo` `[v1.3]`
+
+Shows the order in the info panel.
+
+Format: `viewo`
+
+### Adding a new order : `addorder` `[v1.2]`
+
+Adds a new order of medication corresponding to a patient into the system.
+
+Format: `addorder INDEX o/ORDER_NUMBER m/MEDICINE_NAME [/ia]`
+
+* Orders are created automatically having a `status` of `pending`.
+* Orders can only be created for a person in the index range, and for a known `medicine`
+* Orders created for persons with an allergy to any of the medications in the order will raise a warning.
+* The warning can be overridden by adding the `/ia` to the command
+
+Parameters:
+* `INDEX` - index of patient who is ordering the medicine as shown in the patient list.
+* `ORDER_NUMBER` - the order number of this order specified by the invoice.
+* `MEDICINE_NAME` - the name of medicine being ordered.
+
+Examples:
+* `addorder 1 o/618457 m/panadol`
+* `addorder 3 o/438756 m/claritin`
+
+
+### Updating the status of an order : `updates` `[v1.3]`
+
+Updates the status of the order to the designated status.
+
+Format: `updates INDEX s/STATUS`
+
+* Statuses: Pending (pd), Preparing (pr), Completed (cp), Cancelled (cc), in increasing hierarchy
+* Statuses can only be updated upwards. Once the status of an order progresses to the next stage, it cannot go back.
+* Shorthands can be used in replacement of the full names of the statuses
+
+Example: `updates 1 s/completed`
+
+### Deleting an order : `deleteo` `[v1.2]`
+
+Deletes the specified order from PharmHub.
+
+Format: `deleteo INDEX`
+
+Example: `deleteo 2`
+
+
+### Undoing an action : `undo` `[v1.3]`
+
+Undoes the last data-modifying action.
+
+Format: `undo`
+
+* Limited to last 30 actions.
+* Does not undo Ui views (eg. find, view commands). 
+
+Example: `addp` -> `listp` -> `undo` will undo the `addp` command
+
+### Redoing an action (after an undo) : `redo` `[v1.3]`
+
+Negates the effect of the last undo.
+
+Format: `redo`
+
+* The undo command must have been the latest data-modifying command.
+* Once a non-`undo` data-modifying command is executed, redoing undoes before that non-`undo` command is no longer possible
+
 
 ### Clearing all entries : `clear`
 
@@ -173,52 +251,6 @@ PharmHub data are saved automatically as a JSON file `[JAR file location]/data/p
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, PharmHub will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
 </div>
-
-### Viewing specific details of an order `[v1.2]`
-What it does: Displays a detailed version of an order to the right side of the screen when called for by command
-
-Command format: vieworder ORDER_NUMBER
-
-Parameters: ORDER_NUMBER - Numeric Characters only
-
-Example command: vieworder 505011
-
-Precise expected outputs when the command succeeds: Right screen shows the details of the order specified
-Result display will show “Order ORDER_NUMBER displayed”
-
-Precise expected output when the command fails:
-If order number does not exist, result display will show “No such order with order number ORDER_NUMBER”
-If order number is of invalid format, eg. contains non-numeric characters, result display will show “Invalid format”
-
-### Adding a new order : `addorder` `[v1.2]`
-
-Adds a new order of medication corresponding to a patient into the system.
-
-Format: `addorder INDEX o/ORDER_NUMBER m/MEDICINE_NAME`
-
-Parameters:   
-* `INDEX` - index of patient who is ordering the medicine as shown in the patient list.  
-* `ORDER_NUMBER` - the order number of this order specified by the invoice.  
-* `MEDICINE_NAME` - the name of medicine being ordered.  
-
-
-Precise expected outputs when the command succeeds:  
-* The result display box shows “Order assigned to patient successfully.”    
-* The info box will show the newly added order.    
-
-Precise expected output when the command fails:  
-* If invalid `INDEX`, result display will show “Invalid patient INDEX”  
-* If invalid `ORDER_NUMBER`, result display will show “Invalid ORDER_NUMBER”  
-* If empty `MEDICINE_NAME`, result display will show “MEDICINE_NAME cannot be empty”  
-
-
-
-Examples: 
-
-* `addorder 1 o/618457 m/panadol`  
-* `addorder 3 o/438756 m/claritin`
-
-
 
 
 
