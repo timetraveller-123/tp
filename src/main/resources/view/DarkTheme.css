@@ -153,6 +153,10 @@
      -fx-border-top-width: 1px;
 }
 
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
 .status-bar {
     -fx-background-color: derive(#1d1d1d, 30%);
 }
