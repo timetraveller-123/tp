@@ -42,22 +42,18 @@ public class FindOrderCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Predicate<Order> statusMatches = order -> order.getStatus() == statusToFind;
-        Predicate<Order> medicineMatches = order -> order.getMedicines().contains(medicineToFind);
-        if (statusToFind == null) {
-            model.updateFilteredOrderList(medicineMatches);
-            return new CommandResult(
-                    String.format(Messages.MESSAGE_ORDERS_LISTED_OVERVIEW, model.getFilteredOrderList().size()),
-                    CommandResult.ListPanelEffects.ORDER);
+        if (statusToFind == null && medicineToFind == null) {
+            return new CommandResult(FindOrderCommand.MESSAGE_USAGE);
         }
-        if (medicineToFind == null) {
-            model.updateFilteredOrderList(statusMatches);
-            return new CommandResult(
-                    String.format(Messages.MESSAGE_ORDERS_LISTED_OVERVIEW, model.getFilteredOrderList().size()),
-                    CommandResult.ListPanelEffects.ORDER);
-        }
-        model.updateFilteredOrderList(statusMatches);
-        model.updateFilteredOrderList(medicineMatches);
+
+        Predicate<Order> statusMatches = order -> statusToFind == null
+                || order.getStatus().getStatus() == statusToFind.getStatus();
+        Predicate<Order> medicineMatches = order -> medicineToFind == null
+                || order.getMedicines().contains(medicineToFind);
+
+        Predicate<Order> combined = statusMatches.and(medicineMatches);
+
+        model.updateFilteredOrderList(combined);
         return new CommandResult(
                 String.format(Messages.MESSAGE_ORDERS_LISTED_OVERVIEW, model.getFilteredOrderList().size()),
                 CommandResult.ListPanelEffects.ORDER);
