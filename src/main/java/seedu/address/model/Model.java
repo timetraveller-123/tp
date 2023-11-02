@@ -152,6 +152,9 @@ public interface Model {
 
     void undo();
 
+    boolean canRedo();
+
+    void redo();
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

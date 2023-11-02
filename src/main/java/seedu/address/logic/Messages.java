@@ -34,7 +34,8 @@ public class Messages {
 
     public static final String MESSAGE_INVALID_MEDICINE = "Provided medicine(s) do not exist.";
 
-    public static final String MESSAGE_NO_PREVIOUS_STATE_TO_UNDO_TO = "No past state to revert to";
+    public static final String MESSAGE_NO_VALID_PREVSTATE = "No past state to revert to";
+
 
     /**
      * Returns an error message indicating the duplicate prefixes.

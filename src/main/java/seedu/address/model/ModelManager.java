@@ -174,7 +174,7 @@ public class ModelManager implements Model {
         addressBook.setMedicine(target, editedMedicine);
     }
 
-    //=========== Undo Methods =============================================================
+    //=========== Undo/Redo Methods =============================================================
     @Override
     public boolean canUndo() {
         return addressBook.canUndo();
@@ -185,6 +185,15 @@ public class ModelManager implements Model {
         addressBook.undo();
     }
 
+    @Override
+    public boolean canRedo() {
+        return addressBook.canRedo();
+    }
+
+    @Override
+    public void redo() {
+        addressBook.redo();
+    }
 
     //=========== Filtered Person List Accessors =============================================================
 
