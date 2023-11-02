@@ -30,7 +30,7 @@ public class AddOrderCommand extends Command {
             + "by the index number used in the displayed person list. \n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_ORDER_NUMBER + "ORDER_NUMBER "
-            + "[" + PREFIX_MEDICINE_NAME + "MEDICINE_NAME]+.. \n"
+            + PREFIX_MEDICINE_NAME + "MEDICINE_NAME+ \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_ORDER_NUMBER + "91234567 "
             + PREFIX_MEDICINE_NAME + "panadol "
