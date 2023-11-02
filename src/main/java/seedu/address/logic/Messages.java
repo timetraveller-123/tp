@@ -21,6 +21,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
 
     public static final String MESSAGE_INVALID_ORDER_DISPLAYED_INDEX = "The order index provided is invalid";
+
+    public static final String MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX = "The medicine index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
 
     public static final String MESSAGE_MEDICINES_LISTED_OVERVIEW = "%1$d medicines listed!";

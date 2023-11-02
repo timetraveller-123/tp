@@ -51,7 +51,7 @@ public class AddShortFormCommand extends Command {
         requireNonNull(model);
         List<Medicine> lastShownList = model.getFilteredMedicineList();
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
         }
 
         if (model.hasMedicine(medicine)) {
