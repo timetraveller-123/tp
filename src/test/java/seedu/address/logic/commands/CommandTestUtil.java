@@ -151,7 +151,7 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showMedicineAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredOrderList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredMedicineList().size());
 
         Medicine medicine = model.getFilteredMedicineList().get(targetIndex.getZeroBased());
         model.updateFilteredMedicineList(x-> medicine.getMedicineName().equals(x.getMedicineName()));

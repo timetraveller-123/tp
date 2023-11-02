@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -50,11 +51,33 @@ public class DeleteMedicineCommand extends Command {
         model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_ORDERS);
         if (model.getFilteredPersonList().stream().anyMatch(x -> x.isAllergicTo(medicine))
             || model.getFilteredOrderList().stream().anyMatch(x -> x.getMedicines().contains(medicine))) {
-            throw new CommandException(MESSAGE_DELETE_MEDICINE_FAILURE);
+            throw new CommandException(String.format(MESSAGE_DELETE_MEDICINE_FAILURE, Messages.format(medicine)));
         }
 
         model.deleteMedicine(medicine);
         return new CommandResult(String.format(MESSAGE_DELETE_MEDICINE_SUCCESS, Messages.format(medicine)));
 
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof DeleteMedicineCommand)) {
+            return false;
+        }
+
+        DeleteMedicineCommand otherDeleteCommand = (DeleteMedicineCommand) other;
+        return index.equals(otherDeleteCommand.index);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("targetIndex", index)
+                .toString();
     }
 }
