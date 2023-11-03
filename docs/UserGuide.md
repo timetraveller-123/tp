@@ -363,11 +363,16 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [no/ALLERGY]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague no/aspirin`
+**Add Person** | `addp n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [no/ALLERGY]…​` <br> e.g., `addp n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague no/aspirin`
 **Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/allergy]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List** | `list`
+**Delete Person** | `deletep INDEX`<br> e.g., `delete 3`
+**Edit Person** | `editp INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/allergy]…​[ia/]`<br> e.g.,`editp 2 n/James Lee e/jameslee@example.com`
+**Find Person** | `findp KEYWORD [MORE_KEYWORDS]`<br> e.g., `findp James Jake`
+**List Person** | `listp`
 **Help** | `help`
-**Add Order** | `addorder INDEX o/ORDER_NUMBER m/MEDICINE_NAME` <br> e.g., `addorder 3 o/438756 m/claritin`
+**Add Order** | `addo INDEX o/ORDER_NUMBER m/MEDICINE_NAME [m/MEDICINE_NAME]... [ia/]` <br> e.g., `addo 3 o/438756 m/claritin`
+**Add Medicine** | `addm m/MEDICINE_NAME`  
+**List Medicine** | `listm`  
+**Find Medicine** | `findm KEYWORD [MORE_KEYWORDS]`  
+**Delete Medicine** | `deletem INDEX`
+**Add/Delete Short Form** | `sfm INDEX [m/SHORT_FORM] [d/]`
