@@ -109,6 +109,7 @@ Format: `editp INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/ALLERG
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
+* This command will not be able to add/delete orders to this person
 * Existing values will be updated to the input values.
 * When editing tags or allergies, the existing tags or allergies of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
@@ -169,7 +170,7 @@ Format: `viewo`
 
 Adds a new order of medication corresponding to a patient into the system.
 
-Format: `addorder INDEX o/ORDER_NUMBER m/MEDICINE_NAME [/ia]`
+Format: `addo INDEX o/ORDER_NUMBER m/MEDICINE_NAME [/ia]`
 
 * Orders are created automatically having a `status` of `pending`.
 * Orders can only be created for a person in the index range, and for a known `medicine`
@@ -207,7 +208,7 @@ Example:
 
 Finds orders whose status and medicine satisfies both inputs.
 
-Format: `findo s/STATUS m/MEDICINE [MORE MEDICINE]`
+Format: `findo s/STATUS m/MEDICINE_NAME [m/MEDICINE_NAME]...`
 
 * The search is case-insensitive. e.g `PANADOL` will match `Panadol`, `COMPLETED` or `CP` will match `Completed`.
 * User input can find orders base on either status or medicines or both(but both will have to be satisfied).
@@ -239,7 +240,8 @@ Format: `undo`
 * Limited to last 30 actions.
 * Does not undo Ui views (eg. find, view commands). 
 
-Example: `addp` -> `listp` -> `undo` will undo the `addp` command
+Example: 
+* `addp` -> `listp` -> `undo` will undo the `addp` command
 
 ### Redoing an action (after an undo) : `redo` `[v1.3]`
 
@@ -249,6 +251,11 @@ Format: `redo`
 
 * The undo command must have been the latest data-modifying command.
 * Once a non-`undo` data-modifying command is executed, redoing undoes before that non-`undo` command is no longer possible
+
+Example:
+* `addp` -> `undo` -> `addp` -> `redo`  will throw an error
+* `addp` -> `undo` -> `listp` -> `redo` will redo the `addp` command successfully
+
 
 
 ### Clearing all entries : `clear`
@@ -276,11 +283,6 @@ If your changes to the data file makes its format invalid, PharmHub will discard
 </div>
 
 
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -298,13 +300,22 @@ _Details coming soon ..._
 
 ## Command summary
 
-Action | Format, Examples
---------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [no/ALLERGY]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague no/aspirin`
-**Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/allergy]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List** | `list`
-**Help** | `help`
-**Add Order** | `addorder INDEX o/ORDER_NUMBER m/MEDICINE_NAME` <br> e.g., `addorder 3 o/438756 m/claritin`
+| Action                  | Format, Examples                                                                                                                                                                                |
+|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **List People**         | `listp`                                                                                                                                                                                         |
+| **Find Person**         | `findp KEYWORD [MORE_KEYWORDS]`<br> e.g., `findp James Jake`                                                                                                                                    |
+| **View Person**         | `viewp INDEX` <br> e.g., `viewp 1`                                                                                                                                                              |
+| **Add Person**          | `addp n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [no/ALLERGY]…​` <br> e.g., `addp n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague no/aspirin` |
+| **Edit Person**         | `editp INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/allergy]…​`<br> e.g.,`editp 2 n/James Lee e/jameslee@example.com`                                                      |
+| **Delete Person**       | `deletep INDEX`<br> e.g., `deletep 3`                                                                                                                                                           |
+| **List Orders**         | `listo`                                                                                                                                                                                         |
+| **Find Order**          | `findo [s/STATUS] [m/MEDICINE_NAME]...`<br> e.g., `findo s/cp m/pen`                                                                                                                            |
+| **View Order**          | `viewo ORDER_NUMBER` <br> e.g., `viewo 12345`                                                                                                                                                   |
+| **Add Order**           | `addo INDEX o/ORDER_NUMBER m/MEDICINE_NAME [m/MEDICINE_NAME]...` <br> e.g., `addorder 3 o/438756 m/claritin`                                                                                    |
+| **Update Order Status** | `updates INDEX s/STATUS`<br> e.g., `updates s/cancelled`                                                                                                                                        |
+| **Delete Order**        | `deleteo INDEX`<br> e.g., `deleteo 3`                                                                                                                                                           |
+| **Undo**                | `undo`                                                                                                                                                                                          |
+| **Redo**                | `redo`                                                                                                                                                                                          |
+| **Clear**               | `clear`                                                                                                                                                                                         |
+| **Help**                | `help`                                                                                                                                                                                          |
+| **Exit**                | `exit`                                                                                                                                                                                          |
