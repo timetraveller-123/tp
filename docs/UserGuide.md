@@ -165,7 +165,7 @@ Shows the order in the info panel.
 
 Format: `viewo`
 
-### Adding a new order : `addorder` `[v1.2]`
+### Adding a new order : `addo` `[v1.2]`
 
 Adds a new order of medication corresponding to a patient into the system.
 
@@ -182,8 +182,8 @@ Parameters:
 * `MEDICINE_NAME` - the name of medicine being ordered.
 
 Examples:
-* `addorder 1 o/618457 m/panadol`
-* `addorder 3 o/438756 m/claritin`
+* `addo 1 o/618457 m/panadol`
+* `addo 3 o/438756 m/claritin`
 
 
 ### Updating the status of an order : `updates` `[v1.3]`
@@ -192,11 +192,34 @@ Updates the status of the order to the designated status.
 
 Format: `updates INDEX s/STATUS`
 
-* Statuses: Pending (pd), Preparing (pr), Completed (cp), Cancelled (cc), in increasing hierarchy
+* Statuses: `Pending (pd) -> Preparing (pr) -> Completed (cp) -> Cancelled (cc)`, in increasing hierarchy
 * Statuses can only be updated upwards. Once the status of an order progresses to the next stage, it cannot go back.
+* Statuses can be updated by skipping the hierarchy. `Pending -> Cancelled`
 * Shorthands can be used in replacement of the full names of the statuses
 
-Example: `updates 1 s/completed`
+Example: 
+* `updates 1 s/completed`
+* `updates 1 s/COMPLETED`
+* `updates 1 s/cp`
+* `updates 1 s/CP`
+
+### Filtering/Finding Order by status and medicines: `findo`
+
+Finds orders whose status and medicine satisfies both inputs.
+
+Format: `findo s/STATUS m/MEDICINE [MORE MEDICINE]`
+
+* The search is case-insensitive. e.g `PANADOL` will match `Panadol`, `COMPLETED` or `CP` will match `Completed`.
+* User input can find orders base on either status or medicines or both(but both will have to be satisfied).
+* Status can only be `Pending/PD Preparing/PR Completed/CP Cancelled/CC`, any other inputs will be invalid.
+* Medicine can be written both in their short form and full form. `pan` will match `Panadol`.
+* Multiple Medicine can be used as input separated by a blank space but only one status can be used.
+* Orders that contain any one of the medication/Status will be shown.
+
+Examples:
+* `findo m/Panadol Ibuprofen` returns any orders with either `Panadol` or `Ibuprofen`.
+* `findo s/pd m/Panadol` returns any orders that is both `Pending` and contains `Panadol`.
+  ![result for 'findo s/pd m/Panadol'](images/findOrder2Input.png)
 
 ### Deleting an order : `deleteo` `[v1.2]`
 
