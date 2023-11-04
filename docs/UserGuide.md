@@ -2,11 +2,86 @@
 layout: page
 title: User Guide
 ---
+## Welcome to PharmHub!
+
+--------------------------------------------------------------------------------------------------------------------
+
+***Where Precision Meets Prescription***
 
 Pharmhub is a **desktop app for managing patients and their medication orders, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, PharmHub can get your patient/ order management tasks done faster than traditional GUI apps.
 
-* Table of Contents
-{:toc}
+--------------------------------------------------------------------------------------------------------------------
+## Table of Contents
+1. [Glossary](#glossary)
+    1. [Person](#person)
+    2. [Order](#order)
+    3. [Status](#status)
+    4. [Medicine](#medicine)
+    5. [Fields](#fields) 
+2. [Quick Start](#quick-start)
+3. [Features](#features)
+4. [FAQ](#faq)
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Glossary
+
+### Person
+
+For the entire user guide the term person is used to refer to the patient of which the pharmacist is addressing to.
+Persons are the people with whom you track your Orders and information for. To create an order with a person, they must first have been added to the app.
+
+A person has the following attributes:
+- Name
+- Phone number
+- Email Address
+- Address
+- Allergy(If the person has one)
+
+Persons are uniquely identified by their names. No two persons can have the same name and names are case-insensitive.
+
+### Order
+
+Orders are event in which an order has been placed for a single or multiple medication for a certain person in the person list.
+
+An Order has the following attributes:
+- Order Number
+- Person (Who the order belongs to)
+- Medicine (What is in the order)
+- Status of the order
+
+Orders are uniquely identified by their order numbers. No two orders can have the same order number. 
+No orders containing the medicine that the person is allergy to can be added without a special flag.
+Orders will automatically tag under the <span style="color: red;">PENDING</span>
+Status when added.
+
+### Status
+
+Status are used to describe the process at which the order is at.
+Status can only be updated/modified following their chronological order.
+
+<span style="background-color: red; border-radius: 20%; padding: 1px;">PENDING/PD</span>
+->
+<span style="background-color: blue; border-radius: 20%; padding: 1px;">PREPARING/PR</span>
+->
+<span style="background-color: green; border-radius: 20%; padding: 1px;">COMPLETED/CP</span>
+->
+<span style="background-color: black; border-radius: 20%; padding: 1px;">CANCELED/CC</span>
+
+Status can be identified either in their full form or in their short form as shown above (FullForm/ShortForm). Status are all case-insensitive as well.
+
+### Medicine
+
+Medicine are objects that can be added to an order when it is being placed for a person.
+
+A Medicine has the following attribute:
+- Full Name of the medication
+- A optional short form for the medication
+
+Medicine are uniquely identified by their full and short form names. No two medicine can have the same names.
+
+
+### Fields
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -14,7 +89,7 @@ Pharmhub is a **desktop app for managing patients and their medication orders, o
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `pharmhub.jar` from [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/releases).
+1. Download the latest `PharmHub.jar` from [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for your PharmHub.
 
@@ -25,11 +100,11 @@ Pharmhub is a **desktop app for managing patients and their medication orders, o
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all people.
+   * `listp` : Lists all people.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a person named `John Doe` to PharmHub.
+   * `addp n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a person named `John Doe` to PharmHub.
 
-   * `delete 3` : Deletes the 3rd patient shown in the current list.
+   * `deletep 3` : Deletes the 3rd patient shown in the current list.
 
    * `clear` : Deletes all people.
 
