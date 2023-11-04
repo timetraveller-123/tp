@@ -82,6 +82,20 @@ Medicine are uniquely identified by their full and short form names. No two medi
 
 
 ### Fields
+Inputs to fields should not contain an number of "/" sign. i.e "//" is allowed
+
+The following fields are used for commands:
+
+| Field         | Prefix            | Format                                                       | Example                               |
+|---------------|-------------------|--------------------------------------------------------------|---------------------------------------|
+| Index         | -                 | Must be a positive integer                                   | `1`, `2`, `3`                         |
+| Keyword       | -                 | Must not contain a singular "/" sign                         | `pan`, `Ah Tan s//o Ah Tan Tan`       |
+| Name          | n                 | Must be alphanumeric                                         | `Joe`, `Vishnu`                       |
+| Phone number  | p                 | Must be numeric and be at least 3 digits long                | `999`, `68741616`                     |
+| Email address | e                 | Must be a valid email address                                | `pharmhub@bestapp.sg`, `putin@russia` |
+| Address       | a                 | Must not contain a singular "/" sign                         | `Sentosa cove`, `Pulau NTU`           |
+| Status        | [Status](#status) | Must be a valid Status                                       | `PENDIND`, `Cc`                       |
+| Commands      | -                 | Must be the first input, case-insensitive                    | `addo`, `listm`                       |
 
 --------------------------------------------------------------------------------------------------------------------
 
