@@ -19,8 +19,9 @@ Pharmhub is a **desktop app for managing patients and their medication orders, o
     4. [Medicine](#medicine)
     5. [Fields](#fields) 
 2. [Quick Start](#quick-start)
-3. [Features](#features)
-4. [FAQ](#faq)
+3. [Application Navigation](#application-navigation)
+4. [Features](#features)
+5. [FAQ](#faq)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -97,24 +98,54 @@ The following fields are used for commands:
 | Status        | [Status](#status) | Must be a valid Status                                       | `PENDIND`, `Cc`                       |
 | Commands      | -                 | Must be the first input, case-insensitive                    | `addo`, `listm`                       |
 
---------------------------------------------------------------------------------------------------------------------
+---
+
+## Application Navigation
+
+Below shows a guide on how you can navigate around our beautiful Graphical User Interface (GUI)
+
+![Navigation](images/navigation.png)
+
+| Component                  | Description                                                 | Remarks                                                          |
+|----------------------------|-------------------------------------------------------------|------------------------------------------------------------------|
+| Help Button                | Shows URL to our User Guide.                                | -                                                                |
+| Command Input Field        | Type commands here and press `Enter` to execute them.       | -                                                                |
+| Command Output Display     | Shows the result of the command execution.                  | -                                                                |
+| Person Information Display | Shows Detailed information on a person.                     | Displays Name, Email, allergy and Orders under this person.      |
+| PersonList                 | Shows a list of person.                                     | List can be filtered by Keywords in the names.                   |
+| Person Card                | Shows a particular person with minimal details in the list. | Shows the Name, Allergies, Number, Address and Email.            |
+| Order Information Display  | Shows Detailed information on an order.                     | Displays status, Order Number, Person of the order and Medicine. |
+| Order List                 | Shows a list of orders.                                     | List can be filtered by Status or Medicine in the order or Both. |
+| Order Card                 | Shows a particular order with minimal details in the list.  | Shows Order Number, Name, Address and Medicine.                  |
+| Medicine List              | Shows a list of medicine in the system.                     | List can be filtered by Keywords in the medicines.               |
+| Medicine Card              | Shows a particular medicine with all the details.           | Shows the Full and Short form of the medicine.                   |
+
+---
 
 ## Quick start
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `PharmHub.jar` from [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/releases).
+2. Download the latest `PharmHub.jar` from [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your PharmHub.
+3. Copy the file to the folder you want to use as the _home folder_ for your PharmHub.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar pharmhub.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar pharmhub.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `listp` : Lists all people.
+   
+   * `listo` : Lists all order.
+   
+   * `listm` : Lists all medicine.
+   
+   * `viewp 1` : views in detail index 1 of the person list.(The Displayed list does not have to be person to view person)
+
+   * `viewo 1` : views in detail index 1 of the order list.
 
    * `addp n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a person named `John Doe` to PharmHub.
 
@@ -124,7 +155,7 @@ The following fields are used for commands:
 
    * `exit` : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+6. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -186,6 +217,8 @@ Examples:
 Shows an interactive list of all persons in PharmHub.
 
 Format: `listp`
+
+![listp](images/listp.png)
 
 ### Viewing a person `viewp`
 
@@ -268,6 +301,8 @@ Shows a list of all medicines in PharmHub.
 
 Format: `listm`
 
+![listm](images/listm.png)
+
 ### Locating a medicine by name : `findm` 
 
 Finds all medicines whose name or short form contains any of the given keywords.  
@@ -310,6 +345,8 @@ Format: `sfm INDEX [m/SHORT_FORM] [d/]`
 Shows an interactive list of all orders in PharmHub.
 
 Format: `listo`
+
+![listo](images/listo.png)
 
 ### Viewing an order : `viewo` 
 
