@@ -17,9 +17,10 @@ Pharmhub is a **desktop app for managing patients and their medication orders, o
     2. [Order](#order)
     3. [Status](#status)
     4. [Medicine](#medicine)
-    5. [Fields](#fields) 
-2. [Quick Start](#quick-start)
-3. [Application Navigation](#application-navigation)
+    5. [Index](#index)
+    6. [Fields](#fields)
+2. [Application Navigation](#application-navigation)
+3. [Quick Start](#quick-start)
 4. [Features](#features)
 5. [FAQ](#faq)
 
@@ -81,6 +82,18 @@ A Medicine has the following attribute:
 
 Medicine are uniquely identified by their full and short form names. No two medicine can have the same names.
 
+### Index
+
+All commands will be executed base on Index. Index refer to the numbering being shown in the person/order/medicine list.
+All index can only be more than 0, at least 1.
+
+As you can refer to the image below index 1 refer to OrderNumber #1 while index 3 refer to OrderNumber #5.
+
+![listp](images/listo.png)
+
+Note: The Index will be base on the command being called and not the displayed list, 
+if a command of viewp(view person) is being called, 
+the index taken will be base on the person list and not this list being shown currently.
 
 ### Fields
 Inputs to fields should not contain an number of "/" sign. i.e "//" is allowed
@@ -97,6 +110,7 @@ The following fields are used for commands:
 | Address       | a                 | Must not contain a singular "/" sign                         | `Sentosa cove`, `Pulau NTU`           |
 | Status        | [Status](#status) | Must be a valid Status                                       | `PENDIND`, `Cc`                       |
 | Commands      | -                 | Must be the first input, case-insensitive                    | `addo`, `listm`                       |
+
 
 ---
 
