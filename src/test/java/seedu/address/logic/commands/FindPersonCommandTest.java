@@ -23,6 +23,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.allergy.Allergy;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.person.Email;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.tag.Tag;
 
@@ -112,12 +113,31 @@ public class FindPersonCommandTest {
     }
 
     @Test
-    public void toStringMethod() {
+    public void toStringMethodKeywordPredicate() {
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Arrays.asList("keyword"));
 
 
         FindPersonCommand findCommand = new FindPersonCommand(predicate);
         String expected = FindPersonCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
+        assertEquals(expected, findCommand.toString());
+    }
+
+    @Test
+    public void toStringMethodMultipleAttributes() {
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Arrays.asList("keyword"));
+        Email email = new Email("test@gmail.com");
+        Set<Tag> tags = new HashSet<>(
+                Arrays.asList(
+                        new Tag("friends")
+                        ));
+        Set<Allergy> allergies = new HashSet<>(
+                Arrays.asList(
+                        new Allergy(new Medicine("Penicillin"))
+                        ));
+
+        FindPersonCommand findCommand = new FindPersonCommand(predicate, null, email, tags, allergies);
+        String expected = FindPersonCommand.class.getCanonicalName() + "{predicate=" + predicate + ", email=" + email
+                + ", tags=" + tags + ", allergies=" + allergies + "}";
         assertEquals(expected, findCommand.toString());
     }
 
