@@ -35,7 +35,7 @@ public class FindPersonCommandParserTest {
 
     @Test
     public void parse_validArgsForName_returnsFindCommand() {
-        NameContainsKeywordsPredicate nameContainsKeywordsPredicate =  new NameContainsKeywordsPredicate(Arrays.asList(
+        NameContainsKeywordsPredicate nameContainsKeywordsPredicate = new NameContainsKeywordsPredicate(Arrays.asList(
                 "Alice", "Bob"));
 
         // no leading and trailing whitespaces
@@ -53,7 +53,7 @@ public class FindPersonCommandParserTest {
 
     @Test
     public void parse_validArgsForNameAndOtherAttributes_returnsFindCommand() {
-        NameContainsKeywordsPredicate nameContainsKeywordsPredicate =  new NameContainsKeywordsPredicate(Arrays.asList(
+        NameContainsKeywordsPredicate nameContainsKeywordsPredicate = new NameContainsKeywordsPredicate(Arrays.asList(
                 "Alice", "Bob"));
         Phone phoneToFind = new Phone("123456");
         Email emailToFind = new Email("rachel@example.com");
@@ -69,13 +69,17 @@ public class FindPersonCommandParserTest {
 
 
         FindPersonCommand expectedFindCommand =
-                new FindPersonCommand(nameContainsKeywordsPredicate, phoneToFind, emailToFind, tagsToFind, allergiesToFind);
+                new FindPersonCommand(nameContainsKeywordsPredicate,
+                        phoneToFind,
+                        emailToFind,
+                        tagsToFind,
+                        allergiesToFind);
 
         assertParseSuccess(parser, " " + PREFIX_NAME + "Alice Bob"
-                + " " + PREFIX_PHONE + "123456"
-                + " " + PREFIX_EMAIL + "rachel@example.com"
-                + " " + PREFIX_TAG + "friends owesMoney"
-                + " " + PREFIX_ALLERGY + "Aspirin Penicillin",
+                        + " " + PREFIX_PHONE + "123456"
+                        + " " + PREFIX_EMAIL + "rachel@example.com"
+                        + " " + PREFIX_TAG + "friends owesMoney"
+                        + " " + PREFIX_ALLERGY + "Aspirin Penicillin",
                 expectedFindCommand);
     }
 
