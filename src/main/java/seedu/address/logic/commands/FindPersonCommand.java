@@ -25,8 +25,8 @@ public class FindPersonCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Parameters: addp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG] [no/ALLERGY].\n"
+            + "Example: " + COMMAND_WORD + " n/alice bob charlie p/123456 no/Paracetamol Penicillin";
 
     private final Predicate<Person> nameContainsKeywordsPredicate;
     private final Phone phoneToFind;
