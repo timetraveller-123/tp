@@ -1,11 +1,19 @@
 package seedu.address.logic.commands;
 
+import java.util.Set;
+import java.util.function.Predicate;
+
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
+import seedu.address.model.allergy.Allergy;
+import seedu.address.model.person.Email;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Tag;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -20,16 +28,48 @@ public class FindPersonCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final Predicate<Person> nameContainsKeywordsPredicate;
+    private final Phone phoneToFind;
+    private final Email emailToFind;
+    private final Set<Tag> tagsToFind;
+    private final Set<Allergy> allergiesToFind;
 
-    public FindPersonCommand(NameContainsKeywordsPredicate predicate) {
-        this.predicate = predicate;
+    public FindPersonCommand(Predicate<Person> nameContainsKeywordsPredicate,
+                             Phone phoneToFind, Email emailToFind, Set<Tag> tagsToFind, Set<Allergy> allergiesToFind) {
+        this.nameContainsKeywordsPredicate = nameContainsKeywordsPredicate;
+        this.phoneToFind = phoneToFind;
+        this.emailToFind = emailToFind;
+        this.tagsToFind = tagsToFind;
+        this.allergiesToFind = allergiesToFind;
+    }
+
+    public FindPersonCommand(
+            NameContainsKeywordsPredicate nameContainsKeywordsPredicate
+    ) {
+        this(nameContainsKeywordsPredicate, null, null, null, null);
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
+
+
+        Predicate<Person> phoneMatches = person -> phoneToFind == null
+                || person.getPhone().equals(phoneToFind);
+
+        Predicate<Person> emailMatches = person -> emailToFind == null
+                || person.getEmail().equals(emailToFind);
+
+        Predicate<Person> tagsMatches = person -> tagsToFind == null
+                || person.getTags().equals(tagsToFind);
+
+        Predicate<Person> allergiesMatches = person -> allergiesToFind == null
+                || person.getAllergies().equals(allergiesToFind);
+
+        Predicate<Person> combined =
+                nameContainsKeywordsPredicate.and(phoneMatches).and(emailMatches).and(tagsMatches).and(allergiesMatches);
+
+        model.updateFilteredPersonList(combined);
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()),
                 CommandResult.ListPanelEffects.PERSON);
@@ -47,13 +87,33 @@ public class FindPersonCommand extends Command {
         }
 
         FindPersonCommand otherFindCommand = (FindPersonCommand) other;
-        return predicate.equals(otherFindCommand.predicate);
+        return nameContainsKeywordsPredicate.equals(otherFindCommand.nameContainsKeywordsPredicate)
+                && ((phoneToFind == null && otherFindCommand.phoneToFind == null) || phoneToFind.equals(otherFindCommand.phoneToFind))
+                && ((emailToFind == null && otherFindCommand.emailToFind == null) || emailToFind.equals(otherFindCommand.emailToFind))
+                && ((tagsToFind == null && otherFindCommand.tagsToFind == null) || tagsToFind.equals(otherFindCommand.tagsToFind))
+                && ((allergiesToFind == null && otherFindCommand.allergiesToFind == null) || allergiesToFind.equals(otherFindCommand.allergiesToFind));
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("predicate", predicate)
-                .toString();
+        ToStringBuilder toStringBuilder = new ToStringBuilder(this);
+
+        if(nameContainsKeywordsPredicate != null) {
+            toStringBuilder.add("predicate", nameContainsKeywordsPredicate);
+        }
+        if(phoneToFind != null) {
+            toStringBuilder.add("phone", phoneToFind);
+        }
+        if(emailToFind != null) {
+            toStringBuilder.add("email", emailToFind);
+        }
+        if(tagsToFind != null) {
+            toStringBuilder.add("tags", tagsToFind);
+        }
+        if(allergiesToFind != null) {
+            toStringBuilder.add("allergies", allergiesToFind);
+        }
+
+        return toStringBuilder.toString();
     }
 }
