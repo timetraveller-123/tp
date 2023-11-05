@@ -82,6 +82,4 @@ public class FindPersonCommandParserTest {
                         + " " + PREFIX_ALLERGY + "Aspirin Penicillin",
                 expectedFindCommand);
     }
-
-
 }
