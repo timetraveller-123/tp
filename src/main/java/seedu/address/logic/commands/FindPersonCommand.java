@@ -68,18 +68,22 @@ public class FindPersonCommand extends Command {
         Predicate<Person> emailMatches = person -> emailToFind == null
                 || person.getEmail().equals(emailToFind);
 
-        Predicate<Person> tagsMatches = person -> tagsToFind == null
-                || person.getTags().equals(tagsToFind);
+        Predicate<Person> tagMatches = person -> tagsToFind == null
+                || person.getTags().stream()
+                .anyMatch(tag -> tagsToFind.stream()
+                        .anyMatch(checkTag -> checkTag.equals(tag)));
 
-        Predicate<Person> allergiesMatches = person -> allergiesToFind == null
-                || person.getAllergies().equals(allergiesToFind);
+        Predicate<Person> allergyMatches = person -> allergiesToFind == null
+                || person.getAllergies().stream()
+                .anyMatch(allergy -> allergiesToFind.stream()
+                        .anyMatch(checkAllergy -> checkAllergy.equals(allergy)));
 
         Predicate<Person> combined =
                 nameContainsKeywordsPredicate
                         .and(phoneMatches)
                         .and(emailMatches)
-                        .and(tagsMatches)
-                        .and(allergiesMatches);
+                        .and(tagMatches)
+                        .and(allergyMatches);
 
         model.updateFilteredPersonList(combined);
         return new CommandResult(
