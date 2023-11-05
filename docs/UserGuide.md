@@ -186,7 +186,7 @@ Format: `listm`
 
 Finds all medicines whose name or short form contains any of the given keywords.  
 
-Format : `findm`
+Format : `Format: findm KEYWORD [MORE_KEYWORD]…`
 
 * The search is case-insensitive. e.g `pan` will match `Panadol`
 * The medicine name and it's short form is searched.
@@ -194,8 +194,9 @@ Format : `findm`
 * Medicines matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `ol en` will return `Panadol`, `Ibuprofen`
 
-Example:
+Examples:
 * `findm ol`
+* `findm ol para`
 
 ### Deleting a medicine : `deletem`
 
