@@ -209,6 +209,9 @@ Format: `deletem INDEX`
 * The command will be blocked if there are existing orders with the specified medicine 
   or persons allergic to the specified medicine.  
 
+Example:
+* `deletem 2`
+
 ### Adding and Deleting short form : `sfm`
 
 Adds or Deletes a short form from the specified medicine from PharmHub.
