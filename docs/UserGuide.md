@@ -173,6 +173,9 @@ Format: `addm m/MEDICINE_NAME`
 * The given name shouldn't match the name or short form any medicine in the system.   
 * Medicine names are case-insensitive.
 
+Example:
+* `addm m/Panadol`
+
 ### Listing all medicines : `listm`
 
 Shows a list of all medicines in PharmHub.  
@@ -190,6 +193,9 @@ Format : `findm`
 * Unlike `findp`, partial words will be matched e.g. `para` will  match `Paracetamol`
 * Medicines matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `ol en` will return `Panadol`, `Ibuprofen`
+
+Example:
+* `findm ol`
 
 ### Deleting a medicine : `deletem`
 
@@ -215,6 +221,8 @@ Format: `sfm INDEX [m/SHORT_FORM] [d/]`
 * After this, the short form can be used interchangeably with the medicine name.  
 * If the `d/` is provided, the short form(if any) of the medicine at the specified `INDEX` will be deleted.  
 
+Example:
+* `sfm 1 m/pan`
 
 ### Listing all orders : `listo` 
 
