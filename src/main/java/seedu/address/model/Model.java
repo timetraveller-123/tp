@@ -58,6 +58,11 @@ public interface Model {
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
+    /**
+     * Clears the address book data
+     */
+    void clearAddressBook();
+
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
