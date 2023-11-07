@@ -9,7 +9,11 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+PharmHub is built upon [AddressBook-Level3](https://se-education.org/addressbook-level3/) project created by the [SE-EDU initiative](https://se-education.org).  
+The following libraries have been used
+* [JavaFX](https://openjfx.io/)
+* [Jackson](https://github.com/FasterXML/jackson) 
+* [JUnit5](https://junit.org/junit5/)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -152,7 +156,41 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 ## **Implementation**
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some noteworthy details on how certain features are implemented. 
+
+### Add medicine short form feature  
+
+After the creation of new `Medicine`, a short form can be assigned to that `Medicine` using the `sfm` command.  
+After this command, the user would be able to use this short form interchangeably with the full name in fields requiring medicine or allergy names.    
+Currently, only one short form can be assigned to one `Medicine` at a time.  
+The following sequence diagram illustrates some of the steps that happen when user execute `sfm 1 m/pan`    
+
+![AddShortFormSequenceDiagram](images/AddShortFormSequenceDiagram.png)  
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifelines should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>  
+
+Step 1: The user executes `sfm 1 m/pan` to add the short form of `pan` to the medicine at index 1 in the last shown medicine list.  
+Step 2: Logic Manager calls `AddressBookParser#parse` which extracts the arguments and calls `AddShortFormCommandParser`  
+Step 3: `AddShortFormCommandParser` parses the index, short form name and returns a `AddShortFormComamnd`   
+Step 4: `LogicManager` calls `AddShortFormCommand#execute` to assign the short form to the medicine.   
+Step 5: `AddShortFormCommand` checks if an existing medicine with the same name or same short form is already present using `Model#hasMedicine(m)`.   
+Step 6: The `Medicine` at index 1 is replaced with a new `Medicine` which has same medicine name but with `pan` as the short form.   
+ 
+`Model#hasMedicine(m)` utilizes the following method `Medicine#isSameMedicine` to check equality of two `Medicine`.  
+```java
+public boolean isSameMedicine(Medicine m) {
+        if (m == this) {
+            return true;
+        }
+        if (m == null) {
+            return false;
+        }
+        return (medicineName.equalsIgnoreCase(m.medicineName)
+                || medicineName.equalsIgnoreCase(m.shortForm)
+                || m.medicineName.equalsIgnoreCase(shortForm));
+}
+```
+
 
 
 ### \[Proposed\] Undo/redo feature
@@ -432,11 +470,15 @@ In this combined use case, a pharmacist adds a medication order for a patient us
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4.  Should be able to hold up to 1000 orders without a noticeable sluggishness in performance for typical usage.
-    *{More to be added}*
+1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
+2. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+3. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+4. Should be able to hold up to 1000 orders without a noticeable sluggishness in performance for typical usage.
+5. Should be able to hold up to 1000 medicines without a noticeable sluggishness in performance for typical usage.
+6. Application should be a standalone executable so that it doesn't require the user to install other libraries to run.
+7. Application should be smaller than 100mb so that application can be run on space constrained systems.
+8. Generated storage file shouldn't take up more than 100mb of storage so that the application can be run on space constrained systems.
+
 
 ### Glossary
 
