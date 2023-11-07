@@ -96,6 +96,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.contains(person);
     }
 
+    public void clear() {
+        resetData(new AddressBook());
+    }
+
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.

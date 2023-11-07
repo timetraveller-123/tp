@@ -79,6 +79,13 @@ public class VersionedAddressBook extends AddressBook {
     }
 
     //=========== Undoable functions =============================================================
+
+    @Override
+    public void clear() {
+        saveHistory();
+        super.clear();
+        clearRedoHistory();
+    }
     @Override
     public void addPerson(Person p) {
         saveHistory();
