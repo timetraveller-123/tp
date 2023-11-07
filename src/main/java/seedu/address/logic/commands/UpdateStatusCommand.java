@@ -25,7 +25,7 @@ import seedu.address.model.person.Person;
 
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing order in address book.
  */
 public class UpdateStatusCommand extends Command {
 

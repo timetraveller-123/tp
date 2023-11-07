@@ -10,7 +10,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.medicine.Medicine;
 
 /**
- * Panel containing the list of orders.
+ * Panel containing the list of medicines.
  */
 public class MedicineListPanel extends UiPart<Region> {
     private static final String FXML = "MedicineListPanel.fxml";

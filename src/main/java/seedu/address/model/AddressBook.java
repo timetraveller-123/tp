@@ -155,7 +155,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Retrieves the order with the specified order number
-     * @return Order with specified orderNumer
+     * @return Order with specified orderNumber
      */
     public Optional<Order> getOrder(String orderNumber) {
         return orders.getOrder(orderNumber);
@@ -194,8 +194,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removeMedicine(Medicine m) {
-        medicines.remove(m);
+    public void removeMedicine(Medicine key) {
+        medicines.remove(key);
     }
 
     /**

@@ -6,7 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDERS;
 import seedu.address.model.Model;
 
 /**
- * Lists all orders in PharmHub to the user.
+ * Lists all orders in address book to the user.
  */
 public class ListOrderCommand extends Command {
     public static final String COMMAND_WORD = "listo";

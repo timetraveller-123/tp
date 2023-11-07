@@ -6,7 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEDICINES;
 import seedu.address.model.Model;
 
 /**
- * Lists all medicines in PharmHub to the user.
+ * Lists all medicines in address book to the user.
  */
 public class ListMedicineCommand extends Command {
     public static final String COMMAND_WORD = "listm";
