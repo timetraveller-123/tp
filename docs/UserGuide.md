@@ -2,40 +2,174 @@
 layout: page
 title: User Guide
 ---
+## Welcome to PharmHub!
+
+--------------------------------------------------------------------------------------------------------------------
+
+***Where Precision Meets Prescription***
 
 Pharmhub is a **desktop app for managing patients and their medication orders, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, PharmHub can get your patient/ order management tasks done faster than traditional GUI apps.
 
-* Table of Contents
-{:toc}
+--------------------------------------------------------------------------------------------------------------------
+## Table of Contents
+1. [Glossary](#glossary)
+    1. [Person](#person)
+    2. [Order](#order)
+    3. [Status](#status)
+    4. [Medicine](#medicine)
+    5. [Index](#index)
+    6. [Fields](#fields)
+2. [Application Navigation](#application-navigation)
+3. [Quick Start](#quick-start)
+4. [Features](#features)
+5. [FAQ](#faq)
 
 --------------------------------------------------------------------------------------------------------------------
+
+## Glossary
+
+### Person
+
+For the entire user guide the term person is used to refer to the patient of which the pharmacist is addressing to.
+Persons are the people with whom you track your Orders and information for. To create an order with a person, they must first have been added to the app.
+
+A person has the following attributes:
+- Name
+- Phone number
+- Email Address
+- Address
+- Allergy(If the person has one)
+
+Persons are uniquely identified by their names. No two persons can have the same name and names are case-insensitive.
+
+### Order
+
+Orders are event in which an order has been placed for a single or multiple medication for a certain person in the person list.
+
+An Order has the following attributes:
+- Order Number
+- Person (Who the order belongs to)
+- Medicine (What is in the order)
+- Status of the order
+
+Orders are uniquely identified by their order numbers. No two orders can have the same order number. 
+No orders containing the medicine that the person is allergy to can be added without a special flag.
+Orders will automatically tag under the <span style="color: red;">PENDING</span>
+Status when added.
+
+### Status
+
+Status are used to describe the process at which the order is at.
+Status can only be updated/modified following their chronological order.
+
+<span style="background-color: red; border-radius: 20%; padding: 1px;">PENDING/PD</span>
+->
+<span style="background-color: blue; border-radius: 20%; padding: 1px;">PREPARING/PR</span>
+->
+<span style="background-color: green; border-radius: 20%; padding: 1px;">COMPLETED/CP</span>
+->
+<span style="background-color: black; border-radius: 20%; padding: 1px;">CANCELED/CC</span>
+
+Status can be identified either in their full form or in their short form as shown above (FullForm/ShortForm). Status are all case-insensitive as well.
+
+### Medicine
+
+Medicine are objects that can be added to an order when it is being placed for a person.
+
+A Medicine has the following attribute:
+- Full Name of the medication
+- A optional short form for the medication
+
+Medicine are uniquely identified by their full and short form names. No two medicine can have the same names.
+
+### Index
+
+All commands will be executed base on Index. Index refer to the numbering being shown in the person/order/medicine list.
+All index can only be more than 0, at least 1.
+
+As you can refer to the image below index 1 refer to OrderNumber #1 while index 3 refer to OrderNumber #5.
+
+![listp](images/listo.png)
+
+Note: The Index will be base on the command being called and not the displayed list, 
+if a command of viewp(view person) is being called, 
+the index taken will be base on the person list and not this list being shown currently.
+
+### Fields
+Inputs to fields should not contain an number of "/" sign. i.e "//" is allowed
+
+The following fields are used for commands:
+
+| Field         | Prefix            | Format                                                       | Example                               |
+|---------------|-------------------|--------------------------------------------------------------|---------------------------------------|
+| Index         | -                 | Must be a positive integer                                   | `1`, `2`, `3`                         |
+| Keyword       | -                 | Must not contain a singular "/" sign                         | `pan`, `Ah Tan s//o Ah Tan Tan`       |
+| Name          | n                 | Must be alphanumeric                                         | `Joe`, `Vishnu`                       |
+| Phone number  | p                 | Must be numeric and be at least 3 digits long                | `999`, `68741616`                     |
+| Email address | e                 | Must be a valid email address                                | `pharmhub@bestapp.sg`, `putin@russia` |
+| Address       | a                 | Must not contain a singular "/" sign                         | `Sentosa cove`, `Pulau NTU`           |
+| Status        | [Status](#status) | Must be a valid Status                                       | `PENDIND`, `Cc`                       |
+| Commands      | -                 | Must be the first input, case-insensitive                    | `addo`, `listm`                       |
+
+
+---
+
+## Application Navigation
+
+Below shows a guide on how you can navigate around our beautiful Graphical User Interface (GUI)
+
+![Navigation](images/navigation.png)
+
+| Component                  | Description                                                 | Remarks                                                          |
+|----------------------------|-------------------------------------------------------------|------------------------------------------------------------------|
+| Help Button                | Shows URL to our User Guide.                                | -                                                                |
+| Command Input Field        | Type commands here and press `Enter` to execute them.       | -                                                                |
+| Command Output Display     | Shows the result of the command execution.                  | -                                                                |
+| Person Information Display | Shows Detailed information on a person.                     | Displays Name, Email, allergy and Orders under this person.      |
+| PersonList                 | Shows a list of person.                                     | List can be filtered by Keywords in the names.                   |
+| Person Card                | Shows a particular person with minimal details in the list. | Shows the Name, Allergies, Number, Address and Email.            |
+| Order Information Display  | Shows Detailed information on an order.                     | Displays status, Order Number, Person of the order and Medicine. |
+| Order List                 | Shows a list of orders.                                     | List can be filtered by Status or Medicine in the order or Both. |
+| Order Card                 | Shows a particular order with minimal details in the list.  | Shows Order Number, Name, Address and Medicine.                  |
+| Medicine List              | Shows a list of medicine in the system.                     | List can be filtered by Keywords in the medicines.               |
+| Medicine Card              | Shows a particular medicine with all the details.           | Shows the Full and Short form of the medicine.                   |
+
+---
 
 ## Quick start
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `pharmhub.jar` from [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/releases).
+2. Download the latest `PharmHub.jar` from [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your PharmHub.
+3. Copy the file to the folder you want to use as the _home folder_ for your PharmHub.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar pharmhub.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar pharmhub.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all people.
+   * `listp` : Lists all people.
+   
+   * `listo` : Lists all order.
+   
+   * `listm` : Lists all medicine.
+   
+   * `viewp 1` : views in detail index 1 of the person list.(The Displayed list does not have to be person to view person)
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a person named `John Doe` to PharmHub.
+   * `viewo 1` : views in detail index 1 of the order list.
 
-   * `delete 3` : Deletes the 3rd patient shown in the current list.
+   * `addp n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a person named `John Doe` to PharmHub.
+
+   * `deletep 3` : Deletes the 3rd patient shown in the current list.
 
    * `clear` : Deletes all people.
 
    * `exit` : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+6. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -97,6 +231,8 @@ Examples:
 Shows an interactive list of all persons in PharmHub.
 
 Format: `listp`
+
+![listp](images/listp.png)
 
 ### Viewing a person `viewp`
 
@@ -179,6 +315,8 @@ Shows a list of all medicines in PharmHub.
 
 Format: `listm`
 
+![listm](images/listm.png)
+
 ### Locating a medicine by name : `findm` 
 
 Finds all medicines whose name or short form contains any of the given keywords.  
@@ -221,6 +359,8 @@ Format: `sfm INDEX [m/SHORT_FORM] [d/]`
 Shows an interactive list of all orders in PharmHub.
 
 Format: `listo`
+
+![listo](images/listo.png)
 
 ### Viewing an order : `viewo` 
 

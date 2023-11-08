@@ -25,7 +25,8 @@ public class FindPersonCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: addp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG] [no/ALLERGY].\n"
+            + "Parameters: addp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]... [no/ALLERGY]...\n"
+            + "At least one of the parameters must be specified.\n"
             + "Example: " + COMMAND_WORD + " n/alice bob charlie p/123456 no/Paracetamol Penicillin";
 
     private final Predicate<Person> nameContainsKeywordsPredicate;
@@ -61,7 +62,6 @@ public class FindPersonCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-
         Predicate<Person> phoneMatches = person -> phoneToFind == null
                 || person.getPhone().equals(phoneToFind);
 
@@ -76,7 +76,7 @@ public class FindPersonCommand extends Command {
         Predicate<Person> allergyMatches = person -> allergiesToFind == null
                 || person.getAllergies().stream()
                 .anyMatch(allergy -> allergiesToFind.stream()
-                        .anyMatch(checkAllergy -> checkAllergy.equals(allergy)));
+                        .anyMatch(checkAllergy-> checkAllergy.isSameAllergy(allergy)));
 
         Predicate<Person> combined =
                 nameContainsKeywordsPredicate
