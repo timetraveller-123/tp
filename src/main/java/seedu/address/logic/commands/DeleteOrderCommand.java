@@ -40,6 +40,10 @@ public class DeleteOrderCommand extends Command {
         if (index.getZeroBased() >= orderList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
+
+        assert index.getZeroBased() >= 0 : "Index should be positive";
+        assert index.getZeroBased() < orderList.size() : "Index should be within bounds of order list";
+
         Order order = orderList.get(index.getZeroBased());
         model.deleteOrder(order);
 

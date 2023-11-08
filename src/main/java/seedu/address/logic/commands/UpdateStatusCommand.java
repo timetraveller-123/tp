@@ -73,6 +73,9 @@ public class UpdateStatusCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
+        assert index.getZeroBased() >= 0 : "Index should be positive";
+        assert index.getZeroBased() < lastShownList.size() : "Index should be within bounds of order list";
+
         Order orderToEdit = lastShownList.get(index.getZeroBased());
         Order editedOrder = createEditedOrder(orderToEdit, editOrderDescriptor);
 
