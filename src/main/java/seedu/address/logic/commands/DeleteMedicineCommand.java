@@ -55,6 +55,9 @@ public class DeleteMedicineCommand extends Command {
         }
 
         model.deleteMedicine(medicine);
+
+        assert !model.hasMedicine(medicine) : "Medicine should be deleted from model";
+
         return new CommandResult(String.format(MESSAGE_DELETE_MEDICINE_SUCCESS, Messages.format(medicine)));
 
     }

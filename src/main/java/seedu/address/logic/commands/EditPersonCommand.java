@@ -109,6 +109,10 @@ public class EditPersonCommand extends Command {
         }
 
         model.setPerson(personToEdit, newPerson);
+
+        assert !model.hasPerson(personToEdit) : "Old Person data should be removed from model";
+        assert !model.hasPerson(newPerson) : "New Person data should be added into model";
+
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(newPerson)), newPerson);
 

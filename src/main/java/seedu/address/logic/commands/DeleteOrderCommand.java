@@ -42,6 +42,9 @@ public class DeleteOrderCommand extends Command {
         }
         Order order = orderList.get(index.getZeroBased());
         model.deleteOrder(order);
+
+        assert !model.hasOrder(order) : "Order should be deleted from model";
+
         return new CommandResult(String.format(MESSAGE_DELETE_ORDER_SUCCESS, Messages.format(order)), order);
 
     }

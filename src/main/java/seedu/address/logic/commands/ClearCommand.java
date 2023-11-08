@@ -18,6 +18,11 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setAddressBook(new AddressBook());
+
+        assert model.getAddressBook().getPersonList().isEmpty() : "PharmHub PersonList should be empty";
+        assert model.getAddressBook().getMedicineList().isEmpty() : "PharmHub MedicineList should be empty";
+        assert model.getAddressBook().getOrderList().isEmpty() : "PharmHub OrderList should be empty";
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -75,6 +75,9 @@ public class AddPersonCommand extends Command {
                                     toAdd.getTags(), convertedAllergies, new HashSet<>());
 
         model.addPerson(newPerson);
+
+        assert model.hasPerson(newPerson) : "Person should be added to model";
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(newPerson)), newPerson);
 
     }
