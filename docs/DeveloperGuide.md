@@ -533,7 +533,7 @@ testers are expected to do more *exploratory* testing.
        Expected: Similar to previous.
 
 ### Editing a person 
-1. Editing a person with valid details
+1. Editing a person using valid fields
     1. Test case: `editp 1 n/John Doe p/98765432`
  
        Expected: First contact is edited. Details of the edited contact shown in the status message. Timestamp in the status bar is updated.
@@ -545,19 +545,12 @@ testers are expected to do more *exploratory* testing.
     1. Other incorrect edit commands to try: `editp`, `editp x`, `...` (where x is larger than the list size)<br>
        
        Expected: Similar to previous.
+
+2. Editing a person using no fields
+    1. Test case: `editp 1`<br>
+ 
+       Expected: No person is edited. Error details shown in the status message. 
    
-2. Editing a person with invalid details
-   1. Test case: `editp 1 n/John Doe p/98765432`
-     
-      Expected: First contact is edited. Details of the edited contact shown in the status message. Timestamp in the status bar is updated.
-
-   1. Test case: `editp 0 n/John Doe p/98765432`<br>
-      
-      Expected: No person is edited. Error details shown in the status message. Status bar remains the same.
-
-   1. Other incorrect edit commands to try: `editp`, `editp x`, `...` (where x is larger than the list size)<br>
-      
-      Expected: Similar to previous.
 
        
 ### Saving data
