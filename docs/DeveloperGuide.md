@@ -153,6 +153,53 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+### Edit person feature
+
+After adding a person in PharmHub, the user would be able to edit the person using the `editp` command with the following format:
+
+`editp INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/ALLERGY]…​ [ia/]`
+
+The command edits the person information based on the given fields. At least one field must be updated.
+Existing values will be replaced with the new input values.
+If the edits cause the person to be allergic to any orders associated with them, a warning will be raised. Using the ia/ flag will override this warning.
+This command cannot add or delete orders for this person. It's limited to editing the person's information only.
+
+Prerequisite: There should be a person at index 1, with "Aspirin" in the PharmHub medicine list and also among one or more of his/her orders.
+
+The following sequence diagram illustrates some of the steps that happen when user execute `editp 1 no/Aspirin`
+
+
+Step 1: The user executes `editp 1 no/` to add the allergy "Aspirin"
+
+Step 2: Logic Manager calls `PharmHubParser#parse` which extracts the arguments and calls `EditPersonCommandParser`  
+
+Step 3: `EditPersonCommandParser` parses the index and the allergy and returns an `EditPersonComamnd`   
+
+Step 4: `LogicManager` calls `EditPersonCommand#execute` to edit the details of the person.
+
+Step 5:  Since an allergy is added in this command, and an `ia/` flag is not passed as an argument, `EditPersonCommand` checks among the list of order of the person whether there are any medications that match this allergy by calling the `hasOrderConflict()` function.
+
+Step 6: Since there are medications that match this allergy, a `CommandException` is returned
+
+Step 7: An error message is shown to warn the user that the person's new allergy conflicts with existing orders, and hints the user about adding the `ia/` flag to add the allergy to the person anyways.
+
+
+`Model#hasMedicine(m)` utilizes the following method `Person#hasOrderConflicts` to check if there are any conflicts between the person's allergy and his/her orders.
+```java
+    public boolean hasOrderConflicts() {
+        return orders.stream().anyMatch(o -> isAllergicToAny(o.getMedicines()));
+    }
+
+}
+```
+
+`Person#isAllergicToAny(medicines)` returns true if the person is allergic to any of the given medicines.
+
+```java
+    public boolean isAllergicToAny(Set<Medicine> medicines) {
+        return medicines.stream().anyMatch(medicine -> isAllergicTo(medicine));
+    }
+```
 
 
 ### \[Proposed\] Undo/redo feature
