@@ -483,23 +483,83 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+### Adding a person
+1. Adding a Person with Valid Details
+    1. Test Case: `addp n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+ 
+       Expected: John Doe is added as a new person to PharmHub. All provided details, including the name, phone number, email, and address, are correctly saved. No errors or warnings are displayed.
+
+    1. Test Case: `addp n/Betsy Crowe t/diabetic e/betsycrowe@example.com a/19 Kent Ridge Crescent p/1234567 t/senior`
+       
+        Expected: Betsy Crowe is added as a new person to PharmHub. All provided details, including the name, phone number, email, and address, tags, and allergies, are correctly saved. No errors or warnings are displayed.
+2.  Adding a Person with Incorrect/Incomplete Information
+    1. `addp n/Jane Doe`
+    
+       Expected: An error message is displayed due to the absence of the phone number, email, and address. The person isn’t added as these details are mandatory.
+   
+3. Adding a Person with Duplicate Name 
+    1. Prerequisites: A person with name "John Doe" already exists in PharmHub. This can be done using the command in 1.i.
+    1. Test case: `addp n/John Doe p/9872 e/anotherjohnd@example.com a/Jane street, block 42, #03-02`
+    
+       Expected: An error message is displayed due to the presence of a person with the same name. The person isn’t added as names must be unique.
+4. Adding a Person with an allergy which is not yet in the Medicine list
+   1. Prerequisites: A persons list without the person with name "John Doe". A medicine list without the medicine "Aspirin". You can run the command `clear` to clear all entries in PharmHub. 
+   1. Test case: `addp n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 no/Aspirin`
+      Expected: An error message is displayed due to the presence of an allergy which is not in the medicine list. The person isn’t added as the allergy must be in the medicine list.
+
 ### Deleting a person
 
 1. Deleting a person while all persons are being shown
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-
-    1. Test case: `delete 1`<br>
+    1. Test case: `deletep 1`<br>
        Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-    1. Test case: `delete 0`<br>
+    1. Test case: `deletep 0`<br>
        Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+    1. Other incorrect delete commands to try: `deletep`, `deletep x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Viewing a person
+1. Viewing a person with valid index
+    1. Prerequisites: There is at least 1 person in the persons list of PharmHub. This can be done using the command in 1.i. This can be checked using the command: `listp`
+    1. Test case: `viewp 1`<br>
+       Expected: First contact is shown in the details panel. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
+    1. Test case: `viewp 0`<br>
+       Expected: No person is shown. Error details shown in the status message. Status bar remains the same.
+
+    1. Other incorrect view commands to try: `viewp`, `viewp x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
+### Editing a person 
+1. Editing a person with valid details
+    1. Test case: `editp 1 n/John Doe p/98765432`
+ 
+       Expected: First contact is edited. Details of the edited contact shown in the status message. Timestamp in the status bar is updated.
+
+    1. Test case: `editp 0 n/John Doe p/98765432`<br>
+       
+       Expected: No person is edited. Error details shown in the status message. Status bar remains the same.
+
+    1. Other incorrect edit commands to try: `editp`, `editp x`, `...` (where x is larger than the list size)<br>
+       
+       Expected: Similar to previous.
+   
+2. Editing a person with invalid details
+   1. Test case: `editp 1 n/John Doe p/98765432`
+     
+      Expected: First contact is edited. Details of the edited contact shown in the status message. Timestamp in the status bar is updated.
+
+   1. Test case: `editp 0 n/John Doe p/98765432`<br>
+      
+      Expected: No person is edited. Error details shown in the status message. Status bar remains the same.
+
+   1. Other incorrect edit commands to try: `editp`, `editp x`, `...` (where x is larger than the list size)<br>
+      
+      Expected: Similar to previous.
+
+       
 ### Saving data
 
 1. Dealing with missing/corrupted data files
