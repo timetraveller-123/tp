@@ -118,7 +118,7 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different pharmHub -> returns false
+        // different PharmHub -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentPharmHub, userPrefs)));
 
         // different filteredList -> returns false

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.pharmhub.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Tag in the pharmHub.
+ * Represents a Tag in the PharmHub.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {

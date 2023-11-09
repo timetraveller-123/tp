@@ -8,7 +8,7 @@ import java.util.Objects;
 
 
 /**
- * Represents a Medicine in the pharmHub.
+ * Represents a Medicine in the PharmHub.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Medicine {

@@ -8,7 +8,7 @@ import seedu.pharmhub.model.Model;
 import seedu.pharmhub.model.person.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all persons in pharmHub whose name contains any of the argument keywords.
+ * Finds and lists all persons in PharmHub whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindPersonCommand extends Command {

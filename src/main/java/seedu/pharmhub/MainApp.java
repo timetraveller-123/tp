@@ -68,9 +68,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s pharmHub and {@code userPrefs}. <br>
-     * The data from the sample pharmHub will be used instead if {@code storage}'s pharmHub is not found,
-     * or an empty pharmHub will be used instead if errors occur when reading {@code storage}'s pharmHub.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s PharmHub and {@code userPrefs}. <br>
+     * The data from the sample PharmHub will be used instead if {@code storage}'s PharmHub is not found,
+     * or an empty PharmHub will be used instead if errors occur when reading {@code storage}'s PharmHub.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         logger.info("Using data file : " + storage.getPharmHubFilePath());

@@ -9,7 +9,7 @@ import seedu.pharmhub.model.person.Person;
 
 
 /**
- * Unmodifiable view of an pharmHub
+ * Unmodifiable view of an PharmHub
  */
 public interface ReadOnlyPharmHub {
 

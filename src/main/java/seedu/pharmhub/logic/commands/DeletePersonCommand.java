@@ -12,7 +12,7 @@ import seedu.pharmhub.model.Model;
 import seedu.pharmhub.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the pharmHub.
+ * Deletes a person identified using it's displayed index from the PharmHub.
  */
 public class DeletePersonCommand extends Command {
 

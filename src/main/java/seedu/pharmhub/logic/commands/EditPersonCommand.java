@@ -33,7 +33,7 @@ import seedu.pharmhub.model.person.Phone;
 import seedu.pharmhub.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the pharmHub.
+ * Edits the details of an existing person in the PharmHub.
  */
 public class EditPersonCommand extends Command {
 

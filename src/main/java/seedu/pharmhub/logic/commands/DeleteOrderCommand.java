@@ -13,7 +13,7 @@ import seedu.pharmhub.model.order.Order;
 
 
 /**
- * Deletes an order identified using it's displayed index from the pharmHub.
+ * Deletes an order identified using it's displayed index from the PharmHub.
  */
 public class DeleteOrderCommand extends Command {
     public static final String COMMAND_WORD = "deleteo";

@@ -25,7 +25,7 @@ import seedu.pharmhub.model.person.Person;
 
 
 /**
- * Edits the details of an existing person in the pharmHub.
+ * Edits the details of an existing person in the PharmHub.
  */
 public class UpdateStatusCommand extends Command {
 

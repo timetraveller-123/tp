@@ -92,7 +92,7 @@ public class JsonPharmHubStorageTest {
     }
 
     /**
-     * Saves {@code pharmHub} at the specified {@code filePath}.
+     * Saves {@code PharmHub} at the specified {@code filePath}.
      */
     private void savePharmHub(ReadOnlyPharmHub pharmHub, String filePath) {
         try {

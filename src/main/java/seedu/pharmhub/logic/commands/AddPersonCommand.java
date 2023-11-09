@@ -22,13 +22,13 @@ import seedu.pharmhub.model.person.Person;
 
 
 /**
- * Adds a person to the pharmHub.
+ * Adds a person to the PharmHub.
  */
 public class AddPersonCommand extends Command {
 
     public static final String COMMAND_WORD = "addp";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the pharmHub. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to PharmHub. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "

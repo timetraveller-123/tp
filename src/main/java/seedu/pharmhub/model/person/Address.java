@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.pharmhub.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's address in the pharmHub.
+ * Represents a Person's address in the PharmHub.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
 public class Address {

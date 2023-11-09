@@ -44,22 +44,22 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' pharmHub file path.
+     * Returns the user prefs' PharmHub file path.
      */
     Path getPharmHubFilePath();
 
     /**
-     * Sets the user prefs' pharmHub file path.
+     * Sets the user prefs' PharmHub file path.
      */
     void setPharmHubFilePath(Path pharmHubFilePath);
 
     /**
-     * Replaces pharmHub data with the data in {@code pharmHub}.
+     * Replaces PharmHub data with the data in {@code PharmHub}.
      */
     void setPharmHub(ReadOnlyPharmHub pharmHub);
 
     /**
-     * Clears the pharmHub data
+     * Clears the PharmHub data
      */
     void clearPharmHub();
 
@@ -67,39 +67,39 @@ public interface Model {
     ReadOnlyPharmHub getPharmHub();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the pharmHub.
+     * Returns true if a person with the same identity as {@code person} exists in the PharmHub.
      */
     boolean hasPerson(Person person);
 
 
     /**
-     * Returns true if an order with the same identity as {@code order} exists in the pharmHub.
+     * Returns true if an order with the same identity as {@code order} exists in the PharmHub.
      */
     boolean hasOrder(Order order);
 
 
     /**
-     * Returns true if a medicine with the same identity as {@code medicine} exists in the pharmHub.
+     * Returns true if a medicine with the same identity as {@code medicine} exists in the PharmHub.
      */
     boolean hasMedicine(Medicine medicine);
 
 
     /**
      * Deletes the given person and the person's orders.
-     * The person must exist in the pharmHub.
+     * The person must exist in the PharmHub.
      */
     void deletePerson(Person target);
 
     /**
      * Adds the given person.
-     * {@code person} must not already exist in the pharmHub.
+     * {@code person} must not already exist in the PharmHub.
      */
     void addPerson(Person person);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the pharmHub.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the pharmHub.
+     * {@code target} must exist in the PharmHub.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the PharmHub.
      */
     void setPerson(Person target, Person editedPerson);
 
@@ -110,7 +110,7 @@ public interface Model {
 
     /**
      * Deletes the given order.
-     * The order must exist in the pharmHub.
+     * The order must exist in the PharmHub.
      */
     void deleteOrder(Order target);
 
@@ -122,8 +122,8 @@ public interface Model {
     Optional<Order> getOrder(String orderNumber);
     /**
      * Replaces the given order {@code target} with {@code editedOrder}.
-     * {@code target} must exist in the pharmHub.
-     * The Order identity of {@code editedOrder} must not be the same as another existing Order in the pharmHub.
+     * {@code target} must exist in the PharmHub.
+     * The Order identity of {@code editedOrder} must not be the same as another existing Order in the PharmHub.
      */
     void setOrder(Order target, Order editedOrder);
 
@@ -134,7 +134,7 @@ public interface Model {
 
     /**
      * Deletes the given medicine.
-     * The medicine must exist in the pharmHub.
+     * The medicine must exist in the PharmHub.
      */
     void deleteMedicine(Medicine medicine);
 
@@ -147,9 +147,9 @@ public interface Model {
 
     /**
      * Replaces the given medicine {@code target} with {@code editedMedicine}.
-     * {@code target} must exist in the pharmHub.
+     * {@code target} must exist in the PharmHub.
      * The Medicine identity of {@code editedMedicine} must not be the same as another existing Medicine in the
-     * pharmHub.
+     * PharmHub.
      */
     void setMedicine(Medicine target, Medicine editedMedicine);
 

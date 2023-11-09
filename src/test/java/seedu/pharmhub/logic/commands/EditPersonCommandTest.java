@@ -122,7 +122,7 @@ public class EditPersonCommandTest {
     public void execute_duplicatePersonFilteredList_failure() {
         showPersonAtIndex(model, INDEX_FIRST);
 
-        // edit person in filtered list into a duplicate in pharmHub
+        // edit person in filtered list into a duplicate in PharmHub
         Person personInList = model.getPharmHub().getPersonList().get(INDEX_SECOND.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(personInList).build();
         EditPersonCommand editCommand = new EditPersonCommand(INDEX_FIRST, descriptor, false);
@@ -142,13 +142,13 @@ public class EditPersonCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of pharmHub
+     * but smaller than size of PharmHub
      */
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() {
         showPersonAtIndex(model, INDEX_FIRST);
         Index outOfBoundIndex = INDEX_SECOND;
-        // ensures that outOfBoundIndex is still in bounds of pharmHub list
+        // ensures that outOfBoundIndex is still in bounds of PharmHub list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getPharmHub().getPersonList().size());
 
         EditPersonCommand editCommand = new EditPersonCommand(outOfBoundIndex,

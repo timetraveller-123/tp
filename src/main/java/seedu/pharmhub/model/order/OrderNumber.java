@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.pharmhub.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents an Order's order number in the pharmHub.
+ * Represents an Order's order number in the PharmHub.
  * Guarantees: immutable; is valid as declared in {@link #isValidOrderNumber(String)}
  */
 public class OrderNumber {

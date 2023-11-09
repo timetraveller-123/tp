@@ -4,7 +4,7 @@ import seedu.pharmhub.model.PharmHub;
 import seedu.pharmhub.model.person.Person;
 
 /**
- * A utility class to help with building pharmHub objects.
+ * A utility class to help with building PharmHub objects.
  * Example usage: <br>
  *     {@code PharmHub ab = new PharmHubBuilder().withPerson("John", "Doe").build();}
  */

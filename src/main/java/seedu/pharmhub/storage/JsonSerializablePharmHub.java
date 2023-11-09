@@ -64,7 +64,7 @@ class JsonSerializablePharmHub {
     }
 
     /**
-     * Converts this pharmHub into the model's {@code PharmHub} object.
+     * Converts this PharmHub into the model's {@code PharmHub} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
@@ -120,9 +120,9 @@ class JsonSerializablePharmHub {
 
     /**
      * Converts the given set of medicines to another set of medicines with medicine short forms expanded to
-     * the full name of the medicine as it is in the given pharmHub.
+     * the full name of the medicine as it is in the given PharmHub.
      * Throws Illegal Value exception if the given medicine name or its short form cannot be found in the given
-     * pharmHub.
+     * PharmHub.
      */
     public static Set<Medicine> getMedicines(PharmHub ab, Set<Medicine> medicines) throws IllegalValueException {
         Set<Medicine> convertedMedicines = new HashSet<>();

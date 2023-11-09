@@ -68,7 +68,7 @@ class DeleteOrderCommandTest {
         showOrderAtIndex(model, INDEX_FIRST);
 
         Index outOfBoundIndex = INDEX_SECOND;
-        // ensures that outOfBoundIndex is still in bounds of pharmHub list
+        // ensures that outOfBoundIndex is still in bounds of PharmHub list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getPharmHub().getOrderList().size());
 
         DeleteOrderCommand deleteOrderCommand = new DeleteOrderCommand(outOfBoundIndex);

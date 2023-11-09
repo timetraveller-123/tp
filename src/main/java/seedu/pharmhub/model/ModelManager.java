@@ -17,7 +17,7 @@ import seedu.pharmhub.model.order.Order;
 import seedu.pharmhub.model.person.Person;
 
 /**
- * Represents the in-memory model of the pharmHub data.
+ * Represents the in-memory model of the PharmHub data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -30,7 +30,7 @@ public class ModelManager implements Model {
     private final FilteredList<Medicine> filteredMedicines;
 
     /**
-     * Initializes a ModelManager with the given pharmHub and userPrefs.
+     * Initializes a ModelManager with the given PharmHub and userPrefs.
      */
     public ModelManager(ReadOnlyPharmHub pharmHub, ReadOnlyUserPrefs userPrefs) {
         requireAllNonNull(pharmHub, userPrefs);

@@ -75,7 +75,7 @@ public class DeletePersonCommandTest {
         showPersonAtIndex(model, INDEX_FIRST);
 
         Index outOfBoundIndex = INDEX_SECOND;
-        // ensures that outOfBoundIndex is still in bounds of pharmHub list
+        // ensures that outOfBoundIndex is still in bounds of PharmHub list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getPharmHub().getPersonList().size());
 
         DeletePersonCommand deleteCommand = new DeletePersonCommand(outOfBoundIndex);

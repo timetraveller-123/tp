@@ -15,7 +15,7 @@ import seedu.pharmhub.model.person.Person;
 
 
 /**
- * Represents an Order in the pharmHub.
+ * Represents an Order in the PharmHub.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Order implements InfoObject {

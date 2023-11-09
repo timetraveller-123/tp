@@ -16,7 +16,7 @@ import seedu.pharmhub.model.person.Person;
 import seedu.pharmhub.model.person.UniquePersonList;
 
 /**
- * Wraps all data at the pharmHub level
+ * Wraps all data at the PharmHub level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
 public class PharmHub implements ReadOnlyPharmHub {
@@ -89,7 +89,7 @@ public class PharmHub implements ReadOnlyPharmHub {
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the pharmHub.
+     * Returns true if a person with the same identity as {@code person} exists in the PharmHub.
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -101,8 +101,8 @@ public class PharmHub implements ReadOnlyPharmHub {
     }
 
     /**
-     * Adds a person to the pharmHub.
-     * The person must not already exist in the pharmHub.
+     * Adds a person to the PharmHub.
+     * The person must not already exist in the PharmHub.
      */
     public void addPerson(Person p) {
         persons.add(p);
@@ -110,8 +110,8 @@ public class PharmHub implements ReadOnlyPharmHub {
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the pharmHub.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the pharmHub.
+     * {@code target} must exist in the PharmHub.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the PharmHub.
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
@@ -121,7 +121,7 @@ public class PharmHub implements ReadOnlyPharmHub {
 
     /**
      * Removes {@code key} and the corresponding orders from this {@code PharmHub}.
-     * {@code key} must exist in the pharmHub.
+     * {@code key} must exist in the PharmHub.
      */
     public void removePerson(Person key) {
         orders.removeOrdersWithPerson(key);
@@ -132,7 +132,7 @@ public class PharmHub implements ReadOnlyPharmHub {
     //// order-level operations
 
     /**
-     * Returns true if an order with the same identity as {@code order} exists in the pharmHub.
+     * Returns true if an order with the same identity as {@code order} exists in the PharmHub.
      */
     public boolean hasOrder(Order order) {
         requireNonNull(order);
@@ -140,7 +140,7 @@ public class PharmHub implements ReadOnlyPharmHub {
     }
 
     /**
-     * Adds an order to the pharmHub.
+     * Adds an order to the PharmHub.
      */
     public void addOrder(Order o) {
         orders.add(o);
@@ -149,7 +149,7 @@ public class PharmHub implements ReadOnlyPharmHub {
 
     /**
      * Removes {@code key} {@code PharmHub}.
-     * {@code key} must exist in the pharmHub.
+     * {@code key} must exist in the PharmHub.
      */
     public void removeOrder(Order key) {
         orders.remove(key);
@@ -167,8 +167,8 @@ public class PharmHub implements ReadOnlyPharmHub {
 
     /**
      * Replaces the given order {@code target} in the list with {@code editedOrder}.
-     * {@code target} must exist in the pharmHub.
-     * The order identity of {@code editedOrder} must not be the same as another existing order in the pharmHub.
+     * {@code target} must exist in the PharmHub.
+     * The order identity of {@code editedOrder} must not be the same as another existing order in the PharmHub.
      */
     public void setOrder(Order target, Order editedOrder) {
         requireNonNull(editedOrder);
@@ -180,7 +180,7 @@ public class PharmHub implements ReadOnlyPharmHub {
     //// medicine-level operations
 
     /**
-     * Returns true if a medicine with the same identity as {@code medicine} exists in the pharmHub.
+     * Returns true if a medicine with the same identity as {@code medicine} exists in the PharmHub.
      */
     public boolean hasMedicine(Medicine medicine) {
         requireNonNull(medicine);
@@ -188,7 +188,7 @@ public class PharmHub implements ReadOnlyPharmHub {
     }
 
     /**
-     * Adds a medicine to the pharmHub.
+     * Adds a medicine to the PharmHub.
      */
     public void addMedicine(Medicine m) {
         medicines.add(m);
@@ -196,7 +196,7 @@ public class PharmHub implements ReadOnlyPharmHub {
 
     /**
      * Removes {@code key} {@code PharmHub}.
-     * {@code key} must exist in the pharmHub.
+     * {@code key} must exist in the PharmHub.
      */
     public void removeMedicine(Medicine m) {
         medicines.remove(m);
@@ -211,9 +211,9 @@ public class PharmHub implements ReadOnlyPharmHub {
 
     /**
      * Replaces the given medicine {@code target} in the list with {@code editedMedicine}.
-     * {@code target} must exist in the pharmHub.
+     * {@code target} must exist in the PharmHub.
      * The medicine identity of {@code editedMedicine} must not be the same as another existing medicine
-     * in the pharmHub.
+     * in the PharmHub.
      */
     public void setMedicine(Medicine target, Medicine editedMedicine) {
         requireNonNull(editedMedicine);

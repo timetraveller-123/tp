@@ -16,7 +16,7 @@ import seedu.pharmhub.model.order.Order;
 import seedu.pharmhub.model.order.Status;
 
 /**
- * Finds and lists all persons in pharmHub whose name contains any of the argument keywords.
+ * Finds and lists all persons in PharmHub whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindOrderCommand extends Command {

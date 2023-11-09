@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.pharmhub.model.Model;
 
 /**
- * Clears the pharmHub.
+ * Clears the PharmHub.
  */
 public class ClearCommand extends Command {
 

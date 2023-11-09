@@ -34,7 +34,7 @@ public class AddShortFormCommand extends Command {
 
     public static final String MESSAGE_DELETE_SHORT_FORM_SUCCESS = "Deleted Short From: %1$s";
     public static final String MESSAGE_DUPLICATE_SHORT_FORM =
-            "This short form/medicine already exists in the pharmHub.";
+            "This short form/medicine already exists in the PharmHub.";
 
     private final Index index;
 

@@ -32,7 +32,7 @@ public interface PharmHubStorage {
 
     /**
      * Saves the given {@link ReadOnlyPharmHub} to the storage.
-     * @param pharmHub cannot be null.
+     * @param PharmHub cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
     void savePharmHub(ReadOnlyPharmHub pharmHub) throws IOException;

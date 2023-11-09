@@ -14,7 +14,7 @@ import seedu.pharmhub.model.medicine.Medicine;
 
 
 /**
- * Finds and lists all medicines in pharmHub whose name contains the given keyword as a substring.
+ * Finds and lists all medicines in PharmHub whose name contains the given keyword as a substring.
  * Keyword matching is case-insensitive.
  */
 public class FindMedicineCommand extends Command {

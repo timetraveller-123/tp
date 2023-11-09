@@ -42,7 +42,7 @@ public interface Logic {
     ObservableList<Medicine> getFilteredMedicineList();
 
     /**
-     * Returns the user prefs' pharmHub file path.
+     * Returns the user prefs' PharmHub file path.
      */
     Path getPharmHubFilePath();
 

@@ -6,7 +6,7 @@ import static seedu.pharmhub.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import seedu.pharmhub.model.Model;
 
 /**
- * Lists all persons in the pharmHub to the user.
+ * Lists all persons in the PharmHub to the user.
  */
 public class ListPeopleCommand extends Command {
 

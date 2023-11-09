@@ -14,7 +14,7 @@ import seedu.pharmhub.model.medicine.Medicine;
 
 
 /**
- * Deletes a medicine identified using it's displayed index from the pharmHub.
+ * Deletes a medicine identified using it's displayed index from the PharmHub.
  */
 public class DeleteMedicineCommand extends Command {
     public static final String COMMAND_WORD = "deletem";

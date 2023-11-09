@@ -120,7 +120,7 @@ Recall from the User Guide that the `edit` command has the format: `edit INDEX [
 
         CommandResult commandResult;
         //Parse user input from String to a Command
-        Command command = pharmHubParser.parseCommand(commandText);
+        Command command = PharmHubParser.parseCommand(commandText);
         //Executes the Command and stores the result
         commandResult = command.execute(model);
 
@@ -292,10 +292,10 @@ Here are some quick questions you can try to answer based on your execution path
 
     2.  Allow `delete` to remove more than one index at a time
 
-    3.  Save the pharmHub in the CSV format instead
+    3.  Save the PharmHub in the CSV format instead
 
     4.  Add a new command
 
     5.  Add a new field to `Person`
 
-    6.  Add a new entity to the pharmHub
+    6.  Add a new entity to PharmHub
