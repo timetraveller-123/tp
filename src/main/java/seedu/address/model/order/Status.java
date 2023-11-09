@@ -137,14 +137,12 @@ public class Status {
      * @return The orderStatus it converted to.
      * @throws CommandException If the short form provided is not valid.
      */
-    public static String shortFormToFull(String shortForm) {
+    public static String shortFormToFull(String shortForm) throws IllegalArgumentException {
         assert !shortForm.equals("") : MESSAGE_CONSTRAINTS + "Cannot be empty";
         if (isValidOrderStatus(shortForm.toUpperCase())) {
             return shortForm;
         }
-        if (!isValidShortForm(shortForm)) {
-            return null;
-        }
+        checkArgument(isValidShortForm(shortForm), MESSAGE_CONSTRAINTS);
         requireNonNull(shortForm);
         String sf = shortForm.toLowerCase().trim();
         switch (sf) {

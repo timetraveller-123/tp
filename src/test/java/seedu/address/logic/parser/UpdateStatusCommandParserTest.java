@@ -5,6 +5,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
@@ -62,10 +63,12 @@ public class UpdateStatusCommandParserTest {
     @Test
     public void parse_invalidshortform_failure() {
         // invalid status lower case
-        assertParseFailure(parser, "1 s/ww", Status.MESSAGE_CONSTRAINTS);
+        assertThrows(IllegalArgumentException.class, () ->
+                parser.parse("1 s/ww"));
 
         // invalid status upper case
-        assertParseFailure(parser, "1 s/WO", Status.MESSAGE_CONSTRAINTS);
+        assertThrows(IllegalArgumentException.class, () ->
+                parser.parse("1 s/WO"));
     }
     @Test
     public void parse_missingStatusPrefix_throwsParseException() {
