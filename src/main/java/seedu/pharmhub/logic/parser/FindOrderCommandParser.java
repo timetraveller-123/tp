@@ -33,6 +33,11 @@ public class FindOrderCommandParser implements Parser<FindOrderCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_STATUS, PREFIX_MEDICINE_NAME);
 
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindOrderCommand.MESSAGE_USAGE));
+        }
+
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_STATUS, PREFIX_MEDICINE_NAME);
 
         Status statusToFind = null;

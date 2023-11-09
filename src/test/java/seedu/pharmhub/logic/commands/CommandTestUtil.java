@@ -5,8 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.pharmhub.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.pharmhub.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.pharmhub.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.pharmhub.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 import static seedu.pharmhub.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.pharmhub.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.pharmhub.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.pharmhub.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.pharmhub.testutil.Assert.assertThrows;
 
@@ -41,6 +43,13 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_ALLERGY_ASPIRIN = "Aspirin";
     public static final String VALID_ALLERGY_PENICILLIN = "Penicillin";
+    public static final String VALID_STATUS_PENDING = "PENDING";
+    public static final String VALID_STATUS_COMPLETED = "COMPLETED";
+    public static final String VALID_SHORT_STATUS_COMPLETED = "cp";
+    public static final String VALID_MEDICINE_PANADOL = "panadol";
+    public static final String VALID_MEDICINE_IBUPROFEN = "ibuprofen";
+    public static final String VALID_SHORT_MEDICINE_PANADOL = "pan";
+    public static final String VALID_SHORT_MEDICINE_IBUPROFEN = "ibu";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -54,12 +63,22 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String ALLERGY_DESC_ASPIRIN = " " + PREFIX_ALLERGY + VALID_ALLERGY_ASPIRIN;
     public static final String ALLERGY_DESC_PENICILLIN = " " + PREFIX_ALLERGY + VALID_ALLERGY_PENICILLIN;
+    public static final String STATUS_DESC_PENDING = " " + PREFIX_STATUS + VALID_STATUS_PENDING;
+    public static final String MEDICINE_DESC_PANADOL = " " + PREFIX_MEDICINE_NAME + VALID_MEDICINE_PANADOL;
+    public static final String MEDICINE_DESC_IBUPROFEN = " " + PREFIX_MEDICINE_NAME + VALID_MEDICINE_IBUPROFEN;
+    public static final String SHORT_MEDICINE_DESC_PANADOL = " " + PREFIX_MEDICINE_NAME + VALID_SHORT_MEDICINE_PANADOL;
+    public static final String SHORT_MEDICINE_DESC_IBUPROFEN =
+            " " + PREFIX_MEDICINE_NAME + VALID_SHORT_MEDICINE_IBUPROFEN;
+    // Invalid cases
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-
+    public static final String INVALID_STATUS_DESC = " " + PREFIX_STATUS + "DONE"; // no such status
+    public static final String INVALID_SHORT_STATUS_DESC = " " + PREFIX_STATUS + "de"; // no such short form medicine
+    public static final String INVALID_MEDICINE_DESC = " " + PREFIX_MEDICINE_NAME + "*!*!*"; // no such medicine
+    public static final String INVALID_MEDICINE = "*!*!*"; // no such medicine
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
