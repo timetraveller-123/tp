@@ -297,7 +297,7 @@ Format: `deletep INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `listp` followed by `deletep 2` deletes the 2nd person in the address book.
+* `listp` followed by `deletep 2` deletes the 2nd person in the pharmHub.
 * `findp Betsy` followed by `deletep 1` deletes the 1st person in the results of the `find` command.
 
 ### Adding a new medicine : `addm`
