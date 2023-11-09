@@ -5,8 +5,8 @@ skinparam ArrowFontStyle plain
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":AddShortFormCommandParser" as AddShortFormCommandParser LOGIC_COLOR
-participant "u:AddShortFormCommand" as AddShortFormCommand LOGIC_COLOR
+participant ":ShortFormCommandParser" as AddShortFormCommandParser LOGIC_COLOR
+participant "u:ShortFormCommand" as AddShortFormCommand LOGIC_COLOR
 
 
 end box
@@ -38,7 +38,7 @@ Medicine1 --> AddShortFormCommandParser
 deactivate Medicine1
 
 create AddShortFormCommand
-AddShortFormCommandParser -> AddShortFormCommand : new AddShortFormCommand(1, m)
+AddShortFormCommandParser -> AddShortFormCommand : new ShortFormCommand(1, m)
 activate AddShortFormCommand
 
 AddShortFormCommand --> AddShortFormCommandParser

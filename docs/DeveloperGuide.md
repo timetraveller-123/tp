@@ -170,10 +170,10 @@ The following sequence diagram illustrates some of the steps that happen when us
 </div>  
 
 Step 1: The user executes `sfm 1 m/pan` to add the short form of `pan` to the medicine at index 1 in the last shown medicine list.  
-Step 2: Logic Manager calls `AddressBookParser#parse` which extracts the arguments and calls `AddShortFormCommandParser`  
-Step 3: `AddShortFormCommandParser` parses the index, short form name and returns a `AddShortFormComamnd`   
-Step 4: `LogicManager` calls `AddShortFormCommand#execute` to assign the short form to the medicine.   
-Step 5: `AddShortFormCommand` checks if an existing medicine with the same name or same short form is already present using `Model#hasMedicine(m)`.   
+Step 2: Logic Manager calls `AddressBookParser#parse` which extracts the arguments and calls `ShortFormCommandParser`  
+Step 3: `ShortFormCommandParser` parses the index, short form name and returns a `ShortFormComamnd`   
+Step 4: `LogicManager` calls `ShortFormCommand#execute` to assign the short form to the medicine.   
+Step 5: `ShortFormCommand` checks if an existing medicine with the same name or same short form is already present using `Model#hasMedicine(m)`.   
 Step 6: The `Medicine` at index 1 is replaced with a new `Medicine` which has same medicine name but with `pan` as the short form.   
  
 `Model#hasMedicine(m)` utilizes the following method `Medicine#isSameMedicine` to check equality of two `Medicine`.  
@@ -191,6 +191,25 @@ public boolean isSameMedicine(Medicine m) {
 }
 ```
 
+### Delete medicine short form feature  
+`sfm` can also be used to delete the short form of a medicine by providing the `d/` flag.
+If the `d/` flag is provided any provided medicine names using `m/` will be ignored.   
+Hence `sfm 1 m/pan d/` will
+be treated as deleting the short form of medicine at index 1 in the last shown medicine list. 
+
+Given below is an example scenario to delete the short form of medicine at index 1. 
+
+Step 1. The user lists all medicines using the `listm` command.  
+Step 2. The user deletes the medicine at 1st index using `sfm 1 m/pan d/`  
+Step 3: Logic Manager calls `AddressBookParser#parse` which extracts the arguments and calls `ShortFormCommandParser`  
+Step 4: `ShortFormCommandParser` parses the index, ignores the short form and returns a `ShortFormComamnd`   
+Step 5: `LogicManager` calls `ShortFormCommand#execute` to delete the short form of medicine at index 1.   
+Step 6: The `Medicine` at index 1 is replaced with a new `Medicine` which has same medicine name but with no short form.
+
+
+The following activity diagram summarises the sequence of steps for the whole `sfm` command.
+
+<img src="images/ShortFormActivityDiagram.png" width="250" />
 
 
 ### \[Proposed\] Undo/redo feature
@@ -528,7 +547,88 @@ testers are expected to do more *exploratory* testing.
     1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+2. _{ more test cases …​ }_
+
+### Listing all medicines
+
+1. Test case: `listm` <br>
+   Expected: All medicines listed in the display panel. "Listed all medicines" shown in result display box.
+
+### Finding medicine(s)
+
+1. Test case: `findm pan` <br> 
+   Expected: All medicine whose names have `pan` as a substring listed in the display panel. The number of medicines listed shown in result display box.
+2. Test case: `findm pan ol` <br> 
+   Expected: All medicine whose names have `pan` or `ol`  as a substring listed in the display panel. The number of medicines listed shown in result display box.
+
+
+### Adding a medicine
+
+1. Adding a medicine that doesn't exist
+
+    1. Prerequisites: List all medicines using the `listm` command. No medicine named `metformin` should be in the list.
+
+    1. Test case: `addm m/metformin`<br>
+       Expected: Medicine is added. Details of added medicine shown in the result display box.
+
+    1. Test case: `addm m/`<br>
+       Expected: No medicine is added. Error message shows in result display box.
+
+    1. Other incorrect `addm` commands to try: `addm `, `addm p/`, `addm 1` <br>
+       Expected: Similar to previous.
+
+2. Adding a medicine that already exists
+    1. Prerequisites: List all medicines using the `listm` command. A medicine named `metformin` should be in the list.
+    1. Test case: `addm m/metformin` <br>
+       Expected: Medicine is not added. Error message is shown in result display box.
+    
+
+
+### Deleting a medicine
+
+1. Deleting a medicine no person is allergic to and not part of any order. 
+
+    1. Prerequisites: `metformin` should be in the medicine list. Find it using `findm metformin`
+
+    1. Test case: `deletem 1`<br>
+       Expected: First medicine is deleted from the list. Details of the deleted medicine is shown in result display box.
+
+    1. Test case: `deletem 0`<br>
+       Expected: No medicine is deleted. Error details shown in the result display box.
+
+    1. Other incorrect delete commands to try: `deletem`, `deletem x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
+2. Deleting a medicine a person is allergic to.
+    
+    1. Prerequisites: `panadol` should be in the medicine list. If not add it using `addm`. At least one person should be allergic to `panadol`.
+       If not use `editp` to make a person allergic to `panadol`. Find `panadol` using `findm panadol`
+    1. Test case: `deletem 1` <br>
+       Expected: No medicine is deleted. Error details shown in the result display box.
+
+### Short form of medicine
+
+1. Adding a short form to a medicine 
+
+    1. Prerequisites: `metformin` should be in the medicine list, it should have no short form and no medicine should have `met` as the short form. Find it using `findm metformin`
+
+    1. Test case: `sfm 1 m/met`<br>
+       Expected: Short form of `met` is added to the `metformin` medicine. Details of medicine shown in result display box.
+    1. Test case: `sfm 1 met`<br>
+          Expected: Short form is not added to the `metformin` medicine. Error message shown in result display box.
+
+2. Deleting a short form of a medicine.
+
+    1. Prerequisites: `metformin` should be in the medicine list, it should have a short form. Find it using `findm metformin`
+    1. Test case: `smf 1 d/` <br>
+       Expected: Short form of `metformin` medicine is deleted. Details of medicine shown in result display box.
+    1. Test case: `smf 1 m/ d/` <br>
+         Expected: Short form of `metformin` medicine is deleted. Details of medicine shown in result display box.
+    1. Test case: `smf m/ d/` <br>
+         Expected: Short form of `metformin` medicine is not deleted. Error message shown in result display box.
+
+
+
 
 ### Saving data
 

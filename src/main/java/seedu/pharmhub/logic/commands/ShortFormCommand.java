@@ -18,7 +18,7 @@ import seedu.pharmhub.model.medicine.Medicine;
 /**
  * A class which represents the adding of a short form to a medicine.
  */
-public class AddShortFormCommand extends Command {
+public class ShortFormCommand extends Command {
     public static final String COMMAND_WORD = "sfm";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the short form for the Medicine identified "
@@ -43,7 +43,7 @@ public class AddShortFormCommand extends Command {
     /**
      * Creates an AddShortFormCommand
      */
-    public AddShortFormCommand(Index index, Medicine medicine) {
+    public ShortFormCommand(Index index, Medicine medicine) {
         requireNonNull(index);
         requireNonNull(medicine);
         this.index = index;
@@ -53,7 +53,7 @@ public class AddShortFormCommand extends Command {
     /**
      * Creates an AddShortForm Command
      */
-    public AddShortFormCommand(Index index) {
+    public ShortFormCommand(Index index) {
         requireNonNull(index);
         this.index = index;
         medicine = null;
@@ -96,11 +96,11 @@ public class AddShortFormCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddShortFormCommand)) {
+        if (!(other instanceof ShortFormCommand)) {
             return false;
         }
 
-        AddShortFormCommand otherCommand = (AddShortFormCommand) other;
+        ShortFormCommand otherCommand = (ShortFormCommand) other;
         return index.equals(otherCommand.index)
                 && medicine.equals(otherCommand.medicine);
     }
