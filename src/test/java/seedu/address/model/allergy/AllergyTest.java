@@ -1,5 +1,7 @@
 package seedu.address.model.allergy;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -28,7 +30,20 @@ public class AllergyTest {
     public void equals_sameAllergyName_returnsTrue() {
         Allergy allergy = new Allergy(new Medicine("Aspirin"));
         Allergy allergyCopy = new Allergy(new Medicine("Aspirin"));
-        assert(allergy.equals(allergyCopy));
+        assertEquals(allergy, allergyCopy);
     }
 
+    @Test
+    public void isSameAllergy_sameAllergyName_returnsTrue() {
+        Allergy allergy = new Allergy(new Medicine("Aspirin"));
+        Allergy allergyCopy = new Allergy(new Medicine("Aspirin"));
+        assertEquals(allergy, allergyCopy);
+    }
+
+    @Test
+    public void isSameAllergy_differentAllergyName_returnsFalse() {
+        Allergy allergy = new Allergy(new Medicine("Aspirin"));
+        Allergy allergyCopy = new Allergy(new Medicine("Panadol"));
+        assertNotEquals(allergy, allergyCopy);
+    }
 }
