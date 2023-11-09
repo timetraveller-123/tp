@@ -86,6 +86,15 @@ public class Person implements InfoObject {
         return Collections.unmodifiableSet(orders);
     }
 
+    public void setOrders(Set<Order> newOrders) {
+        orders.clear();
+        orders.addAll(newOrders);
+    }
+
+    public void clearOrders() {
+        orders.clear();
+    }
+
     /**
      * Adds an order to the person.
      * @param o The order to be added.

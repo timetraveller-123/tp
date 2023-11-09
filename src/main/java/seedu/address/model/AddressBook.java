@@ -83,8 +83,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setOrders(newData.getOrderList());
         setMedicines(newData.getMedicineList());
+
+        updatePersonOrders();
     }
 
+    private void updatePersonOrders() {
+        getPersonList().forEach(Person::clearOrders);
+        getOrderList().forEach(Order::addOrderToPerson);
+    }
 
     //// person-level operations
 
@@ -94,6 +100,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return persons.contains(person);
+    }
+
+    public void clear() {
+        resetData(new AddressBook());
     }
 
     /**
@@ -111,8 +121,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-        orders.editOrdersWithPerson(target, editedPerson);
+
         persons.setPerson(target, editedPerson);
+        orders.editOrdersWithPerson(target, editedPerson);
+
+        updatePersonOrders();
     }
 
     /**
@@ -122,6 +135,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removePerson(Person key) {
         orders.removeOrdersWithPerson(key);
         persons.remove(key);
+
+        updatePersonOrders();
     }
 
 
@@ -140,7 +155,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addOrder(Order o) {
         orders.add(o);
-        o.getPerson().addOrder(o);
+
+        updatePersonOrders();
     }
 
     /**
@@ -149,7 +165,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeOrder(Order key) {
         orders.remove(key);
-        key.getPerson().removeOrder(key);
+
+        updatePersonOrders();
     }
 
 
@@ -170,7 +187,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedOrder);
 
         orders.setOrder(target, editedOrder);
-        target.getPerson().replaceOrder(target, editedOrder);
+
+        updatePersonOrders();
     }
 
     //// medicine-level operations
