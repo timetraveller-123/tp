@@ -2,9 +2,24 @@
 layout: page
 title: Developer Guide
 ---
-* Table of Contents
-  {:toc}
-
+##Table of Contents
+1. [Acknowledgements](#acknowledgements)
+2. [Setting up](#setting-up-getting-started)
+3. [Design](#design)
+    1. [Architecture](#architecture)
+    2. [UI](#ui-component)
+    3. [Logic](#logic-component)
+    4. [Model](#model-component)
+    5. [Storage](#storage-component)
+    6. [Common Classes](#common-classes)
+4. [Implementation](#implementation)
+5. [Documentation](#documentation-logging-testing-configuration-dev-ops)
+6. [Appendix: Requirements](#appendix-requirements)
+    1. [Product scope](#product-scope)
+    2. [User Stories](#user-stories)
+    3. [Use Cases](#use-cases)
+    4. [Non-Functional Requirements](#non-functional-requirements)
+    5. [Glossary](#glossary)
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Acknowledgements**
@@ -140,7 +155,7 @@ The `Model` component,
 <img src="images/PharmHubStorageClassDiagram.png" width="700" />
 
 The `Storage` component,
-* can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
+* can save both PharmHub data and user preference data in JSON format, and read them back into corresponding objects.
 * inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
