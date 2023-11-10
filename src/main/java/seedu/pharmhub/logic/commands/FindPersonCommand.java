@@ -2,6 +2,7 @@ package seedu.pharmhub.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -29,6 +30,8 @@ public class FindPersonCommand extends Command {
             + "At least one of the parameters must be specified.\n"
             + "Example: " + COMMAND_WORD + " n/alice bob charlie p/123456 no/Paracetamol Penicillin";
 
+    private final List<String> nameKeywords;
+
     private final Predicate<Person> nameContainsKeywordsPredicate;
     private final Phone phoneToFind;
     private final Email emailToFind;
@@ -37,15 +40,20 @@ public class FindPersonCommand extends Command {
 
     /**
      * Constructor method for the find person class.
-     * @param nameContainsKeywordsPredicate The predicate to find the person.
+     * @param nameKeywods The name keywords of the person.
      * @param phoneToFind The phone to find.
      * @param emailToFind The email to find.
      * @param tagsToFind The tags to find.
      * @param allergiesToFind The allergies to find.
      */
-    public FindPersonCommand(Predicate<Person> nameContainsKeywordsPredicate,
+    public FindPersonCommand(List<String> nameKeywords,
                              Phone phoneToFind, Email emailToFind, Set<Tag> tagsToFind, Set<Allergy> allergiesToFind) {
-        this.nameContainsKeywordsPredicate = nameContainsKeywordsPredicate;
+        this.nameKeywords = nameKeywords;
+        this.nameContainsKeywordsPredicate =
+                nameKeywords == null
+                        ? person -> true
+                        : new NameContainsKeywordsPredicate(nameKeywords);
+
         this.phoneToFind = phoneToFind;
         this.emailToFind = emailToFind;
         this.tagsToFind = tagsToFind;
@@ -53,9 +61,9 @@ public class FindPersonCommand extends Command {
     }
 
     public FindPersonCommand(
-            NameContainsKeywordsPredicate nameContainsKeywordsPredicate
+            List<String> nameKeywords
     ) {
-        this(nameContainsKeywordsPredicate, null, null, null, null);
+        this(nameKeywords, null, null, null, null);
     }
 
     @Override
@@ -118,9 +126,10 @@ public class FindPersonCommand extends Command {
     public String toString() {
         ToStringBuilder toStringBuilder = new ToStringBuilder(this);
 
-        if (nameContainsKeywordsPredicate != null) {
-            toStringBuilder.add("predicate", nameContainsKeywordsPredicate);
+        if (nameKeywords != null) {
+            toStringBuilder.add("nameKeywords", nameKeywords);
         }
+
         if (phoneToFind != null) {
             toStringBuilder.add("phone", phoneToFind);
         }

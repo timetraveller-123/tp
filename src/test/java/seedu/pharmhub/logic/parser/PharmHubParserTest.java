@@ -28,7 +28,6 @@ import seedu.pharmhub.logic.commands.ListPeopleCommand;
 import seedu.pharmhub.logic.commands.ViewOrderCommand;
 import seedu.pharmhub.logic.commands.ViewPersonCommand;
 import seedu.pharmhub.logic.parser.exceptions.ParseException;
-import seedu.pharmhub.model.person.NameContainsKeywordsPredicate;
 import seedu.pharmhub.model.person.Person;
 import seedu.pharmhub.testutil.EditPersonDescriptorBuilder;
 import seedu.pharmhub.testutil.PersonBuilder;
@@ -75,11 +74,11 @@ public class PharmHubParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        List<String> nameKeywords = Arrays.asList("foo", "bar", "baz");
         FindPersonCommand command = (FindPersonCommand) parser.parseCommand(
                 FindPersonCommand.COMMAND_WORD + " " + PREFIX_NAME
-                        + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindPersonCommand(new NameContainsKeywordsPredicate(keywords)), command);
+                        + nameKeywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindPersonCommand(nameKeywords), command);
     }
 
     @Test

@@ -11,6 +11,7 @@ import static seedu.pharmhub.logic.parser.CommandParserTestUtil.assertParseSucce
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,6 @@ import seedu.pharmhub.logic.commands.FindPersonCommand;
 import seedu.pharmhub.model.allergy.Allergy;
 import seedu.pharmhub.model.medicine.Medicine;
 import seedu.pharmhub.model.person.Email;
-import seedu.pharmhub.model.person.NameContainsKeywordsPredicate;
 import seedu.pharmhub.model.person.Phone;
 import seedu.pharmhub.model.tag.Tag;
 
@@ -32,16 +32,14 @@ public class FindPersonCommandParserTest {
         assertParseFailure(parser, "     ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPersonCommand.MESSAGE_USAGE));
     }
-
     @Test
     public void parse_validArgsForName_returnsFindCommand() {
-        NameContainsKeywordsPredicate nameContainsKeywordsPredicate = new NameContainsKeywordsPredicate(Arrays.asList(
-                "Alice", "Bob"));
+        List<String> nameKeywords = List.of("Alice", "Bob");
 
         // no leading and trailing whitespaces
 
         FindPersonCommand expectedFindCommand =
-                new FindPersonCommand(nameContainsKeywordsPredicate);
+                new FindPersonCommand(nameKeywords);
 
         assertParseSuccess(parser, " " + PREFIX_NAME + "Alice Bob", expectedFindCommand);
 
@@ -53,8 +51,7 @@ public class FindPersonCommandParserTest {
 
     @Test
     public void parse_validArgsForNameAndOtherAttributes_returnsFindCommand() {
-        NameContainsKeywordsPredicate nameContainsKeywordsPredicate = new NameContainsKeywordsPredicate(Arrays.asList(
-                "Alice", "Bob"));
+        List<String> nameKeywords = List.of("Alice", "Bob");
         Phone phoneToFind = new Phone("123456");
         Email emailToFind = new Email("rachel@example.com");
         Set<Tag> tagsToFind = new HashSet<>(
@@ -69,7 +66,7 @@ public class FindPersonCommandParserTest {
 
 
         FindPersonCommand expectedFindCommand =
-                new FindPersonCommand(nameContainsKeywordsPredicate,
+                new FindPersonCommand(nameKeywords,
                         phoneToFind,
                         emailToFind,
                         tagsToFind,
@@ -77,6 +74,35 @@ public class FindPersonCommandParserTest {
 
         assertParseSuccess(parser, " " + PREFIX_NAME + "Alice Bob"
                         + " " + PREFIX_PHONE + "123456"
+                        + " " + PREFIX_EMAIL + "rachel@example.com"
+                        + " " + PREFIX_TAG + "friends owesMoney"
+                        + " " + PREFIX_ALLERGY + "Aspirin Penicillin",
+                expectedFindCommand);
+    }
+
+    @Test
+    public void parse_validArgsExcludingName_returnsFindCommand() {
+        List<String> nameKeywords = null;
+        Phone phoneToFind = new Phone("123456");
+        Email emailToFind = new Email("rachel@example.com");
+        Set<Tag> tagsToFind = new HashSet<>(
+                Arrays.asList(
+                        new Tag("friends"),
+                        new Tag("owesMoney")));
+
+        Set<Allergy> allergiesToFind = new HashSet<>(
+                Arrays.asList(
+                        new Allergy(new Medicine("Aspirin")),
+                        new Allergy(new Medicine("Penicillin"))));
+
+        FindPersonCommand expectedFindCommand =
+                new FindPersonCommand(nameKeywords,
+                        phoneToFind,
+                        emailToFind,
+                        tagsToFind,
+                        allergiesToFind);
+
+        assertParseSuccess(parser, " " + PREFIX_PHONE + "123456"
                         + " " + PREFIX_EMAIL + "rachel@example.com"
                         + " " + PREFIX_TAG + "friends owesMoney"
                         + " " + PREFIX_ALLERGY + "Aspirin Penicillin",

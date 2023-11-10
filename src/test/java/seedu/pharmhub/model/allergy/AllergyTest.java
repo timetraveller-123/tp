@@ -34,6 +34,24 @@ public class AllergyTest {
     }
 
     @Test
+    public void equals_differentAllergyName_returnsFalse() {
+        Allergy allergy = new Allergy(new Medicine("Aspirin"));
+        Allergy allergyCopy = new Allergy(new Medicine("Panadol"));
+        assertNotEquals(allergy, allergyCopy);
+    }
+
+    @Test
+    public void isSameAllergy_sameAllergyObject_returnsTrue() {
+        Allergy allergy = new Allergy(new Medicine("Aspirin"));
+        assertEquals(allergy, allergy);
+    }
+
+    @Test
+    public void isSameAllergy_allergyIsNull_returnsFalse() {
+        Allergy allergy = new Allergy(new Medicine("Aspirin"));
+        assertNotEquals(allergy, null);
+    }
+    @Test
     public void isSameAllergy_sameAllergyName_returnsTrue() {
         Allergy allergy = new Allergy(new Medicine("Aspirin"));
         Allergy allergyCopy = new Allergy(new Medicine("Aspirin"));

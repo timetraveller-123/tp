@@ -10,15 +10,12 @@ import static seedu.pharmhub.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Predicate;
 
 import seedu.pharmhub.logic.commands.FindPersonCommand;
 import seedu.pharmhub.logic.parser.exceptions.ParseException;
 import seedu.pharmhub.model.allergy.Allergy;
 import seedu.pharmhub.model.person.Email;
 import seedu.pharmhub.model.person.Name;
-import seedu.pharmhub.model.person.NameContainsKeywordsPredicate;
-import seedu.pharmhub.model.person.Person;
 import seedu.pharmhub.model.person.Phone;
 import seedu.pharmhub.model.tag.Tag;
 
@@ -44,7 +41,7 @@ public class FindPersonCommandParser implements Parser<FindPersonCommand> {
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TAG, PREFIX_ALLERGY);
 
         Name nameToFind = null;
-        String[] nameKeywords = null;
+        List<String> nameKeywords = null;
         Phone phoneToFind = null;
         Email emailToFind = null;
         Set<Tag> tagsToFind = null;
@@ -52,7 +49,7 @@ public class FindPersonCommandParser implements Parser<FindPersonCommand> {
 
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             nameToFind = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-            nameKeywords = nameToFind.toString().split("\\s+");
+            nameKeywords = Arrays.asList(nameToFind.toString().split("\\s+"));
         }
 
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
@@ -81,12 +78,8 @@ public class FindPersonCommandParser implements Parser<FindPersonCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPersonCommand.MESSAGE_USAGE));
         }
 
-        Predicate<Person> nameContainsKeywordsPredicate =
-                nameKeywords == null
-                ? person -> true
-                        : new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords));
 
-        return new FindPersonCommand(nameContainsKeywordsPredicate,
+        return new FindPersonCommand(nameKeywords,
                 phoneToFind, emailToFind, tagsToFind, allergiesToFind
         );
     }
