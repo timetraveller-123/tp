@@ -297,7 +297,7 @@ Format: `deletep INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `listp` followed by `deletep 2` deletes the 2nd person in the address book.
+* `listp` followed by `deletep 2` deletes the 2nd person in PharmHub.
 * `findp Betsy` followed by `deletep 1` deletes the 1st person in the results of the `find` command.
 
 ### Adding a new medicine : `addm`
@@ -308,6 +308,9 @@ Format: `addm m/MEDICINE_NAME`
 
 * The given name shouldn't match the name or short form any medicine in the system.   
 * Medicine names are case-insensitive.
+
+Example:
+* `addm m/Panadol`
 
 ### Listing all medicines : `listm`
 
@@ -321,13 +324,17 @@ Format: `listm`
 
 Finds all medicines whose name or short form contains any of the given keywords.  
 
-Format : `findm`
+Format : `Format: findm KEYWORD [MORE_KEYWORD]…`
 
 * The search is case-insensitive. e.g `pan` will match `Panadol`
 * The medicine name and it's short form is searched.
 * Unlike `findp`, partial words will be matched e.g. `para` will  match `Paracetamol`
 * Medicines matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `ol en` will return `Panadol`, `Ibuprofen`
+
+Examples:
+* `findm ol`
+* `findm ol para`
 
 ### Deleting a medicine : `deletem`
 
@@ -341,6 +348,9 @@ Format: `deletem INDEX`
 * The command will be blocked if there are existing orders with the specified medicine 
   or persons allergic to the specified medicine.  
 
+Example:
+* `deletem 2`
+
 ### Adding and Deleting short form : `sfm`
 
 Adds or Deletes a short form from the specified medicine from PharmHub.
@@ -353,6 +363,8 @@ Format: `sfm INDEX [m/SHORT_FORM] [d/]`
 * After this, the short form can be used interchangeably with the medicine name.  
 * If the `d/` is provided, the short form(if any) of the medicine at the specified `INDEX` will be deleted.  
 
+Example:
+* `sfm 1 m/pan`
 
 ### Listing all orders : `listo` 
 
