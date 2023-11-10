@@ -50,6 +50,11 @@ public class Order implements InfoObject {
     public Status getStatus() {
         return orderStatus;
     }
+
+    public void addOrderToPerson() {
+        person.addOrder(this);
+    }
+
     /**
      * Returns true if both orders have the same order number.
      * This defines a weaker notion of equality between two orders.
