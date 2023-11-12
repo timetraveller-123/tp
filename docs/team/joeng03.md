@@ -50,6 +50,10 @@ Given below are my contributions to the project.
 
 **Testing**:
 
+* [Add tests for findo command](https://github.com/AY2324S1-CS2103T-W08-4/tp/pull/171)
+
+* [Add tests for Medicine model](https://github.com/AY2324S1-CS2103T-W08-4/tp/pull/192)
+
 **Team-based tasks**:
 
 * Renaming of AddressBook to PharmHub
