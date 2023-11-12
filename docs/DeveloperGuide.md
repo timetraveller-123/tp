@@ -620,11 +620,11 @@ testers are expected to do more *exploratory* testing.
 2. Deleting a short form of a medicine.
 
     1. Prerequisites: `metformin` should be in the medicine list, it should have a short form. Find it using `findm metformin`
-    1. Test case: `smf 1 d/` <br>
+    1. Test case: `sfm 1 d/` <br>
        Expected: Short form of `metformin` medicine is deleted. Details of medicine shown in result display box.
-    1. Test case: `smf 1 m/ d/` <br>
+    1. Test case: `sfm 1 m/ d/` <br>
          Expected: Short form of `metformin` medicine is deleted. Details of medicine shown in result display box.
-    1. Test case: `smf m/ d/` <br>
+    1. Test case: `sfm m/ d/` <br>
          Expected: Short form of `metformin` medicine is not deleted. Error message shown in result display box.
 
 
@@ -637,3 +637,26 @@ testers are expected to do more *exploratory* testing.
     1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+## **Appendix: Planned Enhancements**
+
+1. Currently, to delete a short form a medicine the user has to provide `d/` flag through the `sfm` command to delete the short form
+   of a medicine at a specified index. However, if any short form name is provided using the `m/` flag, it will be ignored without any
+   warning. Thus, `sfm 1 m/met d/` deletes the short form the medicine at index 1 which ignoring `met`. We plan to make the `sfm` 
+   command accept exactly one of `m/` or `d/` flags. This way the command `sfm 1 m/met d/` would be regarded as an invalid command 
+   rather than one which deletes the short form. 
+
+2. Currently, when adding a medicine there is no way for the user to specify the short form right then. Hence, the user has to first add
+   the medicine followed by using `sfm` command to add a short form to it. We plan to allow `addm` accept an optional parameter for 
+   the short form of the medicine being added. 
+
+
+## **Appendix: Effort **
+AB3 only deals with one entity type, `person`. However, our project was harder as we had to deal with three entity types, `person`, 
+`order` and `medicine`. All three types are tightly interleaved which caused a lot of challenges during this project.  
+Firstly, the dependencies slowed the project timeline as future features required features before it to be finished. This affected 
+our ability to work in parallel.   
+Secondly, because of the dependencies, we had to take extra precaution in checking the validity of data that is being loaded from the
+storage file as a `person` could be allergic to multiple `medicine` and  could hold multiple `order` which in turn could hold multiple
+`medicine`.  
+{More to be added}
