@@ -172,6 +172,62 @@ Classes used by multiple components are in the `seedu.pharmHub.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Adding an Order feature
+
+#### Implementation
+
+The adding an Order feature allows the user to add an order to a person.
+<br>
+1. The add order feature includes the ignore allergy flag to allow further flexibility for the pharmacist when assigning orders
+   to people. This is because they may have other considerations when it comes to assigning a medication for a person.
+2. The add order feature do not allow duplicated order as we believe that each order should be distinct base on
+   their order number, ensuring that no orders go missing or forgotten.
+
+#### Steps to Trigger
+
+1. The User launches the application.
+2. The User executes "addo 1 m/aspirin o/1" to add a new order.
+3. The `AddOrderParser#parse()` checks whether all the prefixes and the required values are provided.
+4. If the check is successful, the `ParseUtil#parseOrderNumber`, `ParseUtil#parseOrderNumber` and `ParseUtil#parseMedicine` 
+will then check and create an `Index`, `OrderNumber` and `Medicine` passing it to `AddOrderCommand`.
+5. Depending on whether an ignore allergy flag `ia/` is added in the command input, user can input medications in the order that the person is allergic to. 
+6. `AddOrderCommand#execute` then checks if the person exist base on index and creates an Order with the
+`person`, `orderNumber`, `medicine` and a `PENDING` Status, then `Model#hasOrder` also checks whether the order is a duplicated order.
+7. If the order does not exist, then the `Model#addOrder` adds the order into the order list.
+
+#### Design Consideration
+
+The following sequence diagram shows how `addo` works on an example input. `addo 1 m/aspirin o/1000`
+
+![AddOrderSequenceDiagram](images/AddoSequenceDiagram.png)
+
+### Finding an Order Feature
+
+#### Implementation
+
+The finding an Order feature allows the user to find other base on either the orderStatus, medication in the order or both.
+<br>
+1. The find order feature allows independent Predicate finding.
+    1. i.e. you can find order base on only `Status` or `Medicine`.
+    2. We implemented this format to expend the utility of the feature.
+
+#### Steps to Trigger
+
+1. The User Launches the application. 
+2. The User decides to find/filter through the order list after adding multiple orders.
+3. The User executes "findo s/pd m/pan ibuprofen" to find orders that has `PENDING` status and either `PANADOL` or `IBUPROFEN` in the order.
+4. The `FindOrderCommandParser#parse()` checks whether all the prefixes and the required values are provided.
+5. If the check is successful, depending on the User input if `s/` is present `ParseUtil#parseStatus` will return a
+`Status`, and if `m/` is present `ParseUtil#parseMedicines` will return the `Medicine/s`.
+6. The `Status` and `Medicine` will then be passed to the FindOrderCommand.
+7. The `Model#updateFilteredOrder` will then take either or both `Status` and `Medicine` as predicates to filter through the order list and return valid orders.
+8. The filtered order list will then be returned and shown on the Displayed list.
+
+#### Design Consideration
+
+The following sequence diagram shows how `findo` works on an example input. `findo s/pd m/pan ibuprofen`
+
+![FindOrderSequenceDiagram](images/FindoSequenceDiagram.png)
 
 ### \[Proposed\] Undo/redo feature
 
@@ -261,7 +317,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 The listing all orders functionality is supported by the listPanelPlaceholder in the Ui.
 
-On start of application, two listPanels (PersonListPanel, OrderListPanel) is created, and person list panel is attached 
+On start of application, two listPanels (PersonListPanel, OrderListPanel) is created, and person list panel is attached
 to the ListPanel Placeholder as default.
 
 On execution of the any listing commands (`listo` or `listp`), the resultant CommandResult contains details on which
@@ -274,56 +330,6 @@ These are 3 different options for these details:
 
 Using these specifications, the CommandResult from executing `listo` and `listp` will inform the Ui of which
 panel to attach to the listPanelPlaceHolder
-
-### Adding an Order feature
-
-#### Implementation
-The adding an Order feature allows the user to add an order to a person.
-
-#### Steps to Trigger
-1. The User launches the application.
-2. The User executes "addo 1 m/aspirin o/1" to add a new order.
-3. The `AddOrderParser#parse()` checks whether all the prefixes and the required values are provided.
-4. If the check is successful, the `ParseUtil#parseOrderNumber`, `ParseUtil#parseOrderNumber` and `ParseUtil#parseMedicine` 
-will then check and create an `Index`, `OrderNumber` and `Medicine` passing it to `AddOrderCommand`.
-5. Depending on whether an ignore allergy flag `ia/` is added in the command input, user can input medications in the order that the person is allergic to. 
-6. `AddOrderCommand#execute` then checks if the person exist base on index and creates an Order with the
-`person`, `orderNumber`, `medicine` and a `PENDING` Status, then `Model#hasOrder` also checks whether the order is a duplicated order.
-7. If the order does not exist, then the `Model#addOrder` adds the order into the order list.
-
-#### Design Consideration
-1. The add order feature includes the ignore allergy flag to allow further flexibility for the pharmacist when assigning orders
-to people. This is because they may have other considerations when it comes to assigning a medication for a person.
-2. The add order feature do not allow duplicated order as we believe that each order should be distinct base on 
-their order number, ensuring that no orders go missing or forgotten.
-
-The following sequence diagram shows how `addo` works on an example input. `addo 1 m/aspirin o/1000`
-
-![AddOrderSequenceDiagram](images/AddoSequenceDiagram.png)
-
-### Finding an Order Feature
-
-#### Implementation
-The finding an Order feature allows the user to find other base on either the orderStatus, medication in the order or both.
-
-#### Steps to Trigger
-1. The User Launches the application. 
-2. The User decides to find/filter through the order list after adding multiple orders.
-3. The User executes "findo s/pd m/pan ibuprofen" to find orders that has `PENDING` status and either `PANADOL` or `IBUPROFEN` in the order.
-4. The `FindOrderCommandParser#parse()` checks whether all the prefixes and the required values are provided.
-5. If the check is successful, depending on the User input if `s/` is present `ParseUtil#parseStatus` will return a
-`Status`, and if `m/` is present `ParseUtil#parseMedicines` will return the `Medicine/s`.
-6. The `Status` and `Medicine` will then be passed to the FindOrderCommand.
-7. The `Model#updateFilteredOrder` will then take either or both `Status` and `Medicine` as predicates to filter through the order list and return valid orders.
-8. The filtered order list will then be returned and shown on the Displayed list.
-
-#### Design Consideration
-1. The find order feature allows independent Predicate finding.
-   1. i.e. you can find order base on only `Status` or `Medicine`.
-   2. We implemented this format to expend the utility of the feature.
-
-![FindOrderSequenceDiagram](images/FindoSequenceDiagram.png)
-
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -820,6 +826,104 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+
+### Listing all orders
+
+1. Test case: `listo`
+<br> Expected: All orders listed in the display list panel. "Listed all orders" shown in result display box.
+
+### Finding order(s)
+
+1. Test case: `findo s/pd` Finding by status short form only <br>
+   Expected: All orders with `PENDING` Status will be listed in the display list panel. The number of orders listed shown in result display box.
+
+2. Test case: `findo s/pending` Finding by status full form only <br>
+   Expected: All orders with `PENDING` Status will be listed in the display list panel. The number of orders listed shown in result display box.
+
+3. Test case: `findo m/pan` Finding by one medicine keyword only <br>
+   Expected: All orders with medicine whose names have `pan` as a substring will be listed in the display list panel. The number of order listed shown in result display box.
+
+4. Test case: `findo m/pan ol` Finding by multiple medicine keyword <br>
+   Expected: All orders with medicine whose names have `pan` or `ol`  as a substring will be listed in the display list panel. The number of orders listed shown in result display box.
+
+5. Test case: `findo s/pd m/pan ol` Finding by both status and medicine keywords <br>
+   Expected: All orders that has both `PENDING` status and with medicine whose names have `pan` or `ol` as a substring 
+    will be listed in the display list panel(both conditions must be fulfilled). The number of orders listed shown in result display box. 
+
+6. Test case: `findo s/wowow` Invalid Status <br>
+   Expected: No orders will be listed in the display list panel. `Invalid Status` error message shown on result display box.
+
+### Adding an order
+
+1. Adding an order that doesn't exist(i.e. Unique OrderNumber)
+
+   1. Prerequisites: List all order using the `listo` command. No order with the order number `1234` should be in the list.
+   
+   2. Prerequisites: List all person using the `listp` command. Person base on index that is assigned order to should exist.
+   
+   3. Prerequisites: List all medicine using the `listm` command. Medicine that will be in the order must be in the list.
+   
+   4. Prerequisites: Person should not be assigned to medicine they are allergy to.
+   
+   5. Test case: `addo 1 m/pan o/1234` <br>
+      Expected: Order is added. Details of the order shown in the Detail information display.
+   
+   6. Test case: `addo m/pan o/1234` || `addo 1 o/1234` || `addo 1 m/pan` <br>
+      Expected: No Order is added due to missing details. `Invalid Command Format`shown in the result display.
+
+   7. Test case: `addo m/` || `addo` <br>
+      Expected: Similar to previous.
+
+2. Adding an order that already exists(i.e. OrderNumber already exist)
+
+   1. Prerequisites: List all orders using the `listo` command. An order with order number `1234` should be in the list.
+   
+   2. Test case: `addo 1 m/pan o/1234` <br>
+      Expected: Order is not added. `Order Already exist` Error message is shown in result display box.
+
+3. Adding an order with medicine the person is allergy to.
+
+   1. Prerequisites: List all orders using the `listo` command. An order with order number `2222` should not be in the list.
+
+   2. Prerequisites: List all person using the `listp` command. Pick one person with an allergy and take note.
+   
+   3. Test case: `addo 1 m/paracetamol` <br>
+      Expected: Order is not added. `Patient is Allergy` Warning message will be displayed.
+
+   4. Test case: `addo 1 m/paracetamol ia/` (ignore allergy flag `ia`)<br>
+      Expected: Order is added. Details of tht order shown in the Detail information display.
+
+### Updating the order status
+
+1. Updating an order status with valid chronological order.
+
+   1. Prerequisites: List all orders using the `listo` command. The new status should be of a higher chronological order than the old status.
+   
+   2. Test case: old orderStatus `PENDING`, command: `updates 1 s/pr` <br>
+      Expected: Order status updated to `PREPARING`. Details of the updated order is shown in the detail information display box.
+   
+   3. Test case: old orderStatus `PREPARING`, command: `updates 1 s/completed` <br>
+      Expected: Order status updated to `COMPLETED`. Details of the updated order is shown in the detail information display box.
+
+   4. Test case: old orderStatus `COMPLETED`, command: `updates 1 s/pending` <br>
+      Expected: Order status not updated. `Invalid Chronological Order` error message shown in result display box.
+
+   5. Test case: old orderStatus `COMPLETED`, command: `updates 1 s/pwpw` <br>
+      Expected: Order status not updated. `Invalid Status` error message shown in result display box.
+
+### Deleting an order
+
+1. Deleting an order
+
+   1. Prerequisites: List all orders using the `listo` command. The order to delete should be in the list shown.
+
+   2. Test case: `deleteo 1`<br>
+      Expected: First order is deleted from the list. Details of the deleted order is shown in detail information display box.
+
+   3. Test case: `deleteo `<br>
+      Expected: No order deleted. `Invalid Command Format` error message shown.
+
+   
 ### Saving data
 
 1. Dealing with missing/corrupted data files
