@@ -26,40 +26,42 @@ Pharmhub is a **desktop app for managing patients and their medication orders, o
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Glossary
+## Using this guide  
+This section provides an introduction to the terminology used in this user guide. 
 
 ### Person
 
-For the entire user guide the term person is used to refer to the patient of which the pharmacist is addressing to.
-Persons are the people with whom you track your Orders and information for. To create an order with a person, they must first have been added to the app.
+For the entire user guide the term person is used to refer to the patient of which the pharmacist is addressing.
+Persons are the people with whom you track your Orders and information for.   
+To create an order with a person, they must first have been added to the app.
 
 A person has the following attributes:
 - Name
 - Phone number
 - Email Address
 - Address
-- Allergy(If the person has one)
+- Allergy(If the person has one. Can be one or more)
 
-Persons are uniquely identified by their names. No two persons can have the same name and names are case-insensitive.
+A person is uniquely identified by their name. No two persons can have the same name and names are case-insensitive.
 
 ### Order
 
-Orders are event in which an order has been placed for a single or multiple medication for a certain person in the person list.
+An order refers to a purchase of one or more medicines by a particular person in the person list.
 
 An Order has the following attributes:
 - Order Number
 - Person (Who the order belongs to)
-- Medicine (What is in the order)
+- Medicine (What is in the order. Can be one or more)
 - Status of the order
 
-Orders are uniquely identified by their order numbers. No two orders can have the same order number. 
-No orders containing the medicine that the person is allergy to can be added without a special flag.
+Orders are uniquely identified by their order numbers. No two orders can have the same order number.   
+No order containing a medicine that the person is allergic to can be added without a special flag.  
 Orders will automatically tag under the <span style="color: red;">PENDING</span>
 Status when added.
 
 ### Status
 
-Status are used to describe the process at which the order is at.
+Status is used to describe the process at which the order is at.
 Status can only be updated/modified following their chronological order.
 
 <span style="background-color: red; border-radius: 20%; padding: 1px;">PENDING/PD</span>
@@ -78,45 +80,52 @@ Medicine are objects that can be added to an order when it is being placed for a
 
 A Medicine has the following attribute:
 - Full Name of the medication
-- A optional short form for the medication
+- An optional short form for the medication
 
-Medicine are uniquely identified by their full and short form names. No two medicine can have the same names.
+Medicines are uniquely identified by their full and short form names. No two medicine can have the same names.
 
 ### Index
 
-All commands will be executed base on Index. Index refer to the numbering being shown in the person/order/medicine list.
-All index can only be more than 0, at least 1.
+Many commands rely on index for execution. Index refers to the numbering in the last shown person/order/medicine list.
+All indices have to be positive integers.
 
 As you can refer to the image below index 1 refer to OrderNumber #1 while index 3 refer to OrderNumber #5.
 
 ![listp](images/listo.png)
 
-Note: The Index will be base on the command being called and not the displayed list, 
+Note: The Index will be based on the command being called and not the displayed list, 
 if a command of viewp(view person) is being called, 
-the index taken will be base on the person list and not this list being shown currently.
+the index taken will be based on the person list and not this list being shown currently.
 
 ### Fields
-Inputs to fields should not contain an number of "/" sign. i.e "//" is allowed
+Spaces before and after fields will be ignored.
+If there are multiple spaces between two words in fields, only one space would be retained.  
+As such `Alex Yeoh` will produce the same result as `Alex     Yeoh`  
+To input a `/` character in a field, use another `/` before it.   
+If there is an odd  number of consecutive `/`, one of them will be ignored.  
+  e.g To input `Roy s/o Balakrishnan`, use `Roy s//o Balakrishnan`
 
 The following fields are used for commands:
 
-| Field         | Prefix            | Format                                                       | Example                               |
-|---------------|-------------------|--------------------------------------------------------------|---------------------------------------|
-| Index         | -                 | Must be a positive integer                                   | `1`, `2`, `3`                         |
-| Keyword       | -                 | Must not contain a singular "/" sign                         | `pan`, `Ah Tan s//o Ah Tan Tan`       |
-| Name          | n                 | Must be alphanumeric                                         | `Joe`, `Vishnu`                       |
-| Phone number  | p                 | Must be numeric and be at least 3 digits long                | `999`, `68741616`                     |
-| Email address | e                 | Must be a valid email address                                | `pharmhub@bestapp.sg`, `putin@russia` |
-| Address       | a                 | Must not contain a singular "/" sign                         | `Sentosa cove`, `Pulau NTU`           |
-| Status        | [Status](#status) | Must be a valid Status                                       | `PENDIND`, `Cc`                       |
-| Commands      | -                 | Must be the first input, case-insensitive                    | `addo`, `listm`                       |
+| Field         | Prefix | Format                                                                                      | Example                                    |
+|---------------|--------|---------------------------------------------------------------------------------------------|--------------------------------------------|
+| Index         | -      | Must be a positive integer                                                                  | `1`, `2`, `3`                              |
+| Keyword       | -      | Must not be empty                                                                           | `pan`, `Ah Tan s//o Ah Tan Tan`            |
+| Name          | n/     | Must only contain alphanumeric, space, dot, slash, <br/> hyphen and single quote characters | `Roy s//o Balakrishnan`, `Connell O'Brien` |
+| Phone number  | p/     | Must be numeric and be at least 3 digits long                                               | `999`, `68741616`                          |
+| Email address | e/     | Must be a valid email address                                                               | `pharmhub@bestapp.sg`, `putin@russia`      |
+| Address       | a/     | Must not be empty                                                                           | `Sentosa cove`, `Pulau NTU`                |
+| Status        | s/     | Must be a valid Status (Refer to [Status](#status))                                         | `PENDIND`, `Cc`                            |
+| Medicine      | m/     | Must not be empty                                                                           | `metformin`, `panadol`                     |
+| Allergy       | no/    | Must be a medicine name in PharmHub or its shortform.                                       | `panadol`, `pan`                           |
+| Commands      | -      | Must be the first input, case-insensitive                                                   | `addo`, `listm`                            |
 
 
 ---
 
 ## Application Navigation
 
-Below shows a guide on how you can navigate around our beautiful Graphical User Interface (GUI)
+Below shows a guide on how you can navigate around our interactive Graphical User Interface (GUI)
 
 ![Navigation](images/navigation.png)
 
@@ -139,6 +148,7 @@ Below shows a guide on how you can navigate around our beautiful Graphical User 
 ## Quick start
 
 1. Ensure you have Java `11` or above installed in your Computer.
+   * Run `java --version` in your command terminal to see the java version.
 
 2. Download the latest `PharmHub.jar` from [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/releases).
 
@@ -180,13 +190,7 @@ Below shows a guide on how you can navigate around our beautiful Graphical User 
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `addp n/NAME`, `NAME` is a parameter which can be used as `addp n/John Doe`.  
-* Spaces before and after parameter will be ignored.  
-  If there is more than one space in between words in the parameter, it will be trimmed to one space.  
-  e.g `addp n/ Alex Yeoh` will produce the same result as `addp n/ Alex     Yeoh`
-* To input a `/` character in parameter, use another `/` before it.  
-  If there is an odd number of `/`, one of them will be ignored.  
-  e.g To input `Roy s/o Balakrishnan`, use `Roy s//o Balakrishnan`
+  e.g. in `addp n/NAME`, `NAME` is a parameter which can be used as `addp n/John Doe`.
 
 * Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
@@ -530,10 +534,10 @@ If your changes to the data file makes its format invalid, PharmHub will discard
 | **Update Order Status**   | `updates INDEX s/STATUS`<br> e.g., `updates s/cancelled`                                                                                                                                        |
 | **Delete Order**          | `deleteo INDEX`<br> e.g., `deleteo 3`                                                                                                                                                           |
 | **List Medicine**         | `listm`                                                                                                                                                                                         |
-| **Find Medicine**         | `findm KEYWORD [MORE_KEYWORDS]`                                                                                                                                                                 |
-| **Add Medicine**          | `addm m/MEDICINE_NAME`                                                                                                                                                                          |
-| **Delete Medicine**       | `deletem INDEX`                                                                                                                                                                                 |
-| **Add/Delete Short Form** | `sfm INDEX [m/SHORT_FORM] [d/]`                                                                                                                                                                 |
+| **Find Medicine**         | `findm KEYWORD [MORE_KEYWORDS]`  <br/> e.g., `findm ol`                                                                                                                                         |
+| **Add Medicine**          | `addm m/MEDICINE_NAME`<br/> e.g., `addm m/panadol`                                                                                                                                              |
+| **Delete Medicine**       | `deletem INDEX` <br/> e.g., `deletem 1`                                                                                                                                                         |
+| **Add/Delete Short Form** | `sfm INDEX [m/SHORT_FORM] [d/]` <br/> e.g., `sfm 1 m/met`                                                                                                                                        |
 | **Undo**                  | `undo`                                                                                                                                                                                          |
 | **Redo**                  | `redo`                                                                                                                                                                                          |
 | **Clear**                 | `clear`                                                                                                                                                                                         |
