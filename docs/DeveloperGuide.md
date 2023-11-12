@@ -158,6 +158,9 @@ The `Storage` component,
 * can save both PharmHub data and user preference data in JSON format, and read them back into corresponding objects.
 * inherits from both `PharmHubStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
+    * The Main Application has 3 JsonAdapted component in storage: `JsonAdaptedPerson`, `JsonAdaptedOrder`, `JsonAdaptedMedicine`.
+      * `JsonAdaptedPerson` further contains `JsonAdaptedTag` and `JsonAdaptedAllergy`.
+      * `JsonAdaptedOrder` further contains `JsonAdaptedStatus` and `JsonAdaptedMedicine`.`
 
 ### Common classes
 
@@ -272,18 +275,54 @@ These are 3 different options for these details:
 Using these specifications, the CommandResult from executing `listo` and `listp` will inform the Ui of which
 panel to attach to the listPanelPlaceHolder
 
-### Order feature
+### Adding an Order feature
 
 #### Implementation
+The adding an Order feature allows the user to add an order to a person.
 
-`Order` is implemented as a class in `Model`.
+#### Steps to Trigger
+1. The User launches the application.
+2. The User executes "addo 1 m/aspirin o/1" to add a new order.
+3. The `AddOrderParser#parse()` checks whether all the prefixes and the required values are provided.
+4. If the check is successful, the `ParseUtil#parseOrderNumber`, `ParseUtil#parseOrderNumber` and `ParseUtil#parseMedicine` 
+will then check and create an `Index`, `OrderNumber` and `Medicine` passing it to `AddOrderCommand`.
+5. Depending on whether an ignore allergy flag `ia/` is added in the command input, user can input medications in the order that the person is allergic to. 
+6. `AddOrderCommand#execute` then checks if the person exist base on index and creates an Order with the
+`person`, `orderNumber`, `medicine` and a `PENDING` Status, then `Model#hasOrder` also checks whether the order is a duplicated order.
+7. If the order does not exist, then the `Model#addOrder` adds the order into the order list.
 
-An order can be added to Model using the `addorder` command.  
-Adding of an order with order number that already exits is  not allowed.
+#### Design Consideration
+1. The add order feature includes the ignore allergy flag to allow further flexibility for the pharmacist when assigning orders
+to people. This is because they may have other considerations when it comes to assigning a medication for a person.
+2. The add order feature do not allow duplicated order as we believe that each order should be distinct base on 
+their order number, ensuring that no orders go missing or forgotten.
 
-The following sequence diagram shows how `addorder` works on an example input.
+The following sequence diagram shows how `addo` works on an example input. `addo 1 m/aspirin o/1000`
 
-![AddOrderSequenceDiagram](images/AddOrderSequenceDiagram.png)
+![AddOrderSequenceDiagram](images/AddoSequenceDiagram.png)
+
+### Finding an Order Feature
+
+#### Implementation
+The finding an Order feature allows the user to find other base on either the orderStatus, medication in the order or both.
+
+#### Steps to Trigger
+1. The User Launches the application. 
+2. The User decides to find/filter through the order list after adding multiple orders.
+3. The User executes "findo s/pd m/pan ibuprofen" to find orders that has `PENDING` status and either `PANADOL` or `IBUPROFEN` in the order.
+4. The `FindOrderCommandParser#parse()` checks whether all the prefixes and the required values are provided.
+5. If the check is successful, depending on the User input if `s/` is present `ParseUtil#parseStatus` will return a
+`Status`, and if `m/` is present `ParseUtil#parseMedicines` will return the `Medicine/s`.
+6. The `Status` and `Medicine` will then be passed to the FindOrderCommand.
+7. The `Model#updateFilteredOrder` will then take either or both `Status` and `Medicine` as predicates to filter through the order list and return valid orders.
+8. The filtered order list will then be returned and shown on the Displayed list.
+
+#### Design Consideration
+1. The find order feature allows independent Predicate finding.
+   1. i.e. you can find order base on only `Status` or `Medicine`.
+   2. We implemented this format to expend the utility of the feature.
+
+![FindOrderSequenceDiagram](images/FindoSequenceDiagram.png)
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -406,10 +445,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3b1. PharmHub shows an error message indicating an invalid medication name.
     * 3b2. Use case resumes at step 4.
 
-In this combined use case, a pharmacist adds a medication order for a patient using PharmHub. The system first allows the pharmacist to select a patient from the list and provide order details. It then checks for potential contraindications based on the patient's allergies and issues a warning if necessary. The pharmacist can acknowledge the warning and proceed with the order by adding an "IA" flag to the command. Once confirmed, the system records the order and sends a confirmation to the pharmacist. The use case also addresses various extensions for error handling.
-
-
-
+In this combined use case, a pharmacist adds a medication order for a patient using PharmHub. 
+The system first allows the pharmacist to select a patient from the list and provide order details. 
+It then checks for potential contraindications based on the patient's allergies and issues a warning if necessary. 
+The pharmacist can acknowledge the warning and proceed with the order by adding an "IA" flag to the command. 
+Once confirmed, the system records the order and sends a confirmation to the pharmacist. The use case also addresses various extensions for error handling.
 
 =======
       Use case resumes at step 2.

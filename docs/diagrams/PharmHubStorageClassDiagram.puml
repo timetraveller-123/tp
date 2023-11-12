@@ -14,10 +14,10 @@ Class JsonUserPrefsStorage
 Class "<<interface>>\nStorage" as Storage
 Class StorageManager
 
-package "AddressBook Storage" #F4F6F6{
-Class "<<interface>>\nAddressBookStorage" as AddressBookStorage
-Class JsonAddressBookStorage
-Class JsonSerializableAddressBook
+package "PharmHub Storage" #F4F6F6{
+Class "<<interface>>\nPharmHubStorage" as PharmHubStorage
+Class JsonPharmHubStorage
+Class JsonSerializablePharmHub
 Class JsonAdaptedPerson
 Class JsonAdaptedTag
 Class JsonAdaptedOrder
@@ -33,17 +33,17 @@ HiddenOutside ..> Storage
 
 StorageManager .up.|> Storage
 StorageManager -up-> "1" UserPrefsStorage
-StorageManager -up-> "1" AddressBookStorage
+StorageManager -up-> "1" PharmHubStorage
 
 Storage -left-|> UserPrefsStorage
-Storage -right-|> AddressBookStorage
+Storage -right-|> PharmHubStorage
 
 JsonUserPrefsStorage .up.|> UserPrefsStorage
-JsonAddressBookStorage .up.|> AddressBookStorage
-JsonAddressBookStorage ..> JsonSerializableAddressBook
-JsonSerializableAddressBook --> "*" JsonAdaptedPerson
-JsonSerializableAddressBook --> "*" JsonAdaptedOrder
-JsonSerializableAddressBook --> "*" JsonAdaptedMedicine
+JsonPharmHubStorage .up.|> PharmHubStorage
+JsonPharmHubStorage ..> JsonSerializablePharmHub
+JsonSerializablePharmHub --> "*" JsonAdaptedPerson
+JsonSerializablePharmHub --> "*" JsonAdaptedOrder
+JsonSerializablePharmHub --> "*" JsonAdaptedMedicine
 JsonAdaptedPerson --> "*" JsonAdaptedTag
 JsonAdaptedPerson --> "*" JsonAdaptedAllergy
 JsonAdaptedOrder --> "1" JsonAdaptedStatus
