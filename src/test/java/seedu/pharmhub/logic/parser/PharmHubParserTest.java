@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.pharmhub.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.pharmhub.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.pharmhub.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.pharmhub.testutil.Assert.assertThrows;
 import static seedu.pharmhub.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.pharmhub.testutil.TypicalOrders.ORDER_NUMBER_FIRST_ORDER;
@@ -27,7 +28,6 @@ import seedu.pharmhub.logic.commands.ListPeopleCommand;
 import seedu.pharmhub.logic.commands.ViewOrderCommand;
 import seedu.pharmhub.logic.commands.ViewPersonCommand;
 import seedu.pharmhub.logic.parser.exceptions.ParseException;
-import seedu.pharmhub.model.person.NameContainsKeywordsPredicate;
 import seedu.pharmhub.model.person.Person;
 import seedu.pharmhub.testutil.EditPersonDescriptorBuilder;
 import seedu.pharmhub.testutil.PersonBuilder;
@@ -74,10 +74,11 @@ public class PharmHubParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        List<String> nameKeywords = Arrays.asList("foo", "bar", "baz");
         FindPersonCommand command = (FindPersonCommand) parser.parseCommand(
-                FindPersonCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindPersonCommand(new NameContainsKeywordsPredicate(keywords)), command);
+                FindPersonCommand.COMMAND_WORD + " " + PREFIX_NAME
+                        + nameKeywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindPersonCommand(nameKeywords), command);
     }
 
     @Test

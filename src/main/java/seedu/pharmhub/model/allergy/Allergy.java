@@ -32,6 +32,19 @@ public class Allergy {
         return Medicine.isValidMedicineName(test);
     }
 
+    /**
+     * Returns true if both allergies have the same medicine name.
+     * This defines a weaker notion of equality between two allergies.
+     */
+    public boolean isSameAllergy(Allergy a) {
+        if (a == this) {
+            return true;
+        }
+        if (a == null) {
+            return false;
+        }
+        return allergy.isSameMedicine(a.allergy);
+    }
     @Override
     public boolean equals(Object other) {
         if (other == this) {
