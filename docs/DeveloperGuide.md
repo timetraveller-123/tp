@@ -149,6 +149,44 @@ Classes used by multiple components are in the `seedu.pharmHub.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### ViewX feature
+
+The `viewp/ viewo` feature allows users to view details of a person/ order in the info display panel. This is facilitated with the new interface, `InfoObject`, which classes that want to be displayed are required to implement.
+
+To support this feature, `CommandResult` has the field `InfoObject`. If present (not null), the UI will create and attach a view for that `InfoObject` onto the Info Display.
+
+The following sequence diagram shows how the viewp operation works:
+
+![ViewpSequenceDiagram](images/ViewpSequenceDiagram.png)
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+<img src="images/ViewActivityDiagram.png" width="450" />
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** As it currently stands in PharmHub, InfoObject can only be a Person or an Order.
+
+</div>
+
+#### Design considerations:
+**Aspect: How the UI is informed about the object to display:**
+
+* **Alternative 1 (current choice):** Require Classes that want to be displayed to implement `InfoObject`
+    * Pros: Allows `CommandResult` to contain a uniform type (`InfoObject`), which scales easily. Also gives control over which classes can be displayed, and which classes cannot (yet). 
+    * Cons: Empty `InfoObject` interface may lead to confusion for new developers.
+
+* **Alternative 2:** Have `CommandResult` contain all types of objects that we want displayed, ie `Person` and `Order`
+    * Pros: Possibly clearer in intent
+    * Cons: Not easily scalable
+
+**Aspect: Creation of relevant `InfoObject` UI component:**
+
+* **Alternative 1 (current choice):** If-else checks in `MainWindow#handleDisplayInfo`, and create the required UI component for each clause
+    * Pros: Reduces coupling between `Person` (and `Order`) model and UI
+    * Cons: Less scalable
+
+* **Alternative 2:** Create abstract `InfoObject#createUIComponent`, and have Classes that wish to be displayed implement this method and create their own UI components
+    * Pros: Easily scalable - each class implements their own UI display to attach into the placeholder
+    * Cons: Increased coupling between UI and Model. UI-creation code exists inside the `Person` (or `Order`) Class
 
 ### Undo/redo feature
 

@@ -1,0 +1,26 @@
+@startuml
+skin rose
+skinparam ActivityFontSize 15
+skinparam ArrowFontSize 12
+start
+:User executes command;
+:Command is executed by LogicManager;
+:CommandResult is returned to MainWindow;
+
+if () then ([CommandResult has InfoObject])
+    :Clear InfoDisplayPlaceholder;
+    if () then ([InfoObject instanceof Person])
+        :Create PersonDisplay;
+        :Attach created PersonDisplay to InfoDisplayPlaceholder;
+    elseif () then ([InfoObject instanceof Order])
+        :Create OrderDisplay;
+        :Attach created OrderDisplay to InfoDisplayPlaceholder;
+    else ([else])
+        :Throw RuntimeError;
+        stop
+    endif
+else ([else])
+
+endif
+stop
+@enduml
