@@ -150,44 +150,36 @@ Classes used by multiple components are in the `seedu.pharmHub.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 
-### \[Proposed\] Undo/redo feature
+### Undo/redo feature
 
-#### Proposed Implementation
+The undo/redo mechanism is facilitated by `VersionedPharmHub`. It extends `PharmHub` with an undo/redo history, stored internally as an `undoHistory Deque` and `redoHistory Deque`. Additionally, it implements the following operations:
 
-The proposed undo/redo mechanism is facilitated by `VersionedPharmHub`. It extends `PharmHub` with an undo/redo history, stored internally as an `pharmHubStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+* `VersionedPharmHub#canUndo()` —  Checks if there is a previous PharmHub state to revert to
+* `VersionedPharmHub#undo()` — Restores the previous PharmHub state from its `undoHistoryList`.
+* `VersionedPharmHub#canRedo()` —  Checks if there is a future PharmHub state to revert to.
+* `VersionedPharmHub#redo()` — Restores a previously undone PharmHub state from its `redoHistoryList`.
 
-* `VersionedPharmHub#commit()` — Saves the current pharmHub state in its history.
-* `VersionedPharmHub#undo()` — Restores the previous pharmHub state from its history.
-* `VersionedPharmHub#redo()` — Restores a previously undone pharmHub state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitPharmHub()`, `Model#undoPharmHub()` and `Model#redoPharmHub()` respectively.
+These operations are exposed in the `Model` interface as `Model#canUndo()`, `Model#undo()`, `Model#canRedo()` and `Model#redo()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedPharmHub` will be initialized with the initial pharmHub state, and the `currentStatePointer` pointing to that single pharmHub state.
+Step 1. The user launches the application for the first time. The `VersionedPharmHub` will be initialized with the initial pharmHub state, and the `CurrentState` points to that single pharmHub state. Both `undoHistory` and `redoHistory` will be empty. 
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
-Step 2. The user executes `delete 5` command to delete the 5th person in PharmHub. The `delete` command calls `Model#commitPharmHub()`, causing the modified state of PharmHub after the `delete 5` command executes to be saved in the `pharmHubStateList`, and the `currentStatePointer` is shifted to the newly inserted pharmHub state.
+Step 2. The user executes `deletep 5` command to delete the 5th person in PharmHub. The `deletep` command calls `Model#deletePerson`, which in turn calls `VersionedPharmHub#deletePerson`. This causes the `VersionedPharmHub` to save the current state into `undoHistory`, before calling `PharmHub#deletePerson`, which deletes the person from PharmHub
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitPharmHub()`, causing another modified pharmHub state to be saved into the `pharmHubStateList`.
+Step 3. The user executes `addp n/David …​` to add a new person. The `addp` command calls `Model#addPerson`, which in turn calls `VersionedPharmHub#addPerson` repeating the process in step 2.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitPharmHub()`, so PharmHub state will not be saved into the `pharmHubStateList`.
-
-</div>
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoPharmHub()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous pharmHub state, and restores PharmHub to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which does the following things in order. It saves the current state into `redoHistory`, updates `Current State` to the last state in `undoHistory`, and removes that last state from `undoHistory`.
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial PharmHub state, then there are no previous PharmHub states to restore. The `undo` command uses `Model#canUndoPharmHub()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Before the undo operation, the `Model` will first check if an undo is possible in the first place, and it does so by calling `VersionedPharmHub#canUndo()`, which checks if `undoHistory` is empty. If an undo operation cannot be done, an error is thrown by the `Model`.</div>
 
 The following sequence diagram shows how the undo operation works:
 
@@ -197,23 +189,23 @@ The following sequence diagram shows how the undo operation works:
 
 </div>
 
-The `redo` command does the opposite — it calls `Model#redoPharmHub()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores PharmHub to that state.
+The `redo` command does the opposite — it calls `Model#redo()`, which saves the `Current State` into `undoHistory`, sets the `Current State` as the last state in `redoHistory`, and removes said state from `redoHistory`. 
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `pharmHubStateList.size() - 1`, pointing to the latest pharmHub state, then there are no undone PharmHub states to restore. The `redo` command uses `Model#canRedoPharmHub()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Similar to `undo`, if `Model#canRedo` returns `False`, ie. the `redoHistory` is empty, then the `Model` throws an error.
 
 </div>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify PharmHub, such as `list`, will usually not call `Model#commitPharmHub()`, `Model#undoPharmHub()` or `Model#redoPharmHub()`. Thus, the `pharmHubStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify data in PharmHub, such as `list`, will not change the `undoHistory` or `redoHistory`
 
 ![UndoRedoState4](images/UndoRedoState4.png)
 
-Step 6. The user executes `clear`, which calls `Model#commitPharmHub()`. Since the `currentStatePointer` is not pointing at the end of the `pharmHubStateList`, all pharmHub states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#Clear()`, which in turn calls `VersionedAddressBook#Clear()`. As before, the `Current State` is added to `undoHistory`, and then `PharmHub#clear()` is called, which changes the state. Moreover, the `redoHistory` will be cleared, preventing users from running `redo` after a data-modifying non-undo command. Reason: This is how most applications handle undo/redo.
 
 ![UndoRedoState5](images/UndoRedoState5.png)
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-<img src="images/CommitActivityDiagram.png" width="250" />
+<img src="images/CommitActivityDiagram.png" width="450" />
 
 #### Design considerations:
 
@@ -225,10 +217,17 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-    * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+    * Pros: Will use less memory (e.g. for `deletep`, just save the person being deleted).
     * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
+**Aspect: Effects (Scale) of undo & redo:**
+* **Alternative 1 (current choice):** Only affects data-modifying operations
+    * Pros: Simple to implement, provides essential functionality
+    * Cons: Non-data-modifying commands cannot be undone, eg. `list`
+
+* **Alternative 2:** Affects all commands
+    * Pros: Changes in view can be undone, leading to greater convenience. Easily extensible to undo certain views
+    * Cons: Versioning has to be extended to keep track of UI, which may lead to increased coupling.
 
 ### \[Proposed\] Data archiving
 
