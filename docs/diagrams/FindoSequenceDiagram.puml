@@ -3,6 +3,7 @@
 skinparam ArrowFontStyle plain
 
 box Logic LOGIC_COLOR_T1
+
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":PharmHubParser" as PharmHubParser LOGIC_COLOR
 participant ":FindOrderCommandParser" as FindOrderCommandParser LOGIC_COLOR
@@ -39,8 +40,10 @@ activate FindOrderCommandParser
 alt getValue(PREFIX_STATUS).isPresent()
 FindOrderCommandParser -> ParserUtil : parseStatus("pd")
 activate ParserUtil
+
 ParserUtil -> Status : new Status(PENDING)
 activate Status
+
 Status --> ParserUtil : s
 deactivate Status
 ParserUtil --> FindOrderCommandParser : s
@@ -50,8 +53,10 @@ end
 alt getValue(PREFIX_MEDICINE).isPresent()
 FindOrderCommandParser -> ParserUtil : parseMedicines("pan ibuprofen")
 activate ParserUtil
+
 ParserUtil -> Medicine : new Medicine({panadol, ibuprofen})
 activate Medicine
+
 Medicine --> ParserUtil : m
 deactivate Medicine
 ParserUtil --> FindOrderCommandParser : m
@@ -62,6 +67,7 @@ create FindOrderCommand
 FindOrderCommandParser -> FindOrderCommand : FindOrderCommand(s,m)
 
 activate FindOrderCommand
+
 FindOrderCommand --> FindOrderCommandParser : cmd
 deactivate FindOrderCommand
 
@@ -72,15 +78,19 @@ deactivate PharmHubParser
 
 LogicManager -> FindOrderCommand : execute()
 activate FindOrderCommand
+
 FindOrderCommand -> Model : updateFilteredOrderList(combined)
 activate Model
+
 Model --> FindOrderCommand
 deactivate Model
 
 create CommandResult
 FindOrderCommand -> CommandResult
 activate CommandResult
+
 CommandResult --> FindOrderCommand
+
 FindOrderCommand --> LogicManager : result
 deactivate FindOrderCommand
 LogicManager -->[
