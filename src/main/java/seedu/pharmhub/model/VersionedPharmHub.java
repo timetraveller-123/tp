@@ -12,13 +12,11 @@ import seedu.pharmhub.model.person.Person;
 public class VersionedPharmHub extends PharmHub {
     private final ArrayDeque<PharmHub> undoHistory;
     private final ArrayDeque<PharmHub> redoHistory;
-    private final ModelManager modelManager;
 
     VersionedPharmHub() {
         super();
         undoHistory = new ArrayDeque<>();
         redoHistory = new ArrayDeque<>();
-        modelManager = null;
     }
 
     /**
@@ -28,7 +26,6 @@ public class VersionedPharmHub extends PharmHub {
         super(toBeCopied);
         undoHistory = new ArrayDeque<>();
         redoHistory = new ArrayDeque<>();
-        this.modelManager = modelManager;
     }
 
     private void saveHistory() {
@@ -57,7 +54,7 @@ public class VersionedPharmHub extends PharmHub {
 
         PharmHub prev = undoHistory.pollFirst();
         redoHistory.addFirst(new PharmHub(this));
-        modelManager.setPharmHub(prev);
+        super.resetData(prev);
     }
 
     /**
@@ -75,7 +72,7 @@ public class VersionedPharmHub extends PharmHub {
 
         PharmHub next = redoHistory.pollFirst();
         undoHistory.addFirst(new PharmHub(this));
-        modelManager.setPharmHub(next);
+        super.resetData(next);
     }
 
     //=========== Undoable functions =============================================================
