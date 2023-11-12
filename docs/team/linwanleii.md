@@ -3,9 +3,10 @@ layout: page
 title: Lin Wan Lei's Project Portfolio Page
 ---
 
-### Project: PharmHub Level 3
+### Project: PharmHub
 
-PharmHub - Level 3 is a desktop pharmHub application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+PharmHub - PharmHub is an order and patient tracking application for small remote pharmacist to implement an all-in-one application to improve precision and efficiency. 
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 Given below are my contributions to the project.
 
@@ -15,12 +16,29 @@ Given below are my contributions to the project.
   * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
   * Credits: *{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}*
 
-* **New Feature**: Added a history command that allows the user to navigate to previous commands using up/down keys.
+* **New Feature**: Added A Detail information display to GUI.
+  * What it does: Allows user to view more detailed information on order `viewo` and person `viewp`. Displays the information of most recent added/edited/deleted order or person.
+  * Justification: This feature improves the product significantly because the user can view and analysis more in-depth information easy. Furthermore, displaying the orders or person after an action is done on them helps them check and rectify their actions.
+  * Highlights: This enhancement affects how the whole application works and displays itself. It enabled a lot of future implementation that could be build upon to further enhance the application. The challenging part of the implementation was to determine the characteristic and the look of the display.
+  * Credits: NIL
 
-* **Code contributed**: [RepoSense link]()
+* **New Feature**: Added A Status for Orders.
+  * What it does: 
+  * Justification: 
+  * Highlights: 
+  * Credits: NIL
+
+* **New Feature**: Added A find order command.
+  * What it does:
+  * Justification:
+  * Highlights:
+  * Credits: NIL
+
+* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2324s1.github.io/tp-dashboard/?search=linwanleii&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code&since=2023-09-22&tabOpen=true&tabType=authorship&tabAuthor=LinWanLeii&tabRepo=AY2324S1-CS2103T-W08-4%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 
 * **Project management**:
-  * Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+  * Team lead for the group.
+  * Managed meetings, discussion and task allocation for the team throughout the project.
 
 * **Enhancements to existing features**:
   * Updated the GUI color scheme (Pull requests [\#33](), [\#34]())
@@ -28,10 +46,14 @@ Given below are my contributions to the project.
 
 * **Documentation**:
   * User Guide:
-    * Added documentation for the features `delete` and `find` [\#72]()
-    * Did cosmetic tweaks to existing documentation of features `clear`, `exit`: [\#74]()
+    * Added documentation for the features `addo`, `deleteo`, `updates` and `findo` [\#124](https://github.com/AY2324S1-CS2103T-W08-4/tp/pull/124/files)
+    * In charge of `Table of Content`, `Quick Start` and `Trouble Shooting`
+    * Added new category called `Definition` and `Navigation`
   * Developer Guide:
-    * Added implementation details of the `delete` feature.
+    * Added implementation details of the `findo` and `addo` feature.
+    * Managed the Table of content.
+    * Updated the storage component.
+    * Updated and added all use cases.
 
 * **Community**:
   * PRs reviewed (with non-trivial review comments): [\#12](), [\#32](), [\#19](), [\#42]()
@@ -43,4 +65,3 @@ Given below are my contributions to the project.
   * Integrated a third party library (Natty) to the project ([\#42]())
   * Integrated a new Github plugin (CircleCI) to the team repo
 
-* _{you can add/remove categories in the list above}_
