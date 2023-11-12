@@ -186,21 +186,6 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             listPanelPlaceholder.getChildren().add(medicineListPanel.getRoot());
         }
-        /*
-        if (panelToShow == CommandResult.ListPanelEffects.PERSON
-                && listPanelPlaceholder.getChildren().contains(orderListPanel.getRoot())) {
-            listPanelPlaceholder.getChildren().remove(orderListPanel.getRoot());
-            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        } else if (panelToShow == CommandResult.ListPanelEffects.ORDER
-                && listPanelPlaceholder.getChildren().contains(personListPanel.getRoot())) {
-            listPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
-            listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
-        }
-         */
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     @FXML
