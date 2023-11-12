@@ -44,10 +44,6 @@ Given below are my contributions to the project.
 
 **Code contributed**: [RepoSense link](https://nus-cs2103-ay2324s1.github.io/tp-dashboard/?search=joeng03&breakdown=false&sort=groupTitle%20dsc&sortWithin=title&since=2023-09-22&timeframe=commit&mergegroup=&groupSelect=groupByRepos)
 
-
-
-**Enhancements to existing features**:
-
 **Testing**:
 
 * [Add tests for findo command](https://github.com/AY2324S1-CS2103T-W08-4/tp/pull/171)
@@ -57,8 +53,6 @@ Given below are my contributions to the project.
 **Team-based tasks**:
 
 * Renaming of AddressBook to PharmHub
-
-* Updating of project icon from AddressBook to PharmHub 
 
 **Documentation**:
 
@@ -82,8 +76,8 @@ Developer Guide:
 
 **Community**:
 
-* PRs reviewed: [\#167](https://github.com/AY2324S1-CS2103T-W08-4/tp/pull/167), [\#184](https://github.com/AY2324S1-CS2103T-W08-4/tp/pull/184), [\#185](https://github.com/AY2324S1-CS2103T-W08-4/tp/pull/191), [\#186](https://github.com/AY2324S1-CS2103T-W08-4/tp/pull/186), [\#188](https://github.com/AY2324S1-CS2103T-W08-4/tp/pull/191), [\#191](https://github.com/AY2324S1-CS2103T-W08-4/tp/pull/191)
-
 * Contributions on the forum: [\#6](https://github.com/nus-cs2103-AY2324S1/forum/issues/6), [\#7](https://github.com/nus-cs2103-AY2324S1/forum/issues/7), [\#46](https://github.com/nus-cs2103-AY2324S1/forum/issues/46), [\#100](https://github.com/nus-cs2103-AY2324S1/forum/issues/100)
+
+* PRs reviewed: [\#167](https://github.com/AY2324S1-CS2103T-W08-4/tp/pull/167), [\#184](https://github.com/AY2324S1-CS2103T-W08-4/tp/pull/184), [\#185](https://github.com/AY2324S1-CS2103T-W08-4/tp/pull/191), [\#186](https://github.com/AY2324S1-CS2103T-W08-4/tp/pull/186), [\#188](https://github.com/AY2324S1-CS2103T-W08-4/tp/pull/191), [\#191](https://github.com/AY2324S1-CS2103T-W08-4/tp/pull/191)
 
 * Reported bugs and suggestions for other teams in the class: [\#1](https://github.com/joeng03/ped/issues/1), [\#2](https://github.com/joeng03/ped/issues/2), [\#3](https://github.com/joeng03/ped/issues/3), [\#4](https://github.com/joeng03/ped/issues/4), [\#5](https://github.com/joeng03/ped/issues/5), [\#6](https://github.com/joeng03/ped/issues/6), [\#7](https://github.com/joeng03/ped/issues/7)
