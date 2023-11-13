@@ -422,7 +422,7 @@ The finding an Order feature allows the user to find other base on either the or
 7. The `Model#updateFilteredOrder` will then take either or both `Status` and `Medicine` as predicates to filter through the order list and return valid orders.
 8. The filtered order list will then be returned and shown on the Displayed list.
 
-The following sequence diagram shows how `findo` works on an example input. `findo s/pd m/pan ibuprofen`
+The following sequence diagram shows how `findo` works on an example input. `findo s/pd m/pan`
 
 <img src="images/FindoSequenceDiagram.png" width="1200" />
 
