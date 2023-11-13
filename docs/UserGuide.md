@@ -20,7 +20,7 @@ This guide aims to enlighten you on the workings of PharmHub, and empower you to
 
 **Getting started in a breeze**:
 
-* Jump around quickly via our [Table Of Contents](#table-of-contents--toc-)
+* Jump around quickly via our [Table Of Contents](#table-of-contents-toc)
 * Familiarise yourself with key [Definitions](#definitions)
 * Get to know our GUI through our [Application Navigation](#application-navigation)
 * Dive into our hands-on [Quick Start](#quick-start) guide
@@ -73,7 +73,7 @@ This guide aims to enlighten you on the workings of PharmHub, and empower you to
 --------------------------------------------------------------------------------------------------------------------
 
 ## Definitions
-Jump to [TOC](#table-of-contents--toc-)
+Jump to [TOC](#table-of-contents-toc)
 
 This section provides an introduction to the terminology used in this user guide. 
 
@@ -172,7 +172,7 @@ All indices have to be positive integers. <br />
 ---
 
 ## Application Navigation
-Jump to [TOC](#table-of-contents--toc-)
+Jump to [TOC](#table-of-contents-toc)
 
 Below shows a guide on how you can navigate around our interactive Graphical User Interface (GUI)
 
@@ -191,7 +191,7 @@ Below shows a guide on how you can navigate around our interactive Graphical Use
 
 ## Quick start
 
-Jump to [TOC](#table-of-contents--toc-)
+Jump to [TOC](#table-of-contents-toc)
 
 
 1. Ensure you have Java `11` or above installed in your Computer.
@@ -239,7 +239,7 @@ Jump to [TOC](#table-of-contents--toc-)
 
 ## Features
 
-Jump to [TOC](#table-of-contents--toc-)
+Jump to [TOC](#table-of-contents-toc)
 
 <div markdown="block" class="alert alert-info">
 
@@ -272,7 +272,7 @@ Shows a message explaining how to access the help page.
 Format: `help`
 
 ### Person Commands
-Jump to [TOC](#table-of-contents--toc-)
+Jump to [TOC](#table-of-contents-toc)
 
 
 ### Adding a person: `addp`
@@ -368,7 +368,7 @@ Examples:
 ---
 
 ### Medicine Commands
-Jump to [TOC](#table-of-contents--toc-)
+Jump to [TOC](#table-of-contents-toc)
 
 ### Adding a new medicine : `addm`
 
@@ -447,7 +447,7 @@ Example:
 ---
 
 ### Order Commands
-Jump to [TOC](#table-of-contents--toc-)
+Jump to [TOC](#table-of-contents-toc)
 
 ### Listing all orders : `listo` 
 
@@ -529,7 +529,7 @@ Format: `deleteo INDEX`
 
 Example: `deleteo 2`
 
-Jump to [TOC](#table-of-contents--toc-)
+Jump to [TOC](#table-of-contents-toc)
 
 ### Undoing an action : `undo` 
 
@@ -586,7 +586,7 @@ If your changes to the data file makes its format invalid, PharmHub will discard
 
 
 ## Command Summary
-Jump to [TOC](#table-of-contents--toc-)
+Jump to [TOC](#table-of-contents-toc)
 
 
 | Action                    | Format                                                                                                                     | Examples                                                                                                       |
@@ -617,7 +617,7 @@ Jump to [TOC](#table-of-contents--toc-)
 ---
 
 ## Troubleshooting
-Jump to [TOC](#table-of-contents--toc-)
+Jump to [TOC](#table-of-contents-toc)
 
 
 ### FAQ
@@ -685,4 +685,4 @@ Click [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/issues/new) to feedbac
 | **Java**             | Java is a widely used programming language and is used in PharmHub.                                                   |
 | **Jar**              | Java Archive contains all of the various components that make up a Java application, in this case PharmHub.           |
 | **Json**             | JavaScript Object Notation(Json) is a text format for storing data. It is used by PharmHub to store application data. |  
-| **TOC**              | [Table of Contents](#table-of-contents--toc-)                                                                         |
+| **TOC**              | [Table of Contents](#table-of-contents-toc)                                                                         |
