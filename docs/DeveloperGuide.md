@@ -303,6 +303,30 @@ The following sequence diagram shows how `addorder` works on an example input.
 ![AddOrderSequenceDiagram](images/AddOrderSequenceDiagram.png)
 
 
+## Planned Enhancements
+
+### Feature: Better-UndoRedo
+
+Undo and Redo commands are able to effect UI changes.
+
+Currently, Undo and Redo commands do not affect the UI. As such, commands such as `listp` and `findp` cannot be undone. Moreover, as spillover, undoing a past command does not change the UI. This makes it such that a recently added person, that is later deleted by `undo`, will still be visible in the Info Display, until another command (eg. `viewp`) displaces it.
+
+Example: 
+
+Originally, PharmHub has the following display.
+
+<img src="images/BetterUndo-0.png" width="574" />
+
+After adding a 'newguy2' using `addp`, he shows up in the Info Display.
+
+<img src="images/BetterUndo-1.png" width="574" />
+
+On `undo`, the person's information still stays on the Info Display, even though he no longer exists in PharmHub.
+
+<img src="images/BetterUndo-2.png" width="574" />
+
+With this enhancement, the UI will also revert to its previous state before `newguy2` was added, in this case, a blank page.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
