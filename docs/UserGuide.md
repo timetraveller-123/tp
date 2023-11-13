@@ -41,6 +41,30 @@ PharmHub isn't just software; it's your ally in precision pharmacy management. L
 2. [Application Navigation](#application-navigation)
 3. [Quick Start](#quick-start)
 4. [Features](#features)
+   1. [Help](#viewing-help--help)
+   2. [Person Related Commands](#person-related-commands)
+      1. [Add Person](#adding-a-person-addp)
+      2. [list Person](#listing-all-persons--listp)
+      3. [View Person](#viewing-a-person-viewp)
+      4. [Edit Person](#editing-a-person--editp)
+      5. [Delete Person](#deleting-a-person--deletep)
+   3. [Medicine Related Commands](#medicine-related-commands)
+       1. [Add Medicine](#adding-a-new-medicine--addm)
+       2. [list Medicine](#listing-all-medicines--listm)
+       3. [Find Medicine](#locating-a-medicine-by-name--findm-)
+       4. [Delete Medicine](#deleting-a-medicine--deletem)
+       5. [Add Short Form Medicine](#adding-and-deleting-short-form--sfm)
+   4. [Order Related Commands](#person-related-commands)
+       1. [list Order](#listing-all-orders--listo-)
+       2. [View Order](#viewing-an-order--viewo-)
+       3. [Add Order](#adding-a-new-order--addo-)
+       4. [Update Order Status](#updating-the-status-of-an-order--updates-)
+       5. [Find Order](#filteringfinding-order-by-status-and-medicines-findo)
+       6. [Delete Order](#deleting-an-order--deleteo-)
+   5. [Undo](#undoing-an-action--undo-)
+   6. [Redo](#redoing-an-action-after-an-undo--redo-)
+   7. [Clear](#clearing-all-entries--clear)
+   8. [Exit](#exiting-the-program--exit)
 5. [Command Summary](#command-summary)
 6. [Trouble Shooting](#trouble-shooting)
    1. [FAQ](#faq)
@@ -179,7 +203,6 @@ Below shows a guide on how you can navigate around our interactive Graphical Use
    * For both `Mac` and `Window` user click [here](https://nus-cs2103-ay2324s1.github.io/website/admin/programmingLanguages.html) for a guide to download the required `java` language for your computer.
 
 2. Download the latest `PharmHub.jar` from [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/releases).
-    * For `Mac` users remember to use your command terminal and navigate to the correct directory with `cd` then run `java -jar PharmHub.jar`.
 
 3. Copy the file to the folder you want to use as the _home folder_ for your PharmHub.
 
@@ -195,13 +218,17 @@ Below shows a guide on how you can navigate around our interactive Graphical Use
    * `listo` : Lists all order.
    
    * `listm` : Lists all medicine.
-   
-   * `viewp 1` : views in detail index 1 of the person list.(The Displayed list does not have to be person to view person)
 
-   * `viewo 1` : views in detail index 1 of the order list.
+   * `addm m/ibuprofen`: Adds a medicine named `Ibuprofen` to PharmHub.
 
    * `addp n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a person named `John Doe` to PharmHub.
 
+   * `addo 1 m/ibuprofen o/123`: Adds an order with order number `123` for person indexed `1` to PharmHub.
+
+   * `viewp 1` : views in detail index 1 of the person list.(The Displayed list does not have to be person to view person)
+
+   * `viewo 1` : views in detail index 1 of the order list.
+   
    * `deletep 3` : Deletes the 3rd patient shown in the current list.
 
    * `clear` : Deletes all people.
@@ -244,6 +271,7 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
+### Person Related Commands
 
 ### Adding a person: `addp`
 
@@ -334,6 +362,10 @@ Examples:
 * `listp` followed by `deletep 2` deletes the 2nd person in PharmHub.
 * `findp Betsy` followed by `deletep 1` deletes the 1st person in the results of the `find` command.
 
+---
+
+### Medicine Related Commands
+
 ### Adding a new medicine : `addm`
 
 Adds a new medication into PharmHub.  
@@ -405,6 +437,10 @@ Format: `sfm INDEX [m/SHORT_FORM] [d/]`
 
 Example:
 * `sfm 1 m/pan`
+
+---
+
+### Order Related Commands
 
 ### Listing all orders : `listo` 
 
