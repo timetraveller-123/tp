@@ -31,35 +31,36 @@ This guide aims to enlighten you on the workings of PharmHub, and empower you to
 --------------------------------------------------------------------------------------------------------------------
 ## Table of Contents (TOC)
 1. [Definitions](#definitions)
+   1. [Medicine](#medicine)
    1. [Person](#person)
-   2. [Order](#order)
-   3. [Status](#status)
-   4. [Medicine](#medicine)
-   5. [Fields](#fields)
-   6. [Index](#index)
+   1. [Order](#order)
+   1. [Status](#status)
+   1. [Fields](#fields)
+   1. [Index](#index)
 2. [Application Navigation](#application-navigation)
 3. [Quick Start](#quick-start)
 4. [Features](#features)
    1. [Help](#viewing-help--help)
    2. [Person Commands](#person-commands)
       1. [Add Person](#adding-a-person--addp)
-      2. [list Person](#listing-all-persons--listp)
-      3. [View Person](#viewing-a-person-viewp)
-      4. [Edit Person](#editing-a-person--editp)
-      5. [Delete Person](#deleting-a-person--deletep)
+      1. [List People](#listing-all-persons--listp)
+      1. [Find Person](#finding-a-person--findp)
+      1. [View Person](#viewing-a-person--viewp)
+      1. [Edit Person](#editing-a-person--editp)
+      1. [Delete Person](#deleting-a-person--deletep)
    3. [Medicine Commands](#medicine-commands)
        1. [Add Medicine](#adding-a-new-medicine--addm)
-       2. [list Medicine](#listing-all-medicines--listm)
-       3. [Find Medicine](#locating-a-medicine-by-name--findm)
-       4. [Delete Medicine](#deleting-a-medicine--deletem)
-       5. [Add Short Form Medicine](#adding-and-deleting-short-form--sfm)
-   4. [Order Commands](#person-commands)
-       1. [list Order](#listing-all-orders--listo)
-       2. [View Order](#viewing-an-order--viewo)
-       3. [Add Order](#adding-a-new-order--addo)
-       4. [Update Order Status](#updating-the-status-of-an-order--updates)
-       5. [Find Order](#filteringfinding-order-by-status-and-medicines--findo)
-       6. [Delete Order](#deleting-an-order--deleteo)
+       1. [Add Short Form for Medicine](#adding-and-deleting-short-form--sfm)
+       1. [List Medicines](#listing-all-medicines--listm)
+       1. [Find Medicine](#locating-a-medicine-by-name--findm)
+       1. [Delete Medicine](#deleting-a-medicine--deletem)
+   4. [Order Commands](#order-commands)
+      1. [Add Order](#adding-a-new-order--addo)
+      1. [List Orders](#listing-all-orders--listo)
+      1. [Find Order](#filteringfinding-order-by-status-and-medicines--findo)
+      1. [View Order](#viewing-an-order--viewo)
+      1. [Update Order Status](#updating-the-status-of-an-order--updates)
+      1. [Delete Order](#deleting-an-order--deleteo)
    5. [Undo](#undoing-an-action--undo)
    6. [Redo](#redoing-an-undo-action--redo)
    7. [Clear](#clearing-all-entries--clear)
@@ -271,11 +272,11 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
-### Person Commands
+### *Person Commands*
 Jump to [TOC](#table-of-contents-toc)
 
 
-### Adding a person: `addp`
+### Adding a person : `addp`
 
 Adds a person to PharmHub.
 
@@ -297,7 +298,26 @@ Format: `listp`
 
 ![listp](images/listp.png)
 
-### Viewing a person `viewp`
+### Finding a person: `findp`
+
+Finds persons whose names, phone numbers, emails, tags, and allergies match the given inputs.
+
+Format: `findp [n/KEYWORD [MORE_KEYWORDS]…] [p/PHONE_NUMBER] [e/EMAIL] [t/KEYWORD [MORE_KEYWORDS]…] [no/KEYWORD [MORE_KEYWORDS]…]`
+
+* The search for name, tags and allergies are case-insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search).
+  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The search for phone number and email are case-sensitive and must be an exact match.
+  e.g. `9123456` will not match `91234567` and `johndoe@example` does not match `johndoe@example.com`
+
+Examples:
+* `findp n/Alex david` returns `Alex Yeoh`, `David Li`<br>
+* `findp no/paracetamol penicillin`
+  ![result for 'find alex david'](images/findAlexDavidResult.png)
+
+### Viewing a person : `viewp`
 
 Displays the specified person with more details in the info panel.
 
@@ -329,25 +349,6 @@ Examples:
 *  `editp 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 *  `editp 3 no/` Edits the allergies of the 3rd person to be empty.
 
-### Finding a person: `findp`
-
-Finds persons whose names, phone numbers, emails, tags, and allergies match the given inputs. 
-
-Format: `findp [n/KEYWORD [MORE_KEYWORDS]…] [p/PHONE_NUMBER] [e/EMAIL] [t/KEYWORD [MORE_KEYWORDS]…] [no/KEYWORD [MORE_KEYWORDS]…]`
-
-* The search for name, tags and allergies are case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-* The search for phone number and email are case-sensitive and must be an exact match.
-e.g. `9123456` will not match `91234567` and `johndoe@example` does not match `johndoe@example.com`
-
-Examples:
-* `findp n/Alex david` returns `Alex Yeoh`, `David Li`<br>
-* `findp no/paracetamol penicillin`
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
-
 ### Deleting a person : `deletep`
 
 Deletes the specified person from PharmHub.
@@ -367,7 +368,7 @@ Examples:
 
 ---
 
-### Medicine Commands
+### *Medicine Commands*
 Jump to [TOC](#table-of-contents-toc)
 
 ### Adding a new medicine : `addm`
@@ -382,6 +383,27 @@ Format: `addm m/MEDICINE_NAME`
 Example:
 * `addm m/Aspirin`
 
+<div style="page-break-after: always;"></div>
+
+### Adding and Deleting short form : `sfm`
+
+Adds or Deletes a short form from the specified medicine from PharmHub.
+
+Format: `sfm INDEX [m/SHORT_FORM] [d/]`
+
+* Index refers to index of medicine in the last displayed medicine list.
+* At least one of `m/` or `d/` must be provided.
+* If the `d/` is not provided, the given short form will be added to the medicine at the specified `INDEX`.
+   * The provided short form must not be empty and must not be same as any existing medicine name or short form in PharmHub.
+   * Any existing short form of the medicine will be overwritten.
+   * After this, the short form can be used interchangeably with the medicine name.
+* If the `d/` is provided, the short form(if any) of the medicine at the specified `INDEX` will be deleted.
+   * Any short form provided using `m/` will be ignored.
+
+Example:
+* `sfm 1 m/pan`
+* `sfm 1 d/`
+
 ### Listing all medicines : `listm`
 
 Shows a list of all medicines in PharmHub.  
@@ -390,7 +412,7 @@ Format: `listm`
 
 ![listm](images/listm.png)
 
-### Locating a medicine by name : `findm` 
+### Finding a medicine : `findm` 
 
 Finds all medicines whose name or short form contains any of the given keywords.  
 
@@ -401,9 +423,7 @@ Format : `Format: findm KEYWORD [MORE_KEYWORD]…`
 * Medicines matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `ol en` will return `Panadol`, `Ibuprofen`
 
-
 <div markdown="span" class="alert alert-info">:information_source: **Note:** Unlike `findp`, partial words will be matched e.g. `para` will  match `Paracetamol`.</div>
-
 
 Examples:
 * `findm ol`
@@ -419,50 +439,17 @@ Format: `deletem INDEX`
 * The index refers to the index number shown in the last displayed medicine list.
 * The index **must be a positive integer** 1, 2, 3, …​ 
 * The command will be blocked if there are existing orders with the specified medicine 
-  or persons allergic to the specified medicine.  
-
+  or persons allergic to the specified medicine.
 
 Example:
 * `deletem 2`
 
-### Adding and Deleting short form : `sfm`
-
-Adds or Deletes a short form from the specified medicine from PharmHub.
-
-Format: `sfm INDEX [m/SHORT_FORM] [d/]`
-
-* Index refers to index of medicine in the last displayed medicine list.
-* At least one of `m/` or `d/` must be provided.
-* If the `d/` is not provided, the given short form will be added to the medicine at the specified `INDEX`.  
-  * The provided short form must not be empty and must not be same as any existing medicine name or short form in PharmHub.  
-  * Any existing short form of the medicine will be overwritten.
-  * After this, the short form can be used interchangeably with the medicine name.  
-* If the `d/` is provided, the short form(if any) of the medicine at the specified `INDEX` will be deleted.  
-  * Any short form provided using `m/` will be ignored.
-
-Example:
-* `sfm 1 m/pan`
-* `sfm 1 d/`
-
 ---
 
-### Order Commands
+### *Order Commands*
 Jump to [TOC](#table-of-contents-toc)
 
-### Listing all orders : `listo` 
-
-Shows an interactive list of all orders in PharmHub.
-
-Format: `listo`
-
-### Viewing an order : `viewo` 
-
-Shows the order in the info panel.
-
-Format: `viewo`
-
-
-### Adding a new order : `addo` 
+### Adding a new order : `addo`
 
 Adds a new order of the given medication(s) corresponding to a person into the system.
 
@@ -482,27 +469,15 @@ Examples:
 * `addo 1 o/618457 m/panadol`
 * `addo 3 o/438756 m/par` -> `addo 3 o/438756 m/par ia/`
 
+### Listing all orders : `listo` 
 
-### Updating the status of an order : `updates`
+Shows an interactive list of all orders in PharmHub.
 
-Updates the status of the order to the designated status.
+Format: `listo`
 
-Format: `updates INDEX s/STATUS`
+### Finding an Order: `findo`
 
-* Statuses: `Pending (pd) -> Preparing (pr) -> Completed (cp) -> Cancelled (cc)`, in increasing hierarchy
-* Statuses can only be updated upwards. Once the status of an order progresses to the next stage, it cannot go back.
-* Statuses can be updated by skipping the hierarchy. `Pending -> Cancelled`
-* Shorthands can be used in replacement of the full names of the statuses
-
-Example: 
-* `updates 1 s/completed`
-* `updates 1 s/COMPLETED`
-* `updates 1 s/cp`
-* `updates 1 s/CP`
-
-### Filtering/Finding Order by status and medicines: `findo`
-
-Finds orders whose status and medicine match the given inputs.
+Finds orders whose status and medicines match the given inputs.
 
 Format: `findo [s/STATUS] [m/MEDICINE_NAME]…`
 
@@ -521,6 +496,29 @@ Examples:
 
 ![result for 'findo s/pd m/Panadol'](images/findOrder2Input.png)
 
+### Viewing an order : `viewo` 
+
+Shows the order in the info panel.
+
+Format: `viewo`
+
+### Updating the status of an order : `updates`
+
+Updates the status of the order to the designated status.
+
+Format: `updates INDEX s/STATUS`
+
+* Statuses: `Pending (pd) -> Preparing (pr) -> Completed (cp) -> Cancelled (cc)`, in increasing hierarchy
+* Statuses can only be updated upwards. Once the status of an order progresses to the next stage, it cannot go back.
+* Statuses can be updated by skipping the hierarchy. `Pending -> Cancelled`
+* Shorthands can be used in replacement of the full names of the statuses
+
+Example: 
+* `updates 1 s/completed`
+* `updates 1 s/COMPLETED`
+* `updates 1 s/cp`
+* `updates 1 s/CP`
+
 ### Deleting an order : `deleteo` 
 
 Deletes the specified order from PharmHub.
@@ -530,6 +528,8 @@ Format: `deleteo INDEX`
 Example: `deleteo 2`
 
 Jump to [TOC](#table-of-contents-toc)
+
+---
 
 ### Undoing an action : `undo` 
 
@@ -591,23 +591,23 @@ Jump to [TOC](#table-of-contents-toc)
 
 | Action                    | Format                                                                                                                     | Examples                                                                                                       |
 |---------------------------|----------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| **Add Person**            | `addp n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [no/ALLERGY]…​`                                                      | `addp n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/Diabetic t/Elderly no/aspirin` |
 | **List People**           | `listp`                                                                                                                    | `listp`                                                                                                        |
 | **Find Person**           | `findp [n/KEYWORD [MORE_KEYWORDS]…] [p/PHONE_NUMBER] [e/EMAIL] [t/KEYWORD [MORE_KEYWORDS]…] [no/KEYWORD [MORE_KEYWORDS]…]` | `findp n/James Jake`                                                                                           |
 | **View Person**           | `viewp INDEX`                                                                                                              | `viewp 1`                                                                                                      |
-| **Add Person**            | `addp n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [no/ALLERGY]…​`                                                      | `addp n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/Diabetic t/Elderly no/aspirin` |
 | **Edit Person**           | `editp INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/allergy]…​`                                       | `editp 2 n/James Lee e/jameslee@example.com`                                                                   |
 | **Delete Person**         | `deletep INDEX`                                                                                                            | `deletep 3`                                                                                                    |
+| **Add Order**             | `addo INDEX o/ORDER_NUMBER m/MEDICINE_NAME [m/MEDICINE_NAME]…`                                                             | `addo 3 o/438756 m/claritin`                                                                                   |
 | **List Orders**           | `listo`                                                                                                                    | `listo`                                                                                                        |
 | **Find Order**            | `findo [s/STATUS] [m/MEDICINE_NAME]…`                                                                                      | `findo s/cp m/pen`                                                                                             |
 | **View Order**            | `viewo ORDER_NUMBER`                                                                                                       | `viewo 12345`                                                                                                  |
-| **Add Order**             | `addo INDEX o/ORDER_NUMBER m/MEDICINE_NAME [m/MEDICINE_NAME]…`                                                             | `addo 3 o/438756 m/claritin`                                                                                   |
 | **Update Order Status**   | `updates INDEX s/STATUS`                                                                                                   | `updates 1 s/cc`                                                                                               |
 | **Delete Order**          | `deleteo INDEX`                                                                                                            | `deleteo 3`                                                                                                    |
+| **Add Medicine**          | `addm m/MEDICINE_NAME`                                                                                                     | `addm m/panadol`                                                                                               |
+| **Add/Delete Short Form** | `sfm INDEX [m/SHORT_FORM] [d/]`                                                                                            | `sfm 1 m/met`                                                                                                  |
 | **List Medicine**         | `listm`                                                                                                                    | `listo`                                                                                                        |
 | **Find Medicine**         | `findm KEYWORD [MORE_KEYWORDS]…`                                                                                           | `findm ol`                                                                                                     |
-| **Add Medicine**          | `addm m/MEDICINE_NAME`                                                                                                     | `addm m/panadol`                                                                                               |
 | **Delete Medicine**       | `deletem INDEX`                                                                                                            | `deletem 1`                                                                                                    |
-| **Add/Delete Short Form** | `sfm INDEX [m/SHORT_FORM] [d/]`                                                                                            | `sfm 1 m/met`                                                                                                  |
 | **Undo**                  | `undo`                                                                                                                     | `undo`                                                                                                         |
 | **Redo**                  | `redo`                                                                                                                     | `redo`                                                                                                         |
 | **Clear**                 | `clear`                                                                                                                    | `clear`                                                                                                        |
@@ -675,6 +675,7 @@ Click [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/issues/new) to feedbac
 --------------------------------------------------------------------------------------------------------------------
 
 ## Glossary
+Jump to [TOC](#table-of-contents-toc)
 
 | Term                 | Meaning                                                                                                               |
 |----------------------|-----------------------------------------------------------------------------------------------------------------------|
