@@ -529,7 +529,6 @@ Format: `deleteo INDEX`
 
 Example: `deleteo 2`
 
-Jump to [TOC](#table-of-contents-toc)
 
 ### Undoing an action : `undo` 
 
