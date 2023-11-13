@@ -283,7 +283,7 @@ Step 6: The `Medicine` at index 1 is replaced with a new `Medicine` which has sa
 
 The following activity diagram summarises the sequence of steps for the whole `sfm` command.
 
-<img src="images/ShortFormActivityDiagram.png" width="250" />
+<img src="images/ShortFormActivityDiagram.png" width="400" />
 
 
 ### Adding an Order feature
@@ -1275,6 +1275,9 @@ testers are expected to do more *exploratory* testing.
    the medicine followed by using `sfm` command to add a short form to it. We plan to allow `addm` accept an optional parameter for 
    the short form of the medicine being added. 
 
+1. Currently, the sample data shows incorrect values for tags of persons. We plan to fix this by replacing the current sample tags with 
+   tags that are appropriate in a pharmacy setting like `Elderly`, `Diabetic` or `Child` and so on.
+
 1. Currently, Undo and Redo commands do not affect the UI. As such, commands such as `listp` and `findp` cannot be undone. Moreover, this makes it such that a recently added person, that is later deleted by `undo`, will still be visible in the Info Display, until another command (eg. `viewp`) displaces it.<br />
 Example:<br />
 Originally, PharmHub has the following display.<br />
@@ -1285,6 +1288,7 @@ On `undo`, the person's information still stays on the Info Display, even though
 <img src="images/BetterUndo-2.png" width="574" /><br />
 We plan to enhance the Undo/Redo feature to allow UI changes to be undone/ redone. In this way, UI states are saved along with the data, and can be reverted with `undo` and `redo`.<br />
 In the case of the example given, after the implementation of this planned enhancement, the UI should revert back to an empty display after the `undo` command is ran.
+
 
 
 ## **Appendix: Effort**
