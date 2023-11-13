@@ -73,7 +73,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `deletep 1`.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -138,28 +138,23 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2324S1-CS2103T-W08-4/tp/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="450" />
-
+<img src="images/ModelClassDiagram.png" width="450" /> <br />
+<img src="images/ModelObjectsDiagram.png" width="700" />
 
 The `Model` component,
 
-* stores the PharmHub data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the PharmHub data i.e., all `Person`, `Order`, and `Medicine` objects.
+* stores the currently 'selected' `Person`, `Order`, `Medicine` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `PharmHub`, which `Person` references. This allows `PharmHub` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.png" width="450" />
-
-</div>
 
 
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2324S1-CS2103T-W08-4/tp/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<img src="images/PharmHubStorageClassDiagram.png" width="700" />
+<img src="images/PharmHubStorageClassDiagram.png" width="900" />
 
 The `Storage` component,
 * can save both PharmHub data and user preference data in JSON format, and read them back into corresponding objects.
@@ -238,6 +233,7 @@ The following activity diagram summarises the sequence of steps for the whole `s
 
 <img src="images/ShortFormActivityDiagram.png" width="250" />
 
+
 ### Adding an Order feature
 
 #### Implementation
@@ -261,11 +257,10 @@ will then check and create an `Index`, `OrderNumber` and `Medicine` passing it t
 `person`, `orderNumber`, `medicine` and a `PENDING` Status, then `Model#hasOrder` also checks whether the order is a duplicated order.
 7. If the order does not exist, then the `Model#addOrder` adds the order into the order list.
 
-#### Design Consideration
-
 The following sequence diagram shows how `addo` works on an example input. `addo 1 m/aspirin o/1000`
 
-![AddOrderSequenceDiagram](images/AddoSequenceDiagram.png)
+<img src="images/AddoSequenceDiagram.png" width="1400" />
+
 
 ### Finding an Order Feature
 
@@ -289,50 +284,102 @@ The finding an Order feature allows the user to find other base on either the or
 7. The `Model#updateFilteredOrder` will then take either or both `Status` and `Medicine` as predicates to filter through the order list and return valid orders.
 8. The filtered order list will then be returned and shown on the Displayed list.
 
-#### Design Consideration
-
 The following sequence diagram shows how `findo` works on an example input. `findo s/pd m/pan ibuprofen`
 
-![FindOrderSequenceDiagram](images/FindoSequenceDiagram.png)
+<img src="images/FindoSequenceDiagram.png" width="1200" />
 
-### \[Proposed\] Undo/redo feature
 
-#### Proposed Implementation
+### ViewX feature
 
-The proposed undo/redo mechanism is facilitated by `VersionedPharmHub`. It extends `PharmHub` with an undo/redo history, stored internally as an `pharmHubStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+The `viewp/ viewo` feature allows users to view details of a person/ order in the info display panel. This is facilitated with the new interface, `InfoObject`, which classes that want to be displayed are required to implement.
 
-* `VersionedPharmHub#commit()` — Saves the current pharmHub state in its history.
-* `VersionedPharmHub#undo()` — Restores the previous pharmHub state from its history.
-* `VersionedPharmHub#redo()` — Restores a previously undone pharmHub state from its history.
+To support this feature, `CommandResult` has the field `InfoObject`. If present (not null), the UI will create and attach a view for that `InfoObject` onto the Info Display.
 
-These operations are exposed in the `Model` interface as `Model#commitPharmHub()`, `Model#undoPharmHub()` and `Model#redoPharmHub()` respectively.
+The code excerpt for `MainWindow#handleDisplayInfo(InfoObject)` below shows how the InfoDisplay is rendered:
+
+```java
+    @FXML
+    protected void handleDisplayInfo(InfoObject objectToDisplay) {
+        assert(objectToDisplay instanceof Order || objectToDisplay instanceof Person);
+
+        if (objectToDisplay instanceof Order) {
+            Order order = (Order) objectToDisplay;
+            OrderDisplay orderDisplay = new OrderDisplay(order);
+            infoDisplay.attach(orderDisplay)
+        } else if (objectToDisplay instanceof Person) {
+            Person person = (Person) objectToDisplay;
+            PersonDisplay personDisplay = new PersonDisplay(person);
+            infoDisplay.attach(personDisplay)
+        } else {
+            throw new RuntimeException("Invalid object to display");
+        }
+    }
+```
+
+
+The following sequence diagram shows how the `viewp` operation works:
+
+![ViewpSequenceDiagram](images/ViewpSequenceDiagram.png)
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+<img src="images/ViewActivityDiagram.png" width="450" />
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** As it currently stands in PharmHub, InfoObject can only be a Person or an Order.
+
+</div>
+
+#### Design considerations:
+**Aspect: How the UI is informed about the object to display:**
+
+* **Alternative 1 (current choice):** Require Classes that want to be displayed to implement `InfoObject`
+    * Pros: Allows `CommandResult` to contain a uniform type (`InfoObject`), which scales easily. Also gives control over which classes can be displayed, and which classes cannot (yet). 
+    * Cons: Empty `InfoObject` interface may lead to confusion for new developers.
+
+* **Alternative 2:** Have `CommandResult` contain all types of objects that we want displayed, ie `Person` and `Order`
+    * Pros: Possibly clearer in intent
+    * Cons: Not easily scalable
+
+**Aspect: Creation of relevant `InfoObject` UI component:**
+
+* **Alternative 1 (current choice):** If-else checks in `MainWindow#handleDisplayInfo`, and create the required UI component for each clause
+    * Pros: Reduces coupling between `Person` (and `Order`) model and UI
+    * Cons: Less scalable
+
+* **Alternative 2:** Create abstract method `InfoObject#createUIComponent`, and have Classes that wish to be displayed implement this method and create their own UI components
+    * Pros: Easily scalable - each class implements their own UI display to attach into the placeholder
+    * Cons: Increased coupling between UI and Model. UI-creation code exists inside the `Person` (or `Order`) Class
+
+### Undo/redo feature
+
+The undo/redo mechanism is facilitated by `VersionedPharmHub`. It extends `PharmHub` with an undo/redo history, stored internally as an `undoHistory Deque` and `redoHistory Deque`. Additionally, it implements the following operations:
+
+* `VersionedPharmHub#canUndo()` —  Checks if there is a previous PharmHub state to revert to
+* `VersionedPharmHub#undo()` — Restores the previous PharmHub state from its `undoHistory.
+* `VersionedPharmHub#canRedo()` —  Checks if there is a future PharmHub state to revert to.
+* `VersionedPharmHub#redo()` — Restores a previously undone PharmHub state from its `redoHistory`.
+
+These operations are exposed in the `Model` interface as `Model#canUndo()`, `Model#undo()`, `Model#canRedo()` and `Model#redo()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedPharmHub` will be initialized with the initial pharmHub state, and the `currentStatePointer` pointing to that single pharmHub state.
+Step 1. The user launches the application for the first time. The `VersionedPharmHub` will be initialized with the initial pharmHub state, and the `CurrentState` points to that single pharmHub state. Both `undoHistory` and `redoHistory` will be empty. 
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
-Step 2. The user executes `delete 5` command to delete the 5th person in PharmHub. The `delete` command calls `Model#commitPharmHub()`, causing the modified state of PharmHub after the `delete 5` command executes to be saved in the `pharmHubStateList`, and the `currentStatePointer` is shifted to the newly inserted pharmHub state.
+Step 2. The user executes `deletep 5` command to delete the 5th person in PharmHub. The `deletep` command calls `Model#deletePerson`, which in turn calls `VersionedPharmHub#deletePerson`. This causes the `VersionedPharmHub` to save the current state into `undoHistory`, before calling `PharmHub#deletePerson`, which deletes the person from PharmHub
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitPharmHub()`, causing another modified pharmHub state to be saved into the `pharmHubStateList`.
+Step 3. The user executes `addp n/David …​` to add a new person. The `addp` command calls `Model#addPerson`, which in turn calls `VersionedPharmHub#addPerson` repeating the process in step 2.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitPharmHub()`, so PharmHub state will not be saved into the `pharmHubStateList`.
-
-</div>
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoPharmHub()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous pharmHub state, and restores PharmHub to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undo()`, which does the following things in order. It saves the current state into `redoHistory`, updates `Current State` to the last state in `undoHistory`, and removes that last state from `undoHistory`.
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial PharmHub state, then there are no previous PharmHub states to restore. The `undo` command uses `Model#canUndoPharmHub()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Before the undo operation, the `Model` will first check if an undo is possible in the first place, and it does so by calling `VersionedPharmHub#canUndo()`, which checks if `undoHistory` is empty. If an undo operation cannot be done, an error is thrown by the `Model`.</div>
 
 The following sequence diagram shows how the undo operation works:
 
@@ -342,23 +389,23 @@ The following sequence diagram shows how the undo operation works:
 
 </div>
 
-The `redo` command does the opposite — it calls `Model#redoPharmHub()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores PharmHub to that state.
+The `redo` command does the opposite — it calls `Model#redo()`, which saves the `Current State` into `undoHistory`, sets the `Current State` as the last state in `redoHistory`, and removes said state from `redoHistory`. 
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `pharmHubStateList.size() - 1`, pointing to the latest pharmHub state, then there are no undone PharmHub states to restore. The `redo` command uses `Model#canRedoPharmHub()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Similar to `undo`, if `Model#canRedo` returns `False`, ie. the `redoHistory` is empty, then the `Model` throws an error.
 
 </div>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify PharmHub, such as `list`, will usually not call `Model#commitPharmHub()`, `Model#undoPharmHub()` or `Model#redoPharmHub()`. Thus, the `pharmHubStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify data in PharmHub, such as `list`, will not change the `undoHistory` or `redoHistory`
 
 ![UndoRedoState4](images/UndoRedoState4.png)
 
-Step 6. The user executes `clear`, which calls `Model#commitPharmHub()`. Since the `currentStatePointer` is not pointing at the end of the `pharmHubStateList`, all pharmHub states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#Clear()`, which in turn calls `VersionedAddressBook#Clear()`. As before, the `Current State` is added to `undoHistory`, and then `PharmHub#clear()` is called, which changes the state. Moreover, the `redoHistory` will be cleared, preventing users from running `redo` after a data-modifying non-undo command. Reason: This is how most applications handle undo/redo.
 
 ![UndoRedoState5](images/UndoRedoState5.png)
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-<img src="images/CommitActivityDiagram.png" width="250" />
+<img src="images/CommitActivityDiagram.png" width="450" />
 
 #### Design considerations:
 
@@ -368,22 +415,24 @@ The following activity diagram summarizes what happens when a user executes a ne
     * Pros: Easy to implement.
     * Cons: May have performance issues in terms of memory usage.
 
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-    * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+    * Pros: Will use less memory (e.g. for `deletep`, just save the person being deleted).
     * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
+**Aspect: Effects (Scale) of undo & redo:**
+* **Alternative 1 (current choice):** Only affects data-modifying operations
+    * Pros: Simple to implement, provides essential functionality
+    * Cons: Non-data-modifying commands cannot be undone, eg. `list`
 
-### \[Proposed\] Data archiving
+* **Alternative 2:** Affects all commands
+    * Pros: Changes in view can be undone, leading to greater convenience. Easily extensible to undo certain views
+    * Cons: Versioning has to be extended to keep track of UI, which may lead to increased coupling.
 
-_{Explain here how the data archiving feature will be implemented}_
+### ListX
 
-### Listing all orders
+The listing functionality is supported by the listPanelPlaceholder in the Ui.
 
-The listing all orders functionality is supported by the listPanelPlaceholder in the Ui.
-
-On start of application, two listPanels (PersonListPanel, OrderListPanel) is created, and person list panel is attached
+On start of application, two listPanels (PersonListPanel, OrderListPanel) are created, and person list panel is attached
 to the ListPanel Placeholder as default.
 
 On execution of the any listing commands (`listo` or `listp`), the resultant CommandResult contains details on which
@@ -415,42 +464,46 @@ panel to attach to the listPanelPlaceHolder
 
 **Target user profile**:
 
-* Pharmacists
-* Working remotely
+Tech-savvy fresh-graduate remote pharmacist managing medication orders for a small-medium sized business, looking to move up the corporate ladder quickly.
 
-**Value proposition**: Provide easy access to patient details and allows pharmacists to quickly and accurately process
-medication orders for the patients, optimised for CLI use.
+**Value proposition**: 
+
+PharmHub provides an efficient yet guarded approach towards processing orders. It allows users to go through the lifecycle of order-fulfillment quickly, whilst protecting against erroneous entries and providing a quick and efficient methods of correcting mistakes.
+
+It is also optimised for CLI use. 
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                    | I want to …​                                                         | So that I can…​                                                             |
-|----------|----------------------------|----------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| `* * *`  | Pharmacist                 | Add a new patient into PharmHub                                      | Keep track of all information of my patients                                |
-| `* * *`  | Pharmacist                 | Add a medication order for a patient                                 | keep track medications orders of patients                                   |
-| `* * *`  | Pharmacist                 | Add allergies of a patient towards certain medications               | keep track of patient allergies                                             |
-| `* * *`  | Pharmacist                 | View details of a medication order                                   |                                                                             |
-| `* * *`  | Pharmacist                 | View the status of an order                                          | I can track the state of an order                                           |
-| `* * *`  | Pharmacist                 | Edit status of an order                                              | Update the order records with the most current information                  |
-| `* * *`  | Pharmacist                 | Edit the details of a patient                                        | Update records with the most current information                            |
-| `* * *`  | Pharmacist                 | View all medication orders                                           | get a quick overview of all medication orders from all patients             |
-| `* * *`  | Pharmacist                 | Delete a patient from my pharmHub                                    | remove a patient that is no longer under my care                            |
-| `* * *`  | New user                   | View a summary of all the commands                                   | recall how to use the application                                           |
-| `* * *`  | Pharmacist                 | Delete an order from the system                                      | Remove erroneous orders                                                     |
-| `* * *`  | Detail-oriented Pharmacist | Be alerted if a patient is given a medication that he is allergic to | Detect and prevent erroneous orders from going through                      |
-| `* *`    | Busy Pharmacist            | Abbreviate medication names                                          | Maximise my efficiency                                                      |
-| `* *`    | Pharmacist                 | View all details of a patient                                        | get the full patient profile, if required                                   |
-| `* *`    | Pharmacist                 | Search orders by various attributes                                  | manage and convey information about orders to stakeholders efficiently      |
-| `* *`    | Pharmacist                 | See the number of unfulfilled orders                                 | keep track of my progress in dispensing orders                              |
-| `* *`    | Pharmacist                 | Add priorities to orders                                             | keep track of which orders I should prioritise                              |
-| `* *`    | Pharmacist                 | Filter orders by their statuses                                      | manage my orders efficiently                                                |
-| `* *`    | Pharmacist                 | Sort orders on various categories                                    | maximise my efficiency                                                      |
-| `*`      | Pharmacist                 | Edit an order                                                        | correct or update an added order                                            |
-| `*`      | Pharmacist                 | Track my medication inventory                                        | I have easy access to the amount of medication I have                       |
-| `*`      | Pharmacist                 | Calculate estimated time an order will take to ship                  | Notify patients of an estimated wait time before receiving their medication |
-*{More to be added}*
+| Priority | As a …​                    | I want to …​                                                                    | So that I can…​                                                             |
+|----------|----------------------------|---------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+|          |                            |                                                                                 |                                                                             |
+| `* * *`  | Pharmacist                 | Add a new patient into PharmHub                                                 | Keep track of all information of my patients                                |
+| `* * *`  | Pharmacist                 | Add a medication order for a patient                                            | Process new orders                                                          |
+| `* * *`  | Pharmacist                 | Add a medicine into PharmHub                                                    | Update the inventory of my pharmacy                                         |
+| `* * *`  | Pharmacist                 | Add allergies of a patient towards certain medications                          | Keep track of patient allergies                                             |
+| `* * *`  | Pharmacist                 | View the status of an order                                                     | I am able to keep track of the state of an order                            |
+| `* * *`  | Pharmacist                 | Update the status of an order                                                   | Update the order records with the most current information                  |
+| `* * *`  | Pharmacist                 | Edit the details of a patient                                                   | Update patient records with the most current information                    |
+| `* * *`  | Pharmacist                 | View all medication orders                                                      | Have an overview of all medication orders                                   |
+| `* * *`  | Pharmacist                 | Delete a patient from PharmHub                                                  | Remove a patient that is no longer under my care                            |
+| `* * *`  | New user                   | View a summary of all the commands                                              | Recall how to use the application                                           |
+| `* * *`  | Pharmacist                 | Delete an order from the system                                                 | Remove erroneous orders                                                     |
+| `* * *`  | Detail-oriented Pharmacist | Be alerted if a patient is given a medication that he is allergic to            | Detect and prevent erroneous orders from going through                      |
+| `* * *`  | Time-efficient Pharmacist  | Be alerted if a medication in an order is nonsensical                           | Waste less time looking for a non-existent medication                       |
+| `* * *`  | Mistake-prone Pharmacist   | Undo/Redo my last action                                                        | Correct mistakes made into the system quickly and effectively               |
+| `* *`    | Busy Pharmacist            | Abbreviate medication names                                                     | Maximise my efficiency and type less                                        |
+| `* *`    | Pharmacist                 | View all details of a patient (including past/ present orders for that patient) | Easily track orders for that patient                                        |
+| `* *`    | Forgetful Pharmacist       | Search for orders by their status                                               | Find out which orders to prepare next                                       |
+| `* *`    | Time-efficient Pharmacist  | Search for orders by their medication name                                      | Prepare all orders that contain a particular medicine simultaneously        |
+| `* *`    | Result-oriented Pharmacist | See the number of unfulfilled orders                                            | Keep track of my progress in dispensing orders                              |
+| `* *`    | Pharmacist                 | Add priorities to orders                                                        | Keep track of an order's priority                                           |
+| `* *`    | Pharmacist                 | Sort orders on various categories (eg. Priority, Time)                          | Fulfill the important orders first                                          |
+| `*`      | Pharmacist                 | Edit an order                                                                   | Correct a mistake made in an order                                          |
+| `*`      | Pharmacist                 | Track my medication inventory                                                   | I have easy access to the amount of medication I have                       |
+| `*`      | Pharmacist                 | Calculate estimated time an order will take to ship                             | Notify patients of an estimated wait time before receiving their medication |
 
 ### Use cases
 
@@ -837,14 +890,14 @@ Guarantees: The list of Orders that fulfills the status or medicine or both will
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-3. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-4. Should be able to hold up to 1000 orders without a noticeable sluggishness in performance for typical usage.
-5. Should be able to hold up to 1000 medicines without a noticeable sluggishness in performance for typical usage.
-6. Application should be a standalone executable so that it doesn't require the user to install other libraries to run.
-7. Application should be smaller than 100mb so that application can be run on space constrained systems.
-8. Generated storage file shouldn't take up more than 100mb of storage so that the application can be run on space constrained systems.
-
+1. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. Each command should take no longer than 0.1s to execute.
+1. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+1. Should be able to hold up to 1000 orders without a noticeable sluggishness in performance for typical usage.
+1. Should be able to hold up to 1000 medicines without a noticeable sluggishness in performance for typical usage.
+1. Application should be a standalone executable so that it doesn't require the user to install other libraries to run.
+1. Application should be smaller than 100mb so that application can be run on space constrained systems.
+1. Generated storage file shouldn't take up more than 100mb of storage so that the application can be run on space constrained systems.
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -1087,20 +1140,28 @@ testers are expected to do more *exploratory* testing.
    command accept exactly one of `m/` or `d/` flags. This way the command `sfm 1 m/met d/` would be regarded as an invalid command 
    rather than one which deletes the short form. 
 
-2. Currently, when adding a medicine there is no way for the user to specify the short form right then. Hence, the user has to first add
+1. Currently, when adding a medicine there is no way for the user to specify the short form right then. Hence, the user has to first add
    the medicine followed by using `sfm` command to add a short form to it. We plan to allow `addm` accept an optional parameter for 
    the short form of the medicine being added. 
 
+1. Currently, Undo and Redo commands do not affect the UI. As such, commands such as `listp` and `findp` cannot be undone. Moreover, this makes it such that a recently added person, that is later deleted by `undo`, will still be visible in the Info Display, until another command (eg. `viewp`) displaces it.<br />
+Example:<br />
+Originally, PharmHub has the following display.<br />
+<img src="images/BetterUndo-0.png" width="574" /> <br />
+After adding a 'newguy2' using `addp`, he shows up in the Info Display.<br />
+<img src="images/BetterUndo-1.png" width="574" /><br />
+On `undo`, the person's information still stays on the Info Display, even though he no longer exists in PharmHub.<br />
+<img src="images/BetterUndo-2.png" width="574" /><br />
+We plan to enhance the Undo/Redo feature to allow UI changes to be undone/ redone. In this way, UI states are saved along with the data, and can be reverted with `undo` and `redo`.<br />
+In the case of the example given, after the implementation of this planned enhancement, the UI should revert back to an empty display after the `undo` command is ran.
+
 
 ## **Appendix: Effort**
-AB3 only deals with one entity type, `person`. However, our project was harder as we had to deal with three entity types, `person`, 
-`order` and `medicine`. All three types are tightly interleaved which caused a lot of challenges during this project.  
-Firstly, the dependencies slowed the project timeline as future features required features before it to be finished. This affected 
-our ability to work in parallel.   
-Secondly, because of the dependencies, we had to take extra precaution in checking the validity of data that is being loaded from the
-storage file as a `person` could be allergic to multiple `medicine` and  could hold multiple `order` which in turn could hold multiple
-`medicine`.  
-{More to be added}
+AB3 only deals with one entity type, `person`. However, our project was harder as we had to deal with three entity types, `person`, `order` and `medicine`. 
+These 3 entity types, with their high degree of interconnectivity, required careful and precise control to ensure that referential integrity was upheld.
+
+The dependencies slowed the project timeline as features often relied on each other to be complete. This affected our ability to work in parallel.
+Moreover, we had to take extra precaution in checking the validity of data that is being loaded from the storage file as a `person` could be allergic to multiple `medicine` and  could hold multiple `order` which in turn could hold multiple `medicine`.  
 
 
 ## Glossary
