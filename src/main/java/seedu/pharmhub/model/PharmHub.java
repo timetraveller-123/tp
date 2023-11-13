@@ -71,7 +71,7 @@ public class PharmHub implements ReadOnlyPharmHub {
      * Replaces the contents of the medicine list with {@code medicines}.
      */
     public void setMedicines(List<Medicine> medicines) {
-        this.medicines.setOrders(medicines);
+        this.medicines.setMedicines(medicines);
     }
 
     /**

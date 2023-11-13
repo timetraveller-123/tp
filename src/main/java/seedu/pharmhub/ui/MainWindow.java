@@ -185,11 +185,6 @@ public class MainWindow extends UiPart<Stage> {
             listPanelPlaceholder.getChildren().add(medicineListPanel.getRoot());
         }
     }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
     @FXML
     protected void handleDisplayInfo(InfoObject objectToDisplay) {
         assert(objectToDisplay instanceof Order || objectToDisplay instanceof Person);

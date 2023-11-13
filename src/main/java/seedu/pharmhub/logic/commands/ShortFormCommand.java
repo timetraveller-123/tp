@@ -30,9 +30,9 @@ public class ShortFormCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_MEDICINE_NAME + "pan";
 
-    public static final String MESSAGE_ADD_SHORT_FORM_SUCCESS = "Added Short From: %1$s";
+    public static final String MESSAGE_ADD_SHORT_FORM_SUCCESS = "Added Short Form: %1$s";
 
-    public static final String MESSAGE_DELETE_SHORT_FORM_SUCCESS = "Deleted Short From: %1$s";
+    public static final String MESSAGE_DELETE_SHORT_FORM_SUCCESS = "Deleted Short Form: %1$s";
     public static final String MESSAGE_DUPLICATE_SHORT_FORM =
             "This short form/medicine already exists in the PharmHub.";
 
