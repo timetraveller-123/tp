@@ -13,7 +13,7 @@ title: Developer Guide
     5. [Storage](#storage-component)
     6. [Common Classes](#common-classes)
 4. [Implementation](#implementation)
-    1. [Listing](#listx)
+    1. [Listing](#listx-feature)
     2. [Viewing](#viewx-feature)
     3. [Edit Person](#edit-person-feature)
     4. [Add Medicine Short Form](#add-medicine-short-form-feature-)
@@ -574,8 +574,9 @@ Guarantees: The new person(patient) will be added to the list of Person only if 
 
 **MSS**
 
-1. User inputs the command to add a person into the system.
-2. PharmHub adds the new person to the person list, displays the updated list and shows the detail information on the information display.
+1. User chose to add a person.
+2. PharmHub adds the new person to the person list.
+3. PharmHub displays the updated list and person.
 <br>**Use case ends**
 
 **Extensions**
@@ -594,8 +595,8 @@ Guarantees: The Person List would be displayed.
 **MSS**
 
 1. User adds a person [UC01](#use-case-uc01---adding-a-person).
-2. User inputs command to view the list.
-3. PharmHub shows the Person list on the display list.
+2. User chose to view the list.
+3. PharmHub shows the Person list.
    <br>**Use case ends**
     
 **Extensions**
@@ -620,8 +621,9 @@ Guarantees: The Person's detail would be updated only if the person exist in the
 
 1. User adds a person [UC01](#use-case-uc01---adding-a-person).
 2. User views the person list [UC02](#use-case-uc02---listing-person-list).
-3. User inputs command to edit a person's detail after looking at the list.
-4. PharmHub updates the Person list with the updated Person information and display the person on the detail display.
+3. User chose to edit a person's detail.
+4. PharmHub updates the Person list with the updated information
+5. PharmHub displays the person.
 <br>**Use case ends**
 
 
@@ -640,7 +642,7 @@ Guarantees: The new medicine will be added to the list of medicines only if the 
 
 **MSS**
 
-1. User inputs the command to add a medicine into the system.
+1. User chose to add a medicine.
 2. PharmHub adds the new medicine to the medicine list.
    <br>**Use case ends**
 
@@ -662,8 +664,8 @@ Guarantees: The Medicine List would be displayed.
 **MSS**
 
 1. User adds a medicine [UC04](#use-case-uc04---adding-a-medicine).
-2. User inputs command to view the medicine list.
-3. PharmHub shows the Medicine list on the display list.
+2. User chose to view the medicine list.
+3. PharmHub shows the Medicine list.
    <br>**Use case ends**
 
 **Extensions**
@@ -687,8 +689,8 @@ Guarantees: The Medicine would have a short form only if the medicine exist in t
 
 1. User adds a Medicine [UC04](#use-case-uc04---adding-a-medicine).
 2. User views the person list [UC05](#use-case-uc05---listing-medicine-list).
-3. User inputs command to add a short form for medicine base on the index on the list.
-4. PharmHub updates Medicine list with a short form for the medicine.
+3. User chose to add a short form for medicine.
+4. PharmHub updates Medicine list with short form.
    <br>**Use case ends**
 
 **Extensions**
@@ -707,8 +709,8 @@ Guarantees: The short form for the medicine will be removed only if the short fo
 **MSS**
 
 1. User adds a short form [U07](#use-case-uc06---adding-a-medicine-short-form).
-2. User inputs command to delete a short form for the medicine base on the index on the list.
-3. PharmHub updates Medicine list with an empty short form for the medicine.
+2. User chose to delete the short form.
+3. PharmHub updates Medicine list with an empty short form.
 <br>**Use case ends**
 
 **Extensions**
@@ -727,34 +729,33 @@ Guarantees: The order is added to the person only if the person exist while the 
 **MSS**
 
 1. User views the person list [UC02](#use-case-uc02---listing-person-list).
-2. PharmHub shows a list of persons.
-3. User selects a person from the list to assign the order to.
-4. User then inputs the add order command.
-5. PharmHub adds the new order to the order list, then displays the details on the information display.
+2. User chose to add an order.
+3. PharmHub adds the new order to the order list.
+4. PharmHub displays the order.
    <br>**Use case ends**
 
 
 **Extensions**
 
-* 4a. PharmHub detects an error in the input.
+* 2a. PharmHub detects an error in the input.
 
-    * 4a1. PharmHub shows error message.
-    * 4a2. User enters new input.
-    * Steps 4a1-4a2 are repeated until the input are correct.
-      <br>**Use case resumes from step 5.**
+    * 2a1. PharmHub shows error message.
+    * 2a2. User enters new input.
+    * Steps 2a1-2a2 are repeated until the input are correct.
+      <br>**Use case resumes from step 3.**
  
-* 4b. The person is allergic to the input medication.
-    * 4b1. The user input the wrong medication resulting in the error.
-      * 4b1a. PharmHub shows an `Patient Allergy` warning message.
-      * 4b1b. User edits the command.
-        <br>**Use case resumes from step 5.**
-    * 4b2. The User wants to overwrite the warning.
-      * 4b2a. PharmHub shows an `Patient Allergy` warning message.
-      * 4b2b. User acknowledges the allergy warning but chooses to proceed by adding an `IA/` (Ignore Allergy) flag to the command.
-      * 4b2c. User confirms the order by resubmitting with the `IA/` flag.
-      * 4b2d. PharmHub creates the order with the provided information, including the `IA/` flag. 
-      * 4b2e. PharmHub confirms the successful creation of the order, noting the allergy warning and the "IA" flag.
-        <br>**Use case resumes from step 5.**
+* 2b. The person is allergic to the input medication.
+    * 2b1. The user input the wrong medication resulting in the error.
+      * 2b1a. PharmHub shows an `Patient Allergy` warning message.
+      * 2b1b. User edits the command.
+        <br>**Use case resumes from step 3.**
+    * 2b2. The User wants to overwrite the warning.
+      * 2b2a. PharmHub shows an `Patient Allergy` warning message.
+      * 2b2b. User acknowledges the allergy warning but chooses to proceed by adding an `IA/` (Ignore Allergy) flag to the command.
+      * 2b2c. User confirms the order by resubmitting with the `IA/` flag.
+      * 2b2d. PharmHub creates the order with the provided information, including the `IA/` flag. 
+      * 2b2e. PharmHub confirms the successful creation of the order, noting the allergy warning and the "IA" flag.
+        <br>**Use case resumes from step 3.**
 
 In this use case, a pharmacist adds a medication order for a patient using PharmHub. 
 The system first allows the pharmacist to select a patient from the list and provide order details. 
@@ -769,8 +770,8 @@ Guarantees: The Order List would be displayed.
 **MSS**
 
 1. User adds an order [UC08](#use-case-uc08---add-an-order-for-a-person).
-2. User inputs command to view the order list.
-3. PharmHub shows the Order list on the display list.
+2. User chose to view the order list.
+3. PharmHub shows the Order list.
    <br>**Use case ends**
 
 **Extensions**
@@ -792,24 +793,24 @@ Guarantees: The order status will be updated only if the order exist in the syst
 
 **MSS**
 
-1.  User views the order list [UC09](#use-case-uc09---listing-order-list)
-2.  PharmHub shows a list of Order.
-3.  User requests to update order status for a order in the list.
-4.  PharmHub updates order status for the corresponding order.
+1. User views the order list [UC09](#use-case-uc09---listing-order-list)
+2. User chose to update the order status.
+3. PharmHub updates the order status.
+4. PharmHub displays updated order
     <br>**Use case ends**
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The list is empty.
   <br>**Use case ends**
 
 
-* 3a. PharmHub detects an error in the input.
+* 2a. PharmHub detects an error in the input.
 
-    * 3a1. PharmHub shows error message.
-    * 3a2. User enters new input.
-    * Steps 3a1-3a2 are repeated until the input are correct.
-      <br>**Use case resumes from step 4.**
+    * 2a1. PharmHub shows error message.
+    * 2a2. User enters new input.
+    * Steps 2a1-2a2 are repeated until the input are correct.
+      <br>**Use case resumes from step 3.**
 
 #### **Use case: UC11 - Finding person**
 
@@ -818,26 +819,25 @@ Guarantees: The list of person that contains the keywords would be displayed.
 **MSS**
 
 1. User added multiple person [UC01](#use-case-uc01---adding-a-person).
-2. User wants to find a specific person base on their names.
-3. User input find person command.
-4. PharmHub filters through the person list following the keywords given from the command input.
-5. PharmHub then displays the filtered person list on the list display.
+2. User chose to the find person command.
+3. PharmHub filters through the person list.
+4. PharmHub then displays the filtered person list.
    <br>**Use case ends**
 
 **Extensions**
 
-* 3a. PharmHub detects an error in the input.
+* 2a. PharmHub detects an error in the input.
 
-    * 3a1. PharmHub shows error message.
-    * 3a2. User enters new input.
-    * Steps 3a1-3a2 are repeated until the input are correct.
-      <br>**Use case resumes from step 4.**
+    * 2a1. PharmHub shows error message.
+    * 2a2. User enters new input.
+    * Steps 2a1-2a2 are repeated until the input are correct.
+      <br>**Use case resumes from step 3.**
 
 
-* 4a. The keywords given does not match with any person.
+* 3a. The keywords given does not match with any person.
 
-    * 4a1. Empty list is shown.
-    <br>**Use case resumes at step 5.**
+    * 3a1. Empty list is shown.
+    <br>**Use case resumes at step 4.**
 
 #### **Use case: UC12 - Finding orders**
 
@@ -847,38 +847,37 @@ Guarantees: The list of Orders that fulfills the status or medicine or both will
 **MSS**
 
 1. User added multiple order [UC08](#use-case-uc08---add-an-order-for-a-person).
-2. User wants to find a orders base on their status or medicine or both.
-3. User input find order command.
-4. PharmHub filters through the order list following the status and medicine given from the command input.
-5. PharmHub then displays the filtered order list on the list display.
+2. User chose to find orders base on their status or medicine or both.
+3. PharmHub filters through the order list.
+4. PharmHub then displays the filtered order list.
    <br>**Use case ends**
 
 
 **Extensions**
 
-* 3a. PharmHub detects an error in the input.
+* 2a. PharmHub detects an error in the input.
 
-    * 3a1. PharmHub shows error message.
-    * 3a2. User enters new input.
-    * Steps 3a1-3a2 are repeated until the input are correct.
-      <br>**Use case resumes from step 4.**
+    * 2a1. PharmHub shows error message.
+    * 2a2. User enters new input.
+    * Steps 2a1-2a2 are repeated until the input are correct.
+      <br>**Use case resumes from step 3.**
 
-* 4a. The status and medicine keyword given does not match with any order.
+* 3a. The status and medicine keyword given does not match with any order.
 
     * 4a1. Empty list is shown.
-      <br>**Use case resumes at step 5.**
+      <br>**Use case resumes at step 4.**
 
 
-* 4b. User input invalid fields.
+* 3b. User input invalid fields.
 
-    * 4b1. PharmHub detects an error in the input.
+    * 3b1. PharmHub detects an error in the input.
 
-      * 4b1a. PharmHub shows error message.
-      * 4b1b. User enters new input.
-      * Steps 4b1a-4b1b are repeated until the input are correct.
-        <br>**Use case resumes from step 5.**
+      * 3b1a. PharmHub shows error message.
+      * 3b1b. User enters new input.
+      * Steps 3b1a-3b1b are repeated until the input are correct.
+        <br>**Use case resumes from step 4.**
 
-    * 4b2. User input non-existent medicine keywords. 
+    * 3b2. User input non-existent medicine keywords. 
       * PharmHub Displays a empty list.
       <br>**Use case ends**
 
