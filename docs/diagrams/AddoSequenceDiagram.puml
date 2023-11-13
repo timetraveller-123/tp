@@ -8,7 +8,6 @@ participant ":PharmHubParser" as PharmHubParser LOGIC_COLOR
 participant ":AddOrderCommandParser" as AddOrderCommandParser LOGIC_COLOR
 participant ":ParserUtil" as ParserUtil LOGIC_COLOR
 participant "u:AddOrderCommand" as AddOrderCommand LOGIC_COLOR
-participant "os:OrderStatus" as OrderStatus MODEL_COLOR
 participant "s:Status" as Status MODEL_COLOR
 participant "o:Order" as Order MODEL_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -20,7 +19,6 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 participant "oNum:OrderNumber" as OrderNumber MODEL_COLOR
 participant "m:Medicine" as Medicine MODEL_COLOR
-participant "os:OrderStatus" as OrderStatus MODEL_COLOR
 participant "s:Status" as Status MODEL_COLOR
 participant "o:Order" as Order MODEL_COLOR
 
@@ -40,6 +38,7 @@ activate ParserUtil
 create OrderNumber
 ParserUtil -> OrderNumber : new OrderNumber("1000")
 activate OrderNumber
+
 OrderNumber --> ParserUtil : oNum
 deactivate OrderNumber
 
@@ -62,17 +61,13 @@ deactivate AddOrderCommandParser
 PharmHubParser -> AddOrderCommandParser
 activate AddOrderCommandParser
 create AddOrderCommand
-AddOrderCommandParser -> AddOrderCommand : AddOrderCommand(1,oNum,m,false)
+AddOrderCommandParser -> AddOrderCommand : new AddOrderCommand(1,oNum,m,false)
 
 activate AddOrderCommand
-AddOrderCommand -> OrderStatus : OrderStatus.PENDING
 
-activate OrderStatus
-OrderStatus --> AddOrderCommand : os
-deactivate OrderStatus
 
 create Status
-AddOrderCommand -> Status : Status(os)
+AddOrderCommand -> Status : new Status(PENDING)
 
 activate Status
 Status --> AddOrderCommand : s
@@ -91,7 +86,7 @@ LogicManager -> AddOrderCommand : execute()
 activate AddOrderCommand
 
 Create Order
-AddOrderCommand -> Order : Order(oNum,p,m,s)
+AddOrderCommand -> Order : new Order(oNum,p,m,s)
 activate Order
 
 Order --> AddOrderCommand : o
