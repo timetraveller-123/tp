@@ -2,6 +2,7 @@ package seedu.pharmhub.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.pharmhub.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.pharmhub.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.pharmhub.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.pharmhub.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.pharmhub.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -47,7 +48,8 @@ public class EditPersonCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]... "
+            + "[" + PREFIX_ALLERGY + "ALLERGY]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -97,7 +99,7 @@ public class EditPersonCommand extends Command {
         }
 
         Set<Medicine> allergyMedicines = new HashSet<>(editedPerson.getAllergies().stream()
-                .map(Allergy::getAllery).collect(Collectors.toList()));
+                .map(Allergy::getAllergy).collect(Collectors.toList()));
         Set<Medicine> convertedMedicines = CommandUtil.getModelMedicine(model, allergyMedicines);
 
         Set<Allergy> convertedAllergies = new HashSet<>(convertedMedicines.stream().map(Allergy::new)
