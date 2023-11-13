@@ -21,10 +21,10 @@ participant "m:Medicine" as Medicine MODEL_COLOR
 participant ":Model" as Model MODEL_COLOR
 
 end box
-[--> LogicManager : execute("findo s/pd m/pan ibuprofen)
+[--> LogicManager : execute("findo s/pd m/pan)
 activate LogicManager
 
-LogicManager -> PharmHubParser : parseCommand("findo s/pd m/pan ibuprofen")
+LogicManager -> PharmHubParser : parseCommand("findo s/pd m/pan")
 activate PharmHubParser
 
 create FindOrderCommandParser
@@ -34,7 +34,7 @@ activate FindOrderCommandParser
 FindOrderCommandParser --> PharmHubParser
 deactivate FindOrderCommandParser
 
-PharmHubParser -> FindOrderCommandParser : parse("s/pd m/pan ibuprofen")
+PharmHubParser -> FindOrderCommandParser : parse("s/pd m/pan")
 activate FindOrderCommandParser
 
 opt getValue(PREFIX_STATUS).isPresent()
@@ -51,10 +51,10 @@ deactivate ParserUtil
 end
 
 opt getValue(PREFIX_MEDICINE).isPresent()
-FindOrderCommandParser -> ParserUtil : parseMedicines("pan ibuprofen")
+FindOrderCommandParser -> ParserUtil : parseMedicines("pan")
 activate ParserUtil
 
-ParserUtil -> Medicine : new Medicine({panadol, ibuprofen})
+ParserUtil -> Medicine : new Medicine({Panadol})
 activate Medicine
 
 Medicine --> ParserUtil : m
