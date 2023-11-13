@@ -52,7 +52,7 @@ An Order has the following attributes:
 - Medicine (What is in the order)
 - Status of the order
 
-Orders are uniquely identified by their order numbers. No two orders can have the same order number.
+Orders are uniquely identified by their order numbers. No two orders can have the same order number. 
 No orders containing the medicine that the person is allergy to can be added without a special flag.
 Orders will automatically tag under the <span style="color: red;">PENDING</span>
 Status when added.
@@ -91,8 +91,8 @@ As you can refer to the image below index 1 refer to OrderNumber #1 while index 
 
 ![listp](images/listo.png)
 
-Note: The Index will be base on the command being called and not the displayed list,
-if a command of viewp(view person) is being called,
+Note: The Index will be base on the command being called and not the displayed list, 
+if a command of viewp(view person) is being called, 
 the index taken will be base on the person list and not this list being shown currently.
 
 ### Fields
@@ -140,7 +140,7 @@ Below shows a guide on how you can navigate around our beautiful Graphical User 
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-2. Download the latest `PharmHub.jar` from [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/releases).
+1. Download the latest `pharmhub.jar` from [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/releases).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your PharmHub.
 
@@ -151,23 +151,23 @@ Below shows a guide on how you can navigate around our beautiful Graphical User 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-    * `listp` : Lists all people.
+   * `listp` : Lists all people.
+   
+   * `listo` : Lists all order.
+   
+   * `listm` : Lists all medicine.
+   
+   * `viewp 1` : views in detail index 1 of the person list.(The Displayed list does not have to be person to view person)
 
-    * `listo` : Lists all order.
+   * `viewo 1` : views in detail index 1 of the order list.
 
-    * `listm` : Lists all medicine.
+   * `addp n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a person named `John Doe` to PharmHub.
 
-    * `viewp 1` : views in detail index 1 of the person list.(The Displayed list does not have to be person to view person)
+   * `deletep 3` : Deletes the 3rd patient shown in the current list.
 
-    * `viewo 1` : views in detail index 1 of the order list.
+   * `clear` : Deletes all people.
 
-    * `addp n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a person named `John Doe` to PharmHub.
-
-    * `deletep 3` : Deletes the 3rd patient shown in the current list.
-
-    * `clear` : Deletes all people.
-
-    * `exit` : Exits the app.
+   * `exit` : Exits the app.
 
 6. Refer to the [Features](#features) below for details of each command.
 
@@ -180,10 +180,10 @@ Below shows a guide on how you can navigate around our beautiful Graphical User 
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `addp n/NAME`, `NAME` is a parameter which can be used as `addp n/John Doe`.
+  e.g. in `addp n/NAME`, `NAME` is a parameter which can be used as `addp n/John Doe`.  
 * Spaces before and after parameter will be ignored.  
   If there is more than one space in between words in the parameter, it will be trimmed to one space.  
-  e.g `addp n/ Alex Yeoh` will produce the same result as `addp n/ Alex     Yeoh`
+  e.g `addp n/ Alex Yeoh` will produce the same result as `addp n/ Alex     Yeoh`
 * To input a `/` character in parameter, use another `/` before it.  
   If there is an odd number of `/`, one of them will be ignored.  
   e.g To input `Roy s/o Balakrishnan`, use `Roy s//o Balakrishnan`
@@ -192,7 +192,7 @@ Below shows a guide on how you can navigate around our beautiful Graphical User 
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -232,8 +232,6 @@ Shows an interactive list of all persons in PharmHub.
 
 Format: `listp`
 
-![listp](images/listp.png)
-
 ### Viewing a person `viewp`
 
 Displays the specified person with more details in the info panel.
@@ -256,9 +254,9 @@ Format: `editp INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/ALLERG
 * Existing values will be updated to the input values.
 * When editing tags or allergies, the existing tags or allergies of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
-  specifying any tags after it.
+    specifying any tags after it.
 * You can remove all the person’s allergies by typing `no/` without
-  specifying any allergies after it.
+    specifying any allergies after it.
 * If the editing causes the person to be allergic any of the orders belonging to them, warning will be raised.
 * The warning can be overridden by adding the `ia/` to the command
 
@@ -302,11 +300,11 @@ Examples:
 
 ### Adding a new medicine : `addm`
 
-Adds a new medication into the system.
+Adds a new medication into the system.  
 
 Format: `addm m/MEDICINE_NAME`
 
-* The given name shouldn't match the name or short form any medicine in the system.
+* The given name shouldn't match the name or short form any medicine in the system.   
 * Medicine names are case-insensitive.
 
 Example:
@@ -314,15 +312,15 @@ Example:
 
 ### Listing all medicines : `listm`
 
-Shows a list of all medicines in PharmHub.
+Shows a list of all medicines in PharmHub.  
 
 Format: `listm`
 
 ![listm](images/listm.png)
 
-### Locating a medicine by name : `findm`
+### Locating a medicine by name : `findm` 
 
-Finds all medicines whose name or short form contains any of the given keywords.
+Finds all medicines whose name or short form contains any of the given keywords.  
 
 Format : `Format: findm KEYWORD [MORE_KEYWORD]…`
 
@@ -344,9 +342,9 @@ Format: `deletem INDEX`
 
 * Deletes the medicine at the specified `INDEX`.
 * The index refers to the index number shown in the displayed medicine list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* The command will be blocked if there are existing orders with the specified medicine
-  or persons allergic to the specified medicine.
+* The index **must be a positive integer** 1, 2, 3, …​ 
+* The command will be blocked if there are existing orders with the specified medicine 
+  or persons allergic to the specified medicine.  
 
 Example:
 * `deletem 2`
@@ -357,16 +355,16 @@ Adds or Deletes a short form from the specified medicine from PharmHub.
 
 Format: `sfm INDEX [m/SHORT_FORM] [d/]`
 
-* If the `d/` is not provided, the given short form will be added to the medicine at the specified `INDEX`.
-* The provided short form must not be same as any existing medicine name or short form in PharmHub.
+* If the `d/` is not provided, the given short form will be added to the medicine at the specified `INDEX`.  
+* The provided short form must not be same as any existing medicine name or short form in PharmHub.  
 * Any existing short form of the medicine will be over written.
-* After this, the short form can be used interchangeably with the medicine name.
-* If the `d/` is provided, the short form(if any) of the medicine at the specified `INDEX` will be deleted.
+* After this, the short form can be used interchangeably with the medicine name.  
+* If the `d/` is provided, the short form(if any) of the medicine at the specified `INDEX` will be deleted.  
 
 Example:
 * `sfm 1 m/pan`
 
-### Listing all orders : `listo`
+### Listing all orders : `listo` 
 
 Shows an interactive list of all orders in PharmHub.
 
@@ -374,14 +372,14 @@ Format: `listo`
 
 ![listo](images/listo.png)
 
-### Viewing an order : `viewo`
+### Viewing an order : `viewo` 
 
 Shows the order in the info panel.
 
 Format: `viewo`
 
 
-### Adding a new order : `addo`
+### Adding a new order : `addo` 
 
 Adds a new order of the given medication(s) corresponding to a person into the system.
 
@@ -402,7 +400,7 @@ Examples:
 * `addo 3 o/438756 m/claritin`
 
 
-### Updating the status of an order : `updates`
+### Updating the status of an order : `updates` 
 
 Updates the status of the order to the designated status.
 
@@ -413,7 +411,7 @@ Format: `updates INDEX s/STATUS`
 * Statuses can be updated by skipping the hierarchy. `Pending -> Cancelled`
 * Shorthands can be used in replacement of the full names of the statuses
 
-Example:
+Example: 
 * `updates 1 s/completed`
 * `updates 1 s/COMPLETED`
 * `updates 1 s/cp`
@@ -437,7 +435,7 @@ Examples:
 * `findo s/pd m/Panadol` returns any orders that is both `Pending` and contains `Panadol`.
   ![result for 'findo s/pd m/Panadol'](images/findOrder2Input.png)
 
-### Deleting an order : `deleteo`
+### Deleting an order : `deleteo` 
 
 Deletes the specified order from PharmHub.
 
@@ -446,19 +444,19 @@ Format: `deleteo INDEX`
 Example: `deleteo 2`
 
 
-### Undoing an action : `undo`
+### Undoing an action : `undo` 
 
 Undoes the last data-modifying action.
 
 Format: `undo`
 
 * Limited to last 30 actions.
-* Does not undo Ui views (eg. find, view commands).
+* Does not undo Ui views (eg. find, view commands). 
 
-Example:
+Example: 
 * `addp` -> `listp` -> `undo` will undo the `addp` command
 
-### Redoing an action (after an undo) : `redo`
+### Redoing an action (after an undo) : `redo` 
 
 Negates the effect of the last undo.
 
@@ -539,3 +537,4 @@ If your changes to the data file makes its format invalid, PharmHub will discard
 | **Clear**                 | `clear`                                                                                                                                                                                          |
 | **Help**                  | `help`                                                                                                                                                                                           |
 | **Exit**                  | `exit`                                                                                                                                                                                           |
+
