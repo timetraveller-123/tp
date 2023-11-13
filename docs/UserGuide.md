@@ -8,7 +8,9 @@ title: User Guide
 
 **PharmHub – Where Precision Meets Prescription**
 <br><br>
-Are you a small remote pharmacist seeking to elevate precision and efficiency in your workplace? Look no further, as PharmHub is here to answer your prayers.
+Are you a small remote pharmacist seeking to elevate precision and efficiency in your workplace?
+<br><br>
+Look no further, as PharmHub is here to answer your prayers.
 PharmHub is a powerful desktop application designed for the meticulous management of patients and their medication orders,
 while also always working behind the scenes ensuring every step taken does not have any errors.
 It's not just another GUI app; it's your optimized solution, with a focus on efficiency through a Command Line Interface (CLI) 
@@ -19,9 +21,11 @@ outpacing traditional GUI applications.
 Getting started is a breeze:
 
 * First, familiarize yourself with key [Definitions](#definition).
-* Dive into our hands-on [Quick Start](#quick-start) guide.
+* Next, familiarise with our GUI with our [Application Navigation](#application-navigation).
+* Then, dive into our hands-on [Quick Start](#quick-start) guide.
 * Explore the array of capabilities in our [Features](#features) section, where each command's functionality is unveiled.
 * For seasoned users, our [Command Summary](#command-summary) serves as your go-to resource, encompassing everything you need to master the application.
+* Refer to the [Table Of Content](#table-of-contents) for quick navigation and [Trouble Shooting](#trouble-shooting) for any issues faced.
 
 PharmHub isn't just software; it's your ally in precision pharmacy management. Let's embark on this journey together!
 
@@ -38,7 +42,9 @@ PharmHub isn't just software; it's your ally in precision pharmacy management. L
 3. [Quick Start](#quick-start)
 4. [Features](#features)
 5. [Command Summary](#command-summary)
-6. [FAQ](#faq)
+6. [Trouble Shooting](#trouble-shooting)
+   1. [FAQ](#faq)
+   2. [Common Errors](#common-errors)
 7. [Glossary](#glossary)
 
 --------------------------------------------------------------------------------------------------------------------
@@ -170,8 +176,10 @@ Below shows a guide on how you can navigate around our interactive Graphical Use
 
 1. Ensure you have Java `11` or above installed in your Computer.
    * Run `java --version` in your command terminal to see the java version.
+   * For both `Mac` and `Window` user click [here](https://nus-cs2103-ay2324s1.github.io/website/admin/programmingLanguages.html) for a guide to download the required `java` language for your computer.
 
 2. Download the latest `PharmHub.jar` from [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/releases).
+    * For `Mac` users remember to use your command terminal and navigate to the correct directory with `cd` then run `java -jar PharmHub.jar`.
 
 3. Copy the file to the folder you want to use as the _home folder_ for your PharmHub.
 
@@ -563,18 +571,62 @@ If your changes to the data file makes its format invalid, PharmHub will discard
 | **Help**                  | `help`                                                                                                                                                                                          |
 | **Exit**                  | `exit`                                                                                                                                                                                          |
 
+---
 
-## FAQ
+## Trouble Shooting
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous PharmHub home folder.
+### FAQ
 
---------------------------------------------------------------------------------------------------------------------
+**Q**: The application is not running on my computer.<br>
+**A**: Refer to our [Quick Start](#quick-start) to ensure that you downloaded the correct java version.
 
-## Known issues
+**Q**: Will I lose my data if i exit the application?<br>
+**A**: No you will not. The data is stored on your computer and as long as you don't delete the `.jar` file, your data will be stored.
+
+**Q**: I accidentally deleted the `PharmHub.jar` file can i get my data back?<br>
+**A**: Unfortunately, the data cannot be recovered once the `.jar` file is deleted so make sure to keep it at a secure location.
+
+**Q**: Is my patient data secure?<br>
+**A**: Yes, as long as your computer is secure no one else will be able to access the information.
+
+**Q**: Is internet connection required?<br>
+**A**: Nope, PharmHub do not require internet connection.
+
+Click [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/issues) to view some issues posted by some of our users to see if it solves yours.
+<br>
+Click [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/issues/new) to feedback on issues you faced that we didn't answer on.
+
+
+### Common Errors
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 
+2. Common Error messages
+
+   1. `Unknown Command` Error
+      <br>![UnknownCommand](images/errorMessage/UnknownCommand.png)
+      <br> Check [Command Summary](#command-summary) and make sure the input command is a valid commmand.
+      <br><br>
+   2. `Ivalid Command Format` Error
+      <br>![InvalidCommandFormat](images/errorMessage/InvalidCommandFormat.png)
+      <br> Either read the error message and edit accordingly or look at the command [Features](#features) for detailed explanation.
+      <br><br>
+   3. `Missing Field` Error
+      <br>![MissingField](images/errorMessage/MssingField.png)
+      <br> Check the command [feature](#features) to identify the missing input.
+      <br><br>
+   4. `Invalid Index` Error
+      <br>![InvalidIndex](images/errorMessage/InvalidIndex.png)
+      <br> Check through the display list and ensure a valid index is chosen. [Index](#index)
+      <br><br>
+   5. `Invalid Input` Error
+      <br>![InvalidInput](images/errorMessage/InvalidInput.png)
+      <br> Refer to the [fields](#fields) to ensure the validity of the input fields.
+      <br><br>
+   6. `Invalid Chronological Order` Error
+      <br> Ensure that the [status](#status) is of correct chronological order.
+      <br>![InvalidChronological](images/errorMessage/InvalidChronological.png)
+   
 --------------------------------------------------------------------------------------------------------------------
 
 ## Glossary
