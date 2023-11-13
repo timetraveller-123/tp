@@ -423,7 +423,7 @@ Example:
 
 Finds orders whose status and medicine satisfies both inputs.
 
-Format: `findo s/STATUS m/MEDICINE_NAME [m/MEDICINE_NAME]...`
+Format: `findo s/STATUS m/MEDICINE_NAME [m/MEDICINE_NAME]…`
 
 * The search is case-insensitive. e.g `PANADOL` will match `Panadol`, `COMPLETED` or `CP` will match `Completed`.
 * User input can find orders base on either status or medicines or both(but both will have to be satisfied).
