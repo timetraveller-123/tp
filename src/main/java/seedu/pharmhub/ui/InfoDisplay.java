@@ -1,11 +1,8 @@
 package seedu.pharmhub.ui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * A ui for the status bar that is displayed at the header of the application.
@@ -20,6 +17,10 @@ public class InfoDisplay extends UiPart<Region> {
         super(FXML);
     }
 
+    /**
+     * Attaches the given UI component onto the InfoDisplay, replacing any current component mounted
+     * @param component UI component to be attached
+     */
     public void attach(UiPart<Region> component) {
         infoContent.getChildren().clear();
         infoContent.getChildren().add(component.getRoot());
