@@ -86,6 +86,9 @@ public class EditPersonCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        assert index.getZeroBased() >= 0 : "Index should be positive";
+        assert index.getZeroBased() < lastShownList.size() : "Index should be within bounds of person list";
+
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
@@ -109,6 +112,9 @@ public class EditPersonCommand extends Command {
         }
 
         model.setPerson(personToEdit, newPerson);
+
+        assert model.hasPerson(newPerson) : "New Person data should be added into model";
+
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(newPerson)), newPerson);
 
