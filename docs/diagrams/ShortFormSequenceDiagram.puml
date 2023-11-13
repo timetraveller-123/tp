@@ -5,8 +5,8 @@ skinparam ArrowFontStyle plain
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":ShortFormCommandParser" as AddShortFormCommandParser LOGIC_COLOR
-participant "u:ShortFormCommand" as AddShortFormCommand LOGIC_COLOR
+participant ":ShortFormCommandParser" as ShortFormCommandParser LOGIC_COLOR
+participant "u:ShortFormCommand" as ShortFormCommand LOGIC_COLOR
 
 
 end box
@@ -21,64 +21,64 @@ activate LogicManager
 LogicManager -> AddressBookParser : parseCommand("sfm 1 m/pan")
 activate AddressBookParser
 
-create AddShortFormCommandParser
-AddressBookParser -> AddShortFormCommandParser
-activate AddShortFormCommandParser
-AddShortFormCommandParser --> AddressBookParser
-deactivate AddShortFormCommandParser
+create ShortFormCommandParser
+AddressBookParser -> ShortFormCommandParser
+activate ShortFormCommandParser
+ShortFormCommandParser --> AddressBookParser
+deactivate ShortFormCommandParser
 
-AddressBookParser -> AddShortFormCommandParser : parse("1 m/pan")
-activate AddShortFormCommandParser
+AddressBookParser -> ShortFormCommandParser : parse("1 m/pan")
+activate ShortFormCommandParser
 
 create Medicine1
-AddShortFormCommandParser -> Medicine1 : new Medicine("pan")
+ShortFormCommandParser -> Medicine1 : new Medicine("pan")
 activate Medicine1
 
-Medicine1 --> AddShortFormCommandParser
+Medicine1 --> ShortFormCommandParser
 deactivate Medicine1
 
-create AddShortFormCommand
-AddShortFormCommandParser -> AddShortFormCommand : new ShortFormCommand(1, m)
-activate AddShortFormCommand
+create ShortFormCommand
+ShortFormCommandParser -> ShortFormCommand : new ShortFormCommand(1, m)
+activate ShortFormCommand
 
-AddShortFormCommand --> AddShortFormCommandParser
-deactivate AddShortFormCommand
+ShortFormCommand --> ShortFormCommandParser
+deactivate ShortFormCommand
 
-AddShortFormCommandParser --> AddressBookParser : u
-deactivate AddShortFormCommandParser
+ShortFormCommandParser --> AddressBookParser : u
+deactivate ShortFormCommandParser
 
 AddressBookParser --> LogicManager : u
 deactivate AddressBookParser
-destroy AddShortFormCommandParser
+destroy ShortFormCommandParser
 
-LogicManager -> AddShortFormCommand : execute()
-activate AddShortFormCommand
+LogicManager -> ShortFormCommand : execute()
+activate ShortFormCommand
 
-AddShortFormCommand -> Model : hasMedicine(m)
+ShortFormCommand -> Model : hasMedicine(m)
 activate Model
 
-Model --> AddShortFormCommand : b
+Model --> ShortFormCommand : b
 deactivate Model
 opt !b
-AddShortFormCommand -> Model : getFilteredMedicineList()
+ShortFormCommand -> Model : getFilteredMedicineList()
 activate Model
 
-Model --> AddShortFormCommand
+Model --> ShortFormCommand
 deactivate Model
 
-AddShortFormCommand -> Model : setMedicine()
+ShortFormCommand -> Model : setMedicine()
 activate Model
 
-Model --> AddShortFormCommand
+Model --> ShortFormCommand
 deactivate Model
 
 end
 
-AddShortFormCommand --> LogicManager : result
-deactivate AddShortFormCommand
-AddShortFormCommand -[hidden]-> LogicManager : result
+ShortFormCommand --> LogicManager : result
+deactivate ShortFormCommand
+ShortFormCommand -[hidden]-> LogicManager : result
 destroy Medicine1
-destroy AddShortFormCommand
+destroy ShortFormCommand
 
 
 [<--LogicManager
