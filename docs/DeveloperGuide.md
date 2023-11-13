@@ -249,7 +249,7 @@ Step 7: The `Medicine` at index 1 is replaced with a new `Medicine` which has sa
 
 The following sequence diagram illustrates some of the steps that happen when user execute `sfm 1 m/pan`
 
-![AddShortFormSequenceDiagram](images/AddShortFormSequenceDiagram.png)
+![ShortFormSequenceDiagram](images/ShortFormSequenceDiagram.png)
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifelines should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>  
  
