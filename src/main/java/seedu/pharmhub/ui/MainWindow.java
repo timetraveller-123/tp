@@ -191,15 +191,15 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     protected void handleDisplayInfo(InfoObject objectToDisplay) {
         assert(objectToDisplay instanceof Order || objectToDisplay instanceof Person);
+        infoDisplayPlaceholder.getChildren().clear();
+
         if (objectToDisplay instanceof Order) {
             Order order = (Order) objectToDisplay;
             OrderDisplay orderDisplay = new OrderDisplay(order);
-            infoDisplayPlaceholder.getChildren().clear();
             infoDisplayPlaceholder.getChildren().add(orderDisplay.getRoot());
         } else if (objectToDisplay instanceof Person) {
             Person person = (Person) objectToDisplay;
             PersonDisplay personDisplay = new PersonDisplay(person);
-            infoDisplayPlaceholder.getChildren().clear();
             infoDisplayPlaceholder.getChildren().add(personDisplay.getRoot());
         } else {
             throw new RuntimeException("Invalid object to display");
