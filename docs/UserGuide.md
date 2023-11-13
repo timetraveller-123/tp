@@ -140,7 +140,7 @@ Below shows a guide on how you can navigate around our beautiful Graphical User 
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `PharmHub.jar` from [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/releases).
+2. Download the latest `PharmHub.jar` from [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/releases).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your PharmHub.
 
