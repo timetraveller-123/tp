@@ -2,7 +2,7 @@
 layout: page
 title: Developer Guide
 ---
-##Table of Contents
+## Table of Contents
 1. [Acknowledgements](#acknowledgements)
 2. [Setting up](#setting-up-getting-started)
 3. [Design](#design)
@@ -113,17 +113,17 @@ Here's a (partial) class diagram of the `Logic` component:
 
 <img src="images/LogicClassDiagram.png" width="550"/>
 
-The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
+The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("deletep 1")` API call as an example.
 
-![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
+![Interactions Inside the Logic Component for the `deletep 1` Command](images/DeleteSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeletePersonCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
 
 How the `Logic` component works:
 
-1. When `Logic` is called upon to execute a command, it is passed to an `PharmHubParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
+1. When `Logic` is called upon to execute a command, it is passed to an `PharmHubParser` object which in turn creates a parser that matches the command (e.g., `DeletePersonCommandParser`) and uses it to parse the command.
+1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeletePersonCommand`) which is executed by the `LogicManager`.
 1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
@@ -132,8 +132,8 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <img src="images/ParserClasses.png" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `PharmHubParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `PharmHubParser` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+* When called upon to parse a user command, the `PharmHubParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddPersonCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddPersonCommand`) which the `PharmHubParser` returns back as a `Command` object.
+* All `XYZCommandParser` classes (e.g., `AddOrderCommandParser`, `DeletePersonCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2324S1-CS2103T-W08-4/tp/tree/master/src/main/java/seedu/address/model/Model.java)
@@ -173,6 +173,58 @@ Classes used by multiple components are in the `seedu.pharmHub.commons` package.
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented. 
+This section describes some noteworthy details on how certain features are implemented.
+### Edit person feature
+
+#### Implementation
+
+After adding a person in PharmHub, the user would be able to edit the person using the `editp` command with the following format:
+
+`editp INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/ALLERGY]…​ [ia/]`
+
+The command edits the person information based on the given fields. At least one field must be updated.
+Existing values will be replaced with the new input values.
+If the edits cause the person to be allergic to any orders associated with them, a warning will be raised. Using the `ia/` flag will override this warning.
+This command cannot add or delete orders for this person. It's limited to editing the person's information only.
+
+Prerequisite: There should be a person at index 1, with "Aspirin" in the PharmHub medicine list and also among one or more of his/her orders.
+
+The following sequence diagram illustrates some of the steps that happen when user execute `editp 1 no/Aspirin`
+![editp](images/EditPersonSequenceDiagram.png)
+
+#### Steps to trigger
+
+Step 1: The user executes `editp 1 no/Aspirin` to add the allergy "Aspirin" to the person at index 1.
+
+Step 2: Logic Manager calls `PharmHubParser#parse` which extracts the arguments and calls `EditPersonCommandParser`. 
+
+Step 3: `EditPersonCommandParser` parses the index and the allergy and returns an `EditPersonCommand`.
+
+Step 4: `LogicManager` calls `EditPersonCommand#execute` to edit the details of the person.
+
+Step 5:  Since an allergy is added in this command, and an `ia/` flag is not passed as an argument, `EditPersonCommand` checks among the list of order of the person whether there are any medications that match this allergy by calling the `hasOrderConflict()` function.
+
+Step 6: Since there are medications that match this allergy, a `CommandException` is returned.
+
+Step 7: An error message is shown to warn the user that the person's new allergy conflicts with existing orders, and hints the user about adding the `ia/` flag to add the allergy to the person anyway.
+
+
+`EditPersonCommand#execute` utilizes the following method `Person#hasOrderConflicts` to check if there are any conflicts between the person's allergy and his/her orders.
+```java
+    public boolean hasOrderConflicts() {
+        return orders.stream().anyMatch(o -> isAllergicToAny(o.getMedicines()));
+    }
+
+}
+```
+
+`Person#isAllergicToAny(medicines)` returns true if the person is allergic to any of the given medicines.
+
+```java
+    public boolean isAllergicToAny(Set<Medicine> medicines) {
+        return medicines.stream().anyMatch(medicine -> isAllergicTo(medicine));
+    }
+```
 
 ### Add medicine short form feature  
 
@@ -192,7 +244,7 @@ Step 7: The `Medicine` at index 1 is replaced with a new `Medicine` which has sa
 
 The following sequence diagram illustrates some of the steps that happen when user execute `sfm 1 m/pan`
 
-![AddShortFormSequenceDiagram](images/AddShortFormSequenceDiagram.png)
+![ShortFormSequenceDiagram](images/ShortFormSequenceDiagram.png)
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifelines should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>  
  
@@ -899,6 +951,13 @@ Guarantees: The list of Orders that fulfills the status or medicine or both will
 1. Application should be smaller than 100mb so that application can be run on space constrained systems.
 1. Generated storage file shouldn't take up more than 100mb of storage so that the application can be run on space constrained systems.
 
+#### General
+
+* **Mainstream OS**: Windows, Linux, Unix, OS-X
+* **CLI**: Command Line Interface
+* **GUI**: Graphical User Interface
+* **API**: Application Programming Interface
+* **MSS**: Main Success Scenario (or, Happy Path)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -928,21 +987,85 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+### Adding a person
+1. Adding a Person with Valid Details
+    1. Test Case: `addp n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+ 
+       Expected: John Doe is added as a new person to PharmHub. All provided details, including the name, phone number, email, and address, are correctly saved. No errors or warnings are displayed.
+
+    1. Test Case: `addp n/Betsy Crowe t/diabetic e/betsycrowe@example.com a/19 Kent Ridge Crescent p/1234567 t/senior`
+       
+        Expected: Betsy Crowe is added as a new person to PharmHub. All provided details, including the name, phone number, email, and address, tags, and allergies, are correctly saved. No errors or warnings are displayed.
+2.  Adding a Person with Incorrect/Incomplete Information
+    1. `addp n/Jane Doe`
+    
+       Expected: An error message is displayed due to the absence of the phone number, email, and address. The person isn’t added as these details are mandatory.
+   
+3. Adding a Person with Duplicate Name 
+    1. Prerequisites: A person with name "John Doe" already exists in PharmHub. This can be done using the command in 1.i.
+    1. Test case: `addp n/John Doe p/9872 e/anotherjohnd@example.com a/Jane street, block 42, #03-02`
+    
+       Expected: An error message is displayed due to the presence of a person with the same name. The person isn’t added as names must be unique.
+4. Adding a Person with an allergy which is not yet in the Medicine list
+   1. Prerequisites: A persons list without the person with name "John Doe". A medicine list without the medicine "Aspirin". You can run the command `clear` to clear all entries in PharmHub. 
+   1. Test case: `addp n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 no/Aspirin`
+      Expected: An error message is displayed due to the presence of an allergy which is not in the medicine list. The person isn’t added as the allergy must be in the medicine list.
+
 ### Deleting a person
 
 1. Deleting a person while all persons are being shown
 
     1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-    1. Test case: `delete 1`<br>
+    1. Test case: `deletep 1`<br>
        Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-    1. Test case: `delete 0`<br>
+    1. Test case: `deletep 0`<br>
        Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+    1. Other incorrect delete commands to try: `deletep`, `deletep x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
+### Viewing a person
+1. Viewing a person with valid index
+    1. Prerequisites: There is at least 1 person in the persons list of PharmHub. This can be done using the command in 1.i. This can be checked using the command: `listp`
+    1. Test case: `viewp 1`<br>
+       Expected: First contact is shown in the details panel. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+
+    1. Test case: `viewp 0`<br>
+       Expected: No person is shown. Error details shown in the status message. Status bar remains the same.
+
+    1. Other incorrect view commands to try: `viewp`, `viewp x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
+### Editing a person 
+1. Editing a person using valid fields
+    1. Test case: `editp 1 n/John Doe p/98765432`
+ 
+       Expected: First contact is edited. Details of the edited contact shown in the status message. Timestamp in the status bar is updated.
+
+### Finding person(s)
+1. Finding person(s) using valid fields 
+    1. Test case: `findp n/John`
+       Expected: First contact is shown in the details panel. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    1. Test case: `findp n/Alex John`
+       Expected: All person(s) with name containing "Alex" or "John" is shown in the details panel. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    1. Test case: `findp t/senior diabetic`
+       Expected: All person(s) with tag containing "senior" or "diabetic" is shown in the details panel. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    1. Test case: `findp no/Aspirin Paracetamol`
+       Expected: All person(s) with allergy containing "Aspirin" or "Paracetamol" is shown in the details panel. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    1. Test case: `findp p/123456`
+       Expected: All person(s) with phone number equal to "123456" is shown in the details panel. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    1. Test case: `findp e/john@gmail.com`
+       Expected: All person(s) with email equal to "john@gmail.com" is shown in the details panel. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+
+2. Finding person(s) using invalid input
+    1. Test case: `findp`
+       Expected: An error message is displayed due to the absence of any field. No person is shown.
+    1. Test case: `findp n/`
+       Expected: An error message is displayed due to the absence of the name. No person is shown.
+    1. Test case: `findp t/`
+       Expected: An error message is displayed due to the absence of the tag. No person is shown.
 2. _{ more test cases …​ }_
 
 ### Listing all medicines
@@ -1124,6 +1247,14 @@ testers are expected to do more *exploratory* testing.
       Expected: No order deleted. `Invalid Command Format` error message shown.
 
    
+    1. Test case: `editp 0 n/John Doe p/98765432`<br>
+       
+       Expected: No person is edited. Error details shown in the status message. Status bar remains the same.
+
+    1. Other incorrect edit commands to try: `editp`, `editp x`, `...` (where x is larger than the list size)<br>
+       
+       Expected: Similar to previous.
+       
 ### Saving data
 
 1. Dealing with missing/corrupted data files
