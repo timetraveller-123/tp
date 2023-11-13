@@ -173,7 +173,86 @@ Classes used by multiple components are in the `seedu.pharmHub.commons` package.
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented. 
-This section describes some noteworthy details on how certain features are implemented.
+
+### ListX feature
+
+The listing functionality is supported by the listPanelPlaceholder in the Ui.
+
+On start of application, two listPanels (PersonListPanel, OrderListPanel) are created, and person list panel is attached
+to the ListPanel Placeholder as default.
+
+On execution of the any listing commands (`listo` or `listp`), the resultant CommandResult contains details on which
+panel to choose to display.
+
+These are 3 different options for these details:
+* Person - Panel will display list of people
+* Order - Panel will display list of orders
+* NoChange - Panel will keep whatever was there previously
+
+Using these specifications, the CommandResult from executing `listo` and `listp` will inform the Ui of which
+panel to attach to the listPanelPlaceHolder
+
+### ViewX feature
+
+The `viewp/ viewo` feature allows users to view details of a person/ order in the info display panel. This is facilitated with the new interface, `InfoObject`, which classes that want to be displayed are required to implement.
+
+To support this feature, `CommandResult` has the field `InfoObject`. If present (not null), the UI will create and attach a view for that `InfoObject` onto the Info Display.
+
+The code excerpt for `MainWindow#handleDisplayInfo(InfoObject)` below shows how the InfoDisplay is rendered:
+
+```java
+    @FXML
+    protected void handleDisplayInfo(InfoObject objectToDisplay) {
+        assert(objectToDisplay instanceof Order || objectToDisplay instanceof Person);
+
+        if (objectToDisplay instanceof Order) {
+            Order order = (Order) objectToDisplay;
+            OrderDisplay orderDisplay = new OrderDisplay(order);
+            infoDisplay.attach(orderDisplay)
+        } else if (objectToDisplay instanceof Person) {
+            Person person = (Person) objectToDisplay;
+            PersonDisplay personDisplay = new PersonDisplay(person);
+            infoDisplay.attach(personDisplay)
+        } else {
+            throw new RuntimeException("Invalid object to display");
+        }
+    }
+```
+
+
+The following sequence diagram shows how the `viewp` operation works:
+
+![ViewpSequenceDiagram](images/ViewpSequenceDiagram.png)
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+<img src="images/ViewActivityDiagram.png" width="450" />
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** As it currently stands in PharmHub, InfoObject can only be a Person or an Order.
+
+</div>
+
+#### Design considerations:
+* **Aspect: How the UI is informed about the object to display:**
+
+    * **Alternative 1 (current choice):** Require Classes that want to be displayed to implement `InfoObject`
+        * Pros: Allows `CommandResult` to contain a uniform type (`InfoObject`), which scales easily. Also gives control over which classes can be displayed, and which classes cannot (yet).
+        * Cons: Empty `InfoObject` interface may lead to confusion for new developers.
+
+    * **Alternative 2:** Have `CommandResult` contain all types of objects that we want displayed, ie `Person` and `Order`
+        * Pros: Possibly clearer in intent
+        * Cons: Not easily scalable
+
+* **Aspect: Creation of relevant `InfoObject` UI component:**
+
+    * **Alternative 1 (current choice):** If-else checks in `MainWindow#handleDisplayInfo`, and create the required UI component for each clause
+        * Pros: Reduces coupling between `Person` (and `Order`) model and UI
+        * Cons: Less scalable
+
+    * **Alternative 2:** Create abstract method `InfoObject#createUIComponent`, and have Classes that wish to be displayed implement this method and create their own UI components
+        * Pros: Easily scalable - each class implements their own UI display to attach into the placeholder
+        * Cons: Increased coupling between UI and Model. UI-creation code exists inside the `Person` (or `Order`) Class
+
 ### Edit person feature
 
 #### Implementation
@@ -341,67 +420,6 @@ The following sequence diagram shows how `findo` works on an example input. `fin
 <img src="images/FindoSequenceDiagram.png" width="1200" />
 
 
-### ViewX feature
-
-The `viewp/ viewo` feature allows users to view details of a person/ order in the info display panel. This is facilitated with the new interface, `InfoObject`, which classes that want to be displayed are required to implement.
-
-To support this feature, `CommandResult` has the field `InfoObject`. If present (not null), the UI will create and attach a view for that `InfoObject` onto the Info Display.
-
-The code excerpt for `MainWindow#handleDisplayInfo(InfoObject)` below shows how the InfoDisplay is rendered:
-
-```java
-    @FXML
-    protected void handleDisplayInfo(InfoObject objectToDisplay) {
-        assert(objectToDisplay instanceof Order || objectToDisplay instanceof Person);
-
-        if (objectToDisplay instanceof Order) {
-            Order order = (Order) objectToDisplay;
-            OrderDisplay orderDisplay = new OrderDisplay(order);
-            infoDisplay.attach(orderDisplay)
-        } else if (objectToDisplay instanceof Person) {
-            Person person = (Person) objectToDisplay;
-            PersonDisplay personDisplay = new PersonDisplay(person);
-            infoDisplay.attach(personDisplay)
-        } else {
-            throw new RuntimeException("Invalid object to display");
-        }
-    }
-```
-
-
-The following sequence diagram shows how the `viewp` operation works:
-
-![ViewpSequenceDiagram](images/ViewpSequenceDiagram.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/ViewActivityDiagram.png" width="450" />
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** As it currently stands in PharmHub, InfoObject can only be a Person or an Order.
-
-</div>
-
-#### Design considerations:
-* **Aspect: How the UI is informed about the object to display:**
-
-  * **Alternative 1 (current choice):** Require Classes that want to be displayed to implement `InfoObject`
-      * Pros: Allows `CommandResult` to contain a uniform type (`InfoObject`), which scales easily. Also gives control over which classes can be displayed, and which classes cannot (yet). 
-      * Cons: Empty `InfoObject` interface may lead to confusion for new developers.
-
-  * **Alternative 2:** Have `CommandResult` contain all types of objects that we want displayed, ie `Person` and `Order`
-      * Pros: Possibly clearer in intent
-      * Cons: Not easily scalable
-
-* **Aspect: Creation of relevant `InfoObject` UI component:**
-
-  * **Alternative 1 (current choice):** If-else checks in `MainWindow#handleDisplayInfo`, and create the required UI component for each clause
-      * Pros: Reduces coupling between `Person` (and `Order`) model and UI
-      * Cons: Less scalable
-
-  * **Alternative 2:** Create abstract method `InfoObject#createUIComponent`, and have Classes that wish to be displayed implement this method and create their own UI components
-      * Pros: Easily scalable - each class implements their own UI display to attach into the placeholder
-      * Cons: Increased coupling between UI and Model. UI-creation code exists inside the `Person` (or `Order`) Class
-
 ### Undo/redo feature
 
 The undo/redo mechanism is facilitated by `VersionedPharmHub`. It extends `PharmHub` with an undo/redo history, stored internally as an `undoHistory Deque` and `redoHistory Deque`. Additionally, it implements the following operations:
@@ -479,24 +497,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * **Alternative 2:** Affects all commands
       * Pros: Changes in view can be undone, leading to greater convenience. Easily extensible to undo certain views
       * Cons: Versioning has to be extended to keep track of UI, which may lead to increased coupling.
-
-### ListX
-
-The listing functionality is supported by the listPanelPlaceholder in the Ui.
-
-On start of application, two listPanels (PersonListPanel, OrderListPanel) are created, and person list panel is attached
-to the ListPanel Placeholder as default.
-
-On execution of the any listing commands (`listo` or `listp`), the resultant CommandResult contains details on which
-panel to choose to display.
-
-These are 3 different options for these details:
-* Person - Panel will display list of people
-* Order - Panel will display list of orders
-* NoChange - Panel will keep whatever was there previously
-
-Using these specifications, the CommandResult from executing `listo` and `listp` will inform the Ui of which
-panel to attach to the listPanelPlaceHolder
 
 --------------------------------------------------------------------------------------------------------------------
 
