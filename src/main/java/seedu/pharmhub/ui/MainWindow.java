@@ -37,8 +37,8 @@ public class MainWindow extends UiPart<Stage> {
     private OrderListPanel orderListPanel;
     private PersonListPanel personListPanel;
     private MedicineListPanel medicineListPanel;
-    private OrderDisplay orderDisplay;
 
+    private InfoDisplay infoDisplay;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     @FXML
@@ -127,6 +127,9 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
+        infoDisplay = new InfoDisplay();
+        infoDisplayPlaceholder.getChildren().add(infoDisplay.getRoot());
+
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getPharmHubFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
@@ -186,36 +189,19 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             listPanelPlaceholder.getChildren().add(medicineListPanel.getRoot());
         }
-        /*
-        if (panelToShow == CommandResult.ListPanelEffects.PERSON
-                && listPanelPlaceholder.getChildren().contains(orderListPanel.getRoot())) {
-            listPanelPlaceholder.getChildren().remove(orderListPanel.getRoot());
-            listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        } else if (panelToShow == CommandResult.ListPanelEffects.ORDER
-                && listPanelPlaceholder.getChildren().contains(personListPanel.getRoot())) {
-            listPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
-            listPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
-        }
-         */
     }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
-
     @FXML
     protected void handleDisplayInfo(InfoObject objectToDisplay) {
         assert(objectToDisplay instanceof Order || objectToDisplay instanceof Person);
+
         if (objectToDisplay instanceof Order) {
             Order order = (Order) objectToDisplay;
             OrderDisplay orderDisplay = new OrderDisplay(order);
-            infoDisplayPlaceholder.getChildren().clear();
-            infoDisplayPlaceholder.getChildren().add(orderDisplay.getRoot());
+            infoDisplay.attach(orderDisplay);
         } else if (objectToDisplay instanceof Person) {
             Person person = (Person) objectToDisplay;
             PersonDisplay personDisplay = new PersonDisplay(person);
-            infoDisplayPlaceholder.getChildren().clear();
-            infoDisplayPlaceholder.getChildren().add(personDisplay.getRoot());
+            infoDisplay.attach(personDisplay);
         } else {
             throw new RuntimeException("Invalid object to display");
         }

@@ -5,7 +5,6 @@ import static seedu.pharmhub.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.pharmhub.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.pharmhub.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.pharmhub.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.pharmhub.testutil.Assert.assertThrows;
 import static seedu.pharmhub.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
@@ -63,12 +62,10 @@ public class UpdateStatusCommandParserTest {
     @Test
     public void parse_invalidshortform_failure() {
         // invalid status lower case
-        assertThrows(IllegalArgumentException.class, () ->
-                parser.parse("1 s/ww"));
+        assertParseFailure(parser, "1 s/ww", Status.MESSAGE_CONSTRAINTS);
 
         // invalid status upper case
-        assertThrows(IllegalArgumentException.class, () ->
-                parser.parse("1 s/WO"));
+        assertParseFailure(parser, "1 s/WO", Status.MESSAGE_CONSTRAINTS);
     }
     @Test
     public void parse_missingStatusPrefix_throwsParseException() {

@@ -37,7 +37,7 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with PharmHub: " + pharmHub + " and user prefs " + userPrefs);
 
-        this.pharmHub = new VersionedPharmHub(pharmHub, this);
+        this.pharmHub = new VersionedPharmHub(pharmHub);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.pharmHub.getPersonList());
         filteredOrders = new FilteredList<>(this.pharmHub.getOrderList());

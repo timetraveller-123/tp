@@ -46,6 +46,9 @@ public class DeleteMedicineCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
         }
 
+        assert index.getZeroBased() >= 0 : "Index should be positive";
+        assert index.getZeroBased() < medicineList.size() : "Index should be within bounds of medicine list";
+
         Medicine medicine = medicineList.get(index.getZeroBased());
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_ORDERS);
@@ -55,6 +58,9 @@ public class DeleteMedicineCommand extends Command {
         }
 
         model.deleteMedicine(medicine);
+
+        assert !model.hasMedicine(medicine) : "Medicine should be deleted from model";
+
         return new CommandResult(String.format(MESSAGE_DELETE_MEDICINE_SUCCESS, Messages.format(medicine)));
 
     }
