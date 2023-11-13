@@ -268,7 +268,7 @@ Format: `editp INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/ALLERG
 * You can remove all the person’s allergies by typing `no/` without
     specifying any allergies after it.
 * If the editing causes the person to be allergic any of the orders belonging to them, warning will be raised.
-* Use the `ia/` flag to override.
+* The warning can be overridden by adding the `ia/` to the command
 
 Examples:
 *  `editp 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -400,12 +400,12 @@ Format: `viewo`
 
 Adds a new order of the given medication(s) corresponding to a person into the system.
 
-Format: `addo INDEX o/ORDER_NUMBER m/MEDICINE_NAME [m/MEDICINE_NAME]…​ [/ia]`
+Format: `addo INDEX o/ORDER_NUMBER m/MEDICINE_NAME [m/MEDICINE_NAME]…​ [ia/]`
 
 * Orders are created automatically having a `status` of `pending`.
 * Orders can only be created for a person in the index range, and for a known `medicine`
 * Orders created for persons with an allergy to any of the medications in the order will raise a warning.
-* The warning can be overridden by adding the `/ia` to the command
+* The warning can be overridden by adding the `ia/` to the command
 
 Parameters:
 * `INDEX` - index of patient who is ordering the medicine as shown in the last displayed patient list.
@@ -438,7 +438,7 @@ Example:
 
 Finds orders whose status and medicine satisfies both inputs.
 
-Format: `findo s/STATUS m/MEDICINE_NAME [m/MEDICINE_NAME]...`
+Format: `findo s/STATUS m/MEDICINE_NAME [m/MEDICINE_NAME]…`
 
 * The search is case-insensitive. e.g `PANADOL` will match `Panadol`, `COMPLETED` or `CP` will match `Completed`.
 * User input can find orders base on either status or medicines or both(but both will have to be satisfied).
@@ -545,6 +545,7 @@ If your changes to the data file makes its format invalid, PharmHub will discard
 | **Clear**                 | `clear`                                                                                                                                                                                         |
 | **Help**                  | `help`                                                                                                                                                                                          |
 | **Exit**                  | `exit`                                                                                                                                                                                          |
+
 
 ## FAQ
 

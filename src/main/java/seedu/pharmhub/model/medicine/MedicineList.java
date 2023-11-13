@@ -66,7 +66,7 @@ public class MedicineList {
     /**
      * Replaces the contents of this list with {@code medicines}.
      */
-    public void setOrders(List<Medicine> medicines) {
+    public void setMedicines(List<Medicine> medicines) {
         requireAllNonNull(medicines);
         internalList.setAll(medicines);
     }
