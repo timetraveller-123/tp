@@ -13,13 +13,6 @@ title: Developer Guide
     5. [Storage](#storage-component)
     6. [Common Classes](#common-classes)
 4. [Implementation](#implementation)
-   1. [Listing](#listx)
-   2. [Viewing](#viewx-feature)
-   3. [Edit Person](#edit-person-feature)
-   4. [Add Medicine Short Form](#add-medicine-short-form-feature-)
-   5. [Delete Medicine Short Form](#delete-medicine-short-form-feature-)
-   6. [Adding an Order](#adding-an-order-feature)
-   7. [Finding an Order Feature](#finding-an-order-feature)
 5. [Documentation](#documentation-logging-testing-configuration-dev-ops)
 6. [Appendix: Requirements](#appendix-requirements)
     1. [Product scope](#product-scope)
@@ -180,6 +173,85 @@ Classes used by multiple components are in the `seedu.pharmHub.commons` package.
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented. 
+
+### ListX feature
+
+The listing functionality is supported by the listPanelPlaceholder in the Ui.
+
+On start of application, two listPanels (PersonListPanel, OrderListPanel) are created, and person list panel is attached
+to the ListPanel Placeholder as default.
+
+On execution of the any listing commands (`listo` or `listp`), the resultant CommandResult contains details on which
+panel to choose to display.
+
+These are 3 different options for these details:
+* Person - Panel will display list of people
+* Order - Panel will display list of orders
+* NoChange - Panel will keep whatever was there previously
+
+Using these specifications, the CommandResult from executing `listo` and `listp` will inform the Ui of which
+panel to attach to the listPanelPlaceHolder
+
+### ViewX feature
+
+The `viewp/ viewo` feature allows users to view details of a person/ order in the info display panel. This is facilitated with the new interface, `InfoObject`, which classes that want to be displayed are required to implement.
+
+To support this feature, `CommandResult` has the field `InfoObject`. If present (not null), the UI will create and attach a view for that `InfoObject` onto the Info Display.
+
+The code excerpt for `MainWindow#handleDisplayInfo(InfoObject)` below shows how the InfoDisplay is rendered:
+
+```java
+    @FXML
+    protected void handleDisplayInfo(InfoObject objectToDisplay) {
+        assert(objectToDisplay instanceof Order || objectToDisplay instanceof Person);
+
+        if (objectToDisplay instanceof Order) {
+            Order order = (Order) objectToDisplay;
+            OrderDisplay orderDisplay = new OrderDisplay(order);
+            infoDisplay.attach(orderDisplay)
+        } else if (objectToDisplay instanceof Person) {
+            Person person = (Person) objectToDisplay;
+            PersonDisplay personDisplay = new PersonDisplay(person);
+            infoDisplay.attach(personDisplay)
+        } else {
+            throw new RuntimeException("Invalid object to display");
+        }
+    }
+```
+
+
+The following sequence diagram shows how the `viewp` operation works:
+
+![ViewpSequenceDiagram](images/ViewpSequenceDiagram.png)
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+<img src="images/ViewActivityDiagram.png" width="450" />
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** As it currently stands in PharmHub, InfoObject can only be a Person or an Order.
+
+</div>
+
+#### Design considerations:
+* **Aspect: How the UI is informed about the object to display:**
+
+    * **Alternative 1 (current choice):** Require Classes that want to be displayed to implement `InfoObject`
+        * Pros: Allows `CommandResult` to contain a uniform type (`InfoObject`), which scales easily. Also gives control over which classes can be displayed, and which classes cannot (yet).
+        * Cons: Empty `InfoObject` interface may lead to confusion for new developers.
+
+    * **Alternative 2:** Have `CommandResult` contain all types of objects that we want displayed, ie `Person` and `Order`
+        * Pros: Possibly clearer in intent
+        * Cons: Not easily scalable
+
+* **Aspect: Creation of relevant `InfoObject` UI component:**
+
+    * **Alternative 1 (current choice):** If-else checks in `MainWindow#handleDisplayInfo`, and create the required UI component for each clause
+        * Pros: Reduces coupling between `Person` (and `Order`) model and UI
+        * Cons: Less scalable
+
+    * **Alternative 2:** Create abstract method `InfoObject#createUIComponent`, and have Classes that wish to be displayed implement this method and create their own UI components
+        * Pros: Easily scalable - each class implements their own UI display to attach into the placeholder
+        * Cons: Increased coupling between UI and Model. UI-creation code exists inside the `Person` (or `Order`) Class
 
 ### Edit person feature
 
@@ -348,67 +420,6 @@ The following sequence diagram shows how `findo` works on an example input. `fin
 <img src="images/FindoSequenceDiagram.png" width="1200" />
 
 
-### ViewX feature
-
-The `viewp/ viewo` feature allows users to view details of a person/ order in the info display panel. This is facilitated with the new interface, `InfoObject`, which classes that want to be displayed are required to implement.
-
-To support this feature, `CommandResult` has the field `InfoObject`. If present (not null), the UI will create and attach a view for that `InfoObject` onto the Info Display.
-
-The code excerpt for `MainWindow#handleDisplayInfo(InfoObject)` below shows how the InfoDisplay is rendered:
-
-```java
-    @FXML
-    protected void handleDisplayInfo(InfoObject objectToDisplay) {
-        assert(objectToDisplay instanceof Order || objectToDisplay instanceof Person);
-
-        if (objectToDisplay instanceof Order) {
-            Order order = (Order) objectToDisplay;
-            OrderDisplay orderDisplay = new OrderDisplay(order);
-            infoDisplay.attach(orderDisplay)
-        } else if (objectToDisplay instanceof Person) {
-            Person person = (Person) objectToDisplay;
-            PersonDisplay personDisplay = new PersonDisplay(person);
-            infoDisplay.attach(personDisplay)
-        } else {
-            throw new RuntimeException("Invalid object to display");
-        }
-    }
-```
-
-
-The following sequence diagram shows how the `viewp` operation works:
-
-![ViewpSequenceDiagram](images/ViewpSequenceDiagram.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/ViewActivityDiagram.png" width="450" />
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** As it currently stands in PharmHub, InfoObject can only be a Person or an Order.
-
-</div>
-
-#### Design considerations:
-* **Aspect: How the UI is informed about the object to display:**
-
-  * **Alternative 1 (current choice):** Require Classes that want to be displayed to implement `InfoObject`
-      * Pros: Allows `CommandResult` to contain a uniform type (`InfoObject`), which scales easily. Also gives control over which classes can be displayed, and which classes cannot (yet). 
-      * Cons: Empty `InfoObject` interface may lead to confusion for new developers.
-
-  * **Alternative 2:** Have `CommandResult` contain all types of objects that we want displayed, ie `Person` and `Order`
-      * Pros: Possibly clearer in intent
-      * Cons: Not easily scalable
-
-* **Aspect: Creation of relevant `InfoObject` UI component:**
-
-  * **Alternative 1 (current choice):** If-else checks in `MainWindow#handleDisplayInfo`, and create the required UI component for each clause
-      * Pros: Reduces coupling between `Person` (and `Order`) model and UI
-      * Cons: Less scalable
-
-  * **Alternative 2:** Create abstract method `InfoObject#createUIComponent`, and have Classes that wish to be displayed implement this method and create their own UI components
-      * Pros: Easily scalable - each class implements their own UI display to attach into the placeholder
-      * Cons: Increased coupling between UI and Model. UI-creation code exists inside the `Person` (or `Order`) Class
-
 ### Undo/redo feature
 
 The undo/redo mechanism is facilitated by `VersionedPharmHub`. It extends `PharmHub` with an undo/redo history, stored internally as an `undoHistory Deque` and `redoHistory Deque`. Additionally, it implements the following operations:
@@ -487,24 +498,6 @@ The following activity diagram summarizes what happens when a user executes a ne
       * Pros: Changes in view can be undone, leading to greater convenience. Easily extensible to undo certain views
       * Cons: Versioning has to be extended to keep track of UI, which may lead to increased coupling.
 
-### ListX
-
-The listing functionality is supported by the listPanelPlaceholder in the Ui.
-
-On start of application, two listPanels (PersonListPanel, OrderListPanel) are created, and person list panel is attached
-to the ListPanel Placeholder as default.
-
-On execution of the any listing commands (`listo` or `listp`), the resultant CommandResult contains details on which
-panel to choose to display.
-
-These are 3 different options for these details:
-* Person - Panel will display list of people
-* Order - Panel will display list of orders
-* NoChange - Panel will keep whatever was there previously
-
-Using these specifications, the CommandResult from executing `listo` and `listp` will inform the Ui of which
-panel to attach to the listPanelPlaceHolder
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -570,13 +563,12 @@ For all use cases below, the **Software System** is the `PharmHub` and the **Act
 
 #### **Use case: UC01 - Adding a person**
 
-Guarantees: The new person(patient) will be added to the list of Person only if the person do not exist
+Guarantees: The new person(patient) will be added to the list of Person.
 
 **MSS**
 
-1. User chose to add a person into the system.
-2. PharmHub adds the new person to the person list.
-3. PharmHub displays the updated list and person added.
+1. User inputs the command to add a person into the system.
+2. PharmHub adds the new person to the person list, displays the updated list and shows the detail information on the information display.
 <br>**Use case ends**
 
 **Extensions**
@@ -612,8 +604,8 @@ Guarantees: The Person List would be displayed.
 **MSS**
 
 1. User adds a person [UC01](#use-case-uc01---adding-a-person).
-2. User chose to view the person list.
-3. PharmHub shows the Person list.
+2. User inputs command to view the list.
+3. PharmHub shows the Person list on the display list.
    <br>**Use case ends**
     
 **Extensions**
@@ -630,15 +622,14 @@ Guarantees: The Person List would be displayed.
 
 #### **Use case: UC03 - Editing Person Detail**
 
-Guarantees: The Person's detail would be updated only if the person exist.
+Guarantees: The Person's detail would be updated.
 
 **MSS**
 
 1. User adds a person [UC01](#use-case-uc01---adding-a-person).
 2. User views the person list [UC02](#use-case-uc02---listing-person-list).
-3. User chose to edit a person's detail.
-4. PharmHub updates the Person list with the updated Person information.
-5. PharmHub display the person.
+3. User inputs command to edit a person's detail after looking at the list.
+4. PharmHub updates the Person list with the updated Person information and display the person on the detail display.
 <br>**Use case ends**
 
 
@@ -670,11 +661,11 @@ Guarantees: The Person's detail would be updated only if the person exist.
 
 #### **Use case: UC04 - Adding a medicine**
 
-Guarantees: The new medicine will be added to the list of medicines only if the medicine do not exist.
+Guarantees: The new medicine will be added to the list of medicines.
 
 **MSS**
 
-1. User chose to add a medicine into the system.
+1. User inputs the command to add a medicine into the system.
 2. PharmHub adds the new medicine to the medicine list.
    <br>**Use case ends**
 
@@ -706,8 +697,8 @@ Guarantees: The Medicine List would be displayed.
 **MSS**
 
 1. User adds a medicine [UC04](#use-case-uc04---adding-a-medicine).
-2. User chose to view the medicine list.
-3. PharmHub shows the Medicine list.
+2. User inputs command to view the medicine list.
+3. PharmHub shows the Medicine list on the display list.
    <br>**Use case ends**
 
 **Extensions**
@@ -724,14 +715,14 @@ Guarantees: The Medicine List would be displayed.
 
 #### **Use case: UC06 - Adding a medicine short form**
 
-Guarantees: The Medicine would have a short form only if the medicine exist.
+Guarantees: The Medicine would have a short form.
 
 **MSS**
 
 1. User adds a Medicine [UC04](#use-case-uc04---adding-a-medicine).
 2. User views the person list [UC05](#use-case-uc05---listing-medicine-list).
-3. User chose to add a short form for medicine.
-4. PharmHub updates Medicine list with a short form.
+3. User inputs command to add a short form for medicine base on the index on the list.
+4. PharmHub updates Medicine list with a short form for the medicine.
    <br>**Use case ends**
 
 **Extensions**
@@ -755,12 +746,12 @@ Guarantees: The Medicine would have a short form only if the medicine exist.
 
 #### **Use case: UC07 - Deleting a medicine short form**
 
-Guarantees: The short form for the medicine will be removed only if there is a short form for the medicine
+Guarantees: The short form for the medicine will be removed.
 
 **MSS**
 
 1. User adds a short form [U07](#use-case-uc06---adding-a-medicine-short-form)
-2. User chose to delete the medicine's short form.
+2. User inputs command to delete a short form for the medicine base on the index on the list.
 3. PharmHub updates Medicine list with an empty short form for the medicine.
 <br>**Use case ends**
 
@@ -780,38 +771,39 @@ Guarantees: The short form for the medicine will be removed only if there is a s
 
 #### **Use Case: UC08 - Add an Order for a Person**
 
-Guarantees: The order is added to the person only if the order do not exist and the person must exist.
+Guarantees: The order is added to the person, which can be seen by viewing the order or person
 
 **MSS**
 
-1. User selects a person from the person list [UC02](#use-case-uc02---listing-person-list).
-2. User chose to add an order to the person.
-3. PharmHub adds the new order to the order list
-4. PharmHub then displays the order.
+1. User views the person list [UC02](#use-case-uc02---listing-person-list).
+2. PharmHub shows a list of persons.
+3. User selects a person from the list to assign the order to.
+4. User then inputs the add order command.
+5. PharmHub adds the new order to the order list, then displays the details on the information display.
    <br>**Use case ends**
 
 
 **Extensions**
 
-* 2a. The given index to select a patient is invalid.
-    * 2a1. PharmHub shows an `Invalid Index` error message. 
+* 4a. The given index to select a patient is invalid.
+    * 4a1. PharmHub shows an `Invalid Index` error message. 
     * Use case resumes at step 5.
 
-* 2b. The given medication name is invalid.
+* 4b. The given medication name is invalid.
     * 4b1. PharmHub shows an `Invalid Medication` error message.
     * Use case resumes at step 5.
   
-* 2c. The person is allergic to the input medication
-    * 2c1. The user input the wrong medication resulting in the error.
-      * 2c1a. PharmHub shows an `Patient Allergy` warning message
-      * 2c1b. User edits the command
+* 4c. The person is allergic to the input medication
+    * 4c1. The user input the wrong medication resulting in the error.
+      * 4c1a. PharmHub shows an `Patient Allergy` warning message
+      * 4c1b. User edits the command
       * Use case resumes at step 5.
-    * 2c2. The User wants to overwrite the warning
-      * 2c2a. PharmHub shows an `Patient Allergy` warning message
-      * 2c2b. User acknowledges the allergy warning but chooses to proceed by adding an `IA/` (Ignore Allergy) flag to the command.
-      * 2c2c. User confirms the order by resubmitting with the `IA/` flag.
-      * 2c2d. PharmHub creates the order with the provided information, including the `IA/` flag. 
-      * 2c2e. PharmHub confirms the successful creation of the order, noting the allergy warning and the "IA" flag.
+    * 4c2. The User wants to overwrite the warning
+      * 4c2a. PharmHub shows an `Patient Allergy` warning message
+      * 4c2b. User acknowledges the allergy warning but chooses to proceed by adding an `IA/` (Ignore Allergy) flag to the command.
+      * 4c2c. User confirms the order by resubmitting with the `IA/` flag.
+      * 4c2d. PharmHub creates the order with the provided information, including the `IA/` flag. 
+      * 4c2e. PharmHub confirms the successful creation of the order, noting the allergy warning and the "IA" flag.
       * Use case resumes at step 5.
 
 In this use case, a pharmacist adds a medication order for a patient using PharmHub. 
@@ -827,8 +819,8 @@ Guarantees: The Order List would be displayed.
 **MSS**
 
 1. User adds an order [UC08](#use-case-uc08---add-an-order-for-a-person).
-2. User chose to view the order list.
-3. PharmHub shows the Order list.
+2. User inputs command to view the order list.
+3. PharmHub shows the Order list on the display list.
    <br>**Use case ends**
 
 **Extensions**
@@ -845,32 +837,37 @@ Guarantees: The Order List would be displayed.
 
 #### **Use case: UC10 - Update Order Status**
 
-Guarantees: The order status will be updated only if the order exist.
+Guarantees: The order status will be updated
 
 **MSS**
 
-1. User chose to update order status for an order.
-2. PharmHub updates the order status for the corresponding order.
-3. PharmHub Displays the updated order.
+1.  User views the order list [UC09](#use-case-uc09---listing-order-list)
+2.  PharmHub shows a list of Order.
+3.  User requests to update order status for a order in the list.
+4.  PharmHub updates order status for the corresponding order.
     <br>**Use case ends**
 
 **Extensions**
 
-* 1a. The given index is invalid.
+* 2a. The list is empty.
+  <br>**Use case ends**
 
-    * 1a1. PharmHub shows an `Invalid Index` error message.
 
-      Use case resumes at step 2.
+* 3a. The given index is invalid.
 
-* 1b. The given status is invalid.
-
-    * 1b1. PharmHub shows an `Invalid Status` error message.
+    * 3a1. PharmHub shows an `Invalid Index` error message.
 
       Use case resumes at step 2.
 
-* 1c. The given status is invalid chronological order.
+* 3b. The given status is invalid.
 
-    * 1c1. PharmHub shows an `Invalid Chronological Order` error message.
+    * 3b1. PharmHub shows an `Invalid Status` error message.
+
+      Use case resumes at step 2.
+
+* 3c. The given status is invalid chronological order.
+
+    * 3c1. PharmHub shows an `Invalid Chronological Order` error message.
 
       Use case resumes at step 2.
 
@@ -881,22 +878,23 @@ Guarantees: The list of person that contains the keywords would be displayed.
 **MSS**
 
 1. User added multiple person [UC01](#use-case-uc01---adding-a-person).
-2. User chose find person by keywords.
-3. PharmHub filters through the person list.
-4. PharmHub then displays the filtered person list.
+2. User wants to find a specific person base on their names.
+3. User input find person command.
+4. PharmHub filters through the person list following the keywords given from the command input.
+5. PharmHub then displays the filtered person list on the list display.
    <br>**Use case ends**
 
 **Extensions**
 
-* 2a. User input invalid command.
+* 3a. User input invalid command.
   
-  * 2a1. PharmHub shows an `Invalid Command` error message
+  * 3a1. PharmHub shows an `Invalid Command` error message
     <br>**Use case ends**
 
 
-* 3a. The keywords given does not match with any person.
+* 4a. The keywords given does not match with any person.
 
-    * 3a1. Empty list is shown.
+    * 4a1. Empty list is shown.
 
       Use case resumes at step 2.
 
@@ -908,36 +906,38 @@ Guarantees: The list of Orders that fulfills the status or medicine or both will
 **MSS**
 
 1. User added multiple order [UC08](#use-case-uc08---add-an-order-for-a-person).
-2. User chose to find orders.
-3. PharmHub filters through the order list.
-4. PharmHub then displays the filtered order list.
+2. User wants to find a orders base on their status or medicine or both.
+3. User input find order command.
+4. PharmHub filters through the order list following the status and medicine given from the command input.
+5. PharmHub then displays the filtered order list on the list display.
    <br>**Use case ends**
 
 
 **Extensions**
 
-* 2a. User input invalid command.
+* 3a. User input invalid command.
 
-    * 2a1. PharmHub shows an `Invalid Command` error message.
+    * 3a1. PharmHub shows an `Invalid Command` error message.
       <br>**Use case ends**
 
-* 2b. User input invalid fields.
 
-    * 2b1. User input Invalid Prefix.
+* 4a. The status and medicine keyword given does not match with any order.
+
+    * 4a1. Empty list is shown.
+      <br>**Use case ends**
+
+
+* 4b. User input invalid fields.
+
+    * 4b1. User input Invalid Prefix.
       * PharmHub shows an `Invalid Command Format` error message.
       <br>**Use case ends**
-    * 2b2. User input Invalid Status.
+    * 4b2. User input Invalid Status.
       * PharmHub shows an `Invalid Status` error message.
         <br>**Use case ends**
-    * 2b3. User input non-existent medicine keywords. 
+    * 4b3. User input non-existent medicine keywords. 
       * PharmHub Displays a empty list.
               <br>**Use case ends**
-
-* 3a. The status and medicine keyword given does not match with any order.
-
-    * 3a1. Empty list is shown.
-      <br>**Use case ends**
-
 
 ### Non-Functional Requirements
 
