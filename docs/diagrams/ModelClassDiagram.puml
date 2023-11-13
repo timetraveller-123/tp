@@ -30,7 +30,7 @@ VersionedPharmHub -up-|> PharmHub
 ModelManager .up.|> Model
 Model .right.> ReadOnlyUserPrefs
 Model .left.> ReadOnlyPharmHub
-ModelManager -left-> "1" PharmHub
+ModelManager --> "1" VersionedPharmHub
 ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
@@ -44,6 +44,8 @@ MedicineList --> "~* all" Medicine
 ModelManager -down---> "~* filtered" Medicine
 ModelManager -down---> "~* filtered" Person
 ModelManager -down---> "~* filtered" Order
+
+OrderList -[hidden]right-> MedicineList
 
 
 @enduml
