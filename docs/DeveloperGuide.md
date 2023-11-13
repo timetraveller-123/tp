@@ -321,42 +321,45 @@ The following sequence diagram shows how `addorder` works on an example input.
 
 **Target user profile**:
 
-* Pharmacists
-* Working remotely
+Tech-savvy fresh-graduate remote pharmacist managing medication orders for a small-medium sized business, looking to move up the corporate ladder quickly.
 
-**Value proposition**: Provide easy access to patient details and allows pharmacists to quickly and accurately process
-medication orders for the patients, optimised for CLI use.
+**Value proposition**: 
+
+PharmHub provides an efficient yet guarded approach towards processing orders. It allows users to go through the lifecycle of order-fulfillment quickly, whilst protecting against erroneous entries and providing a quick and efficient methods of correcting mistakes.
+
+It is also optimised for CLI use. 
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                                                         | So that I can…​                                                             |
-|-------|--------------------------------------------|----------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| `* * *` | Pharmacist                                 | Add a new patient into PharmHub                               | Keep track of all information of my patients                                |
-| `* * *` | Pharmacist                                 | Add a medication order for a patient                                 | keep track medications orders of patients                                   |
-| `* * *` | Pharmacist                                 | Add allergies of a patient towards certain medications               | keep track of patient allergies                                             |
-| `* * *` | Pharmacist                                 | View details of a medication order                                   |                                                                             |
-| `* * *` | Pharmacist                                 | View the status of an order                                          | I can track the state of an order                                           |
-| `* * *` | Pharmacist                                 | Edit status of an order                                              | Update the order records with the most current information                  |
-| `* * *` | Pharmacist                                 | Edit the details of a patient                                        | Update records with the most current information                            |
-| `* * *` | Pharmacist                                 | View all medication orders                                           | get a quick overview of all medication orders from all patients             |
-| `* * *` | Pharmacist                                 | Delete a patient from my pharmHub                                 | remove a patient that is no longer under my care                            |
-| `* * *` | New user                                   | View a summary of all the commands                                   | recall how to use the application                                           |
-| `* * *` | Pharmacist                                 | Delete an order from the system                                      | Remove erroneous orders                                                     |
-| `* * *` | Detail-oriented Pharmacist                 | Be alerted if a patient is given a medication that he is allergic to | Detect and prevent erroneous orders from going through                      |
-| `* *` | Busy Pharmacist                            | Abbreviate medication names                                          | Maximise my efficiency                                                      |
-| `* *` | Pharmacist                                 | View all details of a patient                                        | get the full patient profile, if required                                   |
-| `* *` | Pharmacist                                 | Search orders by various attributes                                  | manage and convey information about orders to stakeholders efficiently      |
-| `* *` | Pharmacist                                 | See the number of unfulfilled orders                                 | keep track of my progress in dispensing orders                              |
-| `* *` | Pharmacist                                 | Add priorities to orders                                             | keep track of which orders I should prioritise                              |
-| `* *` | Pharmacist                                 | Filter orders by their statuses                                      | manage my orders efficiently                                                |
-| `* *` | Pharmacist                                 | Sort orders on various categories                                    | maximise my efficiency                                                      |
-| `*`   | Pharmacist                                 | Edit an order                                                        | correct or update an added order                                            |
-| `*`   | Pharmacist                                 | Track my medication inventory                                        | I have easy access to the amount of medication I have                       |
-| `*`   | Pharmacist                                 | Calculate estimated time an order will take to ship                  | Notify patients of an estimated wait time before receiving their medication |
-*{More to be added}*
+| Priority | As a …​                    | I want to …​                                                                    | So that I can…​                                                             |
+|----------|----------------------------|---------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| `* * *`  | Pharmacist                 | Add a new patient into PharmHub                                                 | Keep track of all information of my patients                                |
+| `* * *`  | Pharmacist                 | Add a medication order for a patient                                            | Process new orders                                                          |
+| `* * *`  | Pharmacist                 | Add a medicine into PharmHub                                                    | Update the inventory of my pharmacy                                         |
+| `* * *`  | Pharmacist                 | Add allergies of a patient towards certain medications                          | Keep track of patient allergies                                             |
+| `* * *`  | Pharmacist                 | View the status of an order                                                     | I am able to keep track of the state of an order                            |
+| `* * *`  | Pharmacist                 | Update the status of an order                                                   | Update the order records with the most current information                  |
+| `* * *`  | Pharmacist                 | Edit the details of a patient                                                   | Update patient records with the most current information                    |
+| `* * *`  | Pharmacist                 | View all medication orders                                                      | Have an overview of all medication orders                                   |
+| `* * *`  | Pharmacist                 | Delete a patient from PharmHub                                                  | Remove a patient that is no longer under my care                            |
+| `* * *`  | New user                   | View a summary of all the commands                                              | Recall how to use the application                                           |
+| `* * *`  | Pharmacist                 | Delete an order from the system                                                 | Remove erroneous orders                                                     |
+| `* * *`  | Detail-oriented Pharmacist | Be alerted if a patient is given a medication that he is allergic to            | Detect and prevent erroneous orders from going through                      |
+| `* * *`  | Time-efficient Pharmacist  | Be alerted if a medication in an order is nonsensical                           | Waste less time looking for a non-existent medication                       |
+| `* * *`  | Mistake-prone Pharmacist   | Undo/Redo my last action                                                        | Correct mistakes made into the system quickly and effectively               |
+| `* *`    | Busy Pharmacist            | Abbreviate medication names                                                     | Maximise my efficiency and type less                                        |
+| `* *`    | Pharmacist                 | View all details of a patient (including past/ present orders for that patient) | Easily track orders for that patient                                        |
+| `* *`    | Forgetful Pharmacist       | Search for orders by their status                                               | Find out which orders to prepare next                                       |
+| `* *`    | Time-efficient Pharmacist  | Search for orders by their medication name                                      | Prepare all orders that contain a particular medicine simultaneously        |
+| `* *`    | Result-oriented Pharmacist | See the number of unfulfilled orders                                            | Keep track of my progress in dispensing orders                              |
+| `* *`    | Pharmacist                 | Add priorities to orders                                                        | Keep track of an order's priority                                           |
+| `* *`    | Pharmacist                 | Sort orders on various categories (eg. Priority, Time)                          | Fulfill the important orders first                                          |
+| `*`      | Pharmacist                 | Edit an order                                                                   | Correct a mistake made in an order                                          |
+| `*`      | Pharmacist                 | Track my medication inventory                                                   | I have easy access to the amount of medication I have                       |
+| `*`      | Pharmacist                 | Calculate estimated time an order will take to ship                             | Notify patients of an estimated wait time before receiving their medication |
 
 ### Use cases
 
