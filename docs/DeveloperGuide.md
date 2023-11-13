@@ -236,7 +236,7 @@ Step 6: The `Medicine` at index 1 is replaced with a new `Medicine` which has sa
 
 The following activity diagram summarises the sequence of steps for the whole `sfm` command.
 
-<img src="images/ShortFormActivityDiagram.png" width="250" />
+<img src="images/ShortFormActivityDiagram.png" width="400" />
 
 ### Adding an Order feature
 
@@ -1090,6 +1090,9 @@ testers are expected to do more *exploratory* testing.
 2. Currently, when adding a medicine there is no way for the user to specify the short form right then. Hence, the user has to first add
    the medicine followed by using `sfm` command to add a short form to it. We plan to allow `addm` accept an optional parameter for 
    the short form of the medicine being added. 
+
+3. Currently, the sample data shows incorrect values for tags of persons. We plan to fix this by replacing the current sample tags with 
+   tags that are appropriate in a pharmacy setting like `Elderly`, `Diabetic` or `Child` and so on.
 
 
 ## **Appendix: Effort**
