@@ -232,7 +232,33 @@ The `viewp/ viewo` feature allows users to view details of a person/ order in th
 
 To support this feature, `CommandResult` has the field `InfoObject`. If present (not null), the UI will create and attach a view for that `InfoObject` onto the Info Display.
 
-The following sequence diagram shows how the viewp operation works:
+The code excerpt for `MainWindow#handleDisplayInfo(InfoObject)` below shows how the InfoDisplay is rendered:
+@FXML
+protected void handleDisplayInfo(InfoObject objectToDisplay) {
+assert(objectToDisplay instanceof Order || objectToDisplay instanceof Person);
+infoDisplayPlaceholder.getChildren().clear();
+```java
+    @FXML
+    protected void handleDisplayInfo(InfoObject objectToDisplay) {
+        assert(objectToDisplay instanceof Order || objectToDisplay instanceof Person);
+        infoDisplayPlaceholder.getChildren().clear();
+
+        if (objectToDisplay instanceof Order) {
+            Order order = (Order) objectToDisplay;
+            OrderDisplay orderDisplay = new OrderDisplay(order);
+            infoDisplayPlaceholder.getChildren().add(orderDisplay.getRoot());
+        } else if (objectToDisplay instanceof Person) {
+            Person person = (Person) objectToDisplay;
+            PersonDisplay personDisplay = new PersonDisplay(person);
+            infoDisplayPlaceholder.getChildren().add(personDisplay.getRoot());
+        } else {
+            throw new RuntimeException("Invalid object to display");
+        }
+    }
+```
+
+
+The following sequence diagram shows how the `viewp` operation works:
 
 ![ViewpSequenceDiagram](images/ViewpSequenceDiagram.png)
 
