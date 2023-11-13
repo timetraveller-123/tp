@@ -580,29 +580,12 @@ Guarantees: The new person(patient) will be added to the list of Person.
 
 **Extensions**
 
-* 1a. User enters an invalid command.
+* 1a. PharmHub detects an error in the input.
 
-    * 1a1. PharmHub shows an `Unknown Command` error message.
-      <br>**Use case ends**
-
-
-* 1b. User enters a person that already exists.
-
-    * 1b1. PharmHub shows an `User already exist` error message.
-<br>**Use case ends**
-
-* 1c. User does not enter a required field.
-
-    * 1c1. PharmHub shows an `Invalid Command Format` error message.
-      <br>**Use case ends**
-
-
-* 1d. User enters an invalid value for a field.
-
-    * 1d1. PharmHub shows an `Field Requirement` error message.
-      <br>**Use case ends**
-
-
+    * 1a1. PharmHub shows error message.
+    * 1a2. User enters new input.
+    * Steps 1a1-1a2 are repeated until the input are correct.
+    <br>**Use case resumes from step 2.**
      
 #### **Use case: UC02 - Listing Person list**
 
@@ -617,10 +600,12 @@ Guarantees: The Person List would be displayed.
     
 **Extensions**
 
-* 1a. User enters an invalid command.
+* 2a. PharmHub detects an error in the input.
 
-    * 1a1. PharmHub shows an `Unknown Command` error message.
-      <br>**Use case ends**
+    * 2a1. PharmHub shows error message.
+    * 2a2. User enters new input.
+    * Steps 2a1-2a2 are repeated until the input are correct.
+    <br>**Use case resumes from step 3.**
 
 
 * 2a. The list is empty.
@@ -642,29 +627,12 @@ Guarantees: The Person's detail would be updated.
 
 **Extensions**
 
-* 3a. User enters an invalid command.
+* 3a. PharmHub detects an error in the input.
 
-    * 3a1. PharmHub shows an `Unknown Command` error message.
-      <br>**Use case ends**
-
-
-* 3b. User enters an invalid index.
-
-    * 3b1. PharmHub shows an `Invalid Index` error message.
-      <br>**Use case ends**
-
-
-* 3c. User does not enter at least one field to edit.
-
-    * 3c1. PharmHub shows an error message.
-      <br>**Use case ends**
-
-
-* 3d. User enters an invalid value for a field.
-
-    * 3d1. PharmHub shows an `Field Requirement` error message.
-      <br>**Use case ends**
-
+    * 3a1. PharmHub shows error message.
+    * 3a2. User enters new input.
+    * Steps 3a1-3a2 are repeated until the input are correct.
+    <br>**Use case resumes from step 4.**
 
 #### **Use case: UC04 - Adding a medicine**
 
@@ -679,22 +647,12 @@ Guarantees: The new medicine will be added to the list of medicines.
 
 **Extensions**
 
-* 1a. User enters an invalid command.
+* 1a. PharmHub detects an error in the input.
 
-    * 1a1. PharmHub shows an `Unknown Command` error message.
-      <br>**Use case ends**
-
-
-* 1b. User enters a medicine that already exists.
-
-    * 1b1. PharmHub shows an `Medicine already exist` error message.
-      <br>**Use case ends**
-
-
-* 1c. User does not enter a required field.
-
-    * 1c1. PharmHub shows an `Invalid Command Format` error message.
-      <br>**Use case ends**
+    * 1a1. PharmHub shows error message.
+    * 1a2. User enters new input.
+    * Steps 1a1-1a2 are repeated until the input are correct.
+    <br>**Use case resumes from step 2.**
 
 
 #### **Use case: UC05 - Listing Medicine list**
@@ -710,11 +668,12 @@ Guarantees: The Medicine List would be displayed.
 
 **Extensions**
 
-* 2a. User enters an invalid command.
+* 2a. PharmHub detects an error in the input.
 
-    * 2a1. PharmHub shows an `Unknown Command` error message.
-      <br>**Use case ends**
-
+    * 2a1. PharmHub shows error message.
+    * 2a2. User enters new input.
+    * Steps 2a1-2a2 are repeated until the input are correct.
+      <br>**Use case resumes from step 3.**
 
 * 2b. The list is empty.
   <br>**Use case ends**
@@ -734,22 +693,12 @@ Guarantees: The Medicine would have a short form.
 
 **Extensions**
 
-* 3a. User enters an invalid command.
+* 3a. PharmHub detects an error in the input.
 
-    * 3a1. PharmHub shows an `Unknown Command` error message.
-      <br>**Use case ends**
-
-
-* 3b. User enters an invalid index.
-
-    * 3b1. PharmHub shows an `Invalid Index` error message.
-      <br>**Use case ends**
-
-
-* 3c. User does not enter a field for short form.
-
-    * 3c1. PharmHub shows an error message.
-      <br>**Use case ends**
+    * 3a1. PharmHub shows error message.
+    * 3a2. User enters new input.
+    * Steps 3a1-3a2 are repeated until the input are correct.
+      <br>**Use case resumes from step 4.**
 
 #### **Use case: UC07 - Deleting a medicine short form**
 
@@ -757,28 +706,23 @@ Guarantees: The short form for the medicine will be removed.
 
 **MSS**
 
-1. User adds a short form [U07](#use-case-uc06---adding-a-medicine-short-form)
+1. User adds a short form [U07](#use-case-uc06---adding-a-medicine-short-form).
 2. User inputs command to delete a short form for the medicine base on the index on the list.
 3. PharmHub updates Medicine list with an empty short form for the medicine.
 <br>**Use case ends**
 
 **Extensions**
 
-* 2a. User enters an invalid command.
+* 2a. PharmHub detects an error in the input.
 
-    * 2a1. PharmHub shows an `Unknown Command` error message.
-      <br>**Use case ends**
-
-
-* 2b. User enters an invalid index.
-
-    * 2b1. PharmHub shows an `Invalid Index` error message.
-      <br>**Use case ends**
-
+    * 2a1. PharmHub shows error message.
+    * 2a2. User enters new input.
+    * Steps 2a1-2a2 are repeated until the input are correct.
+      <br>**Use case resumes from step 3.**
 
 #### **Use Case: UC08 - Add an Order for a Person**
 
-Guarantees: The order is added to the person, which can be seen by viewing the order or person
+Guarantees: The order is added to the person, which can be seen by viewing the order or person.
 
 **MSS**
 
@@ -792,26 +736,25 @@ Guarantees: The order is added to the person, which can be seen by viewing the o
 
 **Extensions**
 
-* 4a. The given index to select a patient is invalid.
-    * 4a1. PharmHub shows an `Invalid Index` error message. 
-    * Use case resumes at step 5.
+* 4a. PharmHub detects an error in the input.
 
-* 4b. The given medication name is invalid.
-    * 4b1. PharmHub shows an `Invalid Medication` error message.
-    * Use case resumes at step 5.
-  
-* 4c. The person is allergic to the input medication
-    * 4c1. The user input the wrong medication resulting in the error.
-      * 4c1a. PharmHub shows an `Patient Allergy` warning message
-      * 4c1b. User edits the command
-      * Use case resumes at step 5.
-    * 4c2. The User wants to overwrite the warning
-      * 4c2a. PharmHub shows an `Patient Allergy` warning message
-      * 4c2b. User acknowledges the allergy warning but chooses to proceed by adding an `IA/` (Ignore Allergy) flag to the command.
-      * 4c2c. User confirms the order by resubmitting with the `IA/` flag.
-      * 4c2d. PharmHub creates the order with the provided information, including the `IA/` flag. 
-      * 4c2e. PharmHub confirms the successful creation of the order, noting the allergy warning and the "IA" flag.
-      * Use case resumes at step 5.
+    * 4a1. PharmHub shows error message.
+    * 4a2. User enters new input.
+    * Steps 4a1-4a2 are repeated until the input are correct.
+      <br>**Use case resumes from step 5.**
+ 
+* 4b. The person is allergic to the input medication.
+    * 4b1. The user input the wrong medication resulting in the error.
+      * 4b1a. PharmHub shows an `Patient Allergy` warning message.
+      * 4b1b. User edits the command.
+        <br>**Use case resumes from step 5.**
+    * 4b2. The User wants to overwrite the warning.
+      * 4b2a. PharmHub shows an `Patient Allergy` warning message.
+      * 4b2b. User acknowledges the allergy warning but chooses to proceed by adding an `IA/` (Ignore Allergy) flag to the command.
+      * 4b2c. User confirms the order by resubmitting with the `IA/` flag.
+      * 4b2d. PharmHub creates the order with the provided information, including the `IA/` flag. 
+      * 4b2e. PharmHub confirms the successful creation of the order, noting the allergy warning and the "IA" flag.
+        <br>**Use case resumes from step 5.**
 
 In this use case, a pharmacist adds a medication order for a patient using PharmHub. 
 The system first allows the pharmacist to select a patient from the list and provide order details. 
@@ -832,11 +775,12 @@ Guarantees: The Order List would be displayed.
 
 **Extensions**
 
-* 2a. User enters an invalid command.
+* 2a. PharmHub detects an error in the input.
 
-    * 2a1. PharmHub shows an `Unknown Command` error message.
-      <br>**Use case ends**
-
+    * 2a1. PharmHub shows error message.
+    * 2a2. User enters new input.
+    * Steps 2a1-2a2 are repeated until the input are correct.
+      <br>**Use case resumes from step 3.**
 
 * 2b. The list is empty.
   <br>**Use case ends**
@@ -844,7 +788,7 @@ Guarantees: The Order List would be displayed.
 
 #### **Use case: UC10 - Update Order Status**
 
-Guarantees: The order status will be updated
+Guarantees: The order status will be updated.
 
 **MSS**
 
@@ -860,23 +804,12 @@ Guarantees: The order status will be updated
   <br>**Use case ends**
 
 
-* 3a. The given index is invalid.
+* 3a. PharmHub detects an error in the input.
 
-    * 3a1. PharmHub shows an `Invalid Index` error message.
-
-      Use case resumes at step 2.
-
-* 3b. The given status is invalid.
-
-    * 3b1. PharmHub shows an `Invalid Status` error message.
-
-      Use case resumes at step 2.
-
-* 3c. The given status is invalid chronological order.
-
-    * 3c1. PharmHub shows an `Invalid Chronological Order` error message.
-
-      Use case resumes at step 2.
+    * 3a1. PharmHub shows error message.
+    * 3a2. User enters new input.
+    * Steps 3a1-3a2 are repeated until the input are correct.
+      <br>**Use case resumes from step 4.**
 
 #### **Use case: UC11 - Finding person**
 
@@ -893,17 +826,18 @@ Guarantees: The list of person that contains the keywords would be displayed.
 
 **Extensions**
 
-* 3a. User input invalid command.
-  
-  * 3a1. PharmHub shows an `Invalid Command` error message
-    <br>**Use case ends**
+* 3a. PharmHub detects an error in the input.
+
+    * 3a1. PharmHub shows error message.
+    * 3a2. User enters new input.
+    * Steps 3a1-3a2 are repeated until the input are correct.
+      <br>**Use case resumes from step 4.**
 
 
 * 4a. The keywords given does not match with any person.
 
     * 4a1. Empty list is shown.
-
-      Use case resumes at step 2.
+    <br>**Use case resumes at step 5.**
 
 #### **Use case: UC12 - Finding orders**
 
@@ -922,29 +856,31 @@ Guarantees: The list of Orders that fulfills the status or medicine or both will
 
 **Extensions**
 
-* 3a. User input invalid command.
+* 3a. PharmHub detects an error in the input.
 
-    * 3a1. PharmHub shows an `Invalid Command` error message.
-      <br>**Use case ends**
-
+    * 3a1. PharmHub shows error message.
+    * 3a2. User enters new input.
+    * Steps 3a1-3a2 are repeated until the input are correct.
+      <br>**Use case resumes from step 4.**
 
 * 4a. The status and medicine keyword given does not match with any order.
 
     * 4a1. Empty list is shown.
-      <br>**Use case ends**
+      <br>**Use case resumes at step 5.**
 
 
 * 4b. User input invalid fields.
 
-    * 4b1. User input Invalid Prefix.
-      * PharmHub shows an `Invalid Command Format` error message.
-      <br>**Use case ends**
-    * 4b2. User input Invalid Status.
-      * PharmHub shows an `Invalid Status` error message.
-        <br>**Use case ends**
-    * 4b3. User input non-existent medicine keywords. 
+    * 4b1. PharmHub detects an error in the input.
+
+      * 4b1a. PharmHub shows error message.
+      * 4b1b. User enters new input.
+      * Steps 4b1a-4b1b are repeated until the input are correct.
+        <br>**Use case resumes from step 5.**
+
+    * 4b2. User input non-existent medicine keywords. 
       * PharmHub Displays a empty list.
-              <br>**Use case ends**
+      <br>**Use case ends**
 
 ### Non-Functional Requirements
 
