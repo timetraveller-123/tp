@@ -403,11 +403,7 @@ The following sequence diagram shows how `addorder` works on an example input.
 
 ## Planned Enhancements
 
-### Feature: Better-UndoRedo
-
-Undo and Redo commands are able to effect UI changes.
-
-Currently, Undo and Redo commands do not affect the UI. As such, commands such as `listp` and `findp` cannot be undone. Moreover, as spillover, undoing a past command does not change the UI. This makes it such that a recently added person, that is later deleted by `undo`, will still be visible in the Info Display, until another command (eg. `viewp`) displaces it.
+1. Currently, Undo and Redo commands do not affect the UI. As such, commands such as `listp` and `findp` cannot be undone. Moreover, this makes it such that a recently added person, that is later deleted by `undo`, will still be visible in the Info Display, until another command (eg. `viewp`) displaces it.
 
 Example: 
 
@@ -423,7 +419,9 @@ On `undo`, the person's information still stays on the Info Display, even though
 
 <img src="images/BetterUndo-2.png" width="574" />
 
-With this enhancement, the UI will also revert to its previous state before `newguy2` was added, in this case, a blank page.
+We plan to enhance the Undo/Redo feature to allow UI changes to be undone/ redone. In this way, UI states are saved along with the data, and can be reverted with `undo` and `redo`.
+
+In the case of the example given, after the implementation of this planned enhancement, the UI should revert back to an empty display after the `undo` command is ran.
 
 --------------------------------------------------------------------------------------------------------------------
 
