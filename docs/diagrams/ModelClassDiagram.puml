@@ -9,46 +9,43 @@ Class "<<interface>>\nReadOnlyPharmHub" as ReadOnlyPharmHub
 Class "<<interface>>\nReadOnlyUserPrefs" as ReadOnlyUserPrefs
 Class "<<interface>>\nModel" as Model
 Class PharmHub
+Class VersionedPharmHub
 Class ModelManager
 Class UserPrefs
 
 Class UniquePersonList
+Class MedicineList
+Class OrderList
 Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class Tag
-
-Class I #FFFFFF
+Class Order
+Class Medicine
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
 PharmHub .up.|> ReadOnlyPharmHub
+VersionedPharmHub -up-|> PharmHub
 
 ModelManager .up.|> Model
 Model .right.> ReadOnlyUserPrefs
 Model .left.> ReadOnlyPharmHub
-ModelManager -left-> "1" PharmHub
+ModelManager --> "1" VersionedPharmHub
 ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-PharmHub *--> "1" UniquePersonList
+VersionedPharmHub *--> "1" UniquePersonList
+VersionedPharmHub *--> "1" OrderList
+VersionedPharmHub *--> "1" MedicineList
 UniquePersonList --> "~* all" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+OrderList --> "~* all" Order
+MedicineList --> "~* all" Medicine
 
-Person -[hidden]up--> I
-UniquePersonList -[hidden]right-> I
+ModelManager -down---> "~* filtered" Medicine
+ModelManager -down---> "~* filtered" Person
+ModelManager -down---> "~* filtered" Order
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+OrderList -[hidden]right-> MedicineList
 
-ModelManager --> "~* filtered" Person
+
 @enduml

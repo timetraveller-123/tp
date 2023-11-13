@@ -31,18 +31,34 @@ deactivate PharmHubParser
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
 
-UndoCommand -> Model : undoPharmHub()
+UndoCommand -> Model : canUndo()
 activate Model
 
-Model -> VersionedPharmHub : undo()
+Model -> VersionedPharmHub : canUndo()
 activate VersionedPharmHub
 
-VersionedPharmHub -> VersionedPharmHub :resetData(ReadOnlyPharmHub)
-VersionedPharmHub --> Model :
+VersionedPharmHub -> Model
 deactivate VersionedPharmHub
 
-Model --> UndoCommand
+Model -> UndoCommand
 deactivate Model
+
+opt #transparent canUndo
+
+    UndoCommand -> Model : undo()
+    activate Model
+
+    Model -> VersionedPharmHub : undo()
+    activate VersionedPharmHub
+
+    VersionedPharmHub -> VersionedPharmHub :resetData(ReadOnlyPharmHub)
+    VersionedPharmHub --> Model :
+    deactivate VersionedPharmHub
+
+    Model --> UndoCommand
+    deactivate Model
+
+end
 
 UndoCommand --> LogicManager : result
 deactivate UndoCommand
