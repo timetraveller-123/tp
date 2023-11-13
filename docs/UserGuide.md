@@ -74,6 +74,8 @@ PharmHub isn't just software; it's your ally in precision pharmacy management. L
 --------------------------------------------------------------------------------------------------------------------
 
 ## Definition
+Jump to [TOC](#table-of-contents)
+
 This section provides an introduction to the terminology used in this user guide. 
 
 ### Person
@@ -175,6 +177,7 @@ The following fields are used for commands:
 ---
 
 ## Application Navigation
+Jump to [TOC](#table-of-contents)
 
 Below shows a guide on how you can navigate around our interactive Graphical User Interface (GUI)
 
@@ -197,6 +200,9 @@ Below shows a guide on how you can navigate around our interactive Graphical Use
 ---
 
 ## Quick start
+
+Jump to [TOC](#table-of-contents)
+
 
 1. Ensure you have Java `11` or above installed in your Computer.
    * Run `java --version` in your command terminal to see the java version.
@@ -241,6 +247,8 @@ Below shows a guide on how you can navigate around our interactive Graphical Use
 
 ## Features
 
+Jump to [TOC](#table-of-contents)
+
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Notes about the command format:**<br>
@@ -272,6 +280,8 @@ Shows a message explaining how to access the help page.
 Format: `help`
 
 ### Person Related Commands
+Jump to [TOC](#table-of-contents)
+
 
 ### Adding a person: `addp`
 
@@ -365,6 +375,7 @@ Examples:
 ---
 
 ### Medicine Related Commands
+Jump to [TOC](#table-of-contents)
 
 ### Adding a new medicine : `addm`
 
@@ -441,6 +452,7 @@ Example:
 ---
 
 ### Order Related Commands
+Jump to [TOC](#table-of-contents)
 
 ### Listing all orders : `listo` 
 
@@ -521,6 +533,7 @@ Format: `deleteo INDEX`
 
 Example: `deleteo 2`
 
+Jump to [TOC](#table-of-contents)
 
 ### Undoing an action : `undo` 
 
@@ -581,35 +594,39 @@ If your changes to the data file makes its format invalid, PharmHub will discard
 
 
 ## Command Summary
+Jump to [TOC](#table-of-contents)
 
-| Action                    | Format, Examples                                                                                                                                                                                |
-|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **List People**           | `listp`                                                                                                                                                                                         |
-| **Find Person**           | `findp KEYWORD [MORE_KEYWORDS]`<br> e.g., `findp James Jake`                                                                                                                                    |
-| **View Person**           | `viewp INDEX` <br> e.g., `viewp 1`                                                                                                                                                              |
-| **Add Person**            | `addp n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [no/ALLERGY]…​` <br> e.g., `addp n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague no/aspirin` |
-| **Edit Person**           | `editp INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/allergy]…​`<br> e.g.,`editp 2 n/James Lee e/jameslee@example.com`                                                      |
-| **Delete Person**         | `deletep INDEX`<br> e.g., `deletep 3`                                                                                                                                                           |
-| **List Orders**           | `listo`                                                                                                                                                                                         |
-| **Find Order**            | `findo [s/STATUS] [m/MEDICINE_NAME]...`<br> e.g., `findo s/cp m/pen`                                                                                                                            |
-| **View Order**            | `viewo ORDER_NUMBER` <br> e.g., `viewo 12345`                                                                                                                                                   |
-| **Add Order**             | `addo INDEX o/ORDER_NUMBER m/MEDICINE_NAME [m/MEDICINE_NAME]...` <br> e.g., `addorder 3 o/438756 m/claritin`                                                                                    |
-| **Update Order Status**   | `updates INDEX s/STATUS`<br> e.g., `updates s/cancelled`                                                                                                                                        |
-| **Delete Order**          | `deleteo INDEX`<br> e.g., `deleteo 3`                                                                                                                                                           |
-| **List Medicine**         | `listm`                                                                                                                                                                                         |
-| **Find Medicine**         | `findm KEYWORD [MORE_KEYWORDS]`  <br/> e.g., `findm ol`                                                                                                                                         |
-| **Add Medicine**          | `addm m/MEDICINE_NAME`<br/> e.g., `addm m/panadol`                                                                                                                                              |
-| **Delete Medicine**       | `deletem INDEX` <br/> e.g., `deletem 1`                                                                                                                                                         |
-| **Add/Delete Short Form** | `sfm INDEX [m/SHORT_FORM] [d/]` <br/> e.g., `sfm 1 m/met`                                                                                                                                       |
-| **Undo**                  | `undo`                                                                                                                                                                                          |
-| **Redo**                  | `redo`                                                                                                                                                                                          |
-| **Clear**                 | `clear`                                                                                                                                                                                         |
-| **Help**                  | `help`                                                                                                                                                                                          |
-| **Exit**                  | `exit`                                                                                                                                                                                          |
+
+| Action                    | Format, Examples                                                                     |                                                                                                                |
+|---------------------------|--------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| **List People**           | `listp`                                                                              | `listp`                                                                                                        |
+| **Find Person**           | `findp KEYWORD [MORE_KEYWORDS]`                                                      | `findp James Jake`                                                                                             |
+| **View Person**           | `viewp INDEX`                                                                        | `viewp 1`                                                                                                      |
+| **Add Person**            | `addp n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [no/ALLERGY]…​`                | `addp n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/Diabetic t/Elderly no/aspirin` |
+| **Edit Person**           | `editp INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/allergy]…​` | `editp 2 n/James Lee e/jameslee@example.com`                                                                   |
+| **Delete Person**         | `deletep INDEX`                                                                      | `deletep 3`                                                                                                    |
+| **List Orders**           | `listo`                                                                              | `listo`                                                                                                        |
+| **Find Order**            | `findo [s/STATUS] [m/MEDICINE_NAME]...`                                              | `findo s/cp m/pen`                                                                                             |
+| **View Order**            | `viewo ORDER_NUMBER`                                                                 | `viewo 12345`                                                                                                  |
+| **Add Order**             | `addo INDEX o/ORDER_NUMBER m/MEDICINE_NAME [m/MEDICINE_NAME]...`                     | `addo 3 o/438756 m/claritin`                                                                                   |
+| **Update Order Status**   | `updates INDEX s/STATUS`                                                             | `updates 1 s/cancelled` or `updates 1 s/cc`                                                                    |
+| **Delete Order**          | `deleteo INDEX`                                                                      | `deleteo 3`                                                                                                    |
+| **List Medicine**         | `listm`                                                                              | `listo`                                                                                                        |
+| **Find Medicine**         | `findm KEYWORD [MORE_KEYWORDS]`                                                      | `findm ol`                                                                                                     |
+| **Add Medicine**          | `addm m/MEDICINE_NAME`                                                               | `addm m/panadol`                                                                                               |
+| **Delete Medicine**       | `deletem INDEX`                                                                      | `deletem 1`                                                                                                    |
+| **Add/Delete Short Form** | `sfm INDEX [m/SHORT_FORM] [d/]`                                                      | `sfm 1 m/met`                                                                                                  |
+| **Undo**                  | `undo`                                                                               | `undo`                                                                                                         |
+| **Redo**                  | `redo`                                                                               | `redo`                                                                                                         |
+| **Clear**                 | `clear`                                                                              | `clear`                                                                                                        |
+| **Help**                  | `help`                                                                               | `help`                                                                                                         |
+| **Exit**                  | `exit`                                                                               | `exit`                                                                                                         |
 
 ---
 
 ## Trouble Shooting
+Jump to [TOC](#table-of-contents)
+
 
 ### FAQ
 
@@ -666,12 +683,14 @@ Click [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/issues/new) to feedbac
 --------------------------------------------------------------------------------------------------------------------
 
 ## Glossary
+Jump to [TOC](#table-of-contents)
 
-| Term                 | Meaning                                                                                                                |
-|----------------------|------------------------------------------------------------------------------------------------------------------------|
-| **Command Terminal** | A program which allows users to enter commands that the computer processes.                                            |
-| **`cd`**             | The command used in command terminal to change directory.                                                              |
-| **Gui**              | Graphical User Interface(GUI) is the digital interface that the user interacts with.                                   |
-| **Java**             | Java is a widely used programming language and is used in PharmHub.                                                    |
-| **Jar**              | Java Archive contains all of the various components that make up a Java application, in this case PharmHub.            |
-| **Json**             | JavaScript Object Notation(Json) is a text format for storing data. It is used by PharmHub to store application data.  |  
+| Term                 | Meaning                                                                                                               |
+|----------------------|-----------------------------------------------------------------------------------------------------------------------|
+| **Command Terminal** | A program which allows users to enter commands that the computer processes.                                           |
+| **`cd`**             | The command used in command terminal to change directory.                                                             |
+| **Gui**              | Graphical User Interface(GUI) is the digital interface that the user interacts with.                                  |
+| **Java**             | Java is a widely used programming language and is used in PharmHub.                                                   |
+| **Jar**              | Java Archive contains all of the various components that make up a Java application, in this case PharmHub.           |
+| **Json**             | JavaScript Object Notation(Json) is a text format for storing data. It is used by PharmHub to store application data. |  
+| **TOC**              | [Table of content](#table-of-contents)                                                                                |
