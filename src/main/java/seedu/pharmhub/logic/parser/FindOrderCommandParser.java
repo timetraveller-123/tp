@@ -1,8 +1,7 @@
 package seedu.pharmhub.logic.parser;
 
 import static seedu.pharmhub.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.pharmhub.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
-import static seedu.pharmhub.logic.parser.CliSyntax.PREFIX_STATUS;
+import static seedu.pharmhub.logic.parser.CliSyntax.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,6 +9,7 @@ import java.util.Set;
 
 import seedu.pharmhub.logic.commands.FindOrderCommand;
 import seedu.pharmhub.logic.parser.exceptions.ParseException;
+import seedu.pharmhub.model.allergy.Allergy;
 import seedu.pharmhub.model.medicine.Medicine;
 import seedu.pharmhub.model.order.Status;
 import seedu.pharmhub.model.order.exceptions.InvalidStatusException;
@@ -39,10 +39,10 @@ public class FindOrderCommandParser implements Parser<FindOrderCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindOrderCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_STATUS, PREFIX_MEDICINE_NAME);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_STATUS);
 
+        Set<Medicine> medicinesToFind = ParserUtil.parseMedicines(argMultimap.getAllValues(PREFIX_MEDICINE_NAME));
         Status statusToFind = null;
-        Set<Medicine> medicineToFind = null;
 
         if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
             try {
@@ -53,18 +53,13 @@ public class FindOrderCommandParser implements Parser<FindOrderCommand> {
                 throw new ParseException(se.getMessage());
             }
         }
-        if (argMultimap.getValue(PREFIX_MEDICINE_NAME).isPresent()) {
-            String medicineArg = argMultimap.getValue(PREFIX_MEDICINE_NAME).get();
-            List<String> list = Arrays.asList(medicineArg.split("\\s+"));
-            medicineToFind = ParserUtil.parseMedicines(list);
-        }
 
-        if (statusToFind == null && medicineToFind == null) {
+        if (statusToFind == null && medicinesToFind.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindOrderCommand.MESSAGE_USAGE));
         }
 
-        return new FindOrderCommand(statusToFind, medicineToFind);
+        return new FindOrderCommand(statusToFind, medicinesToFind);
     }
 
 }
