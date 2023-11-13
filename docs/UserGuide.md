@@ -6,19 +6,34 @@ title: User Guide
 
 --------------------------------------------------------------------------------------------------------------------
 
-***Where Precision Meets Prescription***
+**PharmHub – Where Precision Meets Prescription**
+<br><br>
+Are you a small remote pharmacist seeking to elevate precision and efficiency in your workplace? Look no further, as PharmHub is here to answer your prayers.
+PharmHub is a powerful desktop application designed for the meticulous management of patients and their medication orders,
+while also always working behind the scenes ensuring every step taken does not have any errors.
+It's not just another GUI app; it's your optimized solution, with a focus on efficiency through a Command Line Interface (CLI) 
+complemented by the familiar benefits of a Graphical User Interface (GUI).
+Why PharmHub? If you're adept at typing, PharmHub empowers you to breeze through patient and order management tasks faster than ever before,
+outpacing traditional GUI applications.
 
-Pharmhub is a **desktop app for managing patients and their medication orders, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, PharmHub can get your patient/ order management tasks done faster than traditional GUI apps.
+Getting started is a breeze:
+
+* First, familiarize yourself with key [Definitions](#definition).
+* Dive into our hands-on [Quick Start](#quick-start) guide.
+* Explore the array of capabilities in our [Features](#features) section, where each command's functionality is unveiled.
+* For seasoned users, our [Command Summary](#command-summary) serves as your go-to resource, encompassing everything you need to master the application.
+
+PharmHub isn't just software; it's your ally in precision pharmacy management. Let's embark on this journey together!
 
 --------------------------------------------------------------------------------------------------------------------
 ## Table of Contents
-1. [Using this Guide](#Using this guide)
-    1. [Person](#person)
-    2. [Order](#order)
-    3. [Status](#status)
-    4. [Medicine](#medicine)
-    5. [Index](#index)
-    6. [Fields](#fields)
+1. [Definition](#definition)
+   1. [Person](#person)
+   2. [Order](#order)
+   3. [Status](#status)
+   4. [Medicine](#medicine)
+   5. [Index](#index)
+   6. [Fields](#fields)
 2. [Application Navigation](#application-navigation)
 3. [Quick Start](#quick-start)
 4. [Features](#features)
@@ -28,7 +43,7 @@ Pharmhub is a **desktop app for managing patients and their medication orders, o
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Using this guide  
+## Definition
 This section provides an introduction to the terminology used in this user guide. 
 
 ### Person
@@ -43,6 +58,7 @@ A person has the following attributes:
 - Email Address
 - Address
 - Allergy(If the person has one. Can be one or more)
+- Tag(Optional for additional remarks/inputs for the person)
 
 A person is uniquely identified by their name. No two persons can have the same name and names are case-insensitive.
 
@@ -66,13 +82,13 @@ Status when added.
 Status is used to describe the process at which the order is at.
 Status can only be updated/modified following their chronological order.
 
-<span style="background-color: red; border-radius: 20%; padding: 1px;">PENDING/PD</span>
+<span style="background-color: red; border-radius: 20%; padding: 1px; color: white">PENDING/PD</span>
 ->
-<span style="background-color: blue; border-radius: 20%; padding: 1px;">PREPARING/PR</span>
+<span style="background-color: blue; border-radius: 20%; padding: 1px; color: white">PREPARING/PR</span>
 ->
-<span style="background-color: green; border-radius: 20%; padding: 1px;">COMPLETED/CP</span>
+<span style="background-color: green; border-radius: 20%; padding: 1px; color: white">COMPLETED/CP</span>
 ->
-<span style="background-color: black; border-radius: 20%; padding: 1px;">CANCELED/CC</span>
+<span style="background-color: black; border-radius: 20%; padding: 1px; color: white">CANCELED/CC</span>
 
 Status can be identified either in their full form or in their short form as shown above (FullForm/ShortForm). Status are all case-insensitive as well.
 
@@ -118,6 +134,7 @@ The following fields are used for commands:
 | Name          | n/     | Must only contain alphanumeric, space, dot, slash, <br/> hyphen and single quote characters. Case insensitive | `Roy s//o Balakrishnan`, `Connell O'Brien` |
 | Phone number  | p/     | Must be numeric and be at least 3 digits long                                                                 | `999`, `68741616`                          |
 | Email address | e/     | Must be a valid email address                                                                                 | `roy@gmail.com`, `Alex123@outlook.com`     |
+| Tags          | t/     | Optional for use                                                                                              | `Diabetic`, `Age 72`                       |
 | Address       | a/     | Must not be empty                                                                                             | `Sentosa cove`, `Pulau NTU`                |
 | Status        | s/     | Must be a valid Status (Refer to [Status](#status))                                                           | `PENDIND`, `Cc`                            |
 | Medicine      | m/     | Must not be empty and is not case sensitive.                                                                  | `metformin`, `panadol`                     |
@@ -539,7 +556,7 @@ If your changes to the data file makes its format invalid, PharmHub will discard
 | **Find Medicine**         | `findm KEYWORD [MORE_KEYWORDS]`  <br/> e.g., `findm ol`                                                                                                                                         |
 | **Add Medicine**          | `addm m/MEDICINE_NAME`<br/> e.g., `addm m/panadol`                                                                                                                                              |
 | **Delete Medicine**       | `deletem INDEX` <br/> e.g., `deletem 1`                                                                                                                                                         |
-| **Add/Delete Short Form** | `sfm INDEX [m/SHORT_FORM] [d/]` <br/> e.g., `sfm 1 m/met`                                                                                                                                        |
+| **Add/Delete Short Form** | `sfm INDEX [m/SHORT_FORM] [d/]` <br/> e.g., `sfm 1 m/met`                                                                                                                                       |
 | **Undo**                  | `undo`                                                                                                                                                                                          |
 | **Redo**                  | `redo`                                                                                                                                                                                          |
 | **Clear**                 | `clear`                                                                                                                                                                                         |
@@ -562,12 +579,11 @@ If your changes to the data file makes its format invalid, PharmHub will discard
 
 ## Glossary
 
-| Term                 | Meaning                                                                                                               |
-|----------------------|-----------------------------------------------------------------------------------------------------------------------|
-| **Command Terminal** | A program which allows users to enter commands that the computer processes.                                           |
-| **`cd`**             | The command used in command terminal to change directory.                                                             |
-| **Gui**              | Graphical User Interface(GUI) is the digital interface that the user interacts with.                                  |
-| **Java**             | Java is a widely used programming language and is used in PharmHub.                                                   |
-| **Jar**              | Java Archive contains all of the various components that make up a Java application, in this case PharmHub.           |
-| **Json**             | JavaScript Object Notation(Json) is a text format for storing data. It is used by PharmHub to store application data.
-|  
+| Term                 | Meaning                                                                                                                |
+|----------------------|------------------------------------------------------------------------------------------------------------------------|
+| **Command Terminal** | A program which allows users to enter commands that the computer processes.                                            |
+| **`cd`**             | The command used in command terminal to change directory.                                                              |
+| **Gui**              | Graphical User Interface(GUI) is the digital interface that the user interacts with.                                   |
+| **Java**             | Java is a widely used programming language and is used in PharmHub.                                                    |
+| **Jar**              | Java Archive contains all of the various components that make up a Java application, in this case PharmHub.            |
+| **Json**             | JavaScript Object Notation(Json) is a text format for storing data. It is used by PharmHub to store application data.  |  
