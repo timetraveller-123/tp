@@ -17,7 +17,7 @@ create ":PersonDisplay" as PersonDisplay UI_COLOR
 MainWindow -> PersonDisplay : PersonDisplay(Person)
 activate PersonDisplay
 
-PersonDisplay -> MainWindow
+PersonDisplay --> MainWindow
 deactivate PersonDisplay
 
 participant ":InfoDisplayPlaceholder" as InfoDisplayPlaceholder UI_COLOR
@@ -25,16 +25,16 @@ participant ":InfoDisplayPlaceholder" as InfoDisplayPlaceholder UI_COLOR
 MainWindow -> InfoDisplayPlaceholder : clear()
 activate InfoDisplayPlaceholder
 
-InfoDisplayPlaceholder -> MainWindow
+InfoDisplayPlaceholder --> MainWindow
 deactivate InfoDisplayPlaceholder
 
 MainWindow -> InfoDisplayPlaceholder : add(PersonDisplay)
 activate InfoDisplayPlaceholder
 
-InfoDisplayPlaceholder -> MainWindow
+InfoDisplayPlaceholder --> MainWindow
 deactivate InfoDisplayPlaceholder
 
-MainWindow -> MainWindow
+MainWindow --> MainWindow
 deactivate MainWindow
 
 <-- MainWindow : result
