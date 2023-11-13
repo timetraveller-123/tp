@@ -293,7 +293,7 @@ Shows an interactive list of all persons in PharmHub.
 
 Format: `listp`
 
-![listp](images/listp.png)
+![listp](images/Ui.png)
 
 ### Viewing a person `viewp`
 
