@@ -13,6 +13,13 @@ title: Developer Guide
     5. [Storage](#storage-component)
     6. [Common Classes](#common-classes)
 4. [Implementation](#implementation)
+   1. [Listing](#listx)
+   2. [Viewing](#viewx-feature)
+   3. [Edit Person](#edit-person-feature)
+   4. [Add Medicine Short Form](#add-medicine-short-form-feature-)
+   5. [Delete Medicine Short Form](#delete-medicine-short-form-feature-)
+   6. [Adding an Order](#adding-an-order-feature)
+   7. [Finding an Order Feature](#finding-an-order-feature)
 5. [Documentation](#documentation-logging-testing-configuration-dev-ops)
 6. [Appendix: Requirements](#appendix-requirements)
     1. [Product scope](#product-scope)
@@ -173,7 +180,7 @@ Classes used by multiple components are in the `seedu.pharmHub.commons` package.
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented. 
-This section describes some noteworthy details on how certain features are implemented.
+
 ### Edit person feature
 
 #### Implementation
