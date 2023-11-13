@@ -30,7 +30,7 @@ Getting started is a breeze:
 PharmHub isn't just software; it's your ally in precision pharmacy management. Let's embark on this journey together!
 
 --------------------------------------------------------------------------------------------------------------------
-## Table of Contents
+## Table of Contents (TOC)
 1. [Definition](#definition)
    1. [Person](#person)
    2. [Order](#order)
@@ -695,3 +695,4 @@ Jump to [TOC](#table-of-contents)
 | **Java**             | Java is a widely used programming language and is used in PharmHub.                                                   |
 | **Jar**              | Java Archive contains all of the various components that make up a Java application, in this case PharmHub.           |
 | **Json**             | JavaScript Object Notation(Json) is a text format for storing data. It is used by PharmHub to store application data. |  
+| **TOC**              | [Table of Content](#table-of-contents)                                                                                |
