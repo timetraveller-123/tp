@@ -26,8 +26,7 @@ public class FindPersonCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: addp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG] [no/ALLERGY]\n"
-            + "NAME, TAG, and ALLERGY "
+            + "Parameters: findp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG] [no/ALLERGY]\n"
             + "At least one of the parameters must be specified.\n"
             + "Example: " + COMMAND_WORD + " n/alex Bernice Charlotte p/123456 no/Paracetamol Penicillin";
 

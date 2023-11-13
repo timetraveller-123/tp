@@ -9,6 +9,7 @@ import seedu.pharmhub.logic.commands.UpdateStatusCommand;
 import seedu.pharmhub.logic.commands.UpdateStatusCommand.EditOrderDescriptor;
 import seedu.pharmhub.logic.parser.exceptions.ParseException;
 import seedu.pharmhub.model.order.Status;
+import seedu.pharmhub.model.order.exceptions.InvalidStatusException;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -40,11 +41,13 @@ public class UpdateStatusCommandParser implements Parser<UpdateStatusCommand> {
 
         if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
             String s = argMultimap.getValue(PREFIX_STATUS).get();
-            String inputStatus = Status.shortFormToFull(s);
-            if (inputStatus == null) {
-                throw new ParseException(Status.MESSAGE_CONSTRAINTS);
+            try {
+                String inputStatus = Status.shortFormToFull(s);
+                editOrderDescriptor.setStatus(ParserUtil.parseStatus(inputStatus));
+                assert Status.isValidOrderStatus(inputStatus) : "Status should be valid";
+            } catch (InvalidStatusException se) {
+                throw new ParseException(se.getMessage());
             }
-            editOrderDescriptor.setStatus(ParserUtil.parseStatus(inputStatus));
         }
 
         if (!editOrderDescriptor.isAnyFieldEdited()) {

@@ -11,7 +11,6 @@ import seedu.pharmhub.commons.core.LogsCenter;
 import seedu.pharmhub.logic.commands.AddMedicineCommand;
 import seedu.pharmhub.logic.commands.AddOrderCommand;
 import seedu.pharmhub.logic.commands.AddPersonCommand;
-import seedu.pharmhub.logic.commands.AddShortFormCommand;
 import seedu.pharmhub.logic.commands.ClearCommand;
 import seedu.pharmhub.logic.commands.Command;
 import seedu.pharmhub.logic.commands.DeleteMedicineCommand;
@@ -27,6 +26,7 @@ import seedu.pharmhub.logic.commands.ListMedicineCommand;
 import seedu.pharmhub.logic.commands.ListOrderCommand;
 import seedu.pharmhub.logic.commands.ListPeopleCommand;
 import seedu.pharmhub.logic.commands.RedoCommand;
+import seedu.pharmhub.logic.commands.ShortFormCommand;
 import seedu.pharmhub.logic.commands.UndoCommand;
 import seedu.pharmhub.logic.commands.UpdateStatusCommand;
 import seedu.pharmhub.logic.commands.ViewOrderCommand;
@@ -127,8 +127,8 @@ public class PharmHubParser {
         case AddMedicineCommand.COMMAND_WORD:
             return new AddMedicineCommandParser().parse(arguments);
 
-        case AddShortFormCommand.COMMAND_WORD:
-            return new AddShortFormCommandParser().parse(arguments);
+        case ShortFormCommand.COMMAND_WORD:
+            return new ShortFormCommandParser().parse(arguments);
 
         case DeleteMedicineCommand.COMMAND_WORD:
             return new DeleteMedicineCommandParser().parse(arguments);

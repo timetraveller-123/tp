@@ -19,12 +19,19 @@ title: Developer Guide
     2. [User Stories](#user-stories)
     3. [Use Cases](#use-cases)
     4. [Non-Functional Requirements](#non-functional-requirements)
-    5. [Glossary](#glossary)
+7. [Appendix: Instruction for Manual Testing](#appendix-instructions-for-manual-testing)
+8. [Appendix: Planned Enhancements](#appendix-planned-enhancements)
+9. [Appendix: Effort](#appendix-effort)
+10. [Glossary](#glossary)
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+PharmHub is built upon [AddressBook-Level3](https://se-education.org/addressbook-level3/) project created by the [SE-EDU initiative](https://se-education.org).  
+The following libraries have been used
+* [JavaFX](https://openjfx.io/)
+* [Jackson](https://github.com/FasterXML/jackson) 
+* [JUnit5](https://junit.org/junit5/)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -170,7 +177,66 @@ Classes used by multiple components are in the `seedu.pharmHub.commons` package.
 
 ## **Implementation**
 
-This section describes some noteworthy details on how certain features are implemented.
+This section describes some noteworthy details on how certain features are implemented. 
+
+### Add medicine short form feature  
+
+#### Implementation
+After the creation of new `Medicine`, a short form can be assigned to that `Medicine` using the `sfm` command.  
+After this command, the user would be able to use this short form interchangeably with the full name in fields requiring medicine or allergy names.    
+Currently, only one short form can be assigned to one `Medicine` at a time.  
+
+#### Steps to trigger
+Step 1: The User launches the application.
+Step 2: The user executes `sfm 1 m/pan` to add the short form of `pan` to the medicine at index 1 in the last shown medicine list.  
+Step 3: Logic Manager calls `AddressBookParser#parse` which extracts the arguments and calls `ShortFormCommandParser`  
+Step 4: `ShortFormCommandParser` parses the index, short form name and returns a `ShortFormComamnd`   
+Step 5: `LogicManager` calls `ShortFormCommand#execute` to assign the short form to the medicine.   
+Step 6: `ShortFormCommand` checks if an existing medicine with the same name or same short form is already present using `Model#hasMedicine(m)`.   
+Step 7: The `Medicine` at index 1 is replaced with a new `Medicine` which has same medicine name but with `pan` as the short form.   
+
+The following sequence diagram illustrates some of the steps that happen when user execute `sfm 1 m/pan`
+
+![AddShortFormSequenceDiagram](images/AddShortFormSequenceDiagram.png)
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifelines should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>  
+ 
+`Model#hasMedicine(m)` utilizes the following method `Medicine#isSameMedicine` to check equality of two `Medicine`.  
+```java
+public boolean isSameMedicine(Medicine m) {
+        if (m == this) {
+            return true;
+        }
+        if (m == null) {
+            return false;
+        }
+        return (medicineName.equalsIgnoreCase(m.medicineName)
+                || medicineName.equalsIgnoreCase(m.shortForm)
+                || m.medicineName.equalsIgnoreCase(shortForm));
+}
+```
+
+### Delete medicine short form feature  
+#### Implementation
+`sfm` can also be used to delete the short form of a medicine by providing the `d/` flag.
+If the `d/` flag is provided any provided medicine names using `m/` will be ignored.   
+Hence `sfm 1 m/pan d/` will
+be treated as deleting the short form of medicine at index 1 in the last shown medicine list. 
+
+#### Steps to trigger
+Given below is an example scenario to delete the short form of medicine at index 1. 
+
+Step 1. The user lists all medicines using the `listm` command.  
+Step 2. The user deletes the medicine at 1st index using `sfm 1 m/pan d/`  
+Step 3: Logic Manager calls `AddressBookParser#parse` which extracts the arguments and calls `ShortFormCommandParser`  
+Step 4: `ShortFormCommandParser` parses the index, ignores the short form and returns a `ShortFormComamnd`   
+Step 5: `LogicManager` calls `ShortFormCommand#execute` to delete the short form of medicine at index 1.   
+Step 6: The `Medicine` at index 1 is replaced with a new `Medicine` which has same medicine name but with no short form.
+
+
+The following activity diagram summarises the sequence of steps for the whole `sfm` command.
+
+<img src="images/ShortFormActivityDiagram.png" width="250" />
 
 ### Adding an Order feature
 
@@ -767,16 +833,16 @@ Guarantees: The list of Orders that fulfills the status or medicine or both will
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4.  Should be able to hold up to 1000 orders without a noticeable sluggishness in performance for typical usage.
-    *{More to be added}*
+1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
+2. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+3. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+4. Should be able to hold up to 1000 orders without a noticeable sluggishness in performance for typical usage.
+5. Should be able to hold up to 1000 medicines without a noticeable sluggishness in performance for typical usage.
+6. Application should be a standalone executable so that it doesn't require the user to install other libraries to run.
+7. Application should be smaller than 100mb so that application can be run on space constrained systems.
+8. Generated storage file shouldn't take up more than 100mb of storage so that the application can be run on space constrained systems.
 
-### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -821,7 +887,88 @@ testers are expected to do more *exploratory* testing.
     1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+2. _{ more test cases …​ }_
+
+### Listing all medicines
+
+1. Test case: `listm` <br>
+   Expected: All medicines listed in the display panel. "Listed all medicines" shown in result display box.
+
+### Finding medicine(s)
+
+1. Test case: `findm pan` <br> 
+   Expected: All medicine whose names have `pan` as a substring listed in the display panel. The number of medicines listed shown in result display box.
+2. Test case: `findm pan ol` <br> 
+   Expected: All medicine whose names have `pan` or `ol`  as a substring listed in the display panel. The number of medicines listed shown in result display box.
+
+
+### Adding a medicine
+
+1. Adding a medicine that doesn't exist
+
+    1. Prerequisites: List all medicines using the `listm` command. No medicine named `metformin` should be in the list.
+
+    1. Test case: `addm m/metformin`<br>
+       Expected: Medicine is added. Details of added medicine shown in the result display box.
+
+    1. Test case: `addm m/`<br>
+       Expected: No medicine is added. Error message shows in result display box.
+
+    1. Other incorrect `addm` commands to try: `addm `, `addm p/`, `addm 1` <br>
+       Expected: Similar to previous.
+
+2. Adding a medicine that already exists
+    1. Prerequisites: List all medicines using the `listm` command. A medicine named `metformin` should be in the list.
+    1. Test case: `addm m/metformin` <br>
+       Expected: Medicine is not added. Error message is shown in result display box.
+    
+
+
+### Deleting a medicine
+
+1. Deleting a medicine no person is allergic to and not part of any order. 
+
+    1. Prerequisites: `metformin` should be in the medicine list. Find it using `findm metformin`
+
+    1. Test case: `deletem 1`<br>
+       Expected: First medicine is deleted from the list. Details of the deleted medicine is shown in result display box.
+
+    1. Test case: `deletem 0`<br>
+       Expected: No medicine is deleted. Error details shown in the result display box.
+
+    1. Other incorrect delete commands to try: `deletem`, `deletem x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
+2. Deleting a medicine a person is allergic to.
+    
+    1. Prerequisites: `panadol` should be in the medicine list. If not add it using `addm`. At least one person should be allergic to `panadol`.
+       If not use `editp` to make a person allergic to `panadol`. Find `panadol` using `findm panadol`
+    1. Test case: `deletem 1` <br>
+       Expected: No medicine is deleted. Error details shown in the result display box.
+
+### Short form of medicine
+
+1. Adding a short form to a medicine 
+
+    1. Prerequisites: `metformin` should be in the medicine list, it should have no short form and no medicine should have `met` as the short form. Find it using `findm metformin`
+
+    1. Test case: `sfm 1 m/met`<br>
+       Expected: Short form of `met` is added to the `metformin` medicine. Details of medicine shown in result display box.
+    1. Test case: `sfm 1 met`<br>
+          Expected: Short form is not added to the `metformin` medicine. Error message shown in result display box.
+
+2. Deleting a short form of a medicine.
+
+    1. Prerequisites: `metformin` should be in the medicine list, it should have a short form. Find it using `findm metformin`
+    1. Test case: `sfm 1 d/` <br>
+       Expected: Short form of `metformin` medicine is deleted. Details of medicine shown in result display box.
+    1. Test case: `sfm 1 m/ d/` <br>
+         Expected: Short form of `metformin` medicine is deleted. Details of medicine shown in result display box.
+    1. Test case: `sfm m/ d/` <br>
+         Expected: Short form of `metformin` medicine is not deleted. Error message shown in result display box.
+
+
+
 
 
 ### Listing all orders
@@ -928,3 +1075,32 @@ testers are expected to do more *exploratory* testing.
     1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+## **Appendix: Planned Enhancements**
+
+1. Currently, to delete a short form a medicine the user has to provide `d/` flag through the `sfm` command to delete the short form
+   of a medicine at a specified index. However, if any short form name is provided using the `m/` flag, it will be ignored without any
+   warning. Thus, `sfm 1 m/met d/` deletes the short form the medicine at index 1 which ignoring `met`. We plan to make the `sfm` 
+   command accept exactly one of `m/` or `d/` flags. This way the command `sfm 1 m/met d/` would be regarded as an invalid command 
+   rather than one which deletes the short form. 
+
+2. Currently, when adding a medicine there is no way for the user to specify the short form right then. Hence, the user has to first add
+   the medicine followed by using `sfm` command to add a short form to it. We plan to allow `addm` accept an optional parameter for 
+   the short form of the medicine being added. 
+
+
+## **Appendix: Effort**
+AB3 only deals with one entity type, `person`. However, our project was harder as we had to deal with three entity types, `person`, 
+`order` and `medicine`. All three types are tightly interleaved which caused a lot of challenges during this project.  
+Firstly, the dependencies slowed the project timeline as future features required features before it to be finished. This affected 
+our ability to work in parallel.   
+Secondly, because of the dependencies, we had to take extra precaution in checking the validity of data that is being loaded from the
+storage file as a `person` could be allergic to multiple `medicine` and  could hold multiple `order` which in turn could hold multiple
+`medicine`.  
+{More to be added}
+
+
+## Glossary
+
+* **Mainstream OS**: Windows, Linux, Unix, OS-X
+* **Private contact detail**: A contact detail that is not meant to be shared with others

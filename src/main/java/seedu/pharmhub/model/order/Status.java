@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.pharmhub.commons.util.AppUtil.checkArgument;
 
 import seedu.pharmhub.logic.commands.exceptions.CommandException;
+import seedu.pharmhub.model.order.exceptions.InvalidStatusException;
 
 /**
  * Represents a Status of a order.
@@ -137,12 +138,14 @@ public class Status {
      * @return The orderStatus it converted to.
      * @throws CommandException If the short form provided is not valid.
      */
-    public static String shortFormToFull(String shortForm) throws IllegalArgumentException {
+    public static String shortFormToFull(String shortForm) throws InvalidStatusException {
         assert !shortForm.equals("") : MESSAGE_CONSTRAINTS + "Cannot be empty";
         if (isValidOrderStatus(shortForm.toUpperCase())) {
             return shortForm;
         }
-        checkArgument(isValidShortForm(shortForm), MESSAGE_CONSTRAINTS);
+        if (!isValidShortForm(shortForm)) {
+            throw new InvalidStatusException();
+        }
         requireNonNull(shortForm);
         String sf = shortForm.toLowerCase().trim();
         switch (sf) {
