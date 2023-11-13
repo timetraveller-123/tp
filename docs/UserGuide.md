@@ -276,7 +276,7 @@ A person can have any number of tags or allergies (including 0)
 </div>
 
 Examples:
-* `addp n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 no/paracetamol no/aspirin`
+* `addp n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 no/paracetamol no/penicillin`
 * `addp n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 ### Listing all persons : `listp`
@@ -319,22 +319,23 @@ Examples:
 *  `editp 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 *  `editp 3 no/` Edits the allergies of the 3rd person to be empty.
 
-### Locating persons by name: `findp`
+### Finding a person: `findp`
 
-Finds persons whose names contain any of the given keywords.
+Finds persons whose names, phone numbers, emails, tags, and allergies match the given inputs. 
 
-Format: `findp KEYWORD [MORE_KEYWORDS]`
+Format: `findp [n/KEYWORD [MORE_KEYWORDS]…] [p/PHONE_NUMBER] [e/EMAIL] [t/KEYWORD [MORE_KEYWORDS]…] [no/KEYWORD [MORE_KEYWORDS]…]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
+* The search for name, tags and allergies are case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The search for phone number and email are case-sensitive and must be an exact match.
+e.g. `9123456` will not match `91234567` and `johndoe@example` does not match `johndoe@example.com`
 
 Examples:
-* `findp John` returns `john` and `John Doe`
-* `findp alex david` returns `Alex Yeoh`, `David Li`<br>
+* `findp n/Alex david` returns `Alex Yeoh`, `David Li`<br>
+* `findp no/paracetamol penicillin`
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Deleting a person : `deletep`
@@ -352,7 +353,7 @@ Deleting a person also deletes all orders corresponding to the person from Pharm
 
 Examples:
 * `listp` followed by `deletep 2` deletes the 2nd person in PharmHub.
-* `findp David` followed by `deletep 1` deletes the 1st person in the results of the `find` command.
+* `findp n/David` followed by `deletep 1` deletes the 1st person in the results of the `find` command.
 
 ---
 
@@ -368,7 +369,7 @@ Format: `addm m/MEDICINE_NAME`
 * Medicine names are case-insensitive.
 
 Example:
-* `addm m/aspirin`
+* `addm m/Aspirin`
 
 ### Listing all medicines : `listm`
 
@@ -441,8 +442,6 @@ Shows an interactive list of all orders in PharmHub.
 
 Format: `listo`
 
-![listo](images/listo.png)
-
 ### Viewing an order : `viewo` 
 
 Shows the order in the info panel.
@@ -468,10 +467,10 @@ Parameters:
 
 Examples:
 * `addo 1 o/618457 m/panadol`
-* `addo 3 o/438756 m/claritin`
+* `addo 3 o/438756 m/par` -> `addo 3 o/438756 m/par ia/`
 
 
-### Updating the status of an order : `updates` 
+### Updating the status of an order : `updates`
 
 Updates the status of the order to the designated status.
 
@@ -490,9 +489,9 @@ Example:
 
 ### Filtering/Finding Order by status and medicines: `findo`
 
-Finds orders whose status and medicine satisfies both inputs.
+Finds orders whose status and medicine match the given inputs.
 
-Format: `findo s/STATUS m/MEDICINE_NAME [m/MEDICINE_NAME]…`
+Format: `findo s/STATUS [m/MEDICINE_NAME]…`
 
 * The search is case-insensitive. e.g `PANADOL` will match `Panadol`, `COMPLETED` or `CP` will match `Completed`.
 * Users can find orders based on either status or medicines or both.
@@ -504,8 +503,8 @@ Format: `findo s/STATUS m/MEDICINE_NAME [m/MEDICINE_NAME]…`
 
 Examples:
 * `findo m/Panadol Ibuprofen` returns all orders with either `Panadol` or `Ibuprofen`.
-* `findo s/pd m/pan m/pen` returns all orders that have a status of <span style="color: red;">PENDING</span> **AND** has a medicine that has a substring of one of `pan` or `pen`
-* `findo s/pd m/Panadol` returns all orders that is both `Pending` and contains `Panadol`.
+* `findo s/pd m/pan m/pen` returns all orders that have a status of <span style="color: red;">PENDING</span> **AND** has a medicine that matches any of the substrings `pan` or `pen`
+* `findo s/pd m/Panadol` returns all orders that is both <span style="color: red;">PENDING</span> and contains `Panadol`.
   ![result for 'findo s/pd m/Panadol'](images/findOrder2Input.png)
 
 ### Deleting an order : `deleteo` 
@@ -576,15 +575,15 @@ If your changes to the data file makes its format invalid, PharmHub will discard
 | Action                    | Format, Examples                                                                                                                                                                                |
 |---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **List People**           | `listp`                                                                                                                                                                                         |
-| **Find Person**           | `findp KEYWORD [MORE_KEYWORDS]`<br> e.g., `findp James Jake`                                                                                                                                    |
+| **Find Person**           | `findp [n/KEYWORD [MORE_KEYWORDS]…] [p/PHONE_NUMBER] [e/EMAIL] [t/KEYWORD [MORE_KEYWORDS]…] [no/KEYWORD [MORE_KEYWORDS]…]`<br> e.g., `findp n/James Jake`                                       |
 | **View Person**           | `viewp INDEX` <br> e.g., `viewp 1`                                                                                                                                                              |
 | **Add Person**            | `addp n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [no/ALLERGY]…​` <br> e.g., `addp n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague no/aspirin` |
 | **Edit Person**           | `editp INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/allergy]…​`<br> e.g.,`editp 2 n/James Lee e/jameslee@example.com`                                                      |
 | **Delete Person**         | `deletep INDEX`<br> e.g., `deletep 3`                                                                                                                                                           |
 | **List Orders**           | `listo`                                                                                                                                                                                         |
-| **Find Order**            | `findo [s/STATUS] [m/MEDICINE_NAME]...`<br> e.g., `findo s/cp m/pen`                                                                                                                            |
+| **Find Order**            | `findo [s/STATUS] [m/MEDICINE_NAME]…`<br> e.g., `findo s/pd m/pen`                                                                                                                              |
 | **View Order**            | `viewo ORDER_NUMBER` <br> e.g., `viewo 12345`                                                                                                                                                   |
-| **Add Order**             | `addo INDEX o/ORDER_NUMBER m/MEDICINE_NAME [m/MEDICINE_NAME]...` <br> e.g., `addorder 3 o/438756 m/claritin`                                                                                    |
+| **Add Order**             | `addo INDEX o/ORDER_NUMBER m/MEDICINE_NAME [m/MEDICINE_NAME]…` <br> e.g., `addorder 3 o/438756 m/claritin`                                                                                      |
 | **Update Order Status**   | `updates INDEX s/STATUS`<br> e.g., `updates s/cancelled`                                                                                                                                        |
 | **Delete Order**          | `deleteo INDEX`<br> e.g., `deleteo 3`                                                                                                                                                           |
 | **List Medicine**         | `listm`                                                                                                                                                                                         |
