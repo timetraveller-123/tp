@@ -482,6 +482,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​                    | I want to …​                                                                    | So that I can…​                                                             |
 |----------|----------------------------|---------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+|          |                            |                                                                                 |                                                                             |
 | `* * *`  | Pharmacist                 | Add a new patient into PharmHub                                                 | Keep track of all information of my patients                                |
 | `* * *`  | Pharmacist                 | Add a medication order for a patient                                            | Process new orders                                                          |
 | `* * *`  | Pharmacist                 | Add a medicine into PharmHub                                                    | Update the inventory of my pharmacy                                         |
