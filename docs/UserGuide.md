@@ -397,8 +397,9 @@ Format : `Format: findm KEYWORD [MORE_KEYWORD]…`
 * Medicines matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `ol en` will return `Panadol`, `Ibuprofen`
 
-> [!NOTE]  
-> Unlike `findp`, partial words will be matched e.g. `para` will  match `Paracetamol`
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Unlike `findp`, partial words will be matched e.g. `para` will  match `Paracetamol`.
+
 
 Examples:
 * `findm ol`
@@ -667,11 +668,12 @@ Click [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/issues/new) to feedbac
 
 ## Glossary
 
-| Term                 | Meaning                                                                                                                |
-|----------------------|------------------------------------------------------------------------------------------------------------------------|
-| **Command Terminal** | A program which allows users to enter commands that the computer processes.                                            |
-| **`cd`**             | The command used in command terminal to change directory.                                                              |
-| **Gui**              | Graphical User Interface(GUI) is the digital interface that the user interacts with.                                   |
-| **Java**             | Java is a widely used programming language and is used in PharmHub.                                                    |
-| **Jar**              | Java Archive contains all of the various components that make up a Java application, in this case PharmHub.            |
-| **Json**             | JavaScript Object Notation(Json) is a text format for storing data. It is used by PharmHub to store application data.  |  
+| Term                 | Meaning                                                                                                               |
+|----------------------|-----------------------------------------------------------------------------------------------------------------------|
+| **CLI**              | Command Line Interface(CLI) is a text based interface where users can input commands.                                 |
+| **Command Terminal** | A program which allows users to enter commands that the computer processes.                                           |
+| **`cd`**             | The command used in command terminal to change directory.                                                             |
+| **Gui**              | Graphical User Interface(GUI) is the digital interface that the user interacts with.                                  |
+| **Java**             | Java is a widely used programming language and is used in PharmHub.                                                   |
+| **Jar**              | Java Archive contains all of the various components that make up a Java application, in this case PharmHub.           |
+| **Json**             | JavaScript Object Notation(Json) is a text format for storing data. It is used by PharmHub to store application data. |  
