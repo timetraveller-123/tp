@@ -512,13 +512,13 @@ Example:
 
 Finds orders whose status and medicine satisfies both inputs.
 
-Format: `findo s/STATUS m/MEDICINE_NAME [m/MEDICINE_NAME]…`
+Format: `findo s/STATUS`, `findo m/MEDICINE_NAME [MORE_MEDICINE_NAME]…`,`findo s/STATUS m/MEDICINE_NAME [MORE_MEDICINE_NAME]…`
 
 * The search is case-insensitive. e.g `PANADOL` will match `Panadol`, `COMPLETED` or `CP` will match `Completed`.
 * User input can find orders base on either status or medicines or both(but both will have to be satisfied).
 * Status can only be `Pending/PD Preparing/PR Completed/CP Cancelled/CC`, any other inputs will be invalid.
 * Medicine can be written both in their short form and full form. `pan` will match `Panadol`.
-* Multiple Medicine can be used as input separated by a blank space but only one status can be used.
+* Multiple Medicine can be used as input separated by a blank space with one Prefix `m/`, but only one status can be used.
 * Orders that contain any one of the medication/Status will be shown.
 
 Examples:
@@ -598,7 +598,7 @@ If your changes to the data file makes its format invalid, PharmHub will discard
 Jump to [TOC](#table-of-contents)
 
 
-| Action                    | Format, Examples                                                                     |                                                                                                                |
+| Action                    | Format                                                                               | Examples                                                                                                       |
 |---------------------------|--------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
 | **List People**           | `listp`                                                                              | `listp`                                                                                                        |
 | **Find Person**           | `findp KEYWORD [MORE_KEYWORDS]`                                                      | `findp James Jake`                                                                                             |
@@ -607,13 +607,13 @@ Jump to [TOC](#table-of-contents)
 | **Edit Person**           | `editp INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/allergy]…​` | `editp 2 n/James Lee e/jameslee@example.com`                                                                   |
 | **Delete Person**         | `deletep INDEX`                                                                      | `deletep 3`                                                                                                    |
 | **List Orders**           | `listo`                                                                              | `listo`                                                                                                        |
-| **Find Order**            | `findo [s/STATUS] [m/MEDICINE_NAME]...`                                              | `findo s/cp m/pen`                                                                                             |
+| **Find Order**            | `findo [s/STATUS] [m/MEDICINE_NAME] [MORE_MEDICINE_NAME]...`                         | `findo s/cp m/pen`                                                                                             |
 | **View Order**            | `viewo ORDER_NUMBER`                                                                 | `viewo 12345`                                                                                                  |
 | **Add Order**             | `addo INDEX o/ORDER_NUMBER m/MEDICINE_NAME [m/MEDICINE_NAME]...`                     | `addo 3 o/438756 m/claritin`                                                                                   |
 | **Update Order Status**   | `updates INDEX s/STATUS`                                                             | `updates 1 s/cancelled` or `updates 1 s/cc`                                                                    |
 | **Delete Order**          | `deleteo INDEX`                                                                      | `deleteo 3`                                                                                                    |
 | **List Medicine**         | `listm`                                                                              | `listo`                                                                                                        |
-| **Find Medicine**         | `findm KEYWORD [MORE_KEYWORDS]`                                                      | `findm ol`                                                                                                     |
+| **Find Medicine**         | `findm KEYWORD [MORE_KEYWORDS]...`                                                   | `findm ol`                                                                                                     |
 | **Add Medicine**          | `addm m/MEDICINE_NAME`                                                               | `addm m/panadol`                                                                                               |
 | **Delete Medicine**       | `deletem INDEX`                                                                      | `deletem 1`                                                                                                    |
 | **Add/Delete Short Form** | `sfm INDEX [m/SHORT_FORM] [d/]`                                                      | `sfm 1 m/met`                                                                                                  |
