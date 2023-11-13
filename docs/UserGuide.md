@@ -167,7 +167,7 @@ Refering to the image below, index `1` refers to `OrderNumber #1` while index `3
 ![listp](images/listo.png)
 
 All indices have to be positive integers. <br />
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The list which the `INDEX` refers to will vary according to the command used, and is irrespective of which list is currently displayed.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The list which the `INDEX` refers to will vary according to the command used, and is irrespective of which list is currently displayed.</div>
 
 ---
 
@@ -402,7 +402,7 @@ Format : `Format: findm KEYWORD [MORE_KEYWORD]…`
   e.g. `ol en` will return `Panadol`, `Ibuprofen`
 
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** Unlike `findp`, partial words will be matched e.g. `para` will  match `Paracetamol`.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Unlike `findp`, partial words will be matched e.g. `para` will  match `Paracetamol`.</div>
 
 
 Examples:
