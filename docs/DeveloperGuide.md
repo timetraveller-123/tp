@@ -892,14 +892,14 @@ Guarantees: The list of Orders that fulfills the status or medicine or both will
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-3. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-4. Should be able to hold up to 1000 orders without a noticeable sluggishness in performance for typical usage.
-5. Should be able to hold up to 1000 medicines without a noticeable sluggishness in performance for typical usage.
-6. Application should be a standalone executable so that it doesn't require the user to install other libraries to run.
-7. Application should be smaller than 100mb so that application can be run on space constrained systems.
-8. Generated storage file shouldn't take up more than 100mb of storage so that the application can be run on space constrained systems.
-
+1. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. Each command should take no longer than 0.1s to execute.
+1. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+1. Should be able to hold up to 1000 orders without a noticeable sluggishness in performance for typical usage.
+1. Should be able to hold up to 1000 medicines without a noticeable sluggishness in performance for typical usage.
+1. Application should be a standalone executable so that it doesn't require the user to install other libraries to run.
+1. Application should be smaller than 100mb so that application can be run on space constrained systems.
+1. Generated storage file shouldn't take up more than 100mb of storage so that the application can be run on space constrained systems.
 
 
 --------------------------------------------------------------------------------------------------------------------
