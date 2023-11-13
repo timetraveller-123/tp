@@ -13,7 +13,7 @@ title: Developer Guide
     5. [Storage](#storage-component)
     6. [Common Classes](#common-classes)
 4. [Implementation](#implementation)
-    1. [Listing](#listx)
+    1. [Listing](#listx-feature)
     2. [Viewing](#viewx-feature)
     3. [Edit Person](#edit-person-feature)
     4. [Add Medicine Short Form](#add-medicine-short-form-feature-)
