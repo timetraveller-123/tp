@@ -1,15 +1,13 @@
 package seedu.pharmhub.logic.parser;
 
 import static seedu.pharmhub.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.pharmhub.logic.parser.CliSyntax.*;
+import static seedu.pharmhub.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
+import static seedu.pharmhub.logic.parser.CliSyntax.PREFIX_STATUS;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 
 import seedu.pharmhub.logic.commands.FindOrderCommand;
 import seedu.pharmhub.logic.parser.exceptions.ParseException;
-import seedu.pharmhub.model.allergy.Allergy;
 import seedu.pharmhub.model.medicine.Medicine;
 import seedu.pharmhub.model.order.Status;
 import seedu.pharmhub.model.order.exceptions.InvalidStatusException;
