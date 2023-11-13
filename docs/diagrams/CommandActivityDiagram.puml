@@ -9,17 +9,9 @@ start
 'diamond we place it as the true branch instead.
 
 if () then ([command is data-modifying])
-    if () then ([command is undo (redo)])
-        :Add current state to redoHistory (undoHistory);
-        :Set current state to last state in undoHistory (redoHistory);
-        :Remove last state from undoHistory (redoHistory);
-    else ([else])
         :Save current state to undoHistory;
         :Clear redoHistory;
-        :Execute command;
-    endif
 else ([else])
-    :Execute command;
 endif
 stop
 @enduml
