@@ -40,8 +40,14 @@ public class DeletePersonCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        assert targetIndex.getZeroBased() >= 0 : "Index should be positive";
+        assert targetIndex.getZeroBased() < lastShownList.size() : "Index should be within bounds of person list";
+
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deletePerson(personToDelete);
+
+        assert !model.hasPerson(personToDelete) : "Person should be deleted from model";
+
         return new CommandResult(
                 String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)), personToDelete);
     }
