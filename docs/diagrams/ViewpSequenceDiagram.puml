@@ -5,7 +5,7 @@ skinparam sequenceReferenceBackgroundColor white
 
 box Ui UI_COLOR_T1
 participant ":MainWindow" as MainWindow UI_COLOR
-participant ":InfoDisplayPlaceholder" as InfoDisplayPlaceholder UI_COLOR
+participant ":InfoDisplay" as InfoDisplay UI_COLOR
 -> MainWindow : executeCommand(viewp)
 activate MainWindow
 
@@ -21,13 +21,11 @@ activate PersonDisplay
 PersonDisplay --> MainWindow : pd
 deactivate PersonDisplay
 
-participant ":InfoDisplayPlaceholder" as InfoDisplayPlaceholder UI_COLOR
+MainWindow -> InfoDisplay : attach(pd)
+activate InfoDisplay
 
-MainWindow -> InfoDisplayPlaceholder : attach(pd)
-activate InfoDisplayPlaceholder
-
-InfoDisplayPlaceholder --> MainWindow
-deactivate InfoDisplayPlaceholder
+InfoDisplay --> MainWindow
+deactivate InfoDisplay
 
 MainWindow --> MainWindow
 deactivate MainWindow

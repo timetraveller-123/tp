@@ -431,15 +431,11 @@ The following activity diagram summarizes what happens when a user executes a ne
     * Pros: Changes in view can be undone, leading to greater convenience. Easily extensible to undo certain views
     * Cons: Versioning has to be extended to keep track of UI, which may lead to increased coupling.
 
-### \[Proposed\] Data archiving
+### ListX
 
-_{Explain here how the data archiving feature will be implemented}_
+The listing functionality is supported by the listPanelPlaceholder in the Ui.
 
-### Listing all orders
-
-The listing all orders functionality is supported by the listPanelPlaceholder in the Ui.
-
-On start of application, two listPanels (PersonListPanel, OrderListPanel) is created, and person list panel is attached
+On start of application, two listPanels (PersonListPanel, OrderListPanel) are created, and person list panel is attached
 to the ListPanel Placeholder as default.
 
 On execution of the any listing commands (`listo` or `listp`), the resultant CommandResult contains details on which
@@ -452,19 +448,6 @@ These are 3 different options for these details:
 
 Using these specifications, the CommandResult from executing `listo` and `listp` will inform the Ui of which
 panel to attach to the listPanelPlaceHolder
-
-### Order feature
-
-#### Implementation
-
-`Order` is implemented as a class in `Model`.
-
-An order can be added to Model using the `addorder` command.  
-Adding of an order with order number that already exits is  not allowed.
-
-The following sequence diagram shows how `addorder` works on an example input.
-
-![AddOrderSequenceDiagram](images/AddOrderSequenceDiagram.png)
 
 --------------------------------------------------------------------------------------------------------------------
 
