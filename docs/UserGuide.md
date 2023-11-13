@@ -52,12 +52,12 @@ This guide aims to enlighten you on the workings of PharmHub, and empower you to
        1. [Add Medicine](#adding-a-new-medicine--addm)
        1. [Add Short Form for Medicine](#adding-and-deleting-short-form--sfm)
        1. [List Medicines](#listing-all-medicines--listm)
-       1. [Find Medicine](#locating-a-medicine-by-name--findm)
+       1. [Find Medicine](#finding-a-medicine--findm)
        1. [Delete Medicine](#deleting-a-medicine--deletem)
    4. [Order Commands](#order-commands)
       1. [Add Order](#adding-a-new-order--addo)
       1. [List Orders](#listing-all-orders--listo)
-      1. [Find Order](#filteringfinding-order-by-status-and-medicines--findo)
+      1. [Find Order](#finding-an-order--findo)
       1. [View Order](#viewing-an-order--viewo)
       1. [Update Order Status](#updating-the-status-of-an-order--updates)
       1. [Delete Order](#deleting-an-order--deleteo)
@@ -298,7 +298,7 @@ Format: `listp`
 
 ![listp](images/listp.png)
 
-### Finding a person: `findp`
+### Finding a person : `findp`
 
 Finds persons whose names, phone numbers, emails, tags, and allergies match the given inputs.
 
@@ -475,7 +475,7 @@ Shows an interactive list of all orders in PharmHub.
 
 Format: `listo`
 
-### Finding an Order: `findo`
+### Finding an Order : `findo`
 
 Finds orders whose status and medicines match the given inputs.
 
