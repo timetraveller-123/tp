@@ -10,12 +10,6 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 
 Given below are my contributions to the project.
 
-* **New Feature**: Added the ability to undo/redo previous commands.
-  * What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-  * Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-  * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-  * Credits: *{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}*
-
 * **New Feature**: Added A Detail information display to GUI.
   * What it does: Allows user to view more detailed information on order `viewo` and person `viewp`. Displays the information of most recent added/edited/deleted order or person.
   * Justification: This feature improves the product significantly because the user can view and analysis more in-depth information easy. Furthermore, displaying the orders or person after an action is done on them helps them check and rectify their actions.
@@ -23,15 +17,15 @@ Given below are my contributions to the project.
   * Credits: NIL
 
 * **New Feature**: Added A Status for Orders.
-  * What it does: 
-  * Justification: 
-  * Highlights: 
+  * What it does: A new component Status is being added to the order. The user can update the status base on their current progression with `updates`. Status is used mainly for tracking and filtering of orders. Status also has a chronological order to prevent mis-inputs.
+  * Justification:  This feature improves the product as it allows the user to track their order to improve efficiency and also prevent orders from being forgotten. Furthermore, the restriction of chronological order further ensures no orders will be updated wrong and hence forgotten.
+  * Highlights: This enhancement affects how the product displays itself. Each status has their own individual colours, hence easily identifiable. Additionally, every order must have a status, therefore enables a lot of future implementation.
   * Credits: NIL
 
 * **New Feature**: Added A find order command.
-  * What it does:
-  * Justification:
-  * Highlights:
+  * What it does: Allows the user to find or filter orders base on either the order status or medicine or both. It then displays the filtered list on the list display.
+  * Justification: This feature helps to improve productivity of the pharmacist as it enables them to filter the order list when there are multiple orders and allows them to identify specific orders easily.
+  * Highlights: The feature not only allows order to be search base on individual component which are the status or medicine keywords, it also allows both to be used as predicates. This feature enables a lot of future implementation as there can be multiple ways of searching.
   * Credits: NIL
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2324s1.github.io/tp-dashboard/?search=linwanleii&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code&since=2023-09-22&tabOpen=true&tabType=authorship&tabAuthor=LinWanLeii&tabRepo=AY2324S1-CS2103T-W08-4%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
