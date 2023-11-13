@@ -181,6 +181,8 @@ This section describes some noteworthy details on how certain features are imple
 This section describes some noteworthy details on how certain features are implemented.
 ### Edit person feature
 
+#### Implementation
+
 After adding a person in PharmHub, the user would be able to edit the person using the `editp` command with the following format:
 
 `editp INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/ALLERGY]…​ [ia/]`
@@ -195,6 +197,7 @@ Prerequisite: There should be a person at index 1, with "Aspirin" in the PharmHu
 The following sequence diagram illustrates some of the steps that happen when user execute `editp 1 no/Aspirin`
 ![editp](images/EditPersonSequenceDiagram.png)
 
+#### Steps to trigger
 
 Step 1: The user executes `editp 1 no/Aspirin` to add the allergy "Aspirin" to the person at index 1.
 

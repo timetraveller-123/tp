@@ -8,7 +8,8 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":PharmHubParser" as PharmHubParser LOGIC_COLOR
 participant ":EditPersonCommandParser" as EditPersonCommandParser LOGIC_COLOR
 participant ":ParserUtil" as ParserUtil LOGIC_COLOR
-participant "cmd:EditPersonCommand" as EditPersonCommand LOGIC_COLOR
+participant ":EditPersonCommand" as EditPersonCommand LOGIC_COLOR
+participant ":EditPersonDescriptor" as EditPersonDescriptor LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 participant "e:CommandException" as CommandException LOGIC_COLOR
 
@@ -17,8 +18,7 @@ end box
 box Model MODEL_COLOR_T1
 participant "model:Model" as Model MODEL_COLOR
 participant "p:Person" as Person1 MODEL_COLOR
-participant "m:Medicine" as Medicine MODEL_COLOR
-participant "a:Allergy" as Allergy MODEL_COLOR
+
 end box
 
 [--> LogicManager : execute("editp 1 no/Aspirin")
@@ -35,22 +35,13 @@ activate EditPersonCommandParser
 EditPersonCommandParser -> ParserUtil : ParserUtil.parseAllergies([ ["Aspirin"] ])
 activate ParserUtil
 
-create Medicine
-ParserUtil -> Medicine : new Medicine("Aspirin")
-activate Medicine
-Medicine --> ParserUtil : m
-deactivate Medicine
-
-create Allergy
-ParserUtil -> Allergy : new Allergy(m)
-activate Allergy
-Allergy --> ParserUtil : a
-deactivate Allergy
 
 
-
-ParserUtil --> EditPersonCommandParser
+ParserUtil -> EditPersonCommandParser : a
 deactivate ParserUtil
+
+
+
 
 EditPersonCommandParser --> PharmHubParser
 deactivate EditPersonCommandParser
@@ -58,6 +49,12 @@ deactivate EditPersonCommandParser
 PharmHubParser -> EditPersonCommandParser : parse("1 no/Aspirin")
 activate EditPersonCommandParser
 
+create EditPersonDescriptor
+EditPersonCommandParser -> EditPersonDescriptor : new EditPersonDescriptor("pan")
+activate EditPersonDescriptor
+
+EditPersonDescriptor --> EditPersonCommandParser : editPersonDescriptor
+deactivate EditPersonDescriptor
 
 create EditPersonCommand
 EditPersonCommandParser -> EditPersonCommand : new EditPersonCommand(1, editPersonDescriptor, ignoreAllergies)
@@ -75,6 +72,21 @@ destroy EditPersonCommandParser
 
 LogicManager -> EditPersonCommand : execute()
 activate EditPersonCommand
+
+'
+'create Person3
+'EditPersonCommand -> Person3 : new Person(editedPerson.getName(), editedPerson.getPhone(), editedPerson.getEmail(), editedPerson.getAddress(), editedPerson.getTags(), convertedAllergies, editedPerson.getOrders())
+'activate Person3
+'Person3 --> EditPersonCommand : newPerson
+'deactivate Person3
+'
+'create Person3
+'EditPersonCommand -> Person3 : new Person(editedPerson.getName(), editedPerson.getPhone(), editedPerson.getEmail(), editedPerson.getAddress(), editedPerson.getTags(), convertedAllergies, editedPerson.getOrders())
+'activate Person3
+'Person3 --> EditPersonCommand : newPerson
+'deactivate Person3
+
+
 
 create Person1
 EditPersonCommand -> Person1 : new Person(n, p, e, a, t, no, o)
