@@ -161,12 +161,13 @@ After adding a person in PharmHub, the user would be able to edit the person usi
 
 The command edits the person information based on the given fields. At least one field must be updated.
 Existing values will be replaced with the new input values.
-If the edits cause the person to be allergic to any orders associated with them, a warning will be raised. Using the ia/ flag will override this warning.
+If the edits cause the person to be allergic to any orders associated with them, a warning will be raised. Using the `ia/` flag will override this warning.
 This command cannot add or delete orders for this person. It's limited to editing the person's information only.
 
 Prerequisite: There should be a person at index 1, with "Aspirin" in the PharmHub medicine list and also among one or more of his/her orders.
 
 The following sequence diagram illustrates some of the steps that happen when user execute `editp 1 no/Aspirin`
+![editp](images/EditPersonSequenceDiagram.png)
 
 
 Step 1: The user executes `editp 1 no/Aspirin` to add the allergy "Aspirin" to the person at index 1.
