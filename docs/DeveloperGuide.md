@@ -138,8 +138,8 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2324S1-CS2103T-W08-4/tp/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="450" />
-<img src="images/ModelObjectsDiagram.png" height="300" />
+<img src="images/ModelClassDiagram.png" width="450" /> <br />
+<img src="images/ModelObjectsDiagram.png" width="700" />
 
 The `Model` component,
 
@@ -349,7 +349,7 @@ The following activity diagram summarizes what happens when a user executes a ne
     * Pros: Reduces coupling between `Person` (and `Order`) model and UI
     * Cons: Less scalable
 
-* **Alternative 2:** Create abstract `InfoObject#createUIComponent`, and have Classes that wish to be displayed implement this method and create their own UI components
+* **Alternative 2:** Create abstract method `InfoObject#createUIComponent`, and have Classes that wish to be displayed implement this method and create their own UI components
     * Pros: Easily scalable - each class implements their own UI display to attach into the placeholder
     * Cons: Increased coupling between UI and Model. UI-creation code exists inside the `Person` (or `Order`) Class
 
@@ -358,9 +358,9 @@ The following activity diagram summarizes what happens when a user executes a ne
 The undo/redo mechanism is facilitated by `VersionedPharmHub`. It extends `PharmHub` with an undo/redo history, stored internally as an `undoHistory Deque` and `redoHistory Deque`. Additionally, it implements the following operations:
 
 * `VersionedPharmHub#canUndo()` —  Checks if there is a previous PharmHub state to revert to
-* `VersionedPharmHub#undo()` — Restores the previous PharmHub state from its `undoHistoryList`.
+* `VersionedPharmHub#undo()` — Restores the previous PharmHub state from its `undoHistory.
 * `VersionedPharmHub#canRedo()` —  Checks if there is a future PharmHub state to revert to.
-* `VersionedPharmHub#redo()` — Restores a previously undone PharmHub state from its `redoHistoryList`.
+* `VersionedPharmHub#redo()` — Restores a previously undone PharmHub state from its `redoHistory`.
 
 These operations are exposed in the `Model` interface as `Model#canUndo()`, `Model#undo()`, `Model#canRedo()` and `Model#redo()` respectively.
 
