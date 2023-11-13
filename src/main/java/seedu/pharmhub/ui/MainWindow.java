@@ -37,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private OrderListPanel orderListPanel;
     private PersonListPanel personListPanel;
     private MedicineListPanel medicineListPanel;
+
     private InfoDisplay infoDisplay;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -189,7 +190,6 @@ public class MainWindow extends UiPart<Stage> {
             listPanelPlaceholder.getChildren().add(medicineListPanel.getRoot());
         }
     }
-
     @FXML
     protected void handleDisplayInfo(InfoObject objectToDisplay) {
         assert(objectToDisplay instanceof Order || objectToDisplay instanceof Person);
