@@ -13,6 +13,13 @@ title: Developer Guide
     5. [Storage](#storage-component)
     6. [Common Classes](#common-classes)
 4. [Implementation](#implementation)
+    1. [Listing](#listx)
+    2. [Viewing](#viewx-feature)
+    3. [Edit Person](#edit-person-feature)
+    4. [Add Medicine Short Form](#add-medicine-short-form-feature-)
+    5. [Delete Medicine Short Form](#delete-medicine-short-form-feature-)
+    6. [Adding an Order](#adding-an-order-feature)
+    7. [Finding an Order Feature](#finding-an-order-feature)
 5. [Documentation](#documentation-logging-testing-configuration-dev-ops)
 6. [Appendix: Requirements](#appendix-requirements)
     1. [Product scope](#product-scope)
@@ -173,7 +180,86 @@ Classes used by multiple components are in the `seedu.pharmHub.commons` package.
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented. 
-This section describes some noteworthy details on how certain features are implemented.
+
+### ListX feature
+
+The listing functionality is supported by the listPanelPlaceholder in the Ui.
+
+On start of application, two listPanels (PersonListPanel, OrderListPanel) are created, and person list panel is attached
+to the ListPanel Placeholder as default.
+
+On execution of the any listing commands (`listo` or `listp`), the resultant CommandResult contains details on which
+panel to choose to display.
+
+These are 3 different options for these details:
+* Person - Panel will display list of people
+* Order - Panel will display list of orders
+* NoChange - Panel will keep whatever was there previously
+
+Using these specifications, the CommandResult from executing `listo` and `listp` will inform the Ui of which
+panel to attach to the listPanelPlaceHolder
+
+### ViewX feature
+
+The `viewp/ viewo` feature allows users to view details of a person/ order in the info display panel. This is facilitated with the new interface, `InfoObject`, which classes that want to be displayed are required to implement.
+
+To support this feature, `CommandResult` has the field `InfoObject`. If present (not null), the UI will create and attach a view for that `InfoObject` onto the Info Display.
+
+The code excerpt for `MainWindow#handleDisplayInfo(InfoObject)` below shows how the InfoDisplay is rendered:
+
+```java
+    @FXML
+    protected void handleDisplayInfo(InfoObject objectToDisplay) {
+        assert(objectToDisplay instanceof Order || objectToDisplay instanceof Person);
+
+        if (objectToDisplay instanceof Order) {
+            Order order = (Order) objectToDisplay;
+            OrderDisplay orderDisplay = new OrderDisplay(order);
+            infoDisplay.attach(orderDisplay)
+        } else if (objectToDisplay instanceof Person) {
+            Person person = (Person) objectToDisplay;
+            PersonDisplay personDisplay = new PersonDisplay(person);
+            infoDisplay.attach(personDisplay)
+        } else {
+            throw new RuntimeException("Invalid object to display");
+        }
+    }
+```
+
+
+The following sequence diagram shows how the `viewp` operation works:
+
+![ViewpSequenceDiagram](images/ViewpSequenceDiagram.png)
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+<img src="images/ViewActivityDiagram.png" width="450" />
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** As it currently stands in PharmHub, InfoObject can only be a Person or an Order.
+
+</div>
+
+#### Design considerations:
+* **Aspect: How the UI is informed about the object to display:**
+
+    * **Alternative 1 (current choice):** Require Classes that want to be displayed to implement `InfoObject`
+        * Pros: Allows `CommandResult` to contain a uniform type (`InfoObject`), which scales easily. Also gives control over which classes can be displayed, and which classes cannot (yet).
+        * Cons: Empty `InfoObject` interface may lead to confusion for new developers.
+
+    * **Alternative 2:** Have `CommandResult` contain all types of objects that we want displayed, ie `Person` and `Order`
+        * Pros: Possibly clearer in intent
+        * Cons: Not easily scalable
+
+* **Aspect: Creation of relevant `InfoObject` UI component:**
+
+    * **Alternative 1 (current choice):** If-else checks in `MainWindow#handleDisplayInfo`, and create the required UI component for each clause
+        * Pros: Reduces coupling between `Person` (and `Order`) model and UI
+        * Cons: Less scalable
+
+    * **Alternative 2:** Create abstract method `InfoObject#createUIComponent`, and have Classes that wish to be displayed implement this method and create their own UI components
+        * Pros: Easily scalable - each class implements their own UI display to attach into the placeholder
+        * Cons: Increased coupling between UI and Model. UI-creation code exists inside the `Person` (or `Order`) Class
+
 ### Edit person feature
 
 #### Implementation
@@ -341,67 +427,6 @@ The following sequence diagram shows how `findo` works on an example input. `fin
 <img src="images/FindoSequenceDiagram.png" width="1200" />
 
 
-### ViewX feature
-
-The `viewp/ viewo` feature allows users to view details of a person/ order in the info display panel. This is facilitated with the new interface, `InfoObject`, which classes that want to be displayed are required to implement.
-
-To support this feature, `CommandResult` has the field `InfoObject`. If present (not null), the UI will create and attach a view for that `InfoObject` onto the Info Display.
-
-The code excerpt for `MainWindow#handleDisplayInfo(InfoObject)` below shows how the InfoDisplay is rendered:
-
-```java
-    @FXML
-    protected void handleDisplayInfo(InfoObject objectToDisplay) {
-        assert(objectToDisplay instanceof Order || objectToDisplay instanceof Person);
-
-        if (objectToDisplay instanceof Order) {
-            Order order = (Order) objectToDisplay;
-            OrderDisplay orderDisplay = new OrderDisplay(order);
-            infoDisplay.attach(orderDisplay)
-        } else if (objectToDisplay instanceof Person) {
-            Person person = (Person) objectToDisplay;
-            PersonDisplay personDisplay = new PersonDisplay(person);
-            infoDisplay.attach(personDisplay)
-        } else {
-            throw new RuntimeException("Invalid object to display");
-        }
-    }
-```
-
-
-The following sequence diagram shows how the `viewp` operation works:
-
-![ViewpSequenceDiagram](images/ViewpSequenceDiagram.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/ViewActivityDiagram.png" width="450" />
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** As it currently stands in PharmHub, InfoObject can only be a Person or an Order.
-
-</div>
-
-#### Design considerations:
-* **Aspect: How the UI is informed about the object to display:**
-
-  * **Alternative 1 (current choice):** Require Classes that want to be displayed to implement `InfoObject`
-      * Pros: Allows `CommandResult` to contain a uniform type (`InfoObject`), which scales easily. Also gives control over which classes can be displayed, and which classes cannot (yet). 
-      * Cons: Empty `InfoObject` interface may lead to confusion for new developers.
-
-  * **Alternative 2:** Have `CommandResult` contain all types of objects that we want displayed, ie `Person` and `Order`
-      * Pros: Possibly clearer in intent
-      * Cons: Not easily scalable
-
-* **Aspect: Creation of relevant `InfoObject` UI component:**
-
-  * **Alternative 1 (current choice):** If-else checks in `MainWindow#handleDisplayInfo`, and create the required UI component for each clause
-      * Pros: Reduces coupling between `Person` (and `Order`) model and UI
-      * Cons: Less scalable
-
-  * **Alternative 2:** Create abstract method `InfoObject#createUIComponent`, and have Classes that wish to be displayed implement this method and create their own UI components
-      * Pros: Easily scalable - each class implements their own UI display to attach into the placeholder
-      * Cons: Increased coupling between UI and Model. UI-creation code exists inside the `Person` (or `Order`) Class
-
 ### Undo/redo feature
 
 The undo/redo mechanism is facilitated by `VersionedPharmHub`. It extends `PharmHub` with an undo/redo history, stored internally as an `undoHistory Deque` and `redoHistory Deque`. Additionally, it implements the following operations:
@@ -479,24 +504,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * **Alternative 2:** Affects all commands
       * Pros: Changes in view can be undone, leading to greater convenience. Easily extensible to undo certain views
       * Cons: Versioning has to be extended to keep track of UI, which may lead to increased coupling.
-
-### ListX
-
-The listing functionality is supported by the listPanelPlaceholder in the Ui.
-
-On start of application, two listPanels (PersonListPanel, OrderListPanel) are created, and person list panel is attached
-to the ListPanel Placeholder as default.
-
-On execution of the any listing commands (`listo` or `listp`), the resultant CommandResult contains details on which
-panel to choose to display.
-
-These are 3 different options for these details:
-* Person - Panel will display list of people
-* Order - Panel will display list of orders
-* NoChange - Panel will keep whatever was there previously
-
-Using these specifications, the CommandResult from executing `listo` and `listp` will inform the Ui of which
-panel to attach to the listPanelPlaceHolder
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -1292,11 +1299,27 @@ In the case of the example given, after the implementation of this planned enhan
 
 
 ## **Appendix: Effort**
-AB3 only deals with one entity type, `person`. However, our project was harder as we had to deal with three entity types, `person`, `order` and `medicine`. 
-These 3 entity types, with their high degree of interconnectivity, required careful and precise control to ensure that referential integrity was upheld.
 
-The dependencies slowed the project timeline as features often relied on each other to be complete. This affected our ability to work in parallel.
-Moreover, we had to take extra precaution in checking the validity of data that is being loaded from the storage file as a `person` could be allergic to multiple `medicine` and  could hold multiple `order` which in turn could hold multiple `medicine`.  
+### **Challenges**
+* As a four-man team, each of us had to do take on a heavier workload to hit the necessary level of functionality in our product.  
+* We also had to pick up many new things along the way. Some of this include Json for storage, JavaFx for Ui and PlantUml for documentation.
+* Unexpected dependencies in code between different team members significantly slowed down speed of development as one member had to wait for another before proceeding.
+
+### **Effort Required**
+Original AB3 only tracked one entity type, `person`. Our application however, tracks three different entity types, `person`, `order` and `medicine`.  
+This required significant effort.
+* In Storage, we had to ensure that the data is valid in all the different places. For example, a `medicine` could appear as an entity in PharmHub itself,
+  or in the allergies or a `person` or in an `order`. Similar checking had to be done for `person` and `order`. Validating all this and ensuring that referential integrity was upheld took significant effort.
+* In Ui, due to the coupling between the three entities, it once again took a lot of effort to ensure all the UI information is being displayed correctly. 
+  For example, when a `person` is edited we had to ensure the corresponding UI for `order` reflects it as well.
+* In Logic, we had to ensure no regressions took place due to user behaviour. For example, we had to ensure a `medicine` can't be deleted when there is a `person` 
+  allergic to it or when an `order` contains it. We also had to check if editing a `person` will result in them being allergic to a `medicine` in their `order`. There were several other such instances.
+
+
+### **Achievements**
+Despite the steep learning curve and difficulties, we managed to build a product that we believe will be beneficial to our target audience.  
+It has features that  cater to their needs and solves their pain points.
+
 
 
 ## Glossary
