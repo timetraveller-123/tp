@@ -5,7 +5,8 @@ title: Ng Yin Joe's Project Portfolio Page
 
 ### Project: Pharmhub
 
-PharmHub is a desktop application for pharmacists to track orders. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+PharmHub - PharmHub is an order and patient tracking application for small remote pharmacist to implement an all-in-one application to improve precision and efficiency.
+The user interacts with it gusing a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 Given below are my contributions to the project.
 
