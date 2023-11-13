@@ -260,7 +260,7 @@ Format: `editp INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/ALLERG
 * You can remove all the person’s allergies by typing `no/` without
     specifying any allergies after it.
 * If the editing causes the person to be allergic any of the orders belonging to them, warning will be raised.
-* Use the `ia/` flag to override.
+* The warning can be overridden by adding the `ia/` to the command
 
 Examples:
 *  `editp 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -385,12 +385,12 @@ Format: `viewo`
 
 Adds a new order of the given medication(s) corresponding to a person into the system.
 
-Format: `addo INDEX o/ORDER_NUMBER m/MEDICINE_NAME [m/MEDICINE_NAME]…​ [/ia]`
+Format: `addo INDEX o/ORDER_NUMBER m/MEDICINE_NAME [m/MEDICINE_NAME]…​ [ia/]`
 
 * Orders are created automatically having a `status` of `pending`.
 * Orders can only be created for a person in the index range, and for a known `medicine`
 * Orders created for persons with an allergy to any of the medications in the order will raise a warning.
-* The warning can be overridden by adding the `/ia` to the command
+* The warning can be overridden by adding the `ia/` to the command
 
 Parameters:
 * `INDEX` - index of patient who is ordering the medicine as shown in the patient list.
@@ -423,7 +423,7 @@ Example:
 
 Finds orders whose status and medicine satisfies both inputs.
 
-Format: `findo s/STATUS m/MEDICINE_NAME [m/MEDICINE_NAME]...`
+Format: `findo s/STATUS m/MEDICINE_NAME [m/MEDICINE_NAME]…`
 
 * The search is case-insensitive. e.g `PANADOL` will match `Panadol`, `COMPLETED` or `CP` will match `Completed`.
 * User input can find orders base on either status or medicines or both(but both will have to be satisfied).
@@ -515,28 +515,28 @@ If your changes to the data file makes its format invalid, PharmHub will discard
 
 ## Command summary
 
-| Action                    | Format, Examples                                                                                                                                                                                |
-|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **List People**           | `listp`                                                                                                                                                                                         |
-| **Find Person**           | `findp KEYWORD [MORE_KEYWORDS]`<br> e.g., `findp James Jake`                                                                                                                                    |
-| **View Person**           | `viewp INDEX` <br> e.g., `viewp 1`                                                                                                                                                              |
-| **Add Person**            | `addp n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [no/ALLERGY]…​` <br> e.g., `addp n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague no/aspirin` |
-| **Edit Person**           | `editp INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/allergy]…​`<br> e.g.,`editp 2 n/James Lee e/jameslee@example.com`                                                      |
-| **Delete Person**         | `deletep INDEX`<br> e.g., `deletep 3`                                                                                                                                                           |
-| **List Orders**           | `listo`                                                                                                                                                                                         |
-| **Find Order**            | `findo [s/STATUS] [m/MEDICINE_NAME]...`<br> e.g., `findo s/cp m/pen`                                                                                                                            |
-| **View Order**            | `viewo ORDER_NUMBER` <br> e.g., `viewo 12345`                                                                                                                                                   |
-| **Add Order**             | `addo INDEX o/ORDER_NUMBER m/MEDICINE_NAME [m/MEDICINE_NAME]...` <br> e.g., `addorder 3 o/438756 m/claritin`                                                                                    |
-| **Update Order Status**   | `updates INDEX s/STATUS`<br> e.g., `updates s/cancelled`                                                                                                                                        |
-| **Delete Order**          | `deleteo INDEX`<br> e.g., `deleteo 3`                                                                                                                                                           |
-| **List Medicine**         | `listm`                                                                                                                                                                                         |
-| **Find Medicine**         | `findm KEYWORD [MORE_KEYWORDS]`                                                                                                                                                                 |
-| **Add Medicine**          | `addm m/MEDICINE_NAME`                                                                                                                                                                          |
-| **Delete Medicine**       | `deletem INDEX`                                                                                                                                                                                 |
-| **Add/Delete Short Form** | `sfm INDEX [m/SHORT_FORM] [d/]`                                                                                                                                                                 |
-| **Undo**                  | `undo`                                                                                                                                                                                          |
-| **Redo**                  | `redo`                                                                                                                                                                                          |
-| **Clear**                 | `clear`                                                                                                                                                                                         |
-| **Help**                  | `help`                                                                                                                                                                                          |
-| **Exit**                  | `exit`                                                                                                                                                                                          |
+| Action                    | Format, Examples                                                                                                                                                                                 |
+|---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **List People**           | `listp`                                                                                                                                                                                          |
+| **Find Person**           | `findp KEYWORD [MORE_KEYWORDS]`<br> e.g., `findp James Jake`                                                                                                                                     |
+| **View Person**           | `viewp INDEX` <br> e.g., `viewp 1`                                                                                                                                                               |
+| **Add Person**            | `addp n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [no/ALLERGY]…​` <br> e.g., `addp n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague no/aspirin`  |
+| **Edit Person**           | `editp INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/allergy]…​ [ia/]`<br> e.g.,`editp 2 n/James Lee e/jameslee@example.com`                                                 |
+| **Delete Person**         | `deletep INDEX`<br> e.g., `deletep 3`                                                                                                                                                            |
+| **List Orders**           | `listo`                                                                                                                                                                                          |
+| **Find Order**            | `findo [s/STATUS] [m/MEDICINE_NAME]…`<br> e.g., `findo s/cp m/pen`                                                                                                                               |
+| **View Order**            | `viewo ORDER_NUMBER` <br> e.g., `viewo 12345`                                                                                                                                                    |
+| **Add Order**             | `addo INDEX o/ORDER_NUMBER m/MEDICINE_NAME [m/MEDICINE_NAME]… [ia/]` <br> e.g., `addorder 3 o/438756 m/claritin`                                                                                 |
+| **Update Order Status**   | `updates INDEX s/STATUS`<br> e.g., `updates s/cancelled`                                                                                                                                         |
+| **Delete Order**          | `deleteo INDEX`<br> e.g., `deleteo 3`                                                                                                                                                            |
+| **List Medicine**         | `listm`                                                                                                                                                                                          |
+| **Find Medicine**         | `findm KEYWORD [MORE_KEYWORDS]`                                                                                                                                                                  |
+| **Add Medicine**          | `addm m/MEDICINE_NAME`                                                                                                                                                                           |
+| **Delete Medicine**       | `deletem INDEX`                                                                                                                                                                                  |
+| **Add/Delete Short Form** | `sfm INDEX [m/SHORT_FORM] [d/]`                                                                                                                                                                  |
+| **Undo**                  | `undo`                                                                                                                                                                                           |
+| **Redo**                  | `redo`                                                                                                                                                                                           |
+| **Clear**                 | `clear`                                                                                                                                                                                          |
+| **Help**                  | `help`                                                                                                                                                                                           |
+| **Exit**                  | `exit`                                                                                                                                                                                           |
 

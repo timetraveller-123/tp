@@ -17,7 +17,6 @@ import static seedu.pharmhub.logic.commands.CommandTestUtil.VALID_STATUS_COMPLET
 import static seedu.pharmhub.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.pharmhub.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.pharmhub.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.pharmhub.testutil.Assert.assertThrows;
 import static seedu.pharmhub.testutil.TypicalPersons.getTypicalPharmHub;
 
 import java.util.HashSet;
@@ -34,8 +33,6 @@ import seedu.pharmhub.model.UserPrefs;
 import seedu.pharmhub.model.medicine.Medicine;
 import seedu.pharmhub.model.order.Order;
 import seedu.pharmhub.model.order.Status;
-
-
 
 public class FindOrderCommandParserTest {
     private static Model model = new ModelManager(getTypicalPharmHub(), new UserPrefs());
@@ -66,32 +63,29 @@ public class FindOrderCommandParserTest {
     @Test
     public void parse_invalidStatusMedicine_throwsParseException() {
         // invalid status
-        assertThrows(IllegalArgumentException.class, () ->
-                parser.parse(INVALID_STATUS_DESC));
+        assertParseFailure(parser, INVALID_STATUS_DESC, Status.MESSAGE_CONSTRAINTS);
 
         // invalid short status
-        assertThrows(IllegalArgumentException.class, () ->
-                parser.parse(INVALID_SHORT_STATUS_DESC));
+        assertParseFailure(parser, INVALID_SHORT_STATUS_DESC, Status.MESSAGE_CONSTRAINTS);
 
         // invalid status with valid medicine
-        assertThrows(IllegalArgumentException.class, () ->
-                parser.parse(INVALID_STATUS_DESC + MEDICINE_DESC_PANADOL));
+        assertParseFailure(parser, INVALID_STATUS_DESC + MEDICINE_DESC_PANADOL, Status.MESSAGE_CONSTRAINTS);
 
         // invalid short status with valid medicine
-        assertThrows(IllegalArgumentException.class, () ->
-                parser.parse(INVALID_SHORT_STATUS_DESC + MEDICINE_DESC_IBUPROFEN));
+        assertParseFailure(parser, INVALID_SHORT_STATUS_DESC
+                + MEDICINE_DESC_IBUPROFEN, Status.MESSAGE_CONSTRAINTS);
 
         // invalid status with valid medicine type 2
-        assertThrows(IllegalArgumentException.class, () ->
-                parser.parse(INVALID_STATUS_DESC + SHORT_MEDICINE_DESC_PANADOL + "IBUPROFEN"));
+        assertParseFailure(parser, INVALID_STATUS_DESC + SHORT_MEDICINE_DESC_PANADOL
+                + "IBUPROFEN", Status.MESSAGE_CONSTRAINTS);
 
         // invalid short status with valid medicine type 2
-        assertThrows(IllegalArgumentException.class, () ->
-                parser.parse(INVALID_SHORT_STATUS_DESC + MEDICINE_DESC_PANADOL + "IBUPROFEN"));
+        assertParseFailure(parser, INVALID_SHORT_STATUS_DESC + MEDICINE_DESC_PANADOL
+                + "IBUPROFEN", Status.MESSAGE_CONSTRAINTS);
 
         // invalid short status with valid short medicine
-        assertThrows(IllegalArgumentException.class, () ->
-                parser.parse(INVALID_SHORT_STATUS_DESC + SHORT_MEDICINE_DESC_IBUPROFEN));
+        assertParseFailure(parser, INVALID_SHORT_STATUS_DESC
+                + SHORT_MEDICINE_DESC_IBUPROFEN, Status.MESSAGE_CONSTRAINTS);
     }
     @Test
     public void parse_invalidMedicine_zeroOrderListed() {
