@@ -37,7 +37,7 @@ deactivate FindOrderCommandParser
 PharmHubParser -> FindOrderCommandParser : parse("s/pd m/pan ibuprofen")
 activate FindOrderCommandParser
 
-alt getValue(PREFIX_STATUS).isPresent()
+opt getValue(PREFIX_STATUS).isPresent()
 FindOrderCommandParser -> ParserUtil : parseStatus("pd")
 activate ParserUtil
 
@@ -50,7 +50,7 @@ ParserUtil --> FindOrderCommandParser : s
 deactivate ParserUtil
 end
 
-alt getValue(PREFIX_MEDICINE).isPresent()
+opt getValue(PREFIX_MEDICINE).isPresent()
 FindOrderCommandParser -> ParserUtil : parseMedicines("pan ibuprofen")
 activate ParserUtil
 
@@ -64,7 +64,7 @@ deactivate ParserUtil
 end
 
 create FindOrderCommand
-FindOrderCommandParser -> FindOrderCommand : FindOrderCommand(s,m)
+FindOrderCommandParser -> FindOrderCommand : new FindOrderCommand(s,m)
 
 activate FindOrderCommand
 
@@ -90,7 +90,7 @@ FindOrderCommand -> CommandResult
 activate CommandResult
 
 CommandResult --> FindOrderCommand
-
+deactivate CommandResult
 FindOrderCommand --> LogicManager : result
 deactivate FindOrderCommand
 LogicManager -->[
