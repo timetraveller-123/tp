@@ -36,7 +36,7 @@ public class FindOrderCommand extends Command {
     /**
      * Constructor method for the find order class.
      * @param statusToFind The status to find.
-     * @param medicineToFind The Medicine to find.
+     * @param medicineToFind The Medicine(s) to find.
      */
     public FindOrderCommand(Status statusToFind, Set<Medicine> medicineToFind) {
         this.statusToFind = statusToFind;
