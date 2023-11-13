@@ -159,7 +159,7 @@ The `Model` component,
 
 **API** : [`Storage.java`](https://github.com/AY2324S1-CS2103T-W08-4/tp/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<img src="images/PharmHubStorageClassDiagram.png" width="700" />
+<img src="images/PharmHubStorageClassDiagram.png" width="900" />
 
 The `Storage` component,
 * can save both PharmHub data and user preference data in JSON format, and read them back into corresponding objects.
@@ -261,11 +261,10 @@ will then check and create an `Index`, `OrderNumber` and `Medicine` passing it t
 `person`, `orderNumber`, `medicine` and a `PENDING` Status, then `Model#hasOrder` also checks whether the order is a duplicated order.
 7. If the order does not exist, then the `Model#addOrder` adds the order into the order list.
 
-#### Design Consideration
-
 The following sequence diagram shows how `addo` works on an example input. `addo 1 m/aspirin o/1000`
 
-![AddOrderSequenceDiagram](images/AddoSequenceDiagram.png)
+<img src="images/AddoSequenceDiagram.png" width="1400" />
+
 
 ### Finding an Order Feature
 
@@ -289,11 +288,9 @@ The finding an Order feature allows the user to find other base on either the or
 7. The `Model#updateFilteredOrder` will then take either or both `Status` and `Medicine` as predicates to filter through the order list and return valid orders.
 8. The filtered order list will then be returned and shown on the Displayed list.
 
-#### Design Consideration
-
 The following sequence diagram shows how `findo` works on an example input. `findo s/pd m/pan ibuprofen`
 
-![FindOrderSequenceDiagram](images/FindoSequenceDiagram.png)
+<img src="images/FindoSequenceDiagram.png" width="1200" />
 
 ### \[Proposed\] Undo/redo feature
 
