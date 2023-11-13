@@ -5,7 +5,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 /**
- * A ui for the status bar that is displayed at the header of the application.
+ * A ui for the Info Display that is displayed at the right side of the application
  */
 public class InfoDisplay extends UiPart<Region> {
     private static final String FXML = "InfoDisplay.fxml";
