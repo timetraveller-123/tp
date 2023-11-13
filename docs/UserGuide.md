@@ -20,52 +20,52 @@ This guide aims to enlighten you on the workings of PharmHub, and empower you to
 
 **Getting started in a breeze**:
 
-* Familiarise yourself with key [Definitions](#definition)
+* Jump around quickly via our [Table Of Contents](#table-of-contents--toc-)
+* Familiarise yourself with key [Definitions](#definitions)
 * Get to know our GUI through our [Application Navigation](#application-navigation)
 * Dive into our hands-on [Quick Start](#quick-start) guide
 * Explore the array of capabilities in our [Features](#features) section
 * Refresh your memory with our [Command Summary](#command-summary)
-* Jump around quickly via our [Table Of Contents](#table-of-contents)
-* Find solutions to issues faced at our [Troubleshooting](#trouble-shooting) section
+* Find solutions to issues faced at our [Troubleshooting](#troubleshooting) section
  
 --------------------------------------------------------------------------------------------------------------------
-## Table of Contents
+## Table of Contents (TOC)
 1. [Definitions](#definitions)
    1. [Person](#person)
    2. [Order](#order)
    3. [Status](#status)
    4. [Medicine](#medicine)
-   5. [Index](#index)
-   6. [Fields](#fields)
+   5. [Fields](#fields)
+   6. [Index](#index)
 2. [Application Navigation](#application-navigation)
 3. [Quick Start](#quick-start)
 4. [Features](#features)
    1. [Help](#viewing-help--help)
-   2. [Person Commands](#person-related-commands)
-      1. [Add Person](#adding-a-person-addp)
+   2. [Person Commands](#person-commands)
+      1. [Add Person](#adding-a-person--addp)
       2. [list Person](#listing-all-persons--listp)
       3. [View Person](#viewing-a-person-viewp)
       4. [Edit Person](#editing-a-person--editp)
       5. [Delete Person](#deleting-a-person--deletep)
-   3. [Medicine Commands](#medicine-related-commands)
+   3. [Medicine Commands](#medicine-commands)
        1. [Add Medicine](#adding-a-new-medicine--addm)
        2. [list Medicine](#listing-all-medicines--listm)
-       3. [Find Medicine](#locating-a-medicine-by-name--findm-)
+       3. [Find Medicine](#locating-a-medicine-by-name--findm)
        4. [Delete Medicine](#deleting-a-medicine--deletem)
        5. [Add Short Form Medicine](#adding-and-deleting-short-form--sfm)
-   4. [Order Commands](#person-related-commands)
-       1. [list Order](#listing-all-orders--listo-)
-       2. [View Order](#viewing-an-order--viewo-)
-       3. [Add Order](#adding-a-new-order--addo-)
-       4. [Update Order Status](#updating-the-status-of-an-order--updates-)
-       5. [Find Order](#filteringfinding-order-by-status-and-medicines-findo)
-       6. [Delete Order](#deleting-an-order--deleteo-)
-   5. [Undo](#undoing-an-action--undo-)
-   6. [Redo](#redoing-an-action-after-an-undo--redo-)
+   4. [Order Commands](#person-commands)
+       1. [list Order](#listing-all-orders--listo)
+       2. [View Order](#viewing-an-order--viewo)
+       3. [Add Order](#adding-a-new-order--addo)
+       4. [Update Order Status](#updating-the-status-of-an-order--updates)
+       5. [Find Order](#filteringfinding-order-by-status-and-medicines--findo)
+       6. [Delete Order](#deleting-an-order--deleteo)
+   5. [Undo](#undoing-an-action--undo)
+   6. [Redo](#redoing-an-undo-action--redo)
    7. [Clear](#clearing-all-entries--clear)
    8. [Exit](#exiting-the-program--exit)
 5. [Command Summary](#command-summary)
-6. [Troubleshooting](#trouble-shooting)
+6. [Troubleshooting](#troubleshooting)
    1. [FAQ](#faq)
    2. [Common Errors](#common-errors)
 7. [Glossary](#glossary)
@@ -73,7 +73,7 @@ This guide aims to enlighten you on the workings of PharmHub, and empower you to
 --------------------------------------------------------------------------------------------------------------------
 
 ## Definitions
-Jump to [TOC](#table-of-contents)
+Jump to [TOC](#table-of-contents--toc-)
 
 This section provides an introduction to the terminology used in this user guide. 
 
@@ -172,7 +172,7 @@ All indices have to be positive integers. <br />
 ---
 
 ## Application Navigation
-Jump to [TOC](#table-of-contents)
+Jump to [TOC](#table-of-contents--toc-)
 
 Below shows a guide on how you can navigate around our interactive Graphical User Interface (GUI)
 
@@ -191,12 +191,12 @@ Below shows a guide on how you can navigate around our interactive Graphical Use
 
 ## Quick start
 
-Jump to [TOC](#table-of-contents)
+Jump to [TOC](#table-of-contents--toc-)
 
 
 1. Ensure you have Java `11` or above installed in your Computer.
    * Run `java --version` in your command terminal to see the java version.
-   * For both `Mac` and `Window` user click [here](https://nus-cs2103-ay2324s1.github.io/website/admin/programmingLanguages.html) for a guide to download the required `java` language for your computer.
+   * For both `Mac` and `Window` user click [here](https://nus-cs2103-ay2324s1.github.io/website/admin/programmingLanguages.html) for a guide to download the required `java` version for your computer.
 
 2. Download the latest `PharmHub.jar` from [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/releases).
 
@@ -239,7 +239,7 @@ Jump to [TOC](#table-of-contents)
 
 ## Features
 
-Jump to [TOC](#table-of-contents)
+Jump to [TOC](#table-of-contents--toc-)
 
 <div markdown="block" class="alert alert-info">
 
@@ -271,8 +271,8 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
-### Person Related Commands
-Jump to [TOC](#table-of-contents)
+### Person Commands
+Jump to [TOC](#table-of-contents--toc-)
 
 
 ### Adding a person: `addp`
@@ -310,7 +310,7 @@ Examples:
 
 Edits an existing person in the PharmHub.
 
-Format: `editp INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [no/ALLERGY]…​ [ia/]`
+Format: `editp INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]… [no/ALLERGY]…​ [ia/]`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the last displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -367,8 +367,8 @@ Examples:
 
 ---
 
-### Medicine Related Commands
-Jump to [TOC](#table-of-contents)
+### Medicine Commands
+Jump to [TOC](#table-of-contents--toc-)
 
 ### Adding a new medicine : `addm`
 
@@ -446,8 +446,8 @@ Example:
 
 ---
 
-### Order Related Commands
-Jump to [TOC](#table-of-contents)
+### Order Commands
+Jump to [TOC](#table-of-contents--toc-)
 
 ### Listing all orders : `listo` 
 
@@ -529,7 +529,7 @@ Format: `deleteo INDEX`
 
 Example: `deleteo 2`
 
-Jump to [TOC](#table-of-contents)
+Jump to [TOC](#table-of-contents--toc-)
 
 ### Undoing an action : `undo` 
 
@@ -543,7 +543,7 @@ Format: `undo`
 Example: 
 * `addp` -> `listp` -> `undo` will undo the `addp` command
 
-### Redoing an action (after an undo) : `redo` 
+### Redoing an undo action : `redo` 
 
 Negates the effect of the last undo.
 
@@ -586,7 +586,7 @@ If your changes to the data file makes its format invalid, PharmHub will discard
 
 
 ## Command Summary
-Jump to [TOC](#table-of-contents)
+Jump to [TOC](#table-of-contents--toc-)
 
 
 | Action                    | Format                                                                                                                     | Examples                                                                                                       |
@@ -616,8 +616,8 @@ Jump to [TOC](#table-of-contents)
 
 ---
 
-## Trouble Shooting
-Jump to [TOC](#table-of-contents)
+## Troubleshooting
+Jump to [TOC](#table-of-contents--toc-)
 
 
 ### FAQ
@@ -675,7 +675,6 @@ Click [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/issues/new) to feedbac
 --------------------------------------------------------------------------------------------------------------------
 
 ## Glossary
-Jump to [TOC](#table-of-contents)
 
 | Term                 | Meaning                                                                                                               |
 |----------------------|-----------------------------------------------------------------------------------------------------------------------|
@@ -686,4 +685,4 @@ Jump to [TOC](#table-of-contents)
 | **Java**             | Java is a widely used programming language and is used in PharmHub.                                                   |
 | **Jar**              | Java Archive contains all of the various components that make up a Java application, in this case PharmHub.           |
 | **Json**             | JavaScript Object Notation(Json) is a text format for storing data. It is used by PharmHub to store application data. |  
-| **TOC**              | [Table of Content](#table-of-contents)                                                                                |
+| **TOC**              | [Table of Contents](#table-of-contents--toc-)                                                                         |
