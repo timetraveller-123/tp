@@ -670,6 +670,7 @@ Click [here](https://github.com/AY2324S1-CS2103T-W08-4/tp/issues/new) to feedbac
 
 | Term                 | Meaning                                                                                                               |
 |----------------------|-----------------------------------------------------------------------------------------------------------------------|
+| **TOC**              | Table of Content(TOC). Refer to [here](#table-of-contents).                                                           |
 | **CLI**              | Command Line Interface(CLI) is a text based interface where users can input commands.                                 |
 | **Command Terminal** | A program which allows users to enter commands that the computer processes.                                           |
 | **`cd`**             | The command used in command terminal to change directory.                                                             |
