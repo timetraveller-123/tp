@@ -14,12 +14,6 @@ ref over MainWindow : execute command
 MainWindow -> MainWindow : handleDisplayInfoObject(Person)
 activate MainWindow
 
-MainWindow -> InfoDisplayPlaceholder : clear()
-activate InfoDisplayPlaceholder
-
-InfoDisplayPlaceholder --> MainWindow
-deactivate InfoDisplayPlaceholder
-
 create "pd:PersonDisplay" as PersonDisplay UI_COLOR
 MainWindow -> PersonDisplay : PersonDisplay(Person)
 activate PersonDisplay
@@ -29,7 +23,7 @@ deactivate PersonDisplay
 
 participant ":InfoDisplayPlaceholder" as InfoDisplayPlaceholder UI_COLOR
 
-MainWindow -> InfoDisplayPlaceholder : add(pd)
+MainWindow -> InfoDisplayPlaceholder : attach(pd)
 activate InfoDisplayPlaceholder
 
 InfoDisplayPlaceholder --> MainWindow
