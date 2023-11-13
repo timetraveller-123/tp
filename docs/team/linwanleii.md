@@ -56,8 +56,4 @@ Given below are my contributions to the project.
     * Updated and added all use cases.
 
 * **Community**:
-  * PRs reviewed (with non-trivial review comments): [Add medicine and update UI in DG\#184](https://github.com/AY2324S1-CS2103T-W08-4/tp/pull/184), [\#32](), [\#19](), [\#42]()
-  * Contributed to forum discussions (examples: [1](), [2](), [3](), [4]())
-  * Reported bugs and suggestions for other teams in the class (examples: [1](), [2](), [3]())
-  * Some parts of the history feature I added was adopted by several other class mates ([1](), [2]())
-
+  * PRs reviewed (with non-trivial review comments): [\#184](https://github.com/AY2324S1-CS2103T-W08-4/tp/pull/184), [\#167](https://github.com/AY2324S1-CS2103T-W08-4/tp/pull/167)
