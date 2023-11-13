@@ -12,6 +12,7 @@ import seedu.pharmhub.logic.commands.FindOrderCommand;
 import seedu.pharmhub.logic.parser.exceptions.ParseException;
 import seedu.pharmhub.model.medicine.Medicine;
 import seedu.pharmhub.model.order.Status;
+import seedu.pharmhub.model.order.exceptions.InvalidStatusException;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -44,8 +45,13 @@ public class FindOrderCommandParser implements Parser<FindOrderCommand> {
         Set<Medicine> medicineToFind = null;
 
         if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
-            String s = argMultimap.getValue(PREFIX_STATUS).get();
-            statusToFind = ParserUtil.parseStatus(Status.shortFormToFull(s));
+            try {
+                String s = argMultimap.getValue(PREFIX_STATUS).get();
+                statusToFind = ParserUtil.parseStatus(Status.shortFormToFull(s));
+                assert Status.isValidOrderStatus(statusToFind.toString()) : "Status should be valid";
+            } catch (InvalidStatusException se) {
+                throw new ParseException(se.getMessage());
+            }
         }
         if (argMultimap.getValue(PREFIX_MEDICINE_NAME).isPresent()) {
             String medicineArg = argMultimap.getValue(PREFIX_MEDICINE_NAME).get();
