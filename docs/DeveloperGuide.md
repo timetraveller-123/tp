@@ -322,7 +322,7 @@ Currently, only one short form can be assigned to one `Medicine` at a time.
 #### Steps to trigger
 Step 1: The User launches the application.
 Step 2: The user executes `sfm 1 m/pan` to add the short form of `pan` to the medicine at index 1 in the last shown medicine list.  
-Step 3: Logic Manager calls `AddressBookParser#parse` which extracts the arguments and calls `ShortFormCommandParser`  
+Step 3: Logic Manager calls `PharmHubParser#parse` which extracts the arguments and calls `ShortFormCommandParser`  
 Step 4: `ShortFormCommandParser` parses the index, short form name and returns a `ShortFormComamnd`   
 Step 5: `LogicManager` calls `ShortFormCommand#execute` to assign the short form to the medicine.   
 Step 6: `ShortFormCommand` checks if an existing medicine with the same name or same short form is already present using `Model#hasMedicine(m)`.   
@@ -361,7 +361,7 @@ Given below is an example scenario to delete the short form of medicine at index
 
 Step 1. The user lists all medicines using the `listm` command.  
 Step 2. The user deletes the medicine at 1st index using `sfm 1 m/pan d/`  
-Step 3: Logic Manager calls `AddressBookParser#parse` which extracts the arguments and calls `ShortFormCommandParser`  
+Step 3: Logic Manager calls `PharmHubParser#parse` which extracts the arguments and calls `ShortFormCommandParser`  
 Step 4: `ShortFormCommandParser` parses the index, ignores the short form and returns a `ShortFormComamnd`   
 Step 5: `LogicManager` calls `ShortFormCommand#execute` to delete the short form of medicine at index 1.   
 Step 6: The `Medicine` at index 1 is replaced with a new `Medicine` which has same medicine name but with no short form.
@@ -476,7 +476,7 @@ Step 5. The user then decides to execute the command `list`. Commands that do no
 
 ![UndoRedoState4](images/UndoRedoState4.png)
 
-Step 6. The user executes `clear`, which calls `Model#Clear()`, which in turn calls `VersionedAddressBook#Clear()`. As before, the `Current State` is added to `undoHistory`, and then `PharmHub#clear()` is called, which changes the state. Moreover, the `redoHistory` will be cleared, preventing users from running `redo` after a data-modifying non-undo command. Reason: This is how most applications handle undo/redo.
+Step 6. The user executes `clear`, which calls `Model#Clear()`, which in turn calls `VersionedPharmHub#Clear()`. As before, the `Current State` is added to `undoHistory`, and then `PharmHub#clear()` is called, which changes the state. Moreover, the `redoHistory` will be cleared, preventing users from running `redo` after a data-modifying non-undo command. Reason: This is how most applications handle undo/redo.
 
 ![UndoRedoState5](images/UndoRedoState5.png)
 
