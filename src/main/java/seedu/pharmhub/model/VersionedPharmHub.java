@@ -22,7 +22,7 @@ public class VersionedPharmHub extends PharmHub {
     /**
      * Creates a VersionedPharmHub using the models in {@code toBeCopied} and the {@code modelManager}
      */
-    public VersionedPharmHub(ReadOnlyPharmHub toBeCopied, ModelManager modelManager) {
+    public VersionedPharmHub(ReadOnlyPharmHub toBeCopied) {
         super(toBeCopied);
         undoHistory = new ArrayDeque<>();
         redoHistory = new ArrayDeque<>();
