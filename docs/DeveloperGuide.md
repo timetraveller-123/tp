@@ -414,10 +414,10 @@ The finding an Order feature allows the user to find other base on either the or
 
 1. The User Launches the application. 
 2. The User decides to find/filter through the order list after adding multiple orders.
-3. The User executes "findo s/pd m/pan ibuprofen" to find orders that has `PENDING` status and either `PANADOL` or `IBUPROFEN` in the order.
+3. The User executes "findo s/pd m/pan" to find orders that has `PENDING` status and `PANADOL` in the order.
 4. The `FindOrderCommandParser#parse()` checks whether all the prefixes and the required values are provided.
 5. If the check is successful, depending on the User input if `s/` is present `ParseUtil#parseStatus` will return a
-`Status`, and if `m/` is present `ParseUtil#parseMedicines` will return the `Medicine/s`.
+`Status`, and if `m/` is present `ParseUtil#parseMedicines` will return the `Medicine`.
 6. The `Status` and `Medicine` will then be passed to the FindOrderCommand.
 7. The `Model#updateFilteredOrder` will then take either or both `Status` and `Medicine` as predicates to filter through the order list and return valid orders.
 8. The filtered order list will then be returned and shown on the Displayed list.
