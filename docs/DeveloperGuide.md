@@ -574,7 +574,7 @@ Guarantees: The new person(patient) will be added to the list of Person only if 
 
 **MSS**
 
-1. User chose to add a person.
+1. User chooses to add a person.
 2. PharmHub adds the new person to the person list.
 3. PharmHub displays the updated list and person.
 <br>**Use case ends**
@@ -595,7 +595,7 @@ Guarantees: The Person List would be displayed.
 **MSS**
 
 1. User adds a person [UC01](#use-case-uc01---adding-a-person).
-2. User chose to view the list.
+2. User chooses to view the list.
 3. PharmHub shows the Person list.
    <br>**Use case ends**
     
@@ -610,18 +610,18 @@ Guarantees: The Person List would be displayed.
 
 
 * 2a. The list is empty.
-
-  Use case ends
+  <br>**Use case ends**
+  
 
 #### **Use case: UC03 - Editing Person Detail**
 
-Guarantees: The Person's detail would be updated only if the person exist in the system.
+Guarantees: The Person's detail would be updated only if the person exists in the system.
 
 **MSS**
 
 1. User adds a person [UC01](#use-case-uc01---adding-a-person).
 2. User views the person list [UC02](#use-case-uc02---listing-person-list).
-3. User chose to edit a person's detail.
+3. User chooses to edit a person's detail.
 4. PharmHub updates the Person list with the updated information
 5. PharmHub displays the person.
 <br>**Use case ends**
@@ -638,22 +638,22 @@ Guarantees: The Person's detail would be updated only if the person exist in the
 
 #### **Use case: UC04 - Adding a medicine**
 
-Guarantees: The new medicine will be added to the list of medicines only if the medicine do not exist in the system.
+Guarantees: The new medicine will be added to the list of medicines only if the medicine does not exist in the system.
 
 **MSS**
 
-1. User chose to add a medicine.
+1. User chooses to add a medicine.
 2. PharmHub adds the new medicine to the medicine list.
    <br>**Use case ends**
 
 
 **Extensions**
 
-* 1a. PharmHub detects an error in the input.
+* 1a. Medicine already exists in the system.
 
     * 1a1. PharmHub shows error message.
     * 1a2. User enters new input.
-    * Steps 1a1-1a2 are repeated until the input are correct.
+    * Steps 1a1-1a2 are repeated until the input is correct.
     <br>**Use case resumes from step 2.**
 
 
@@ -664,7 +664,7 @@ Guarantees: The Medicine List would be displayed.
 **MSS**
 
 1. User adds a medicine [UC04](#use-case-uc04---adding-a-medicine).
-2. User chose to view the medicine list.
+2. User chooses to view the medicine list.
 3. PharmHub shows the Medicine list.
    <br>**Use case ends**
 
@@ -683,13 +683,13 @@ Guarantees: The Medicine List would be displayed.
 
 #### **Use case: UC06 - Adding a medicine short form**
 
-Guarantees: The Medicine would have a short form only if the medicine exist in the system.
+Guarantees: The Medicine would have a short form only if the medicine exist in the system and the short form is unique.
 
 **MSS**
 
 1. User adds a Medicine [UC04](#use-case-uc04---adding-a-medicine).
 2. User views the person list [UC05](#use-case-uc05---listing-medicine-list).
-3. User chose to add a short form for medicine.
+3. User chooses to add a short form for medicine.
 4. PharmHub updates Medicine list with short form.
    <br>**Use case ends**
 
@@ -704,12 +704,12 @@ Guarantees: The Medicine would have a short form only if the medicine exist in t
 
 #### **Use case: UC07 - Deleting a medicine short form**
 
-Guarantees: The short form for the medicine will be removed only if the short form exist for the medicine.
+Guarantees: The short form for the medicine will be removed.
 
 **MSS**
 
 1. User adds a short form [U07](#use-case-uc06---adding-a-medicine-short-form).
-2. User chose to delete the short form.
+2. User chooses to delete the short form.
 3. PharmHub updates Medicine list with an empty short form.
 <br>**Use case ends**
 
@@ -729,7 +729,7 @@ Guarantees: The order is added to the person only if the person exist while the 
 **MSS**
 
 1. User views the person list [UC02](#use-case-uc02---listing-person-list).
-2. User chose to add an order.
+2. User chooses to add an order.
 3. PharmHub adds the new order to the order list.
 4. PharmHub displays the order.
    <br>**Use case ends**
@@ -746,15 +746,12 @@ Guarantees: The order is added to the person only if the person exist while the 
  
 * 2b. The person is allergic to the input medication.
     * 2b1. The user input the wrong medication resulting in the error.
-      * 2b1a. PharmHub shows an `Patient Allergy` warning message.
-      * 2b1b. User edits the command.
-        <br>**Use case resumes from step 3.**
-    * 2b2. The User wants to overwrite the warning.
-      * 2b2a. PharmHub shows an `Patient Allergy` warning message.
-      * 2b2b. User acknowledges the allergy warning but chooses to proceed by adding an `IA/` (Ignore Allergy) flag to the command.
-      * 2b2c. User confirms the order by resubmitting with the `IA/` flag.
-      * 2b2d. PharmHub creates the order with the provided information, including the `IA/` flag. 
-      * 2b2e. PharmHub confirms the successful creation of the order, noting the allergy warning and the "IA" flag.
+      * 2b1a. PharmHub warns the user.
+        <br>**Use case resumes from step 2.**
+    * 2b2. The User wants to ignore the warning.
+      * 2b2a. PharmHub warns the user
+      * 2b2b. User acknowledges the allergy warning but chooses to ignore it.
+      * 2b2c. PharmHub creates the order with the provided information.
         <br>**Use case resumes from step 3.**
 
 In this use case, a pharmacist adds a medication order for a patient using PharmHub. 
@@ -770,7 +767,7 @@ Guarantees: The Order List would be displayed.
 **MSS**
 
 1. User adds an order [UC08](#use-case-uc08---add-an-order-for-a-person).
-2. User chose to view the order list.
+2. User chooses to view the order list.
 3. PharmHub shows the Order list.
    <br>**Use case ends**
 
@@ -794,7 +791,7 @@ Guarantees: The order status will be updated only if the order exist in the syst
 **MSS**
 
 1. User views the order list [UC09](#use-case-uc09---listing-order-list)
-2. User chose to update the order status.
+2. User chooses to update the order status.
 3. PharmHub updates the order status.
 4. PharmHub displays updated order
     <br>**Use case ends**
@@ -819,7 +816,7 @@ Guarantees: The list of person that contains the keywords would be displayed.
 **MSS**
 
 1. User added multiple person [UC01](#use-case-uc01---adding-a-person).
-2. User chose to the find person command.
+2. User chooses to the find person command.
 3. PharmHub filters through the person list.
 4. PharmHub then displays the filtered person list.
    <br>**Use case ends**
@@ -837,7 +834,7 @@ Guarantees: The list of person that contains the keywords would be displayed.
 * 3a. The keywords given does not match with any person.
 
     * 3a1. Empty list is shown.
-    <br>**Use case resumes at step 4.**
+    <br>**Use case ends.**
 
 #### **Use case: UC12 - Finding orders**
 
@@ -847,7 +844,7 @@ Guarantees: The list of Orders that fulfills the status or medicine or both will
 **MSS**
 
 1. User added multiple order [UC08](#use-case-uc08---add-an-order-for-a-person).
-2. User chose to find orders base on their status or medicine or both.
+2. User chooses to find orders base on their status or medicine or both.
 3. PharmHub filters through the order list.
 4. PharmHub then displays the filtered order list.
    <br>**Use case ends**
@@ -864,8 +861,8 @@ Guarantees: The list of Orders that fulfills the status or medicine or both will
 
 * 3a. The status and medicine keyword given does not match with any order.
 
-    * 4a1. Empty list is shown.
-      <br>**Use case resumes at step 4.**
+    * 3a1. Empty list is shown.
+      <br>**Use case Ends.**
 
 
 * 3b. User input invalid fields.
@@ -877,9 +874,6 @@ Guarantees: The list of Orders that fulfills the status or medicine or both will
       * Steps 3b1a-3b1b are repeated until the input are correct.
         <br>**Use case resumes from step 4.**
 
-    * 3b2. User input non-existent medicine keywords. 
-      * PharmHub Displays a empty list.
-      <br>**Use case ends**
 
 ### Non-Functional Requirements
 
