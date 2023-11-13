@@ -1159,14 +1159,11 @@ In the case of the example given, after the implementation of this planned enhan
 
 
 ## **Appendix: Effort**
-AB3 only deals with one entity type, `person`. However, our project was harder as we had to deal with three entity types, `person`, 
-`order` and `medicine`. All three types are tightly interleaved which caused a lot of challenges during this project.  
-Firstly, the dependencies slowed the project timeline as future features required features before it to be finished. This affected 
-our ability to work in parallel.   
-Secondly, because of the dependencies, we had to take extra precaution in checking the validity of data that is being loaded from the
-storage file as a `person` could be allergic to multiple `medicine` and  could hold multiple `order` which in turn could hold multiple
-`medicine`.  
-{More to be added}
+AB3 only deals with one entity type, `person`. However, our project was harder as we had to deal with three entity types, `person`, `order` and `medicine`. 
+These 3 entity types, with their high degree of interconnectivity, required careful and precise control to ensure that referential integrity was upheld.
+
+The dependencies slowed the project timeline as features often relied on each other to be complete. This affected our ability to work in parallel.
+Moreover, we had to take extra precaution in checking the validity of data that is being loaded from the storage file as a `person` could be allergic to multiple `medicine` and  could hold multiple `order` which in turn could hold multiple `medicine`.  
 
 
 ## Glossary
