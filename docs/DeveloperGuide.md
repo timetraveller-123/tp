@@ -408,30 +408,30 @@ medication orders for the patients, optimised for CLI use.
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                                                         | So that I can…​                                                             |
-|-------|--------------------------------------------|----------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| `* * *` | Pharmacist                                 | Add a new patient into PharmHub                               | Keep track of all information of my patients                                |
-| `* * *` | Pharmacist                                 | Add a medication order for a patient                                 | keep track medications orders of patients                                   |
-| `* * *` | Pharmacist                                 | Add allergies of a patient towards certain medications               | keep track of patient allergies                                             |
-| `* * *` | Pharmacist                                 | View details of a medication order                                   |                                                                             |
-| `* * *` | Pharmacist                                 | View the status of an order                                          | I can track the state of an order                                           |
-| `* * *` | Pharmacist                                 | Edit status of an order                                              | Update the order records with the most current information                  |
-| `* * *` | Pharmacist                                 | Edit the details of a patient                                        | Update records with the most current information                            |
-| `* * *` | Pharmacist                                 | View all medication orders                                           | get a quick overview of all medication orders from all patients             |
-| `* * *` | Pharmacist                                 | Delete a patient from my pharmHub                                 | remove a patient that is no longer under my care                            |
-| `* * *` | New user                                   | View a summary of all the commands                                   | recall how to use the application                                           |
-| `* * *` | Pharmacist                                 | Delete an order from the system                                      | Remove erroneous orders                                                     |
-| `* * *` | Detail-oriented Pharmacist                 | Be alerted if a patient is given a medication that he is allergic to | Detect and prevent erroneous orders from going through                      |
-| `* *` | Busy Pharmacist                            | Abbreviate medication names                                          | Maximise my efficiency                                                      |
-| `* *` | Pharmacist                                 | View all details of a patient                                        | get the full patient profile, if required                                   |
-| `* *` | Pharmacist                                 | Search orders by various attributes                                  | manage and convey information about orders to stakeholders efficiently      |
-| `* *` | Pharmacist                                 | See the number of unfulfilled orders                                 | keep track of my progress in dispensing orders                              |
-| `* *` | Pharmacist                                 | Add priorities to orders                                             | keep track of which orders I should prioritise                              |
-| `* *` | Pharmacist                                 | Filter orders by their statuses                                      | manage my orders efficiently                                                |
-| `* *` | Pharmacist                                 | Sort orders on various categories                                    | maximise my efficiency                                                      |
-| `*`   | Pharmacist                                 | Edit an order                                                        | correct or update an added order                                            |
-| `*`   | Pharmacist                                 | Track my medication inventory                                        | I have easy access to the amount of medication I have                       |
-| `*`   | Pharmacist                                 | Calculate estimated time an order will take to ship                  | Notify patients of an estimated wait time before receiving their medication |
+| Priority | As a …​                                    | I want to …​                                                         | So that I can…​                                                                     |
+|-------|--------------------------------------------|----------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| `* * *` | Pharmacist                                 | Add a new patient into PharmHub                               | Keep track of all information of my patients                                        |
+| `* * *` | Pharmacist                                 | Add a medication order for a patient                                 | keep track medications orders of patients                                           |
+| `* * *` | Pharmacist                                 | Add allergies of a patient towards certain medications               | keep track of patient allergies                                                     |
+| `* * *` | Pharmacist                                 | View details of a medication order                                   |                                                                                     |
+| `* * *` | Pharmacist                                 | View the status of an order                                          | I can track the state of an order                                                   |
+| `* * *` | Pharmacist                                 | Edit status of an order                                              | Update the order records with the most current information                          |
+| `* * *` | Pharmacist                                 | Edit the details of a patient                                        | Update records with the most current information                                    |
+| `* * *` | Pharmacist                                 | View all medication orders                                           | get a quick overview of all medication orders from all patients                     |
+| `* * *` | Pharmacist                                 | Delete a patient from my pharmHub                                 | remove a patient that is no longer under my care                                    |
+| `* * *` | New user                                   | View a summary of all the commands                                   | recall how to use the application                                                   |
+| `* * *` | Pharmacist                                 | Delete an order from the system                                      | Remove erroneous orders                                                             |
+| `* * *` | Detail-oriented Pharmacist                 | Be alerted if a patient is given a medication that he is allergic to | Detect and prevent erroneous orders from going through                              |
+| `* *` | Busy Pharmacist                            | Abbreviate medication names                                          | Maximise my efficiency                                                              |
+| `* *` | Pharmacist                                 | View all details of a patient                                        | get the full patient profile, if required                                           |
+| `* *` | Pharmacist                                 | Search orders by various attributes                                  | manage and convey information about orders to stakeholders efficiently              |
+| `* *` | Pharmacist                                 | See the number of unfulfilled orders                                 | keep track of my progress in dispensing orders                                      |
+| `* *` | Pharmacist                                 | Add priorities to orders                                             | keep track of which orders I should prioritise                                      |
+| `* *` | Pharmacist                                 | Filter orders by their statuses                                      | manage my orders efficiently                                                        |
+| `* *` | Pharmacist                                 | Sort orders on various categories                                    | maximise my efficiency                                                              |
+| `*`   | Pharmacist                                 | Edit an order                                                        | correct or update an added order                                                    |
+| `*`   | Pharmacist                                 | Track my medication inventory                                        | I have easy access to the amount of medication I have                               |
+| `*`   | Pharmacist                                 | Calculate estimated time an order will take to ship                  | Notify patients of an estimated wait time before receiving their medication         |
 *{More to be added}*
 
 ### Use cases
@@ -924,6 +924,29 @@ testers are expected to do more *exploratory* testing.
  
        Expected: First contact is edited. Details of the edited contact shown in the status message. Timestamp in the status bar is updated.
 
+### Finding person(s)
+1. Finding person(s) using valid fields 
+    1. Test case: `findp n/John`
+       Expected: First contact is shown in the details panel. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    1. Test case: `findp n/Alex John`
+       Expected: All person(s) with name containing "Alex" or "John" is shown in the details panel. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    1. Test case: `findp t/senior diabetic`
+       Expected: All person(s) with tag containing "senior" or "diabetic" is shown in the details panel. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    1. Test case: `findp no/Aspirin Paracetamol`
+       Expected: All person(s) with allergy containing "Aspirin" or "Paracetamol" is shown in the details panel. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    1. Test case: `findp p/123456`
+       Expected: All person(s) with phone number equal to "123456" is shown in the details panel. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    1. Test case: `findp e/john@gmail.com`
+       Expected: All person(s) with email equal to "john@gmail.com" is shown in the details panel. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+
+2. Finding person(s) using invalid input
+    1. Test case: `findp`
+       Expected: An error message is displayed due to the absence of any field. No person is shown.
+    1. Test case: `findp n/`
+       Expected: An error message is displayed due to the absence of the name. No person is shown.
+    1. Test case: `findp t/`
+       Expected: An error message is displayed due to the absence of the tag. No person is shown.
+
 
 ### Listing all orders
 
@@ -1029,13 +1052,6 @@ testers are expected to do more *exploratory* testing.
     1. Other incorrect edit commands to try: `editp`, `editp x`, `...` (where x is larger than the list size)<br>
        
        Expected: Similar to previous.
-
-2. Editing a person using no fields
-    1. Test case: `editp 1`<br>
- 
-       Expected: No person is edited. Error details shown in the status message. 
-   
-
        
 ### Saving data
 
