@@ -382,25 +382,25 @@ The following activity diagram summarizes what happens when a user executes a ne
 </div>
 
 #### Design considerations:
-**Aspect: How the UI is informed about the object to display:**
+* **Aspect: How the UI is informed about the object to display:**
 
-* **Alternative 1 (current choice):** Require Classes that want to be displayed to implement `InfoObject`
-    * Pros: Allows `CommandResult` to contain a uniform type (`InfoObject`), which scales easily. Also gives control over which classes can be displayed, and which classes cannot (yet). 
-    * Cons: Empty `InfoObject` interface may lead to confusion for new developers.
+  * **Alternative 1 (current choice):** Require Classes that want to be displayed to implement `InfoObject`
+      * Pros: Allows `CommandResult` to contain a uniform type (`InfoObject`), which scales easily. Also gives control over which classes can be displayed, and which classes cannot (yet). 
+      * Cons: Empty `InfoObject` interface may lead to confusion for new developers.
 
-* **Alternative 2:** Have `CommandResult` contain all types of objects that we want displayed, ie `Person` and `Order`
-    * Pros: Possibly clearer in intent
-    * Cons: Not easily scalable
+  * **Alternative 2:** Have `CommandResult` contain all types of objects that we want displayed, ie `Person` and `Order`
+      * Pros: Possibly clearer in intent
+      * Cons: Not easily scalable
 
-**Aspect: Creation of relevant `InfoObject` UI component:**
+* **Aspect: Creation of relevant `InfoObject` UI component:**
 
-* **Alternative 1 (current choice):** If-else checks in `MainWindow#handleDisplayInfo`, and create the required UI component for each clause
-    * Pros: Reduces coupling between `Person` (and `Order`) model and UI
-    * Cons: Less scalable
+  * **Alternative 1 (current choice):** If-else checks in `MainWindow#handleDisplayInfo`, and create the required UI component for each clause
+      * Pros: Reduces coupling between `Person` (and `Order`) model and UI
+      * Cons: Less scalable
 
-* **Alternative 2:** Create abstract method `InfoObject#createUIComponent`, and have Classes that wish to be displayed implement this method and create their own UI components
-    * Pros: Easily scalable - each class implements their own UI display to attach into the placeholder
-    * Cons: Increased coupling between UI and Model. UI-creation code exists inside the `Person` (or `Order`) Class
+  * **Alternative 2:** Create abstract method `InfoObject#createUIComponent`, and have Classes that wish to be displayed implement this method and create their own UI components
+      * Pros: Easily scalable - each class implements their own UI display to attach into the placeholder
+      * Cons: Increased coupling between UI and Model. UI-creation code exists inside the `Person` (or `Order`) Class
 
 ### Undo/redo feature
 
@@ -457,28 +457,28 @@ Step 6. The user executes `clear`, which calls `Model#Clear()`, which in turn ca
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-<img src="images/CommitActivityDiagram.png" width="450" />
+<img src="images/CommandActivityDiagram.png" width="400" />
 
 #### Design considerations:
 
-**Aspect: How undo & redo executes:**
+* **Aspect: How undo & redo executes:**
 
-* **Alternative 1 (current choice):** Saves the entire pharmHub.
-    * Pros: Easy to implement.
-    * Cons: May have performance issues in terms of memory usage.
+  * **Alternative 1 (current choice):** Saves the entire pharmHub.
+      * Pros: Easy to implement.
+      * Cons: May have performance issues in terms of memory usage.
 
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-    * Pros: Will use less memory (e.g. for `deletep`, just save the person being deleted).
-    * Cons: We must ensure that the implementation of each individual command are correct.
+  * **Alternative 2:** Individual command knows how to undo/redo by itself.
+      * Pros: Will use less memory (e.g. for `deletep`, just save the person being deleted).
+      * Cons: We must ensure that the implementation of each individual command are correct.
 
-**Aspect: Effects (Scale) of undo & redo:**
-* **Alternative 1 (current choice):** Only affects data-modifying operations
-    * Pros: Simple to implement, provides essential functionality
-    * Cons: Non-data-modifying commands cannot be undone, eg. `list`
+* **Aspect: Effects (Scale) of undo & redo:**
+  * **Alternative 1 (current choice):** Only affects data-modifying operations
+      * Pros: Simple to implement, provides essential functionality
+      * Cons: Non-data-modifying commands cannot be undone, eg. `list`
 
-* **Alternative 2:** Affects all commands
-    * Pros: Changes in view can be undone, leading to greater convenience. Easily extensible to undo certain views
-    * Cons: Versioning has to be extended to keep track of UI, which may lead to increased coupling.
+  * **Alternative 2:** Affects all commands
+      * Pros: Changes in view can be undone, leading to greater convenience. Easily extensible to undo certain views
+      * Cons: Versioning has to be extended to keep track of UI, which may lead to increased coupling.
 
 ### ListX
 
