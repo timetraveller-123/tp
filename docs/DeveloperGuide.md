@@ -570,7 +570,7 @@ For all use cases below, the **Software System** is the `PharmHub` and the **Act
 
 #### **Use case: UC01 - Adding a person**
 
-Guarantees: The new person(patient) will be added to the list of Person.
+Guarantees: The new person(patient) will be added to the list of Person only if the person does not exist in the system.
 
 **MSS**
 
@@ -614,7 +614,7 @@ Guarantees: The Person List would be displayed.
 
 #### **Use case: UC03 - Editing Person Detail**
 
-Guarantees: The Person's detail would be updated.
+Guarantees: The Person's detail would be updated only if the person exist in the system.
 
 **MSS**
 
@@ -636,7 +636,7 @@ Guarantees: The Person's detail would be updated.
 
 #### **Use case: UC04 - Adding a medicine**
 
-Guarantees: The new medicine will be added to the list of medicines.
+Guarantees: The new medicine will be added to the list of medicines only if the medicine do not exist in the system.
 
 **MSS**
 
@@ -681,7 +681,7 @@ Guarantees: The Medicine List would be displayed.
 
 #### **Use case: UC06 - Adding a medicine short form**
 
-Guarantees: The Medicine would have a short form.
+Guarantees: The Medicine would have a short form only if the medicine exist in the system.
 
 **MSS**
 
@@ -702,7 +702,7 @@ Guarantees: The Medicine would have a short form.
 
 #### **Use case: UC07 - Deleting a medicine short form**
 
-Guarantees: The short form for the medicine will be removed.
+Guarantees: The short form for the medicine will be removed only if the short form exist for the medicine.
 
 **MSS**
 
@@ -722,7 +722,7 @@ Guarantees: The short form for the medicine will be removed.
 
 #### **Use Case: UC08 - Add an Order for a Person**
 
-Guarantees: The order is added to the person, which can be seen by viewing the order or person.
+Guarantees: The order is added to the person only if the person exist while the order does not exist in the system.
 
 **MSS**
 
@@ -788,7 +788,7 @@ Guarantees: The Order List would be displayed.
 
 #### **Use case: UC10 - Update Order Status**
 
-Guarantees: The order status will be updated.
+Guarantees: The order status will be updated only if the order exist in the system and the new status is of chronological order.
 
 **MSS**
 
