@@ -12,8 +12,7 @@ Class MainWindow
 Class HelpWindow
 Class ResultDisplay
 Class StatusBarFooter
-Class PersonDisplay
-Class OrderDisplay
+Class InfoDisplay
 Class XYZListPanel
 Class XYZCard
 
@@ -37,8 +36,7 @@ MainWindow *-down->  "1" CommandBox
 MainWindow *-down-> "1" ResultDisplay
 MainWindow *-down-> "1" StatusBarFooter
 MainWindow *-down-> "1" XYZListPanel
-MainWindow .down.> PersonDisplay
-MainWindow .down.> OrderDisplay
+MainWindow *-down-> "1" InfoDisplay
 
 MainWindow --> "0..1" HelpWindow
 XYZListPanel *-down--> "*" XYZCard
@@ -49,16 +47,13 @@ MainWindow -left-|> UiPart
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 XYZListPanel ----|> UiPart
-PersonDisplay ----|> UiPart
-OrderDisplay ----|> UiPart
+InfoDisplay ----|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow --|> UiPart
 XYZCard --|> UiPart
 
 MainWindow .> Model
-PersonDisplay .> Model
-OrderDisplay .> Model
-XYZCard ..> Model
+XYZCard .> Model
 
 
 UiManager -right-> Logic
