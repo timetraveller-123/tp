@@ -1292,11 +1292,27 @@ In the case of the example given, after the implementation of this planned enhan
 
 
 ## **Appendix: Effort**
-AB3 only deals with one entity type, `person`. However, our project was harder as we had to deal with three entity types, `person`, `order` and `medicine`. 
-These 3 entity types, with their high degree of interconnectivity, required careful and precise control to ensure that referential integrity was upheld.
 
-The dependencies slowed the project timeline as features often relied on each other to be complete. This affected our ability to work in parallel.
-Moreover, we had to take extra precaution in checking the validity of data that is being loaded from the storage file as a `person` could be allergic to multiple `medicine` and  could hold multiple `order` which in turn could hold multiple `medicine`.  
+### **Challenges**
+* As a four-man team, each of us had to do take on a heavier workload to hit the necessary level of functionality in our product.  
+* We also had to pick up many new things along the way. Some of this include Json for storage, JavaFx for Ui and PlantUml for documentation.
+* Unexpected dependencies in code between different team members significantly slowed down speed of development as one member had to wait for another before proceeding.
+
+### **Effort Required**
+Original AB3 only tracked one entity type, `person`. Our application however, tracks three different entity types, `person`, `order` and `medicine`.  
+This required significant effort.
+* In Storage, we had to ensure that the data is valid in all the different places. For example, a `medicine` could appear as an entity in PharmHub itself,
+  or in the allergies or a `person` or in an `order`. Similar checking had to be done for `person` and `order`. Validating all this and ensuring that referential integrity was upheld took significant effort.
+* In Ui, due to the coupling between the three entities, it once again took a lot of effort to ensure all the UI information is being displayed correctly. 
+  For example, when a `person` is edited we had to ensure the corresponding UI for `order` reflects it as well.
+* In Logic, we had to ensure no regressions took place due to user behaviour. For example, we had to ensure a `medicine` can't be deleted when there is a `person` 
+  allergic to it or when an `order` contains it. We also had to check if editing a `person` will result in them being allergic to a `medicine` in their `order`. There were several other such instances.
+
+
+### **Achievements**
+Despite the steep learning curve and difficulties, we managed to build a product that we believe will be beneficial to our target audience.  
+It has features that  cater to their needs and solves their pain points.
+
 
 
 ## Glossary
